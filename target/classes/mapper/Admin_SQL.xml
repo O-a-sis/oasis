@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+
+	<sql id="notice">
+		<trim prefix=" WHERE " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="or">
+					<choose>
+						<when test="type=='T'.toString()">
+							N_TITLE like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							N_CONTENT like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='W'.toString()">
+							N_NICKNAME like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<sql id="review">
+		<trim prefix=" WHERE " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="or">
+					<choose>
+						<when test="type=='R'.toString()">
+							RE_NICKNAME like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							R_CONTENT like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='N'.toString()">
+							R_NICKNAME like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<sql id="member">
+		<trim prefix="( " suffix=" ) " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='N'.toString()">
+							NAME like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='E'.toString()">
+							EMAIL like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='M'.toString()">
+							M_NICKNAME like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<select id="memberList" parameterType="hashmap"
+		resultType="hashmap">
+		<include refid="common.pagingPre" /> 
+		<![CDATA[
+	SELECT 
+	ROW_NUMBER() OVER(ORDER BY M_DATE) RNUM, 
+		M_NICKNAME,
+		EMAIL,
+		NAME,
+		PHONE,
+		JUMIN1,
+		ADDRESS1,
+		M_DATE,
+		RANK
+	FROM
+   		 MEMBER
+			]]>
+		<if test="AREA!=NULL or RANK!=NULL or (type!='' and type!=NULL)"> WHERE </if>
+		<trim prefixOverrides="AND">
+			<if test="AREA!=NULL"> AND ADDRESS1 LIKE '%'||#{AREA}||'%'</if>
+			<if test="RANK!=NULL"> AND RANK=#{RANK}</if>
+		</trim>
+		<if test="AREA!=NULL or RANK!=NULL">
+			<if test="type!='' and type!=NULL">
+				AND
+			</if>
+		</if>
+		<include refid="member" />
+		<include refid="common.pagingPost" />
+	</select>
+
+	<select id="memberDetail" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				RANK,
+				BLOCK,
+				to_char(M_DATE,'YYYY/MM/DD')M_DATE,
+				EMAIL,
+				M_NICKNAME,
+				M_IMAGE,
+				NAME,
+				JUMIN1,
+				JUMIN2,
+				ADDRESS1,
+				ADDRESS2,
+				POSTCODE,
+				ABOUTME,
+				L_ABOUTME
+				
+			FROM
+				MEMBER
+			WHERE
+				M_NICKNAME = #{M_NICKNAME}		
+		]]>
+	</select>
+
+	<update id="memberUpdate" parameterType="hashmap">
+		<![CDATA[
+			UPDATE MEMBER SET BLOCK = #{BLOCK} WHERE M_NICKNAME = #{M_NICKNAME}
+		]]>
+	</update>
+
+	<delete id="memberDelete" parameterType="hashmap">
+		<![CDATA[
+			DELETE FROM MEMBER
+			WHERE
+				EMAIL = #{EMAIL}	
+		]]>
+	</delete>
+
+	<!-- 관리자 공지 입력 -->
+	<insert id="noticeWrite" parameterType="hashmap"
+		useGeneratedKeys="true" keyProperty="N_IDX">
+		<selectKey keyProperty="N_IDX" resultType="string"
+			order="BEFORE">
+			SELECT N_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[
+			INSERT INTO NOTICE
+			(
+		N_IDX,
+		N_TITLE,
+		N_DATE,
+		N_NICKNAME,
+		N_COUNT,
+		N_CONTENT,
+		N_TYPE
+			)
+			VALUES
+			(
+				#{N_IDX}, 
+				#{N_TITLE}, 
+				SYSDATE, 
+				#{N_NICKNAME}, 
+				0, 
+				#{N_CONTENT}, 
+				'N'
+			)
+		]]>
+	</insert>
+
+
+	<update id="adminNoticeUpdate" parameterType="hashmap">
+		<![CDATA[
+			UPDATE NOTICE 
+			SET
+				N_TITLE = #{N_TITLE},				
+				N_CONTENT = #{N_CONTENT},
+				N_TYPE = #{N_TYPE},
+				N_DATE = sysdate
+			WHERE
+				N_IDX = #{N_IDX}	
+		]]>
+	</update>
+
+
+	<delete id="adminNoticeDelete" parameterType="hashmap">
+		<![CDATA[
+			DELETE FROM NOTICE
+			WHERE
+				N_IDX = #{N_IDX}	
+		]]>
+	</delete>
+
+	<!-- 관리자 리뷰 목록 -->
+	<select id="adminRList" parameterType="hashmap" resultType="map">
+		<include refid="common.pagingPre" /> 
+		<![CDATA[
+		SELECT 
+	ROW_NUMBER() OVER(ORDER BY R_DATE DESC) RNUM, 
+		R_IDX,
+		R_CONTENT,
+		RE_NICKNAME,
+		R_NICKNAME,
+		R_GRADE,
+		R_DATE
+		FROM
+   		 REVIEW
+		
+]]>
+		<include refid="review" />
+		<include refid="common.pagingPost" />
+	</select>
+
+	<!-- 관리자 리뷰 삭제 -->
+	<delete id="adminRDelete" parameterType="hashmap">
+		DELETE FROM REVIEW
+		WHERE
+		R_IDX = #{R_IDX}
+
+	</delete>
+
+
+	<select id="adminMemberDetail" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				RANK,
+				BLOCK,
+				to_char(M_DATE,'YYYY/MM/DD')M_DATE,
+				EMAIL,
+				M_NICKNAME,
+				NAME,
+				M_IMAGE,
+				JUMIN1,
+				JUMIN2,
+				ADDRESS1,
+				ADDRESS2,
+				POSTCODE,
+				ABOUTME,
+				L_ABOUTME
+				
+			FROM
+				MEMBER
+			WHERE
+				M_NICKNAME = #{RE_NICKNAME}		
+		]]>
+	</select>
+
+	<!-- 관리자 리뷰 상세 -->
+	<select id="adminRDetail" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+		SELECT 
+		R_IDX,
+		RE_NICKNAME,
+		RP_ID,
+		R_DATE,
+		R_GRADE,
+		R_CONTENT,
+		R_NICKNAME
+		FROM
+		REVIEW
+		WHERE R_IDX = #{R_IDX}
+			]]>
+	</select>
+
+	<update id="rankUpdate" parameterType="hashmap">
+	<![CDATA[
+		UPDATE 
+			MEMBER
+		SET 
+			RANK = #{RANK}
+		WHERE 
+			M_NICKNAME = #{M_NICKNAME}
+	]]>
+	</update>
+</mapper>
