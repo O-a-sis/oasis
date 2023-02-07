@@ -1,4 +1,4 @@
-drop table ALARM;
+drop table ALsadjfljsadf
 drop table BOOKMARK;
 drop table CART;
 drop table COUPON;
