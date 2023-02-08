@@ -1,0 +1,169 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Flee</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=0.8" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%-- <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %> --%>
+<script src=<c:url value='/js/jquery-1.12.4.min.js'/>></script>
+<script src="https://kit.fontawesome.com/41c6b11e7f.js"
+	crossorigin="anonymous"></script>
+<!--jQuery-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src=<c:url value='/js/common.js'/>></script>
+<script src="<c:url value='/js/common 2.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/message.js'/>"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	let nickname='${sessionScope.NICKNAME}';
+	
+	if(nickname!=null&&nickname!='') {
+		
+		getReadcheck();
+		
+		function getReadcheck() {
+			 chatService.getReadcheck(nickname, function(readcheck){
+				 
+				 let str = "";
+				 
+					if(readcheck) {
+						str = "<i class='fa-solid fa-n'></i>";
+					} else {
+						str = "";
+					}	
+					
+					$("#alarm").html(str);
+				});
+			
+		}
+		
+		let interval = setInterval(function() {
+			if($("#alarm").html()=="") {
+		    	getReadcheck();
+		    } else {
+		    	clearInterval(interval);
+		    }
+		}, 10000);
+
+	}
+});
+</script>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/common.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/default.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/sub.css'/>" />
+<body>
+	<div class="layout">
+		<!-- 페이지가 스크롤되면 header에 scroll이라는 클래스 추가(jquery)  -->
+		<!-- 로그인->로그아웃 로그인 후 회원가입x 마이페이지  -->
+		<header>
+			<div class="h_top">
+				<div class="wrap">
+					<div class="login">
+						<a href=<c:url value='/main.fe' />>home</a>
+						<c:choose>
+							<c:when test="${not empty sessionScope.EMAIL}">
+								<a href=<c:url value='/logout.fe' />>로그아웃</a>
+							</c:when>
+							<c:otherwise>
+								<a href=<c:url value='/loginForm.fe' />>로그인</a>
+								<a href=<c:url value='/joinForm.fe' />>회원가입</a>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="shop">
+						<c:if test="${not empty sessionScope.EMAIL}">
+							<c:choose>
+								<c:when test="${sessionScope.NICKNAME eq 'ADMIN'}">
+									<a class="last" href='<c:url value="/adminMain.fe"/>'>관리자페이지</a>
+								</c:when>
+								<c:otherwise>
+									<a href=<c:url value='/myPage.fe' />>마이페이지</a>
+									<a class="last" href='<c:url value="/chatList.fe?M_NICKNAME=${sessionScope.NICKNAME}"/>'>플리톡<span id="alarm"></span></a>
+								</c:otherwise>
+							</c:choose>
+
+						</c:if>
+
+					</div>
+				</div>
+			</div>
+			<div class="h_mm">
+				<div class="wrap">
+					<h1 class="logo">
+						<a href=<c:url value='/main.fe' />><img
+							src="images/common/pclogo.png" alt="플리" /></a>
+					</h1>
+				</div>
+			</div>
+
+			<div class="h_sub">
+
+				<div class="wrap">
+
+					<nav class="gnb_pc" id="gnb">
+						<ul>
+							<li><a
+								href=<c:url value='/productList.fe?P_SELLBUY=0&P_AREA=종로구&P_ITEM=1' />>해주시오</a>
+							</li>
+							<li><a
+								href=<c:url value='/productList.fe?P_SELLBUY=1&P_AREA=종로구&P_ITEM=1' />>해드리오</a>
+
+							</li>
+							<li><a href=<c:url value='/communityList.fe'/>>자유게시판</a></li>
+							<li><a href=<c:url value='/noticeList.fe' />>고객센터</a></li>
+						</ul>
+						<div class="gnb_bg"></div>
+					</nav>
+					<!-- 모바일  -->
+					<nav class="gnb_mobile">
+						<button class="gnb_open">
+							<img src="images/common/gnb_open.png" alt="메뉴열기" />
+						</button>
+						<div class="menu_top"></div>
+						<div class="menu_sub">
+							<ul>
+								<li><a
+								href=<c:url value='/productList.fe?P_SELLBUY=0&P_AREA=종로구&P_ITEM=1' />>해주시오</a></li>
+								<li><a
+								href=<c:url value='/productList.fe?P_SELLBUY=1&P_AREA=종로구&P_ITEM=1' />>해드리오</a></li>
+								<li><a href=<c:url value='/communityList.fe'/>>자유게시판</a></li>
+								</li>
+								<li><a href=<c:url value='/noticeList.fe' />>고객센터</a></li>
+							</ul>
+							<div class="m_shop">
+							<c:if test="${not empty sessionScope.EMAIL}">
+							<c:choose>
+								<c:when test="${sessionScope.NICKNAME eq 'ADMIN'}">
+									<a class="last" href='<c:url value="/adminMain.fe"/>'>관리자페이지</a>
+								</c:when>
+								<c:otherwise>
+									<a href=<c:url value='/myPage.fe' />>마이페이지</a>
+									<a class="last" href='<c:url value="/chatList.fe?M_NICKNAME=${sessionScope.NICKNAME}"/>'>플리톡<span id="alarm"></span></a>
+								</c:otherwise>
+							</c:choose>
+
+						</c:if>
+								
+							</div>
+						</div>
+						<button class="gnb_close">
+							<img src="images/common/gnb_close.png" alt="메뉴닫기" />
+						</button>
+						<div class="gnb_kbg"></div>
+						<div class="gnb_wbg"></div>
+					</nav>
+				</div>
+			</div>
+		</header>
+	</div>
+</body>
