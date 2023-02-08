@@ -15,7 +15,7 @@
 }
 </style>
 <meta charset="UTF-8">
-<title>관리자 메인페이지</title>
+<title>관리자 - 메인</title>
 
 </head>
 <body>
@@ -25,7 +25,7 @@
 </div>
 <div style="height: 100px; width: 100%; background-color: #ff6600; padding:10px">
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 style="color:white; display:inline"><strong>거래내역</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <h1 style="color:white; display:inline"><strong>재고관리</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <h1 style="color:white; display:inline" onclick="location.href='<c:url value="stock.oa"/>'"><strong>재고관리</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        <h1 style="color:white; display:inline"><strong>공지사항</strong></h1>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -84,11 +84,6 @@
 				<tr>
 				<td><span>${item.O_LIST}</span>
 				<input type=hidden id="oidx" value="${item.O_IDX}">
-				<input type=hidden id="status" value="${item.O_STATUS}">
-				<input type=hidden id="list" value="${item.O_LIST}">
-				<input type=hidden id="b_idx" value="${item.OB_IDX}">
-				<input type=hidden id="cprice" value="${item.CU_PRICE}">
-				<input type=hidden id="sum" value="${item.O_SUM}">
 				</td>
 				<td>${item.O_SUM}원</td>
 				<td>${item.O_DATE}</td>
@@ -113,11 +108,11 @@
 			</table>
 		</c:forEach>
 	</c:if>
-
+<br><br><br>
 <button type="button" style="color:white; background:gray" onclick="location.href='<c:url value="logout.oa"/>'">지점 로그아웃</button>
 </div>
 
-	<div id="modal" class="modal-overlay" id="orders_modal">
+	<div id="modal" class="modal-overlay">
 		<div class="modal-window" id="popupPrdCompare"
 			data-popup-layer="popupPrdCompare">
 			<div class="title">
@@ -126,9 +121,13 @@
 
 				<div>
 					<h2 style="text-align: left; display:inline;"><strong>주문번호&nbsp;<span class="oidx"></span></strong></h2>
-					&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;
+					<button type="button" class="button" style="color:white; background:#5882FA" id="modalUptBtn">접수</button></td>&nbsp;&nbsp;
+					<button type="button" class="button" style="color:white; background:#5882FA" id="modalProcessingBtn">제조완료</button></td>&nbsp;&nbsp;
+					<button type="button" class="button" style="color:white; background:black" id="modalCompleteBtn">제조완료</button></td>&nbsp;&nbsp;
+					<button type="button" class="button" style="color:white; background:#5882FA" id="modalCancelBtn">취소</button></td>
 					<h3>상태-<span class="status"></span></h3>
-
+					<input type="hidden" name="oidx">
 				</div>
 			</div>
 
@@ -184,6 +183,7 @@
     }
     </script>
 <%@ include file="/WEB-INF/include/include-body.jspf" %> 
+<script src="<c:url value='/js/orders.js'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -198,7 +198,7 @@
 			} else if($(this).attr("id")== 'uptPcBtn') {
 				let oidx = $(this).closest("td").find("input[id=oidx]").val();
 				var comSubmit = new ComSubmit();
-				comSubmit.setUrl("<c:url value='/store/orderProcessingUpdate.oa'/>");
+				comSubmit.setUrl("<c:url value='/store/processingOrderUpdate.oa'/>");
 				comSubmit.addParam("O_IDX", oidx);
 				comSubmit.submit();
 			}
@@ -210,49 +210,139 @@
 		
 		/* 모달 관련 변수 선언 */
 		let modal = $("#modal");
-		/* let modalInputNickname = modal.find("input[name='M_NICKNAME']"); */
+		var modalUptBtn=$("#modalUptBtn");
+		var modalProcessingBtn=$("#modalProcessingBtn");
+		var modalCompleteBtn=$("#modalCompleteBtn");
+		var modalCancelBtn=$("#modalCancelBtn");
+		let modalInputOidx=modal.find("input[name='oidx']");
 		
-		$(".orders").on("click","tr td span",function(){
-			let cprice = $(this).closest("td").find("input[id=cprice]").val();
-			let total = $(this).closest("td").find("input[id=sum]").val();
-	 		$(".oidx").html($(this).closest("td").find("input[id=oidx]").val());
-	 		$(".list").html($(this).closest("td").find("input[id=list]").val());
-	 		$(".phone").html($(this).closest("td").find("input[id=b_idx]").val());
-	 		$(".cprice").html(cprice);
-	 		$(".total").html(total);
-	 		$(".sum").html(Number(total)+Number(cprice));
-	 		let status = $(this).closest("td").find("input[id=status]").val();
-		
-			if(status=='1') {
-				$(".status").html("접수대기")
-			} else if(status=='2') {
-				$(".status").html("제조중")
-			} else {
-				$(".status").html("제조완료")
-			};
-			/* modalInputNickname.val($(this).closest("td").find("input[name=nickname]").val()); */
-			modalOn();
-			
+		$(".orders").on("click","tr td span",function(){			
+			var oidx=$(this).closest("td").find("input[id=oidx]").val();
+			modalInputOidx.val(oidx);
+			orderService.get(oidx, function(order) {
+				$(".oidx").html(order.O_IDX);
+				
+				let o_list = order.O_LIST;
+				let o_listSplit = o_list.split(',');
+				let str="";
+				for (var i in o_listSplit) {
+					str+='<p>'+o_listSplit[i]+'</p>';
+				}
+				
+				$(".list").html(str);
+				$(".phone").html(order.OB_IDX);
+				$(".cprice").html(order.CU_PRICE);
+				$(".total").html(order.O_SUM);
+				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
+				let status = order.O_STATUS;
+				if(status=='1') {
+					$(".status").html("접수대기")
+					modalProcessingBtn.hide();
+					modalCompleteBtn.hide();				
+				} else if(status=='2') {
+					$(".status").html("제조중")
+					modalUptBtn.hide();
+					modalProcessingBtn.show();
+					modalCompleteBtn.hide();
+					modalCancelBtn.hide();
+				} else {
+					$(".status").html("제조완료")
+					modalCompleteBtn.show();
+					modalUptBtn.hide();
+					modalProcessingBtn.hide();
+					modalCancelBtn.hide();
+				};
+				
+				modalOn();	
+			});			
 		});
 
- 		/* let rankRegisterBtn = $("#rankRegisterBtn");
-
-		/*모달확정*/
- 		/* rankRegisterBtn.on("click", function(e) {
-			var rank = {
-					M_NICKNAME : modalInputNickname.val(),
-					RANK : $('select[name=selectRank]').val()
-			};
-			
-			rankService.update(rank, function(result) {
-				alert("등급이 변경되었습니다.");
+ 		modalUptBtn.on("click", function(e) {			
+ 			let oidx = modalInputOidx.val();
+			var order = {
+					O_IDX : oidx
+				};		
+			orderService.updateOrder(order, function(result) {			
+			});		
+			orderService.get(oidx, function(order) {
+				$(".oidx").html(order.O_IDX);
 				
-			});
-			modalOff();
-			location.reload();
-		});  */
- 
-		 
+				let o_list = order.O_LIST;
+				let o_listSplit = o_list.split(',');
+				let str="";
+				for (var i in o_listSplit) {
+					str+='<p>'+o_listSplit[i]+'</p>';
+				}
+				
+				$(".list").html(str);
+				$(".phone").html(order.OB_IDX);
+				$(".cprice").html(order.CU_PRICE);
+				$(".total").html(order.O_SUM);
+				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
+				let status = order.O_STATUS;
+				if(status=='1') {
+					$(".status").html("접수대기")
+					modalProcessingBtn.hide();
+					modalCompleteBtn.hide();				
+				} else if(status=='2') {
+					$(".status").html("제조중")
+					modalUptBtn.hide();
+					modalProcessingBtn.show();
+					modalCompleteBtn.hide();
+					modalCancelBtn.hide();
+				} else {
+					$(".status").html("제조완료")
+					modalCompleteBtn.show();
+					modalUptBtn.hide();
+					modalProcessingBtn.hide();
+					modalCancelBtn.hide();
+				};
+			});		
+ 		});
+ 		
+ 		modalProcessingBtn.on("click", function(result) {
+			let oidx = modalInputOidx.val();
+			var order = {
+					O_IDX : oidx
+				};		
+			orderService.updateProcessingOrder(order, function(result) {			
+			});		
+			orderService.get(oidx, function(order) {
+				$(".oidx").html(order.O_IDX);
+				
+				let o_list = order.O_LIST;
+				let o_listSplit = o_list.split(',');
+				let str="";
+				for (var i in o_listSplit) {
+					str+='<p>'+o_listSplit[i]+'</p>';
+				}
+				
+				$(".list").html(str);
+				$(".phone").html(order.OB_IDX);
+				$(".cprice").html(order.CU_PRICE);
+				$(".total").html(order.O_SUM);
+				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
+				let status = order.O_STATUS;
+				if(status=='1') {
+					$(".status").html("접수대기")
+					modalProcessingBtn.hide();
+					modalCompleteBtn.hide();				
+				} else if(status=='2') {
+					$(".status").html("제조중")
+					modalUptBtn.hide();
+					modalProcessingBtn.show();
+					modalCompleteBtn.hide();
+					modalCancelBtn.hide();
+				} else {
+					$(".status").html("제조완료")
+					modalCompleteBtn.show();
+					modalUptBtn.hide();
+					modalProcessingBtn.hide();
+					modalCancelBtn.hide();
+				};
+			});		
+ 			
+ 		});
 	});
 </script>
 <script>
@@ -272,6 +362,7 @@
 	const closeBtn = modal.querySelector(".close-area")
 	closeBtn.addEventListener("click", e => {
 	    modalOff()
+	    location.reload();
 	});
 	modal.addEventListener("click", e => {
 	    const evTarget = e.target

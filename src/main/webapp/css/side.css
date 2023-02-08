@@ -22,8 +22,8 @@
 	backdrop-filter: blur(13.5px);
 	border-radius: 10px;
 	border: 1px solid #9d9d9d;
-	width: 500px;
-	height: 510px;
+	width: 550px;
+	height: 400px;
 	position: relative;
 	top: 100px;
 	padding: 10px;
@@ -73,8 +73,8 @@
 
 #modal .content {
 	padding: 0px 10px;
-	color: white;
-	text-align: center;
+	color: #5d5d5d;
+	text-align: left;
 }
 
 #modal .content ul {

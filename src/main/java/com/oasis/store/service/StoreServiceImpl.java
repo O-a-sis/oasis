@@ -71,7 +71,7 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public Map<String, Object> getOrderDetail(int oidx) throws Exception {
+	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
 		return storeDAO.getOrderDetail(oidx);
 	}
 

@@ -27,7 +27,7 @@ public interface StoreService {
 	
 	public List<Map<String, Object>> getCompletedOrders(Map<String, Object> map) throws Exception;
 	
-	public Map<String, Object> getOrderDetail(int oidx) throws Exception;
+	public Map<String, Object> getOrderDetail(String oidx) throws Exception;
 	
 	public List<Map<String, Object>> getStockList(Map<String, Object> map) throws Exception;
 	

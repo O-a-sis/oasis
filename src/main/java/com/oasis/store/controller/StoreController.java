@@ -1,6 +1,10 @@
 package com.oasis.store.controller;
 
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,7 +36,7 @@ public class StoreController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/orderProcessingUpdate.oa")
+	@RequestMapping(value = "/processingOrderUpdate.oa")
 	public ModelAndView updateProcessingOrder(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
 		
@@ -41,9 +45,41 @@ public class StoreController {
 	}
 	
 	@RequestMapping(value = "/order/{oidx}", method = RequestMethod.GET, consumes = "application/json", produces = {
-			MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<Map<String, Object>> get(@PathVariable("oidx") int oidx) throws Exception {
+			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<Map<String, Object>> get(@PathVariable("oidx") String oidx) throws Exception {
 		return new ResponseEntity<Map<String, Object>>(storeService.getOrderDetail(oidx), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/orderUpdate", method = { RequestMethod.PATCH,
+			RequestMethod.PUT }, consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> updateOrderJson(@RequestBody Map<String, Object> map) throws Exception {
+		int count = storeService.updateOrder(map);
+		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
+				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@RequestMapping(value = "/processingOrderUpdate", method = { RequestMethod.PATCH,
+			RequestMethod.PUT }, consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> updateProcessingOrderJson(@RequestBody Map<String, Object> map) throws Exception {
+		int count = storeService.updateProcessingOrder(map);
+		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
+				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@RequestMapping(value = "/stock.oa") // 메인
+	public ModelAndView stockList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("store/stockList");
+		
+		HttpSession session = request.getSession();
+		commandMap.put("O_STORE", session.getAttribute("STORE"));
+
+		int storeStatus = storeService.getStoreStatus(commandMap.getMap());
+		mv.addObject("status", storeStatus);
+		
+		List<Map<String, Object>> stockList = storeService.getStockList(commandMap.getMap());
+		mv.addObject("list", stockList);
+	
+		return mv;
 	}
 
 }

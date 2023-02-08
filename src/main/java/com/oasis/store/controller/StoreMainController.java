@@ -67,7 +67,7 @@ public class StoreMainController {
 	}
 	
 	@RequestMapping(value = "/main.oa") // 메인
-	public ModelAndView findId(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView main(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("store/main");
 		
 		HttpSession session = request.getSession();

@@ -53,7 +53,7 @@ public class StoreDAO extends AbstractDAO {
 		return (List<Map<String, Object>>) selectList("store.getCompletedOrders", map);
 	}
 	
-	public Map<String, Object> getOrderDetail(int oidx) throws Exception {
+	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
 		return (Map<String, Object>) selectOne("store.getOrderDetail", oidx);
 	}
 	
