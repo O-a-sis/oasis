@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class SmsResponse {
+//응답 빈
+	
     private String requestId;
     
     @JsonSerialize(using = LocalDateTimeSerializer.class)

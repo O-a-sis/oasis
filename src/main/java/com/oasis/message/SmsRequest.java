@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class SmsRequest {
+//sms 보낼때 필요한 변수	
     private String type;
     private String contentType;
     private String countryCode;

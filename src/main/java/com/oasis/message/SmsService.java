@@ -7,6 +7,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -30,20 +31,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Transactional
 public class SmsService {
 
-    @Value("${serviceId}")
+    @Value("${serviceId}") //API 서비스ID
     private String serviceId;
-    @Value("${accessKey}")
+    @Value("${accessKey}") //API accessKey
     private String accessKey;
-    @Value("${secretKey}")
+    @Value("${secretKey}") //API secretKey
     private String secretKey;
 
-
+    // 실제 sms 보내는 메소드
     public SmsResponse sendSms(String recipientPhoneNumber, String content) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
         Long time = System.currentTimeMillis();
         List<MessageDTO> messages = new ArrayList<>();
         messages.add(new MessageDTO(recipientPhoneNumber, content));
 
-        SmsRequest smsRequest = new SmsRequest("SMS", "COMM", "82", "01027202630", "Test SMS", messages);
+        SmsRequest smsRequest = new SmsRequest("SMS", "COMM", "82", "01027202630", "기본 메세지", messages);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = objectMapper.writeValueAsString(smsRequest);
 
@@ -63,6 +64,8 @@ public class SmsService {
         return smsResponse;
 
     }
+    
+    // 웹 발신 sms 보내기위한 시그니처키 생성 메소드
     public String makeSignature(Long time) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
 
         String space = " ";
@@ -91,5 +94,16 @@ public class SmsService {
         String encodeBase64String = Base64.encodeBase64String(rawHmac);
 
         return encodeBase64String;
+    }
+    
+    
+    public String makeRandom () {
+    	Random rand = new Random();
+        String numStr = "";
+        for (int i = 0; i < 6; i++) {
+            String ran = Integer.toString(rand.nextInt(10));
+            numStr += ran;
+        }
+        return numStr;
     }
 }
