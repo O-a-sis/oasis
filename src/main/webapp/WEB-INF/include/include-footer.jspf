@@ -1,0 +1,33 @@
+<%@ page pageEncoding="utf-8"%>
+
+<meta name="viewport" content="width=device-width, initial-scale=0.8" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/default.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/ui.css'/>" />
+	<div class="layout">
+		<footer>
+			<div class="wrap">
+				<ul class="sns">
+				</ul>
+				<ul class="f_navi">
+					<li><a href="#">개인정보처리방침</a></li>
+					<li><a href="#">이용약관</a></li>
+					<li><a href="#">인재채용</a></li>
+					<li><a href="#">매장찾기</a></li>
+				</ul>
+				<div class="tel">
+					<a href="tel:02-2179-0240">문의전화<strong>02-733-8781</strong></a>
+					<span>MON - FRI 10:00 - 17:00(LUNCH PM 12:00 - PM 13:00)<br />SAT.SUN.HOLIDAY OFF</span>
+				</div>
+				<div class="info">
+					<span>(주)플리</span><br />
+					<span>대표자 : 이성원 문정현 김명진 김효균 권민정 신승은</span>
+					<span>대표전화 : 02-733-8781</span>
+					<span>팩스 : 02-733-8923</span>
+					<span>본사주소 : 서울시 종로구 종로 78 미려빌딩 3층</span>
+					<span>관리책임자 : 윤대명</span>
+				</div>
+				<div class="copy">Copryight (C) Flee. All Rights Reserved.</div>
+			</div>
+		</footer>
+	</div>
