@@ -4,6 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.button { 
+	border-radius:7px;
+	font-size:16px;
+	width:100px;
+}
+</style>
 <meta charset="UTF-8">
 <title>관리자 - 재고관리</title>
 </head>
@@ -38,8 +45,11 @@
 			<td><h2><strong>${item.P_NAME }</strong></t2>
 			</tr>
 			<tr>
-			<td><h3>품절여부: ${item.S_SO}</h3>
-
+			<td><h3 style="display:inline">품절여부: 
+				<c:if test="${item.S_SO eq 'N'}">재고있음</c:if>
+				<c:if test="${item.S_SO eq 'Y'}">품절</c:if>
+				</h3>
+				<button type="button" class="button" style="color:white; background:orange" id="uptBtn">변경하기</button>
 		</table>
 
 		<br>
