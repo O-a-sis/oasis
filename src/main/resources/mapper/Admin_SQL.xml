@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+
+	<sql id="noticeSearch">
+		<trim prefix=" WHERE " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="or">
+					<choose>
+						<when test="type=='T'.toString()">
+							N_TITLE like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							N_CONTENT like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<select id="adminNoticeList" parameterType="hashmap"
+		resultType="hashmap">
+		<include refid="common.pagingPre" /> 
+		<![CDATA[
+	      SELECT ROW_NUMBER() OVER(ORDER BY N_DATE) RNUM,
+	             N_IDX, N_TITLE, N_CONTENT, N_DATE, N_IMAGE, N_TYPE 
+	      FROM
+   		         NOTICE
+			]]>
+		<include refid="noticeSearch" />
+		<include refid="common.pagingPost" />
+	</select>
+
+	<!-- 공지사항 상세보기 -->
+	<select id="adminNoticeDetail" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+		SELECT N_IDX, N_TITLE, N_CONTENT, N_DATE, N_IMAGE,N_TYPE FROM NOTICE WHERE N_IDX =#{N_IDX}
+	]]>
+	</select>
+
+	<!-- 관리자 공지 입력 -->
+	<insert id="adminNoticeWrite" parameterType="hashmap"
+		useGeneratedKeys="true" keyProperty="N_IDX">
+		<selectKey keyProperty="N_IDX" resultType="string"
+			order="BEFORE">
+			SELECT N_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[
+		INSERT INTO NOTICE(
+		       N_IDX,
+		       N_TITLE,
+			   N_CONTENT,
+			   N_DATE,
+			   N_IMAGE,
+			   N_TYPE,
+		)VALUES(
+				#{N_IDX}, 
+				#{N_TITLE},
+				#{N_CONTENT}, 
+				SYSDATE,  
+				#{N_IMAGE}, 
+				#{N_TYPE}
+		)
+		]]>
+	</insert>
+
+	<update id="adminNoticeUpdate" parameterType="hashmap">
+		<![CDATA[
+		UPDATE 
+			  NOTICE 
+		SET
+			  N_TITLE=#{N_TITLE},				
+			  N_CONTENT=#{N_CONTENT},
+			  N_IMAGE=#{N_IMAGE}
+			  N_DATE=SYSDATE
+		WHERE
+			  N_IDX=#{N_IDX}	
+		]]>
+	</update>
+
+	<!-- 공지사항 삭제 -->
+	<delete id="adminNoticeDelete" parameterType="hashmap">
+		<![CDATA[
+		  DELETE FROM NOTICE WHERE N_IDX = #{N_IDX}	
+		]]>
+	</delete>
+
+</mapper>
