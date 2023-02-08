@@ -87,5 +87,206 @@
 		  DELETE FROM NOTICE WHERE N_IDX = #{N_IDX}	
 		]]>
 	</delete>
+	
+
+<!-- 관리자 지점 관리 (+ 매출) 리스트 -->
+<select id="storeList" resultType="hashmap">
+	<![CDATA[
+	SELECT
+		R.R_IDX,S.S_NAME, S.S_MANAGER, S.ADDRESS1, S.S_PHONE, R.R_SUM
+	FROM
+		S_MEMBER S, REVENUE R
+	WHERE
+		S.STORE = R.R_IDX
+	Order by R.R_SUM DESC
+		
+			]]>
+</select>
+
+
+<!-- 관리자 지점 상세보기 -->
+<select id="storeDetail" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+SELECT S.*, R.*
+   FROM 
+      S_MEMBER S, REVENUE R
+			WHERE
+		S.STORE = R.R_IDX and R.R_IDX = #{R_IDX}
+	Order by R.R_DATE DESC 
+			]]>
+</select>
+
+
+<!-- 관리자 지점 추가하기(회원가입) -->
+<insert id="storeJoin" parameterType="hashmap" useGeneratedKeys="true" keyProperty="STORE">
+		<selectKey keyProperty="STORE" resultType="string"
+			order="BEFORE">
+			select STORE from dual
+		</selectKey>
+	<![CDATA[
+		INSERT INTO 
+			S_MEMBER(
+				STORE, S_PASSWORD, S_NAME, S_MANAGER, ADDRESS1, ADDRESS2,
+				POSTCODE, S_PHONE,S_DATE, S_STATUS, DEL_GB
+				)
+			VALUES (
+				#{STORE}, 
+				#{S_PASSWORD}, 
+				#{S_NAME},
+				#{S_MANAGER}, 
+				#{ADDRESS1}, 
+				#{ADDRESS2},
+				#{POSTCODE},
+				#{S_PHONE},
+				SYSDATE, 
+				#{S_STATUS}, 
+				0,
+				'N'
+			]]>
+</insert>
+
+
+<!-- 관리자 지점 수정기능 -->
+<update id="storeUpdate" parameterType="hashmap">
+	<![CDATA[
+		UPDATE 
+			S_MEMBER
+		SET 
+			S_PASSWORD = #{S_PASSWORD}, 
+			S_MANAGER = #{S_MANAGER}, 
+			ADDRESS1 = #{ADDRESS1},
+			ADDRESS2 = #{ADDRESS2},
+			POSTCODE = #{POSTCODE}
+			S_PHONE = #{S_PHONE}, 
+			S_STATUS =#{S_STATUS}, 
+		WHERE 
+			S_NAME=#{S_NAME}
+		]]>
+</update>
+
+
+
+<!-- 관리자 지점 폐쇄기능 -->
+<update id="storeDown" parameterType="hashmap">
+	<![CDATA[
+		UPDATE S_MEMBER
+		SET
+			DEL_GB = 'Y'
+		WHERE
+			STORE = #{STORE}
+			]]>
+</update>
+
+
+<!-- 관리자 공지사항 리스트 -->
+<select id="adminNoticeList" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+	SELECT 
+	ROW_NUMBER() OVER(ORDER BY N_IDX DESC) RNUM,
+		N_IDX,
+		N_TITLE,
+		N_DATE,
+		N_TYPE
+	FROM
+   		 NOTICE
+		 
+			]]>
+</select>
+
+<!-- 공지게시판 상세보기 -->
+<select id="noticeDetail" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+		SELECT
+			N_IDX,
+			N_TITLE,
+			N_DATE,
+			N_CONTENT,
+			N_TYPE,
+			N_IMAGE
+		FROM
+			NOTICE
+		WHERE
+			N_IDX = #{N_IDX}		
+			]]>
+</select>
+
+
+<!-- 관리자 공지게시판 작성 -->
+<insert id="noticeWrite" parameterType="hashmap"
+		useGeneratedKeys="true" keyProperty="N_IDX">
+	<selectKey keyProperty="N_IDX" resultType="string" order="BEFORE">
+		SELECT N_IDX_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+	<![CDATA[
+		INSERT INTO NOTICE
+			(
+			N_IDX,
+			N_TITLE,
+			N_DATE,
+			N_CONTENT,
+			N_TYPE,
+			N_IMAGE
+			)
+		VALUES
+			(
+			#{N_IDX}, 
+			#{N_TITLE}, 
+			SYSDATE, 
+			#{N_CONTENT}, 
+			#{N_TYPE},
+			#{N_IMAGE}
+			)
+		]]>
+</insert>
+
+
+<!-- 관리자 공지게시판 수정 -->
+<update id="noticeUpdate" parameterType="hashmap">
+	<![CDATA[
+		UPDATE NOTICE 
+			SET
+				N_TITLE = #{N_TITLE},				
+				N_CONTENT = #{N_CONTENT},
+				N_DATE = #{N_DATE},
+				N_TYPE = #{N_TYPE},
+				N_IMAGE = #{N_IMAGE}				
+			WHERE
+				N_IDX = #{N_IDX}	
+			]]>
+</update>
+
+<!-- 관리자 공지게시판 삭제 -->
+<delete id="noticeDelete" parameterType="hashmap">
+	<![CDATA[
+		DELETE FROM NOTICE
+		WHERE
+		N_IDX = #{N_IDX}	
+		]]>
+</delete>
+
+
+
+<!-- 관리자 이미지 등록 -->
+<insert id="insertImage" parameterType="hashmap">
+	<![CDATA[
+		INSERT INTO IMAGE
+		(
+			I_IDX,
+			IP_ID,
+			O_FILE_NAME,
+			S_FILE_NAME,
+			CREA_DTM
+		)
+		VALUES
+		(
+			I_IDX_SEQ.NEXTVAL,
+			#{P_ID},
+			#{O_FILE_NAME},
+			#{S_FILE_NAME},
+			sysdate
+		)
+	]]>
+</insert>
+
 
 </mapper>

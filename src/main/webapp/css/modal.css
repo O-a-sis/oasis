@@ -1,0 +1,118 @@
+
+/*
+ * ------------------------------
+ * Revealing Animation
+ * ------------------------------
+ */
+ 
+#modal{ transform: scale(0);display:none;z-index:100}
+#modal.modalon {
+	transform: scale(1);
+	display:flex;
+	position:absolute;
+	
+}
+#modal.modalon .modal-window {
+	background: transparent;
+	animation: fadeIn .5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal.modalon .modal-window .modalcon {
+	/* 콘텐츠를 초기에 보여주지 않음 */
+	opacity: 0;
+	animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal.modalon.out {
+	/* 전체 모달 컨테이너를 숨김 처리(다른 애니메이션이 모두 끝난 0.5초 후에 처리하기 위해 0.5초 지연시킴 */
+	animation: quickScaleDown 0s .1s linear forwards;
+}
+#modal.modalon.out .modal-window {
+	animation: fadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal.modalon.out .modal-window .modalcon {
+	animation: scaleDown 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal2{ transform: scale(0);display:none;z-index:100}
+#modal2.modalon {
+	transform: scale(1);
+	display:flex;
+    position: fixed;
+
+}
+#modal2.modalon .modal-window {
+	background: transparent;
+	animation: fadeIn .5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal2.modalon .modal-window .modalcon {
+	/* 콘텐츠를 초기에 보여주지 않음 */
+	opacity: 0;
+	animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal2.modalon.out {
+	/* 전체 모달 컨테이너를 숨김 처리(다른 애니메이션이 모두 끝난 0.5초 후에 처리하기 위해 0.5초 지연시킴 */
+	animation: quickScaleDown 0s .1s linear forwards;
+}
+#modal2.modalon.out .modal-window {
+	animation: fadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal2.modalon.out .modal-window .modalcon {
+	animation: scaleDown 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+/* Dimmed showing */
+@keyframes fadeIn {
+	0% {
+		background: transparent;
+	}
+	100% {
+		background: #fff;
+	}
+}
+/* Show modal content from bottom to top */
+@keyframes scaleUp {
+	0% {
+		/* 모달 콘텐츠를 하단에 위치시킴 */
+		transform: scale(.8);
+		opacity: 0;
+	}
+	100% {
+		/* 모달 콘텐츠를 본래 위치로 돌려놓음 */
+		transform: scale(1) ;
+		opacity: 1;
+	}
+}
+
+/* Hide modal container*/
+@keyframes quickScaleDown {
+	0% {
+		transform: scale(1);
+	}
+	99.9% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0);
+	}
+}
+/* Dimmed hiding */
+@keyframes fadeOut {
+	0% {
+		background: #FFF;
+	}
+	100% {
+		background: transparent;
+	}
+}
+/* modal content from top to bottom */
+@keyframes scaleDown {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(.8);
+		opacity: 0;
+	}
+}
+

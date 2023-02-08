@@ -1,38 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="store">
 
+	<!-- 로그인시 지점 정보 가지고 오기 -->
+	<select id="getStore" parameterType="hashmap" resultType="hashmap">
+	SELECT 
+		*
+	FROM
+		S_MEMBER
+	WHERE
+		STORE = #{STORE}
+	</select>
 
-	<select id="selectStoreList" parameterType="hashmap"
-		resultType="hashmap">
-		<![CDATA[
-			SELECT 
-			STORE, S_NAME,  ADDRESS1, ADDRESS2, S_STATUS, S_PHONE
-			FROM  S_MEMBER 
-		]]>
+	<!-- 해당하는 지점의 오늘 날짜에 해당하는 주문접수, 제조중, 제조완료 내역 가져오기-->
+	<select id="getOrders" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+	SELECT 
+		O_STATUS, NVL(SUM(a.cnt), 0) CNT
+	FROM ( SELECT O_STATUS, COUNT(*) CNT
+			FROM ORDERS
+			WHERE O_IDX LIKE TO_CHAR(SYSDATE, 'YYMMDD')||'%' AND O_STORE = #{O_STORE}
+			GROUP BY O_STATUS
+		) a
+		, ( SELECT LEVEL AS DT
+			FROM DUAL
+			CONNECT BY LEVEL<=3
+		) b
+	WHERE b.DT=a.O_STATUS(+)
+	GROUP BY a.O_STATUS, b.DT
+	ORDER BY b.DT
+	]]>
 	</select>
 	
-		<select id="storeDetail" parameterType="hashmap"
-		resultType="hashmap">
-		<![CDATA[
-			SELECT 
-			STORE, S_NAME,  ADDRESS1, ADDRESS2, S_PHONE, S_STATUS 
-			FROM  S_MEMBER 
-		]]>
+	<!-- 매장 오픈여부 가지고 오기 -->
+	<select id="getStoreStatus" parameterType="hashmap" resultType="int">
+	SELECT 
+		S_STATUS
+	FROM
+		S_MEMBER
+	WHERE
+		STORE = #{O_STORE}
 	</select>
+
+
+	<!-- 매장 오픈 -->
+	<update id="openStore" parameterType="hashmap">
+	UPDATE 
+		S_MEMBER
+	SET
+		S_STATUS = 1
+	WHERE 
+		STORE = #{STORE}
+	</update>
+
+
+	<!-- 매장 마감 -->
+	<update id="closeStore" parameterType="hashmap">
+	UPDATE 
+		S_MEMBER
+	SET
+		S_STATUS = 0
+	WHERE 
+		STORE = #{STORE}
+	</update>
 	
+	<!-- 지점의 오늘날짜 주문 전체내역 리스트 -->
+	<select id="getOrdersList" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		ORDERS
+	WHERE
+		O_STORE = #{O_STORE} AND
+		TO_CHAR(O_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+	ORDER BY
+		O_STATUS, O_DATE
+	</select>
 
-<!-- 	<select id="myStoreList" parameterType="hashmap" -->
-<!-- 		resultType="hashmap"> -->
 
-<!-- 		<![CDATA[ -->
-<!--         SELECT ROW_NUMBER() OVER(ORDER BY S_IDX DESC RNUM,  -->
-<!--         STORE, S_NAME,  ADDRESS1, ADDRESS2,S_STATUS -->
-<!--      	FROM S_MEMBER -->
-<!--      	WHERE STORE=#{B_STORE} -->
-<!-- 		]]> -->
+	<!-- 접수대기 리스트 -->
+	<select id="getWaitingOrders" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		ORDERS
+	WHERE
+		O_STORE = #{O_STORE} AND
+		O_STATUS = 1
+	</select>
 
-<!-- 	</select> -->
+
+	<!-- 접수대기 업데이트 -->
+	<update id="updateOrder" parameterType="hashmap">
+	UPDATE 
+		ORDERS
+	SET
+		O_STATUS = 2,
+		O_DATE = SYSDATE
+	WHERE
+		O_IDX = #{O_IDX}
+	</update>
+
+
+	<!-- 제조중 리스트 -->
+	<select id="getProcessingOrders" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		ORDERS
+	WHERE
+		O_STORE = #{O_STORE} AND
+		O_STATUS = 2
+	</select>
+
+
+	<!-- 제조중 업데이트 -->
+	<update id="updateProcessingOrder" parameterType="hashmap">
+	UPDATE 
+		ORDERS
+	SET
+		O_STATUS = 3,
+		O_DATE = SYSDATE
+		
+	WHERE
+		O_IDX = #{O_IDX}
+	</update>
+
+
+	<!-- 제조완료 리스트 -->
+	<select id="getCompletedOrders" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		ORDERS
+	WHERE
+		O_STORE = #{O_STORE} AND
+		O_STATUS = 3
+	</select>
+
+
+	<!-- 주문 상세보기 -->
+	<select id="getOrderDetail" parameterType="String" resultType="hashmap">
+	SELECT
+		O.*, C.CU_PRICE
+	FROM
+		ORDERS O, COUPON C
+	WHERE
+		O_IDX = #{oidx} AND
+		O.OCU_IDX=C.CU_IDX
+	</select>
+
+
+	<!-- 재고관리 보기 -->
+	<select id="getStockList" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		S.*, P.*
+	FROM
+		STATUS S, PRODUCT P
+	WHERE
+		SS_IDX = #{O_STORE} AND
+		S.SP_IDX = P.P_IDX
+	</select>
+
+
+	<!-- 재고관리 수정 -->
+	<update id="updateStock" parameterType="hashmap">
+	UPDATE 
+		STATUS
+	SET
+		S_SO = #{S_SO}
+	WHERE
+		SS_IDX = #{O_STORE} AND
+		SP_IDX = #{P_IDX}
+	</update>
+
+
+	<!-- 공지사항 -->
+	<select id="getNoticeList" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		NOTICE
+	WHERE
+		N_TYPE = 'S'
+	</select>	
+
+
+	<!-- 공지사항 상세보기 -->
+	<select id="getNoticeDetail" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		NOTICE
+	WHERE
+		N_IDX = #{N_IDX}
+	</select>	
 
 </mapper>
+
+
+
+
+
