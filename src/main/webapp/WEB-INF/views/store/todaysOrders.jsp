@@ -4,11 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.button { 
+	border-radius:7px;
+	font-size:16px;
+	width:100px;
+}
+</style>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/side.css'/>" />
 <meta charset="UTF-8">
-<title>관리자 - 공지사항</title>
-<STYLE TYPE="text/css">
-table {font-size: 12pt;}
-</STYLE>
+<title>관리자 - 재고관리</title>
 </head>
 <body>
 <div>
@@ -34,33 +40,47 @@ table {font-size: 12pt;}
        <h1 style="color:white; display:inline"><strong>이전 거래내역</strong></h1>
 </div>
 <h1 id="clock"><strong></strong></h1>
-	<table border=0 style="table-layout: fixed">
-		<colgroup>
-			<col width="15%" />
-			<col width="*%" />
-			<col width="30%" />
-		</colgroup>
-		<thead>
-			<tr>
-				<th scope="col" align=center>종류</th>
-				<th scope="col" align=center>게시글 명</th>
-				<th scope="col" align=center>날짜</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="item" items="${list}">
+<br>
+<h2 style="display:inline"><strong>거래내역</strong></h2>&nbsp;&nbsp;
+<button type="button" class="button" style="color:white; background:orange" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=1"/>'">접수대기</button>
+<button type="button" class="button" style="color:white; background:orange" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=2"/>'">제조중</button>
+<button type="button" class="button" style="color:white; background:orange" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=3"/>'">제조완료</button>
+
+	<c:forEach items="${list}" var="item">
+			<table class="orders" border=0 width=900px align=center>
+				<colgroup>
+					<col width="*%" />
+					<col width="13%" />
+					<col width="20%" />
+					<col width="15%" />
+					<col width="20%" />
+				</colgroup>
 				<tr>
-					<td align=center>
-					<c:if test="${item.N_TYPE eq 'S'}">본사 공지</c:if>
-					<c:if test="${item.N_TYPE eq 'E'}">이벤트</c:if>
+				<td><span>${item.O_LIST}</span>
+				<input type=hidden id="oidx" value="${item.O_IDX}">
+				</td>
+				<td>${item.O_SUM}원</td>
+				<td>${item.O_DATE}</td>
+				<c:if test="${item.O_STATUS eq '1'}">
+					<td><h3><strong>접수대기</strong></h3></td>
+					<td><button type="button" class="button" style="color:white; background:orange" id="uptBtn">접수</button>
+					<input type=hidden id="oidx" value="${item.O_IDX}">
 					</td>
-					<td><a href='<c:url value="/store/noticeDetail.oa?N_IDX=${item.N_IDX}&page=${param.page}"/>'>${item.N_TITLE}</a></td>							
-					<td align=center>${item.N_DATE}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	<div class="paging">${paging.pageHtml}</div>
+				</c:if>
+				<c:if test="${item.O_STATUS eq '2'}">
+					<td><h3><strong>제조중</strong></h3></td>
+					<td><button type="button" class="button" style="color:white; background:blue" id="uptPcBtn">제조완료</button>
+					<input type=hidden id="oidx" value="${item.O_IDX}">
+					</td>
+					
+				</c:if>
+				<c:if test="${item.O_STATUS eq '3'}">
+					<td><h3><strong>제조완료</strong></h3></td>
+					<td><button type="button" class="button" style="color:white; background:black">제조완료</button></td>
+				</c:if>
+				
+			</table>
+		</c:forEach>
 </body>
     <script>
         window.onload = function () {

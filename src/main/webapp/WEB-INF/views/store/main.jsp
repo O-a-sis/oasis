@@ -24,9 +24,9 @@
 <h3 style="display:inline">${sessionScope.S_NAME} - 관리자</h3>
 </div>
 <div style="height: 100px; width: 100%; background-color: #ff6600; padding:10px">
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 style="color:white; display:inline"><strong>거래내역</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 style="color:white; display:inline" onclick="location.href='<c:url value="todaysOrders.oa"/>'"><strong>거래내역</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        <h1 style="color:white; display:inline" onclick="location.href='<c:url value="stock.oa"/>'"><strong>재고관리</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <h1 style="color:white; display:inline"><strong>공지사항</strong></h1>
+       <h1 style="color:white; display:inline" onclick="location.href='<c:url value="noticeList.oa"/>'"><strong>공지사항</strong></h1>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -84,6 +84,7 @@
 				<tr>
 				<td><span>${item.O_LIST}</span>
 				<input type=hidden id="oidx" value="${item.O_IDX}">
+				<input type=hidden id="otime" value="${item.O_TIME}">
 				</td>
 				<td>${item.O_SUM}원</td>
 				<td>${item.O_DATE}</td>
@@ -128,6 +129,7 @@
 					<button type="button" class="button" style="color:white; background:#5882FA" id="modalCancelBtn">취소</button></td>
 					<h3>상태-<span class="status"></span></h3>
 					<input type="hidden" name="oidx">
+					<input type="hidden" name="otime">
 				</div>
 			</div>
 
@@ -142,6 +144,11 @@
 					<h4 style="display:inline"> 할인 금액 <span class="cprice"></span>원</h4>
 					<h4 style="display:inline"> 결제 금액 <span class="total"></span>원</h4>
 				</div>
+				<br>
+				
+				<h1 color=black align=right style="display:inline"><strong><div id="timer"></div></strong></h1>
+				<h1 color=black align=right><strong><div id="timerComplete"></div></strong></h1>
+				<h1 color=black align=right><strong>픽업시간:&nbsp;<span class="otime"></span></strong></h1>
 			</div>
 
 		</div>
@@ -190,7 +197,7 @@
 		$(".orders").on("click", "tr td button", function(){
 			if($(this).attr("id")== 'uptBtn') {
 				let oidx = $(this).closest("td").find("input[id=oidx]").val();
-				alert(oidx);
+
 				var comSubmit = new ComSubmit();
 				comSubmit.setUrl("<c:url value='/store/orderUpdate.oa'/>");
 				comSubmit.addParam("O_IDX", oidx);
@@ -215,8 +222,12 @@
 		var modalCompleteBtn=$("#modalCompleteBtn");
 		var modalCancelBtn=$("#modalCancelBtn");
 		let modalInputOidx=modal.find("input[name='oidx']");
+		let modalInputOtime=modal.find("span[class='otime']");
 		
-		$(".orders").on("click","tr td span",function(){			
+		$(".orders").on("click","tr td span",function(){
+			var otime=$(this).closest("td").find("input[id=otime]").val();
+			modalInputOtime.val(otime);
+			$(".otime").html(otime);
 			var oidx=$(this).closest("td").find("input[id=oidx]").val();
 			modalInputOidx.val(oidx);
 			orderService.get(oidx, function(order) {
@@ -238,21 +249,26 @@
 				if(status=='1') {
 					$(".status").html("접수대기")
 					modalProcessingBtn.hide();
-					modalCompleteBtn.hide();				
+					modalCompleteBtn.hide();
+					CountDownTimer(modalInputOtime.val(), 'timer'); 
 				} else if(status=='2') {
 					$(".status").html("제조중")
 					modalUptBtn.hide();
 					modalProcessingBtn.show();
 					modalCompleteBtn.hide();
 					modalCancelBtn.hide();
+					CountDownTimer(modalInputOtime.val(), 'timer'); 
 				} else {
 					$(".status").html("제조완료")
 					modalCompleteBtn.show();
 					modalUptBtn.hide();
 					modalProcessingBtn.hide();
 					modalCancelBtn.hide();
+					$("#timer").hide;
+					$("#timerComplete").html("제조가 완료되었습니다!");
 				};
-				
+
+	
 				modalOn();	
 			});			
 		});
@@ -280,23 +296,28 @@
 				$(".total").html(order.O_SUM);
 				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
 				let status = order.O_STATUS;
-				if(status=='1') {
+				/* if(status=='1') {
 					$(".status").html("접수대기")
 					modalProcessingBtn.hide();
-					modalCompleteBtn.hide();				
-				} else if(status=='2') {
+					modalCompleteBtn.hide();
+					CountDownTimer(modalInputOtime.val(), 'timer'); 
+				} else  */
+					/* if(status=='2') { */
 					$(".status").html("제조중")
 					modalUptBtn.hide();
 					modalProcessingBtn.show();
 					modalCompleteBtn.hide();
 					modalCancelBtn.hide();
-				} else {
+					CountDownTimer(modalInputOtime.val(), 'timer'); 
+			/* 	} else {
 					$(".status").html("제조완료")
 					modalCompleteBtn.show();
 					modalUptBtn.hide();
 					modalProcessingBtn.hide();
 					modalCancelBtn.hide();
-				};
+					$("#timer").hide;
+					$("#timerComplete").html("제조가 완료되었습니다!");
+				/* }; */
 			});		
  		});
  		
@@ -323,23 +344,27 @@
 				$(".total").html(order.O_SUM);
 				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
 				let status = order.O_STATUS;
-				if(status=='1') {
+				/* if(status=='1') {
 					$(".status").html("접수대기")
 					modalProcessingBtn.hide();
-					modalCompleteBtn.hide();				
+					modalCompleteBtn.hide();		
+					CountDownTimer(modalInputOtime.val(), 'timer'); 
 				} else if(status=='2') {
 					$(".status").html("제조중")
 					modalUptBtn.hide();
 					modalProcessingBtn.show();
 					modalCompleteBtn.hide();
 					modalCancelBtn.hide();
-				} else {
+					CountDownTimer(modalInputOtime.val(), 'timer'); 
+				} else { */
 					$(".status").html("제조완료")
 					modalCompleteBtn.show();
 					modalUptBtn.hide();
 					modalProcessingBtn.hide();
 					modalCancelBtn.hide();
-				};
+					document.getElementById('timer').style.display='none';
+					$("#timerComplete").html("제조가 완료되었습니다!");
+				/* }; */
 			});		
  			
  		});
@@ -379,5 +404,32 @@
    testScrPop.scroll(function(){
    const $this = $(this);
 });
+</script>
+<script>
+function CountDownTimer(dt, id) {
+     var end = new Date(dt);
+     var _second = 1000;
+     var _minute = _second * 60;
+     var _hour = _minute * 60;
+     var _day = _hour * 24;
+     var timer;
+     function showRemaining() {
+         var now = new Date();
+         var distance = end - now;
+         if (distance < 0) {
+             clearInterval(timer);
+             document.getElementById(id).innerHTML = '제조시간이 끝났습니다!';
+             return;
+         }
+         var days = Math.floor(distance / _day);
+         var hours = Math.floor((distance % _day) / _hour);
+         var minutes = Math.floor((distance % _hour) / _minute);
+         var seconds = Math.floor((distance % _minute) / _second);       
+         document.getElementById(id).innerHTML = minutes + '분 ';
+         document.getElementById(id).innerHTML += seconds + '초';
+         document.getElementById(id).innerHTML += ' 남았습니다';
+     }
+     timer = setInterval(showRemaining, 1000);
+ }
 </script>
 </html>
