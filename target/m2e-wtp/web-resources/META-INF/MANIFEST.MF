@@ -1,5 +1,11 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: MinJungK
 Build-Jdk: 11.0.16
+=======
+Built-By: black
+Build-Jdk: 11.0.16
+
+>>>>>>> a9fb6f5efdad3841e27bdb96390f6d6c29c71989
 Created-By: Maven Integration for Eclipse
 
