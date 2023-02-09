@@ -1,0 +1,9 @@
+body,h1,h2,h3,h4,h5,h6,p,ul,li,ol,button,address{margin:0;padding:0;}
+a img{border:0;}
+em,address{font-style:normal;}
+ol,ul,li{list-style:none;}
+
+button{border:0;background:none;cursor:pointer;}
+
+.clearfix:after{display:block;clear:both;content:".";visibility:hidden;height:0;}
+.clearfix{display:block;}
