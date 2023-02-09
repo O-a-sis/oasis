@@ -13,12 +13,13 @@ import com.oasis.member.service.MyTabService;
 import lombok.AllArgsConstructor;
 
 @Controller
+@RequestMapping("/member/")
 @AllArgsConstructor
 public class MyTabController {
 
 	private MyTabService myTabService;
 
-	@RequestMapping(value="/member/myMenuBar.oa")
+	@RequestMapping(value="/myMenuBar.oa")
 	public ModelAndView myMenuBar(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("member/myMenuBar");
 
@@ -29,7 +30,7 @@ public class MyTabController {
 		return mv;
 	}
 
-	@RequestMapping(value="/member/myCouponList.oa")
+	@RequestMapping(value="/myCouponList.oa")
 	public ModelAndView myCoupon(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("member/myCoupon");
 
@@ -41,7 +42,7 @@ public class MyTabController {
 
 	}
 
-	@RequestMapping(value="/member/myOrderList.oa")
+	@RequestMapping(value="/myOrderList.oa")
 	public ModelAndView myOrderList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("member/myOrderList");
 
@@ -53,7 +54,7 @@ public class MyTabController {
 
 	}
 
-	@RequestMapping(value="/member/myOrderDetail.oa") // http://localhost:8000/oasis/member/myOrderDetail.oa?O_IDX=1
+	@RequestMapping(value="/myOrderDetail.oa") // http://localhost:8000/oasis/member/myOrderDetail.oa?O_IDX=1
 	public ModelAndView myOrderDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("member/myOrderDetail");
 
@@ -65,7 +66,7 @@ public class MyTabController {
 
 	}
 
-	@RequestMapping(value="/member/myStamp.oa")
+	@RequestMapping(value="/myStamp.oa")
 	public ModelAndView myStamp(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("member/myStamp");
 
