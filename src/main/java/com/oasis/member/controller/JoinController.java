@@ -11,18 +11,19 @@ import com.oasis.common.CommandMap;
 import lombok.AllArgsConstructor;
 
 @Controller
+@RequestMapping("/member/")
 @AllArgsConstructor
 public class JoinController {
 
 	private JoinService joinService;
 
-	 @RequestMapping(value="/member/joinForm.oa")
+	 @RequestMapping(value="/joinForm.oa")
 	   public ModelAndView joinForm(CommandMap commandMap) throws Exception{
 	      ModelAndView mv=new ModelAndView("join/joinForm");
 	      return mv;      
 
 	 }
-	  @RequestMapping(value="/member/joinSuccess.oa", method=RequestMethod.POST)
+	  @RequestMapping(value="/joinSuccess.oa", method=RequestMethod.POST)
 	   public ModelAndView memberVerify(CommandMap commandMap) throws Exception{
 	     ModelAndView mv=new ModelAndView("join/joinForm2");
 	     joinService.insertMember(commandMap.getMap()); 
