@@ -106,6 +106,7 @@
     	get : get,
     	updateOrder : updateOrder,
     	updateProcessingOrder : updateProcessingOrder,
-    	updateStock : updateStock
+    	updateStock : updateStock,
+    	updateProcessingOrder : updateProcessingOrder
     };
 })();

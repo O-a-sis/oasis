@@ -51,13 +51,28 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
+	public List<Map<String, Object>> getWaitingOrders(Map<String, Object> map) throws Exception {
+		return storeDAO.getWaitingOrders(map);
+	}
+
+	@Override
 	public int updateOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateOrder(map);
 	}
 
 	@Override
+	public List<Map<String, Object>> getProcessingOrders(Map<String, Object> map) throws Exception {
+		return storeDAO.getProcessingOrders(map);
+	}
+
+	@Override
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateProcessingOrder(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getCompletedOrders(Map<String, Object> map) throws Exception {
+		return storeDAO.getCompletedOrders(map);
 	}
 
 	@Override

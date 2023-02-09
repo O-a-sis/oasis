@@ -87,7 +87,7 @@ public class StoreController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/stock.oa") // 재고관리
+	@RequestMapping(value = "/stock.oa") // 메인
 	public ModelAndView stockList(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("store/stockList");
 		
