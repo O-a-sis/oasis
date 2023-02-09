@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.oasis.admin.dao.AdminNoticeDAO;
 
@@ -33,8 +34,8 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 
 //  공지사항 수정
 	@Override
-	public void adminNoticeUpdate(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		adminNoticeDAO.NoticeUpdate(map);
+	public void adminNoticeUpdate(Map<String, Object> map) throws Exception {
+		adminNoticeDAO.noticeUpdate(map);
 	}
 
 //	공지사항 작성
