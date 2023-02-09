@@ -19,7 +19,7 @@ public class MyTabController {
 
 	private MyTabService myTabService;
 
-	@RequestMapping(value="/myMenuBar.oa")
+	@RequestMapping(value="/myMenuBar.oa") //http://localhost:8000/Oasis/member/myMenuBar.oa?B_PHONE=01011111234
 	public ModelAndView myMenuBar(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("member/myMenuBar");
 
