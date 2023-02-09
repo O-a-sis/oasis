@@ -106,6 +106,11 @@
     	get : get,
     	updateOrder : updateOrder,
     	updateProcessingOrder : updateProcessingOrder,
+<<<<<<< HEAD
     	updateStock : updateStock
+=======
+    	updateStock : updateStock,
+    	updateProcessingOrder : updateProcessingOrder
+>>>>>>> 22db703f45361d4ebb6619e460a3d8e9b6e789a0
     };
 })();
