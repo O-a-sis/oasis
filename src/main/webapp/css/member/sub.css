@@ -1,0 +1,360 @@
+@charset "UTF-8";
+
+@import url(default.css);
+
+@import url(common.css);
+
+@import url(main.css);
+
+.subhead {
+	margin-top: 20px;
+	height: 50px;
+	text-align: left;
+	padding: 10px 20px;
+	text-align: left;
+	padding: 10px 20px
+}
+
+.subhead ul li {
+	display: inline-block;
+	margin-right: 32%
+}
+
+.subhead ul li i {
+	font-size: 22px;
+	color: #9d9d9d
+}
+
+.subhead ul li .subtit {
+	font-size: 19px;
+	font-weight: 500
+}
+
+.store {
+	width: 100%;
+	height: 400px;
+	text-align: center;
+}
+
+.store .tabon::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.store ul.store_tab {
+	
+}
+
+.store .store_tab li {
+	float: left;
+	height: 30px;
+	text-align: center;
+	cursor: pointer;
+	color: #666;
+	width: 50%;
+	text-align: center;
+	font-weight: 400;
+}
+
+.store .store_tab li.onon {
+	border-bottom: 5px solid #e68e41;
+}
+
+.store .store_search {
+	padding: 50px 0;
+}
+
+.store .search input {
+	height: 20px;
+	width: 80%;
+	border: 2px solid #e68e41;
+	border-radius: 15px;
+}
+
+.store .search i {
+	color: #e68e41;
+	font-size: 19px;
+	padding-left: 5px
+}
+
+.store .mapline {
+	padding: 10px 0
+}
+
+.store .mapline #map {
+	border-radius: 15px
+}
+
+.store .tabon>div>div.active {
+	display: block;
+}
+
+.store .storelist {
+	margin-top: 10px
+}
+
+.store .storelist ul {
+	text-align: left;
+	position: relative;
+}
+
+.store .storelist ul li.listline {
+	width: 98%;
+	height: 80px;
+	margin-bottom: 5px;
+	    border-bottom: 2px solid #ffebde;
+}
+.store .storelist ul li ul.ulinner li.innerl{margin-top:10px}
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(1) {width: 20%;
+    float: left;
+    padding: 5px 10px;
+	
+}
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(1) img { width: 100%;}
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(2){margin-top: 19px;
+    float: left;
+    margin-left: 10px;
+    width: 50%;
+    /* position: relative; */
+    text-align: left;
+}
+	
+
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(3) {
+	position: absolute;
+    left: 29%;
+    top: 43%;    margin: 40px 0;
+	
+}
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(4) {
+	      position: absolute;
+    top: 43;
+    right: 30px;
+    top: 10px;
+}
+
+.store .store_mark .mapper
+.store .store_mark .mapper .storelist2 {
+	margin-top: 10px
+}
+.store .store_mark h4{text-align:left;}
+
+.store .store_mark .mapper .storelist2 ul {
+	text-align: left;
+	position: relative;
+}
+
+.store .store_mark .mapper .storelist2 ul li.listline {
+	width: 98%;
+	height: 80px;
+	margin-bottom: 5px;
+	    border-bottom: 2px solid #ffebde;
+}
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl{margin-top:10px}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(1) {width: 20%;
+    float: left;
+    padding: 5px 10px;
+	
+}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(1) img { width: 100%;}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(2){margin-top: 19px;
+    float: left;
+    margin-left: 10px;
+    width: 50%;
+    /* position: relative; */
+    text-align: left;
+}
+	
+
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(3) {
+	position: absolute;
+    left: 29%;
+    top: 43%;    margin: 40px 0;
+	
+}
+
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(4) {
+	      position: absolute;
+    top: 43;
+    right: 30px;
+    top: 10px;
+}
+/*매장모달*/
+#storemodal {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 100;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#storemodal .modal-window {
+	background: #FFF;
+	backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid #9d9d9d;
+	width: 500px;
+	height: 510px;
+	position: relative;
+	top: 100px;
+	padding: 10px;
+	text-align: left;
+}
+
+#storemodal .title {
+	margin-top: 70px;
+	padding-left: 10px;
+	display: inline;
+	color: #5d5d5d;
+}
+
+#storemodal .title p {
+	padding-left: 10px;
+	font-size: 15px;
+	padding-bottom: 10px;
+}
+
+#storemodal .title .rvwho {
+	height: 80px;
+	margin-top: 20px;
+	padding-left: 22px;
+}
+
+#storemodal .title .rvwho h3 {
+	text-align: left;
+	padding-left: 10px;
+}
+
+#storemodal .title .rvwho span {
+	padding-top: 15px;
+	text-align: left;
+	padding-left: 10px;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+#storemodal .close-area {
+	display: inline;
+	float: right;
+	padding-right: 10px;
+	cursor: pointer;
+	color: #2d2d2d;
+	font-size: 19px;
+}
+
+#storemodal .content {
+	padding: 0px 10px;
+	color: white;
+	text-align: center;
+}
+
+#storemodal .content ul {
+	text-align: center;
+}
+
+#storemodal .content ul li.off {
+	width: 80%;
+	height: 20px;
+	padding: 5px 10px;
+	border-radius: 100px;
+	border: 1px solid #a7b5d8;
+	margin: 20px;
+}
+
+#storemodal .content ul li.on {
+	width: 80%;
+	height: 20px;
+	padding: 5px 10px;
+	border-radius: 100px;
+	border: 1px solid #487BE1;
+	background: #487BE1;
+	margin: 20px;
+	color: #fff
+}
+
+#storemodal .content ul li.on a {
+	color: #fff
+}
+
+#storemodal .content ul li a {
+	text-decoration: none;
+	color: #3d3d3d;
+}
+
+#storemodal .content p {
+	color: #3d3d3d;
+	font-size: 15px;
+}
+
+#storemodal .modal-window .content .stardr {
+	margin: 0 auto;
+	height: 90px;
+	padding: 0 24px;
+}
+
+#storemodal .modal-window .content .stardr p {
+	width: 100px;
+	margin: 0 auto;
+	padding: 15px 16px 1px 0;
+}
+
+#storemodal .modal-window .content .stardr .star {
+	position: relative;
+	font-size: 2rem;
+	color: #ddd;
+}
+
+#storemodal .modal-window .content .stardr .star input {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+#storemodal .modal-window .content .stardr .star span {
+	width: 0;
+	position: absolute;
+	left: 0;
+	color: #ffd500;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+#storemodal .modal-window .content .reviewtext {
+	width: 90%;
+	height: 200px;
+	margin: 0 auto;
+	padding-bottom: 20px;
+}
+
+#storemodal .modal-window .modalbtn {
+	margin: 0 auto;
+	display: block;
+	width: 120px;
+	height: 30px;
+	border: 1px solid #487BE1;
+	padding: 0 15px;
+	border-radius: 100px;
+	background: #487BE1;
+	color: #fff;
+	margin-top: 10px;
+}
