@@ -27,7 +27,7 @@ SELECT *
 	FROM 
 		B_MEMBER
 	WHERE
-		B_PHONE=#{B_PHONE} AND B_PASSWORD=#{B_PASSWORD}
+		B_PHONE=#{B_PHONE}
 ]]>
 	</select>
 

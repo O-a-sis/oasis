@@ -13,4 +13,8 @@ public class JoinDAO extends AbstractDAO{
 	public void insertMember(Map<String, Object> map) throws Exception {
 		insert("member.insertMember",map);
 	}
+	
+	public Map<String, Object> getMember(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>)selectOne("member.getMember", map);
+	}
 }

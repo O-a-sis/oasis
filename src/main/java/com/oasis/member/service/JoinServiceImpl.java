@@ -18,4 +18,9 @@ public class JoinServiceImpl implements JoinService{
 	public void insertMember(Map<String, Object> map) throws Exception {
 		joinDAO.insertMember(map);
 	}
+	
+	@Override
+	public Map<String, Object> getMember(Map<String, Object> map) throws Exception {
+		return joinDAO.getMember(map);
+	}
 }
