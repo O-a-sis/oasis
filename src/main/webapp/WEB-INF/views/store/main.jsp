@@ -39,7 +39,7 @@
        </c:if>
        
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <h1 style="color:white; display:inline"><strong>이전 거래내역</strong></h1>
+       <h1 style="color:white; display:inline" onclick="location.href='<c:url value="ordersAllList.oa"/>'"><strong>이전 거래내역</strong></h1>
 </div>
 <div style="padding:20px" align="center">
 <c:if test="${empty list}">

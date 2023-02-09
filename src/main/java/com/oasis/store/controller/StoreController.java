@@ -164,5 +164,26 @@ public class StoreController {
 	
 		return mv;
 	}
+	
+	@RequestMapping(value = "/ordersAllList.oa") // 재고관리
+	public ModelAndView ordersAllList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("store/ordersAllList");
+		
+		HttpSession session = request.getSession();
+		commandMap.put("O_STORE", session.getAttribute("STORE"));
+
+		int storeStatus = storeService.getStoreStatus(commandMap.getMap());
+		mv.addObject("status", storeStatus);
+		
+		if (commandMap.get("O_STATUS") == null) {
+			commandMap.put("O_STATUS", "1");
+		}
+		System.out.println(commandMap.get("O_STATUS"));
+		List<Map<String, Object>> orderList = storeService.getOrdersAllList(commandMap.getMap());
+		mv.addObject("list", orderList);
+	
+		return mv;
+	}
+	
 
 }

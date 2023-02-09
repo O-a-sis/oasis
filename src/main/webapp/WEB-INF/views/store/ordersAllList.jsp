@@ -37,14 +37,12 @@
        </c:if>
        
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <h1 style="color:white; display:inline" onclick="location.href='<c:url value="ordersAllList.oa"/>'"><strong>이전 거래내역</strong></h1>
+       <h1 style="color:white; display:inline"><strong>이전 거래내역</strong></h1>
 </div>
 <h1 id="clock"><strong></strong></h1>
 <br>
-<h2 style="display:inline"><strong>거래내역</strong></h2>&nbsp;&nbsp;
-<button type="button" class="button" style="color:white; background:orange" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=1"/>'">접수대기</button>
-<button type="button" class="button" style="color:white; background:orange" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=2"/>'">제조중</button>
-<button type="button" class="button" style="color:white; background:orange" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=3"/>'">제조완료</button>
+<h2 style="display:inline"><strong>이전 거래내역</strong></h2>&nbsp;&nbsp;
+
 <br><br>
 	<c:forEach items="${list}" var="item">
 			<table class="orders" border=0 width=900px align=center>

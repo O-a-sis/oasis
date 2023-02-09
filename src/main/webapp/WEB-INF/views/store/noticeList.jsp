@@ -16,7 +16,7 @@ table {font-size: 12pt;}
 <h3 style="display:inline">${sessionScope.S_NAME} - 관리자</h3>
 </div>
 <div style="height: 100px; width: 100%; background-color: #ff6600; padding:10px">
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 style="color:white; display:inline"><strong>거래내역</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 style="color:white; display:inline" onclick="location.href='<c:url value="todaysOrders.oa"/>'"><strong>거래내역</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        <h1 style="color:white; display:inline" onclick="location.href='<c:url value="stock.oa"/>'"><strong>재고관리</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        <h1 style="color:white; display:inline" onclick="location.href='<c:url value="noticeList.oa"/>'"><strong>공지사항</strong></h1>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -31,7 +31,7 @@ table {font-size: 12pt;}
        </c:if>
        
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <h1 style="color:white; display:inline"><strong>이전 거래내역</strong></h1>
+       <h1 style="color:white; display:inline" onclick="location.href='<c:url value="ordersAllList.oa"/>'"><strong>이전 거래내역</strong></h1>
 </div>
 <h1 id="clock"><strong></strong></h1>
 	<table border=0 style="table-layout: fixed">

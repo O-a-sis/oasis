@@ -33,6 +33,7 @@ public interface StoreService {
 	
 	public Map<String, Object> getNoticeDetail(Map<String, Object> map) throws Exception;
 	
+	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception;
 	
 	
 

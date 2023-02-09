@@ -195,6 +195,18 @@
 	WHERE
 		N_IDX = #{N_IDX}
 	</select>	
+	
+	<!-- 지점의 주문 전체내역 리스트(모든 날짜) -->
+	<select id="getOrdersAllList" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		ORDERS
+	WHERE
+		O_STORE = #{O_STORE}
+	ORDER BY
+		O_DATE DESC
+	</select>
 
 </mapper>
 

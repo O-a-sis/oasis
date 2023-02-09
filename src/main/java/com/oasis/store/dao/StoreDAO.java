@@ -65,6 +65,10 @@ public class StoreDAO extends AbstractDAO {
 		return (Map<String, Object>) selectOne("store.getNoticeDetail", map);
 	}
 	
+	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>) selectList("store.getOrdersAllList", map);
+	}
+	
 	
 	
 }

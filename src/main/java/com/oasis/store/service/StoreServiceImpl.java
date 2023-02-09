@@ -85,4 +85,9 @@ public class StoreServiceImpl implements StoreService {
 		return storeDAO.getNoticeDetail(map);
 	}
 
+	@Override
+	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
+		return storeDAO.getOrdersAllList(map);
+	}
+
 }
