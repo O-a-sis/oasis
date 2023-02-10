@@ -16,10 +16,12 @@
 <center>
 <h1>오아시스 로그인</h1>
 <form action="<c:url value='login.oa'/>" method="POST">
-<h3> Username:&nbsp; <input type="text" name="B_PHONE" placeholder="전화 번호를 입력하세요"></h3>
-<h3> Password:&nbsp; <input type="text" name="B_PASSWORD" placeholder="비밀번호를 입력하세요"></h3>
-<button type="submit">로그인</button>
-
+<h3> 전화번호:&nbsp; <input type="text" name="B_PHONE" placeholder="전화 번호를 입력하세요"></h3>
+<h3> 비밀번호:&nbsp; <input type="password" name="B_PASSWORD" placeholder="비밀번호를 입력하세요"></h3>
+<button type="submit">로그인</button> <span> <a href='/Oasis/member/joinForm.oa'>회원가입</a></span>
+<div>
+<a href='/Oasis/member/findPw.oa'>비밀번호 찾기</a>
+</div>
 </form>
 </center>
 </body>

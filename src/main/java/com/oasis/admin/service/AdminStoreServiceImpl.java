@@ -38,22 +38,20 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 
 	@Override
 	public Map<String, Object> storeDetail(Map<String, Object> map) throws Exception {
-		
 		return adminStoreDAO.storeDetail(map);
 	}
-
-
-	@Override
-	public void storeUpdate(Map<String, Object> map) throws Exception {
-		adminStoreDAO.storeUpdate(map);
-		
-	}
-
+	
 
 	@Override
 	public void storeDown(Map<String, Object> map) throws Exception {
 		adminStoreDAO.storeDown(map);
 		
+	}
+
+
+	@Override
+	public int storeUpdate(Map<String, Object> map) throws Exception {
+		return adminStoreDAO.update(map);
 	}
 
 	
