@@ -42,9 +42,9 @@ public class MemberStoreController {
 		List<Map<String, Object>> list = memberStoreService.getStoreList(commandMap);
 		List<Map<String, Object>> book = bookmarkService.getBookList(commandMap);
 		
-		Map<String, Object> map = memberStoreService.storeDetail(commandMap);
+//		Map<String, Object> map = memberStoreService.storeDetail(commandMap);
 		
-		mv.addObject("map", map);
+//		mv.addObject("map", map);
 		mv.addObject("list", list);
 		mv.addObject("book", book);
 		return mv;
