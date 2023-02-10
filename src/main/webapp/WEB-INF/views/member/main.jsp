@@ -15,7 +15,7 @@
 	href="<c:url value='/css/main.css'/>" />
 <%@ include file="/WEB-INF/include/include-header.jspf"%>
 <meta charset="UTF-8">
-<title>Flee</title>
+<title>Oasis</title>
 
 </head>
 <body id="main">
@@ -23,7 +23,7 @@
 	<section class="maintop"> 
 		<div class="wrap">
 		<div class="logo">
-			<a href="index.html"><img src="images/common/logo.png" alt="로고" /></a>
+			<a href="index.html"><img src="../images/common/logo.png" alt="로고" /></a>
 		</div>
 		<div class="adtext">
 			<p>2023년 흑묘년</p>
@@ -34,12 +34,21 @@
 	<section class="myinfo">
 		<div class="infobox">
 			<div class="inforight">
+				<c:choose>
+					<c:when test="${not empty sessionScope.B_NAME}">
 				<stong>${sessionScope.B_NAME }</stong>님
+					</c:when>
+				<c:otherwise>
+					<strong>Oasis</strong>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="infoleft">
 				<ul>
 					<li>Ostamp</li>
-					<li><strong>${map.STAMP }</strong> / 10★ </li>
+					<li>
+					<strong>${map.STAMP }</strong> / 10★ 
+					</li>
 					<li class="stampbar"><progress id="progress" value="50" min="0" max="100"></progress></li>
 				</ul>
 			</div>
