@@ -35,16 +35,19 @@ public class StoreDAO extends AbstractDAO {
 	
 	public List<Map<String, Object>> getOrdersListByStatus(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>) selectList("store.getOrdersListByStatus", map);
+
 	}
 
 	public int updateOrder(Map<String, Object> map) throws Exception {
 		return (int) update("store.updateOrder", map);
 	}
 	
+
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return (int) update("store.updateProcessingOrder", map);
 	}
 	
+
 	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
 		return (Map<String, Object>) selectOne("store.getOrderDetail", oidx);
 	}

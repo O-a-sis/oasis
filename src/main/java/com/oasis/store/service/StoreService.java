@@ -35,6 +35,5 @@ public interface StoreService {
 	
 	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception;
 	
-	
 
 }

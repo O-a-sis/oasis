@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
-
+	
 	<!-- 로그인시 지점 정보 가지고 오기 -->
 	<select id="getStore" parameterType="hashmap" resultType="hashmap">
 	SELECT 
@@ -74,7 +74,7 @@
 		O_STORE = #{O_STORE} AND
 		TO_CHAR(O_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
 	ORDER BY
-		O_STATUS, O_DATE
+		O_STATUS, O_DATE DESC
 	</select>
 	
 	<!-- 지점의 오늘날짜 주문 리스트 상태별로 나누기(접수, 제조중, 제조완료) -->
@@ -85,6 +85,7 @@
 	FROM
 		ORDERS O
 	WHERE
+		O_STATUS = #{O_STATUS} AND
 		O_STORE = #{O_STORE} AND
 		TO_CHAR(O_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
 	<include refid="common.pagingPost" /> 
@@ -103,18 +104,6 @@
 	</update>
 
 
-	<!-- 제조중 리스트 -->
-	<select id="getProcessingOrders" parameterType="hashmap" resultType="hashmap">
-	SELECT
-		*
-	FROM
-		ORDERS
-	WHERE
-		O_STORE = #{O_STORE} AND
-		O_STATUS = 2
-	</select>
-
-
 	<!-- 제조중 업데이트 -->
 	<update id="updateProcessingOrder" parameterType="hashmap">
 	UPDATE 
@@ -126,18 +115,6 @@
 	WHERE
 		O_IDX = #{O_IDX}
 	</update>
-
-
-	<!-- 제조완료 리스트 -->
-	<select id="getCompletedOrders" parameterType="hashmap" resultType="hashmap">
-	SELECT
-		*
-	FROM
-		ORDERS
-	WHERE
-		O_STORE = #{O_STORE} AND
-		O_STATUS = 3
-	</select>
 
 
 	<!-- 주문 상세보기 -->
@@ -174,13 +151,14 @@
 	SET
 		S_SO = #{S_SO}
 	WHERE
-		SS_IDX = #{O_STORE} AND
-		SP_IDX = #{P_IDX}
+		SS_IDX = #{SS_IDX} AND
+		SP_IDX = #{SP_IDX}
 	</update>
 
 
 	<!-- 공지사항 -->
 	<select id="getNoticeList" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
 	SELECT
 		ROW_NUMBER() OVER(ORDER BY DECODE (N_TYPE, 'S', 1), N_DATE DESC) RNUM, 
 		N_IDX, 
@@ -190,7 +168,8 @@
 	FROM
 		NOTICE
 	WHERE
-		N_TYPE = 'S'
+		N_TYPE IN ('S', 'E')
+	<include refid="common.pagingPost" />
 	</select>	
 
 

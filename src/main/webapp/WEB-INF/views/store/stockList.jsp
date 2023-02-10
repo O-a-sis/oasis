@@ -37,6 +37,10 @@
        </c:if>
        
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 68c037c9f9f0a2c41fd01e95a714a07e7a2f73fe
        <h1 style="color:white; display:inline" onclick="location.href='<c:url value="ordersAllList.oa"/>'"><strong>이전 거래내역</strong></h1>
 </div>
 <h1 id="clock"><strong></strong></h1>
@@ -59,7 +63,10 @@
 
 		<br>
 	</c:forEach>
+<<<<<<< HEAD
 	<div class="paging">${paging.pageHtml}</div>
+=======
+>>>>>>> 68c037c9f9f0a2c41fd01e95a714a07e7a2f73fe
 	
 	<div id="modal" class="modal-overlay">
 		<div class="modal-window" id="popupPrdCompare"
@@ -117,6 +124,7 @@
             }, 1000);
         };
     </script>
+<<<<<<< HEAD
 <script>
     function openStore() {
     	if(confirm("매장을 오픈하시겠습니까?")) {
@@ -130,6 +138,8 @@
     	} 
     }
 </script>
+=======
+>>>>>>> 68c037c9f9f0a2c41fd01e95a714a07e7a2f73fe
 <script type="text/javascript">
 	$(document).ready(function() {
 		
