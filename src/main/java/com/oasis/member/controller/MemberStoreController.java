@@ -45,6 +45,7 @@ public class MemberStoreController {
 //		Map<String, Object> map = memberStoreService.storeDetail(commandMap);
 		
 //		mv.addObject("map", map);
+
 		mv.addObject("list", list);
 		mv.addObject("book", book);
 		return mv;

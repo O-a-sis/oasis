@@ -11,6 +11,7 @@ public interface MemberStoreService {
 //	Map<String, Object> storeDetail(Map<String, Object> map) throws Exception;
 
 
+
 }
 
 

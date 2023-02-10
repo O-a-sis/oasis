@@ -19,4 +19,5 @@ public class StoreDetailDAO extends AbstractDAO{
 //		return (Map<String, Object>) selectOne("member.storeDetail", map);
 //}
 //	
+
 }
