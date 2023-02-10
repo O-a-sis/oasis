@@ -101,4 +101,17 @@
             }, 1000);
         };
     </script>
+<script>
+    function openStore() {
+    	if(confirm("매장을 오픈하시겠습니까?")) {
+    		location.href="/Oasis/store/open?STORE=${sessionScope.STORE}";
+    	} 
+    }
+    
+    function closeStore() {
+    	if(confirm("매장을 마감하시겠습니까?")) {
+    		location.href="/Oasis/store/close?STORE=${sessionScope.STORE}";
+    	} 
+    }
+</script>
 </html>

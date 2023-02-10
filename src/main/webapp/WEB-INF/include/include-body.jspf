@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-<%@ page pageEncoding="utf-8"%>
-<form id="commonForm" name="commonForm"></form>
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <form id="commonForm"></form>
->>>>>>> 22db703f45361d4ebb6619e460a3d8e9b6e789a0
