@@ -16,13 +16,12 @@ import com.oasis.admin.service.AdminNoticeService;
 import lombok.AllArgsConstructor;
 
 @Controller
-@RequestMapping("/admin/")
 @AllArgsConstructor
 public class AdminNoticeContorller {
 
 	private AdminNoticeService adminNoticeService;
 
-	@RequestMapping(value = "noticeList.oa")
+	@RequestMapping(value = "/admin/noticeList.oa")
 	public ModelAndView adminNoticeList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeList");
 
@@ -55,7 +54,7 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 상세보기
-	@RequestMapping(value = "noticeDetail.oa")
+	@RequestMapping(value = "/admin/noticeDetail.oa")
 	public ModelAndView adminNoticeDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeDetail");
 
@@ -66,41 +65,46 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 작성 폼
-	@RequestMapping(value = "noticeForm.oa")
+	@RequestMapping(value = "/admin/noticeForm.oa")
 	public ModelAndView adminNoticeForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeForm");
 
 		return mv;
 	}
 
+//	공지사항 작성 기능
+	@RequestMapping(value = "/admin/noticeWrite.oa")
+	public ModelAndView adminNoticeWrite(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
+
+		return mv;
+	}
+
 //	공지사항 수정 폼(추후 작성 폼 하나로 작성/수정 구현)
-	@RequestMapping(value = "UpdateForm.oa")
+	@RequestMapping(value = "/admin/UpdateForm.oa")
 	public ModelAndView adminNoticeUpdateForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeForm");
 
 		Map<String, Object> map = adminNoticeService.adminNoticeDetail(commandMap.getMap());
 		mv.addObject("N_IDX", commandMap.get("N_IDX"));
-		mv.addObject("map", map);
+		mv.addObject("map", map.get("map"));
 
 		return mv;
 	}
 
-//	공지사항 작성/수정 기능
-	@RequestMapping(value = "noticeSave.oa")
-	public ModelAndView adminNoticeSave(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
-		if (commandMap.get("N_IDX") == null) {
-			adminNoticeService.adminNoticeWrite(commandMap.getMap());
-		} else {
-			adminNoticeService.adminNoticeUpdate(commandMap.getMap());
-			mv.addObject("N_IDX", commandMap.get("N_IDX"));
-		}
+//	공지사항 수정 기능
+	@RequestMapping(value = "/admin/noticeUpdate.oa")
+	public ModelAndView adminNoticeUpdate(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/noticeDetail.fe");
 
+		adminNoticeService.adminNoticeUpdate(commandMap.getMap(), request);
+
+		mv.addObject("N_IDX", commandMap.get("N_IDX"));
 		return mv;
 	}
 
 //	공지사항 삭제 기능
-	@RequestMapping(value = "noticeDelete.oa")
+	@RequestMapping(value = "/admin/noticeDelete.oa")
 	public ModelAndView qnaDelete(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 

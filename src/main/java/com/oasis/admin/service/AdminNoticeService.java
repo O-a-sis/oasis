@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public interface AdminNoticeService {
 	
 	List<Map<String, Object>> adminNoticeList(Map<String, Object> map) throws Exception;  //공지사항 목록
@@ -15,7 +13,7 @@ public interface AdminNoticeService {
 	
 	void adminNoticeWrite(Map<String, Object> map) throws Exception; //공지사항 입력
 	
-	void adminNoticeUpdate(Map<String, Object> map) throws Exception;  //공지사항 수정
+	void adminNoticeUpdate(Map<String, Object> map, HttpServletRequest request) throws Exception;  //공지사항 수정
 	
 	void adminNoticeDelete(Map<String, Object> map) throws Exception;  //공지사항 삭제
 

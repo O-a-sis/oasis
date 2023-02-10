@@ -16,12 +16,16 @@ public interface StoreService {
 	public int closeStore(Map<String, Object> map) throws Exception;
 	
 	public List<Map<String, Object>> getOrdersList(Map<String, Object> map) throws Exception;
-	
-	public List<Map<String, Object>> getOrdersListByStatus(Map<String, Object> map) throws Exception;
+
+	public List<Map<String, Object>> getWaitingOrders(Map<String, Object> map) throws Exception;
 	
 	public int updateOrder(Map<String, Object> map) throws Exception;
+
+	public List<Map<String, Object>> getProcessingOrders(Map<String, Object> map) throws Exception;
 	
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception;
+	
+	public List<Map<String, Object>> getCompletedOrders(Map<String, Object> map) throws Exception;
 	
 	public Map<String, Object> getOrderDetail(String oidx) throws Exception;
 	
@@ -33,7 +37,7 @@ public interface StoreService {
 	
 	public Map<String, Object> getNoticeDetail(Map<String, Object> map) throws Exception;
 	
-	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception;
+	
 	
 
 }
