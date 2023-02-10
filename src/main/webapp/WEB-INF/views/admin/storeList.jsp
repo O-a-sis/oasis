@@ -216,13 +216,13 @@
 			<p>
 			<div class="joinokbtn">
 			<button class="jointruebtn" id="reg_submit" onclick="submit_ck(); return false;">
-				<i aria-hidden="true"></i>회원가입 완료</button>
-			</div>		
+				<i aria-hidden="true"></i>회원가입 완료
+			</button>		
 			<button type="button" class="close-area">닫기</button>
 			
 			</form>
 		</div>
-	
+
 </div>
 </div>
 

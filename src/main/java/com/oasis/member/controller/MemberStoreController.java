@@ -3,42 +3,54 @@ package com.oasis.member.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
+
+
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 import com.oasis.common.CommandMap;
 import com.oasis.member.service.*;
 
 import lombok.AllArgsConstructor;
 
-
+@RequestMapping("/member/")
 @Controller
 @AllArgsConstructor
 public class MemberStoreController {
 
-	private MemberStoreService memberstoreService;
-
-	@RequestMapping(value = "/member/StoreList.oa")
-	public ModelAndView storeList(Map<String, Object> commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/member/storeList");
-		
-		List<Map<String, Object>> list = memberstoreService.selectStoreList(commandMap);
-		
-		mv.addObject("list", list);
-		return mv;
-	}
-
-
-	@RequestMapping(value = "member/storeDetail.oa") // ajax??어캐넣지
-	public ModelAndView openStoreDetail(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/member/storeDetail");
-
-		Map<String, Object> map = memberstoreService.MemberStoreDetail(commandMap.getMap());
-		mv.addObject("map", map);
-
-		return mv;
-	}
-
+	@SuppressWarnings("unused")
+	private BookmarkService bookmarkService;
+	private MemberStoreService memberStoreService;
 	
+	@RequestMapping(value = "/storeList.oa")
+	public ModelAndView memberStoreList(Map<String, Object> commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("member/storeList");
+
+		
+		HttpSession session = request.getSession();
+		commandMap.put("B_PHONE", session.getAttribute("B_PHONE"));
+		
+	
+		List<Map<String, Object>> list = memberStoreService.getStoreList(commandMap);
+		List<Map<String, Object>> book = bookmarkService.getBookList(commandMap);
+		
+//		Map<String, Object> map = memberStoreService.storeDetail(commandMap);
+		
+//		mv.addObject("map", map);
+
+		mv.addObject("list", list);
+		mv.addObject("book", book);
+		return mv;
+	}
+
+
+
 }

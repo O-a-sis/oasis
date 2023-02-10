@@ -20,8 +20,6 @@ public interface AdminStoreService {
 
 	Map<String, Object> storeDetail(Map<String, Object> map) throws Exception;
 
-
 	
 	 	
-	}
-	
+}	

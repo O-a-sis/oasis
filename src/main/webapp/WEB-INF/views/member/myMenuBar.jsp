@@ -8,7 +8,7 @@
 <title>메뉴바</title>
 </head>
 <body>
-
+			<span><a href = '/Oasis/member/logout.oa'>로그아웃</a></span>
 			<h2>${map.B_NICKNAME } 님</h2>
 
 			<table>

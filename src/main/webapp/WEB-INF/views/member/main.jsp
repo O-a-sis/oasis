@@ -15,7 +15,7 @@
 	href="<c:url value='/css/main.css'/>" />
 <%@ include file="/WEB-INF/include/include-header.jspf"%>
 <meta charset="UTF-8">
-<title>Flee</title>
+<title>Oasis</title>
 
 </head>
 <body id="main">
@@ -23,7 +23,7 @@
 	<section class="maintop"> 
 		<div class="wrap">
 		<div class="logo">
-			<a href="index.html"><img src="images/common/logo.png" alt="로고" /></a>
+			<a href="index.html"><img src="../images/common/logo.png" alt="로고" /></a>
 		</div>
 		<div class="adtext">
 			<p>2023년 흑묘년</p>
@@ -34,17 +34,26 @@
 	<section class="myinfo">
 		<div class="infobox">
 			<div class="inforight">
-				<stong>00</stong>님
+				<c:choose>
+					<c:when test="${not empty sessionScope.B_NAME}">
+				<stong>${sessionScope.B_NAME }</stong>님
+					</c:when>
+				<c:otherwise>
+					<strong>Oasis</strong>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="infoleft">
 				<ul>
 					<li>Ostamp</li>
-					<li><strong>숫자</strong> / 10★ </li>
+					<li>
+					<strong>${map.STAMP }</strong> / 10★ 
+					</li>
 					<li class="stampbar"><progress id="progress" value="50" min="0" max="100"></progress></li>
 				</ul>
 			</div>
 			<div class="booklink"><ul>
-				<li>COUPON<i class="fa-solid fa-ticket"></i></li>
+				<li><a href='/Oasis/member/myCouponList.oa?CUB_IDX=${map.B_PHONE }'>COUPON<i class="fa-solid fa-ticket"></i></a></li>
 				<li>BOOKMARK<i class="fa-regular fa-bookmark"></i></li>
 			</ul> </div>
 		</div>

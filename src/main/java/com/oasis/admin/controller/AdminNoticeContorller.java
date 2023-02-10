@@ -1,12 +1,25 @@
 package com.oasis.admin.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oasis.common.CommandMap;
@@ -14,14 +27,16 @@ import com.oasis.common.util.Paging;
 import com.oasis.admin.service.AdminNoticeService;
 
 import lombok.AllArgsConstructor;
+import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
+@RequestMapping("/admin/")
 @AllArgsConstructor
 public class AdminNoticeContorller {
 
 	private AdminNoticeService adminNoticeService;
 
-	@RequestMapping(value = "/admin/noticeList.oa")
+	@RequestMapping(value = "noticeList.oa")
 	public ModelAndView adminNoticeList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeList");
 
@@ -54,7 +69,7 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 상세보기
-	@RequestMapping(value = "/admin/noticeDetail.oa")
+	@RequestMapping(value = "noticeDetail.oa")
 	public ModelAndView adminNoticeDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeDetail");
 
@@ -65,46 +80,107 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 작성 폼
-	@RequestMapping(value = "/admin/noticeForm.oa")
+	@RequestMapping(value = "noticeForm.oa")
 	public ModelAndView adminNoticeForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeForm");
 
 		return mv;
 	}
 
-//	공지사항 작성 기능
-	@RequestMapping(value = "/admin/noticeWrite.oa")
-	public ModelAndView adminNoticeWrite(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
-
-		return mv;
-	}
-
 //	공지사항 수정 폼(추후 작성 폼 하나로 작성/수정 구현)
-	@RequestMapping(value = "/admin/UpdateForm.oa")
+	@RequestMapping(value = "UpdateForm.oa")
 	public ModelAndView adminNoticeUpdateForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeForm");
 
 		Map<String, Object> map = adminNoticeService.adminNoticeDetail(commandMap.getMap());
 		mv.addObject("N_IDX", commandMap.get("N_IDX"));
-		mv.addObject("map", map.get("map"));
+		mv.addObject("map", map);
 
 		return mv;
 	}
 
-//	공지사항 수정 기능
-	@RequestMapping(value = "/admin/noticeUpdate.oa")
-	public ModelAndView adminNoticeUpdate(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/noticeDetail.fe");
+//	공지사항 작성/수정 기능
+	@RequestMapping(value = "noticeSave.oa")
+	public ModelAndView adminNoticeSave(CommandMap commandMap, MultipartFile[] N_IMAGE) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 
-		adminNoticeService.adminNoticeUpdate(commandMap.getMap(), request);
+		if (commandMap.get("N_IDX") == null) {
+			adminNoticeService.adminNoticeWrite(commandMap.getMap());
+		} else {
+			adminNoticeService.adminNoticeUpdate(commandMap.getMap());
+			mv.addObject("N_IDX", commandMap.get("N_IDX"));
+		}
 
-		mv.addObject("N_IDX", commandMap.get("N_IDX"));
 		return mv;
+	}
+
+	@GetMapping("/uploadAjax")
+	public void uploadForm() {
+		System.out.println("upload form");
+	}
+
+	private String getFolder() {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date date = new Date();
+
+		String str = sdf.format(date);
+
+		return str.replace("-", File.separator);
+	}
+
+	private boolean checkImageType(File file) {
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+
+			return contentType.startsWith("image");
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+		return false;
+	}
+
+	@RequestMapping(value = "uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> uploadAjaxPost(MultipartFile[] uploadFile) {
+
+		System.out.println("update ajax post..............");
+		
+		System.out.println(uploadFile);
+
+		String uploadFolder = "C:\\upload";
+
+		File uploadPath = new File(uploadFolder, getFolder());
+
+		System.out.println("upload path : " + uploadPath);
+
+		if (uploadPath.exists() == false) {
+			uploadPath.mkdirs();
+		}
+
+		for (MultipartFile multipartFile : uploadFile) {
+			System.out.println("--------------------------------------");
+			System.out.println("Upload File Name : " + multipartFile.getOriginalFilename());
+			System.out.println("Upload File Size : " + multipartFile.getSize());
+
+			String uploadFileName = multipartFile.getOriginalFilename();
+
+			System.out.println("only file name : " + uploadFileName);
+
+			try {
+				File saveFile = new File(uploadFolder, uploadFileName);
+				multipartFile.transferTo(saveFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 //	공지사항 삭제 기능
-	@RequestMapping(value = "/admin/noticeDelete.oa")
+	@RequestMapping(value = "noticeDelete.oa")
 	public ModelAndView qnaDelete(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 

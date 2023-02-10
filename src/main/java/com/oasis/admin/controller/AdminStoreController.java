@@ -31,8 +31,8 @@ public class AdminStoreController {
 
 		List<Map<String, Object>> listRank = adminStoreService.storeListRank(commandMap.getMap());
 		mv.addObject("listRank", listRank);
-
 		List<Map<String, Object>> list = adminStoreService.storeList(commandMap.getMap());
+		System.out.println();
 		mv.addObject("list", list);
 
 		return mv;

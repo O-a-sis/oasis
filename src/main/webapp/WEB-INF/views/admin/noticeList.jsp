@@ -1,22 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 </head>
 <body>
-	<div class="sub_visual">
-		<div class="wrap">
-			<strong>공지게시판</strong>
-			<p>판매자</p>
-		</div>
+	<div>
+		<h2 align="left">
+			<strong>공지사항</strong>
+		</h2>
 	</div>
-	<div class="noticeboard" style="height: 800px;">
+	<div>
+		<button class="writebtn" type="button"
+			onClick="location.href='noticeForm.oa'">글쓰기</button>
+	</div>
+	<p>
+	<hr>
+	</p>
+	<div class="noticeboard">
 		<div class="wrap">
 			<!-- 검색처리기능 -->
-			<div class="search">
+			<div class="search" align="center">
 				<form id="searchForm"
 					action="<c:url value='/admin/noticeList.oa' />" method="get">
 					<select class="searcht" name="type">
@@ -34,23 +39,20 @@
 					</button>
 				</form>
 			</div>
-			<div class="write" style="text-align: left">
-				<a class="write" href="<c:url value='/admin/noticeForm.oa' />"
-					class="btn" id="write">글쓰기</a>
 
-			</div>
-			<table class="board_list">
+			<table class="board_list" width="800px" height="300px"
+				cellpadding="5" align="center" border="0">
 				<thead>
-					<tr>
-						<th scope="col">글번호</th>
-						<th scope="col">제목</th>
-						<th scope="col">날짜</th>
+					<tr bgcolor="dcdcdc">
+						<th>글번호</th>
+						<th>제목</th>
+						<th>날짜</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody align="center">
 					<c:forEach var="item" items="${list}">
 						<tr>
-							<td>${item.N_IDX}</td>
+							<td align="center">${item.N_IDX}</td>
 							<c:if test="${item.N_TYPE eq 'B'}">
 								<c:set var="type" value="구매자" />
 							</c:if>
@@ -60,20 +62,17 @@
 							<c:if test="${item.N_TYPE eq 'E'}">
 								<c:set var="type" value="이벤트" />
 							</c:if>
-							<td style="text-align: left; padding: 0 10px;">
-<a style="color: #ff7f00" href='<c:url value="/admin/noticeDetail.oa?N_IDX=${item.N_IDX}"/>'>[${type}]${item.N_TITLE}</a></td>
+							<td><a style="color: #ff7f00"
+								href='<c:url value="/admin/noticeDetail.oa?N_IDX=${item.N_IDX}"/>'>[${type}]${item.N_TITLE}</a></td>
 							<td>${item.N_DATE}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
-		<div class="paging">${paging.pageHtml}</div>
+		<div class="paging" align="center">${paging.pageHtml}</div>
 	</div>
 </body>
-<script>
-	
-</script>
 </html>
 
 
