@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/include/include-header.jspf"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/WEB-INF/include/include-storeHeader.jspf"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,7 +98,7 @@
 						<col width="15%" />
 						<col width="20%" />
 					</colgroup>
-					<tr>
+					<tr align=center>
 						<td><span>${item.O_LIST}</span> <input type=hidden id="oidx"
 							value="${item.O_IDX}"> <input type=hidden id="otime"
 							value="${item.O_TIME}"></td>

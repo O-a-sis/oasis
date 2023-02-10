@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/include/include-header.jspf" %>
+<%@ include file="/WEB-INF/include/include-storeHeader.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +54,7 @@ table {font-size: 12pt;}
 					<c:if test="${item.N_TYPE eq 'S'}">본사 공지</c:if>
 					<c:if test="${item.N_TYPE eq 'E'}">이벤트</c:if>
 					</td>
-					<td><a href='<c:url value="/store/noticeDetail.oa?N_IDX=${item.N_IDX}&page=${param.page}"/>'>${item.N_TITLE}</a></td>							
+					<td><a href='<c:url value="/store/noticeDetail.oa?N_IDX=${item.N_IDX}&page=${page}"/>'>${item.N_TITLE}</a></td>							
 					<td align=center>${item.N_DATE}</td>
 				</tr>
 			</c:forEach>
@@ -95,5 +95,6 @@ table {font-size: 12pt;}
     		location.href="/Oasis/store/close?STORE=${sessionScope.STORE}";
     	} 
     }
+    
 </script>
 </html>

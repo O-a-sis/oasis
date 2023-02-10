@@ -79,16 +79,16 @@
 	
 	<!-- 지점의 오늘날짜 주문 리스트 상태별로 나누기(접수, 제조중, 제조완료) -->
 	<select id="getOrdersListByStatus" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
 	SELECT
-		*
+		ROW_NUMBER() OVER(ORDER BY O_DATE DESC) RNUM, O.*
 	FROM
-		ORDERS
+		ORDERS O
 	WHERE
 		O_STATUS = #{O_STATUS} AND
 		O_STORE = #{O_STORE} AND
 		TO_CHAR(O_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
-	ORDER BY
-		O_DATE DESC
+	<include refid="common.pagingPost" /> 
 	</select>
 
 
@@ -131,13 +131,16 @@
 
 	<!-- 재고관리 보기 -->
 	<select id="getStockList" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
 	SELECT
+		ROW_NUMBER() OVER(ORDER BY S.SP_IDX) RNUM, 
 		S.*, P.*
 	FROM
 		STATUS S, PRODUCT P
 	WHERE
 		SS_IDX = #{O_STORE} AND
 		S.SP_IDX = P.P_IDX
+	<include refid="common.pagingPost" /> 
 	</select>
 
 
@@ -157,7 +160,7 @@
 	<select id="getNoticeList" parameterType="hashmap" resultType="hashmap">
 	<include refid="common.pagingPre" /> 
 	SELECT
-		ROW_NUMBER() OVER(ORDER BY N_DATE DESC) RNUM, 
+		ROW_NUMBER() OVER(ORDER BY DECODE (N_TYPE, 'S', 1), N_DATE DESC) RNUM, 
 		N_IDX, 
 		N_TITLE, 
 		N_DATE, 
@@ -182,14 +185,20 @@
 	
 	<!-- 지점의 모든 주문내역 리스트 -->
 	<select id="getOrdersAllList" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
 	SELECT
-		*
+		ROW_NUMBER() OVER(ORDER BY O_DATE DESC) RNUM, O.*
 	FROM
-		ORDERS
+		ORDERS O
 	WHERE
-		O_STORE = #{O_STORE}
+		O_STORE = #{O_STORE} 
+		<if test="DATE!=null and !DATE.equals('null')">
+		AND
+		TO_CHAR(O_DATE, 'yyyy-mm-dd') = #{DATE}
+		</if>
 	ORDER BY
 		O_DATE DESC
+	<include refid="common.pagingPost" /> 
 	</select>
 
 </mapper>

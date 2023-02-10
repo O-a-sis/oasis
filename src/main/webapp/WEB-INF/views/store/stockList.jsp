@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/include/include-header.jspf" %>
+<%@ include file="/WEB-INF/include/include-storeHeader.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,6 +59,7 @@
 
 		<br>
 	</c:forEach>
+	<div class="paging">${paging.pageHtml}</div>
 	
 	<div id="modal" class="modal-overlay">
 		<div class="modal-window" id="popupPrdCompare"
