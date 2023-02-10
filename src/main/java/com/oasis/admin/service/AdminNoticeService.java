@@ -3,10 +3,6 @@ package com.oasis.admin.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.web.multipart.MultipartFile;
-
 public interface AdminNoticeService {
 	
 	List<Map<String, Object>> adminNoticeList(Map<String, Object> map) throws Exception;  //공지사항 목록
