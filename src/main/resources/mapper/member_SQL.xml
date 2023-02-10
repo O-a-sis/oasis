@@ -92,7 +92,7 @@ SELECT *
 ]]>
 	</select>
 
-
+	<!-- 이미지???????  -->
 <select id="selectImageList" parameterType="hashmap"
 		resultType="hashmap">
 	<![CDATA[
@@ -104,7 +104,9 @@ SELECT *
          
 	]]>
 	</select>
-
+	
+	
+	<!-- 내 스탬프  -->
 	<select id="myStamp" parameterType="hashmap"
 		resultType="hashmap">
 	<![CDATA[
@@ -116,6 +118,33 @@ SELECT *
          B_PHONE=#{B_PHONE}
 	]]>
 	</select>
+	
+	  <!-- 공지사항 리스트 -->
+	<select id="noticeList" parameterType="hashmap"
+		resultType="hashmap">
+		<include refid="common.pagingPre" /> 
+		<![CDATA[
+	      SELECT ROW_NUMBER() OVER(ORDER BY N_DATE DESC) RNUM,
+	             N_IDX, N_TITLE, N_CONTENT, N_DATE, N_IMAGE, N_TYPE 
+	      FROM
+   		         NOTICE
+   		  WHERE
+   		  		NOT N_TYPE = 'S'
+			]]>
+		<include refid="common.pagingPost" />
+	</select>
 
+	<!-- 공지사항 디테일 -->
+	<select id="noticeDetail" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+		SELECT 
+				N_IDX, N_TITLE, N_CONTENT, N_DATE, N_IMAGE,N_TYPE 
+		FROM 
+				NOTICE 
+		WHERE 
+				N_IDX =#{N_IDX}
+		]]>
+		</select>
 
 </mapper>
