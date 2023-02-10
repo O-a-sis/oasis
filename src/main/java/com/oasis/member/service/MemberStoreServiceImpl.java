@@ -26,12 +26,17 @@ public class MemberStoreServiceImpl implements MemberStoreService {
 		return  memberStoreDAO.getStoreList(map);
 		}
 
-	@Override
-	public Map<String, Object> storeDetail(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		return memberStoreDAO.storeDetail(map);
-	}
-
+//	@Override
+//	public Map<String, Object> storeDetail(Map<String, Object> map) throws Exception {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Map<String, Object> storeDetail(Map<String, Object> map) throws Exception {
+//		// TODO Auto-generated method stub
+//		return memberStoreDAO.storeDetail(map);
+//	}
 
 
 }
