@@ -33,5 +33,4 @@ public class MemberStoreServiceImpl implements MemberStoreService {
 		}
 	
 
-
 }

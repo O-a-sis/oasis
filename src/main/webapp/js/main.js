@@ -68,7 +68,7 @@ $(document).ready(function(){
 	
 	});
 	
-	
+
 	var pc_mobile;
 	if(window_w>390){
 		pc_mobile = "pc";
@@ -80,10 +80,12 @@ $(document).ready(function(){
 		if(window_w>640){
 			if(pc_mobile == "mobile"){
 				$("header .h_top .login").show();
+
 				$("header .gnb_mobile .menu_top").show();
 				$("header .gnb_mobile .m_slide .menu_sub").show();
 				$("header .gnb_mobile .m_slide .gnb_close").show();
 				$("header .gnb_mobile .m_slide .gnb_bg").show();
+
 		
 				$("body").css({overflow : "auto"}).unbind('touchmove');
 				pc_mobile = "mobile";
@@ -92,12 +94,12 @@ $(document).ready(function(){
 		}else{
 			if(pc_mobile == "pc"){//mobile로 전환된 순간
 				$("header .h_top .login").show();
+
 				pc_mobile = "mobile";
 				console.log(pc_mobile);
 			}
 		}
 	}	
-
 
 	
 });

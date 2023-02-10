@@ -22,6 +22,11 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 	public List<Map<String, Object>> storeList(Map<String, Object> map) throws Exception {
 		return adminStoreDAO.storeList(map);
 	}
+	
+	@Override
+	public List<Map<String, Object>> storeListRank(Map<String, Object> map) throws Exception {
+		return adminStoreDAO.storeListRank(map);
+	}
 
 
 	@Override
