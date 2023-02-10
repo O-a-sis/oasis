@@ -80,5 +80,11 @@ public class KakaoPayController {
 		}
 		return "";
 	}
+	
+	@GetMapping("/kakaoMapTest")
+	public ModelAndView kakaoMapTest() {
+		ModelAndView mv = new ModelAndView("kakaoMapTest");
+		return mv;
+	}
 
 }
