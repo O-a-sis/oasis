@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.MediaType;
@@ -21,8 +22,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.oasis.common.CommandMap;
+import com.oasis.member.service.MemberStoreService;
+
+import lombok.AllArgsConstructor;
+
 @RestController
+@AllArgsConstructor
 public class KakaoPayController {
+	
+	private MemberStoreService memberStoreService;
 
 	@GetMapping("/kakaotest")
 	public ModelAndView kakaotest() {
@@ -82,8 +91,12 @@ public class KakaoPayController {
 	}
 	
 	@GetMapping("/kakaoMapTest")
-	public ModelAndView kakaoMapTest() {
+	public ModelAndView kakaoMapTest(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("kakaoMapTest");
+		
+		List<Map<String, Object>> list = memberStoreService.getStoreList(commandMap.getMap());
+		
+		mv.addObject("list",list);
 		return mv;
 	}
 
