@@ -167,7 +167,7 @@
 			<!-- 비밀번호 -->
 			<div class="joinfom">
 				<label for="jointit">지점PW</label><br />
-				<input class="putfom" type="password" class="form-control" id="S_PASSWORD" name="S_PASSWORD"
+				<input class="putfom" type="text" class="form-control" id="S_PASSWORD" name="S_PASSWORD"
 					placeholder="비밀번호 입력하세요" class="form-control" required />
 				<label id="PASSWORDW"></label>
 			</div>
@@ -216,13 +216,13 @@
 			<p>
 			<div class="joinokbtn">
 			<button class="jointruebtn" id="reg_submit" onclick="submit_ck(); return false;">
-				<i aria-hidden="true"></i>회원가입 완료
-			</button>		
+				<i aria-hidden="true"></i>회원가입 완료</button>
+			</div>		
 			<button type="button" class="close-area">닫기</button>
 			
 			</form>
 		</div>
-
+	
 </div>
 </div>
 
