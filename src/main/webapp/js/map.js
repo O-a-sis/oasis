@@ -1,11 +1,8 @@
 $(document).ready(function(){
 	
-
-
-	
-	$("header .gnb .open").on("click", function(){
-		$("header .gnb .menu_slide").animate({
-			left:0
+	$(".maplin #map div>div>div>div").on("click", function(){
+		$(".maplin #map div>div>div>div>div .markerinfo").animate({
+			left:40
 		  }, 400);
 
 	});
