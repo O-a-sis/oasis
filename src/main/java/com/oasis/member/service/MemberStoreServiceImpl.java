@@ -23,14 +23,15 @@ public class MemberStoreServiceImpl implements MemberStoreService {
 
 	@Override
 	public List<Map<String, Object>> getStoreList(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
 		return  memberStoreDAO.getStoreList(map);
 		}
 
 	@Override
-	public List<Map<String, Object>> getBookList(Map<String, Object> map) throws Exception {
-		return  memberStoreDAO.getBookList(map);
-		}
-	
+	public Map<String, Object> storeDetail(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return memberStoreDAO.storeDetail(map);
+	}
+
+
 
 }

@@ -3,10 +3,9 @@
 
 <mapper namespace="bookmark">
 
-
 	<select id="getBookList" parameterType="hashmap"
 		resultType="hashmap">
-		SELECT ROW_NUMBER() OVER(ORDER BY STORE DESC) RNUM, STORE, ADDRESS1, ADDRESS2, S_PHONE, 
+		SELECT ROW_NUMBER() OVER(ORDER BY STORE DESC) RNUM, STORE, ADDRESS1, ADDRESS2, S_PHONE ,
 		b.* FROM S_MEMBER s, BOOKMARK b WHERE s.STORE=b.B_STORE AND BB_IDX = #{B_PHONE}
 	</select>
 </mapper>
