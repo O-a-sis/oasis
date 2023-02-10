@@ -14,16 +14,21 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/admin/")
 public class AdminStoreController {
 
 	private AdminStoreService adminStoreService;
 
 	// 관리자 - 지점 리스트 (+매출)
-	@RequestMapping(value = "/admin/storeList.oa")
+	@RequestMapping(value = "/storeList.oa")
 	public ModelAndView storeList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/storeList");
 
+		List<Map<String, Object>> listRank = adminStoreService.storeListRank(commandMap.getMap());
+		mv.addObject("listRank", listRank);
+		
 		List<Map<String, Object>> list = adminStoreService.storeList(commandMap.getMap());
+		System.out.println();
 		mv.addObject("list", list);
 
 		return mv;
@@ -31,7 +36,7 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점 회원가입폼
-	@RequestMapping(value = "/admin/openStoreJoin.oa")
+	@RequestMapping(value = "/openStoreJoin.oa")
 	public ModelAndView openStoreJoin(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/storeJoin");
 
@@ -39,9 +44,9 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점 회원가입등록
-	@RequestMapping(value = "/admin/storeJoin.oa")
+	@RequestMapping(value = "/storeJoin.oa")
 	public ModelAndView noticeWrite(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/storeList.oa");
+		ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
 
 		adminStoreService.storeJoin(commandMap.getMap());
 
@@ -49,7 +54,7 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점 상세보기
-	@RequestMapping(value = "/admin/storeDetail.oa")
+	@RequestMapping(value = "/storeDetail.oa")
 	public ModelAndView storeDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/storeDetail");
 
@@ -61,7 +66,7 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점수정
-	@RequestMapping(value = "/admin/storeUpdate.oa")
+	@RequestMapping(value = "/storeUpdate.oa")
 	public ModelAndView storeUpdate(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/storeDetail.oa");
 
@@ -72,7 +77,7 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점폐쇄 버튼 눌렀을 때 (목록으로 넘어감)
-	@RequestMapping(value = "/admin/storeDown.oa")
+	@RequestMapping(value = "/storeDown.oa")
 	public ModelAndView storeDown(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/storeList.oa");
 

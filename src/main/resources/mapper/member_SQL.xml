@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+		<!-- insertMember(회원가입) -->
+	<insert id="insertMember" parameterType="hashmap">
+<![CDATA[
+INSERT INTO 
+		B_MEMBER 
+		(B_PHONE, B_PASSWORD, B_NAME, B_BIRTH, B_NICKNAME, B_DATE, STAMP)
+	VALUES
+		( #{B_PHONE},
+		#{B_PASSWORD},
+		#{B_NAME},
+		#{B_BIRTH},
+		#{B_NICKNAME},
+		SYSDATE,
+		0)
+]]>
+	</insert>
+
+	<!-- 로그인 -->
+<select id="getMember" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+	FROM 
+		B_MEMBER
+	WHERE
+		B_PHONE=#{B_PHONE}
+]]>
+	</select>
+
+<!-- findPassword(비밀번호 찾기) -->
+	<select id="findPassword" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+	FROM 
+		B_MEMBER
+	WHERE 
+		B_PHONE=#{B_PHONE} AND B_NAME=#{B_NAME}
+]]>
+	</select>
+
+		<!-- 메뉴바 -->
+<select id="myMenuBar" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+   FROM 
+      B_MEMBER
+   WHERE
+     B_PHONE=#{B_PHONE}
+]]>
+	</select>
+
+	<!-- 쿠폰 목록 -->
+<select id="myCouponList" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+	FROM 
+		COUPON C
+	WHERE 
+		CUB_IDX=#{CUB_IDX}
+]]>
+	</select>
+
+	<!-- 주문 내역 -->
+<select id="myOrderList" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+   FROM 
+      ORDERS
+   WHERE
+      OB_IDX=#{OB_IDX}
+]]>
+	</select>
+
+
+	<!-- 주문내역 상세 -->
+<select id="myOrderDetail" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT * 
+	FROM 
+		ORDERS
+	WHERE
+		O_IDX=#{O_IDX}
+]]>
+	</select>
+
+
+<select id="selectImageList" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+	 SELECT 
+         P_IMG
+   FROM 
+        PRODUCT
+   WHERE
+         
+	]]>
+	</select>
+
+	<select id="myStamp" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+	 SELECT 
+         *
+   FROM 
+        B_MEMBER
+   WHERE
+         B_PHONE=#{B_PHONE}
+	]]>
+	</select>
+
+
+<!-- 매장리스트 -->
+	<select id="getStoreList" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT 
+			STORE, S_NAME,  ADDRESS1, ADDRESS2, S_STATUS, S_PHONE
+			FROM  S_MEMBER 
+		]]>
+	</select>
+<!-- 매장디테일 -->
+	<select id="storeDetail" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				S_MEMBER
+			WHERE
+				STORE = #{STORE}		
+		]]>
+	</select>
+</mapper>
