@@ -61,20 +61,19 @@
 
 
 					<div class="mapline">
-						<div id="map" style="width: 330px; height: 200px;"></div>
+						<div id="map" style="width: 100%; height: 97%;"></div>
 					</div>
 					<div class="storelist">
-						<ul>
+						<ul class="storeul">
 							<c:forEach var="item" items="${list}">
 								<li class="listline">
 									<ul class="ulinner">
 										<li class="innerl"><img src="images/common/logo.png"></li>
 										<li class="innerl"><strong>${item.S_NAME}</strong>
 										<li class="innerl">${item.ADDRESS1}</li>
-										<li class="innerl"><i class="fa-regular fa-star"></i></li>
-
+										<li class="innerl">
 										<li class="mo" id="storemodal"><input type="hidden"
-											value="${item.S_NAME}" name="s_name"> <input
+											value="${item.STORE}" name="s_name"> <input
 											type="hidden" id="${item.ADDRESS1}" name="address1">
 											<input type="hidden" value="${item.ADDRESS2}" name="address2">
 											<input type="hidden" value="${item.S_PHONE}" name="s_phone">
@@ -84,15 +83,6 @@
 									</ul>
 								</li>
 							</c:forEach>
-							<!-- 							<li class="listline"> -->
-							<!-- 								<ul class="ulinner"> -->
-							<!-- 									<li class="innerl"><img src="images/common/logo.png"></li> -->
-							<!-- 									<li class="innerl"><strong>성균관대점</strong> -->
-							<!-- 									<li class="innerl">주소주소주소</li> -->
-							<!-- 									<li class="innerl"><i class="fa-regular fa-star"></i></li> -->
-							<!-- 								</ul> -->
-
-							<!-- 							</li> -->
 						</ul>
 					</div>
 				</div>
@@ -104,41 +94,40 @@
 					<div class="mapper">
 						<div class="storelist2">
 							<ul>
-								<li class="listline">
-									<ul class="ulinner">
-										<li class="innerl"><img src="images/common/logo.png"></li>
-										<li class="innerl"><strong>종각점</strong> <c:if
-												test="${not empty sessionScope.B_PHONE}">
-												<a href="" id="storemodal"></a>
-											</c:if></li>
-										<li class="innerl">주소주소주소</li>
-										<li class="innerl"><i class="fa-regular fa-star"></i></li>
-									</ul>
+								<c:forEach var="item2" items="${book}">
+									<li class="listline">
+										<ul class="ulinner">
+											<li class="innerl"><img src="images/common/logo.png"></li>
+											<li class="innerl"><strong>${item2.S_NAME}</strong>
+											<li class="innerl">${item2.ADDRESS1}</li>
+											<li class="innerl"><c:if test="${item2.BS_NAME} not empty"><i class="fa-regular fa-star"></i></c:if>흠</li>
 
-								</li>
-								<li class="listline">
-									<ul class="ulinner">
-										<li class="innerl"><img src="images/common/logo.png"></li>
-										<li class="innerl"><strong>성균관대점</strong>
-										<li class="innerl">주소주소주소</li>
-										<li class="innerl"><i class="fa-regular fa-star"></i></li>
-									</ul>
+											<li class="mo" id="storemodal"><input type="hidden"
+												value="${item2.S_NAME}" name="s_name"> <input
+												type="hidden" id="${item2.ADDRESS1}" name="address1">
+												<input type="hidden" value="${item2.ADDRESS2}"
+												name="address2"> <input type="hidden"
+												value="${item2.S_PHONE}" name="s_phone"></li>
 
-								</li>
+										</ul>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div id="mapinfo" style="display: none; position: absolute;">
+				장난해?<span class="makerinfo2"></span>
+			</div>
 
-			<!-- 매장모달 -->
 			<div id="storemodal" class="modal-overlay wrap">
 				<div class="modal-window wrap">
 					<div class="modalcon">
 						<div class="m_title">
 							<div class="close-area">X</div>
 							<h3>
-								<span class="sname"></span><i class="fa-regular fa-star"></i>
+								<span class="storename"></span><i class="fa-regular fa-star"></i>
 							</h3>
 							<span id="name"></span> <span></span>
 
@@ -149,6 +138,8 @@
 					</div>
 				</div>
 			</div>
+
+
 		</section>
 	</div>
 </body>
@@ -157,99 +148,49 @@
 	
 </script>
 <script src="<c:url value='/js/tab.js'/>"></script>
+<script src="<c:url value='/js/map.js'/>"></script>
 <script>
-	var container = document.getElementById('map');
-	var options = {
-		center : new kakao.maps.LatLng(33.450701, 126.570667),
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+		center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 		level : 3
+	// 지도의 확대 레벨
 	};
 
-	var map = new kakao.maps.Map(container, options);
-</script>
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+	//마커를 표시할 위치입니다 
+	var position = new kakao.maps.LatLng(33.450701, 126.570667);
 
-<script>
-var name =$('#s_name').val();
-var phone =$('#s_phone').val();
-var address1 =$('#address1').val();
-var address2 =$('#address2').val();
+	//마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+		position : position,
+		clickable : true
+	// 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+	});
 
-console.log(address2,phone);
+	//아래 코드는 위의 마커를 생성하는 코드에서 clickable: true 와 같이
+	//마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+	//marker.setClickable(true);
 
+	//마커를 지도에 표시합니다.
+	marker.setMap(map);
 
-</script>
+	//마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+	// var iwContent = '<div class="markerinfo" style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	// iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
+	//인포윈도우를 생성합니다
+	// var infowindow = new kakao.maps.InfoWindow({
+	// content : iwContent,
+	// removable : iwRemoveable
+	// });
 
-<script>
-	$(document).ready(function() {
-		
-		/* 모달 관련 변수 선언 */
-		let modal = $("#storemodal");
-		let modalInputStorename = modal.find("input[name='s_name']");
-		let modalInputStoreAds = modal.find("input[name='address1']");
-		let modalInputStorePhone = modal.find("input[name='s_phone']");
-		
-		
-		$(".storelist").on("click","ul li.listline",function(){
-	 		$(".storename").html($(this).closest("li").find("input[name=sname]").val());
-	 		modalInputStorename.val($(this).closest("li").find("input[name=sname]").val());
-			modalOn();
-			
-		});
+	//마커에 클릭이벤트를 등록합니다
+	kakao.maps.event.addListener(marker, 'click', function() {
 
- 		let rankRegisterBtn = $("#rankRegisterBtn");
-
-		/*모달확정*/
- 		rankRegisterBtn.on("click", function(e) {
-			var rank = {
-					M_NICKNAME : modalInputNickname.val(),
-					RANK : $('select[name=selectRank]').val()
-			};
-			
-			rankService.update(rank, function(result) {
-				alert("등급이 변경되었습니다.");
-				
-			});
-			modalOff();
-			location.reload();
-		}); 
-
-		 
 	});
 </script>
 
-<script>
-	
-	const modal = document.getElementById("storemodal");
 
-	function modalOn() {
-	    modal.style.display = "flex"
-	}
-	function isModalOn() {
-	    return modal.style.display === "flex"
-	}
-	function modalOff() {
-	    modal.style.display = "none"
-	}
-	
-	const closeBtn = modal.querySelector(".close-area")
-	closeBtn.addEventListener("click", e => {
-	    modalOff()
-	});
-	modal.addEventListener("click", e => {
-	    const evTarget = e.target
-	    if(evTarget.classList.contains("modal-overlay")) {
-	        modalOff()
-	    }
-	});
-	window.addEventListener("keyup", e => {
-	    if(isModalOn() && e.key === "Escape") {
-	        modalOff()
-	    }
-	});
-	const testScrPop = $('modal-window');
-   testScrPop.scroll(function(){
-   const $this = $(this);
-});
-</script>
 </html>

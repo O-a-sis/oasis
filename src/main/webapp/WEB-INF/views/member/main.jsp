@@ -15,7 +15,7 @@
 	href="<c:url value='/css/main.css'/>" />
 <%@ include file="/WEB-INF/include/include-header.jspf"%>
 <meta charset="UTF-8">
-<title>Flee</title>
+<title>Oasis</title>
 
 </head>
 <body id="main">
@@ -23,7 +23,7 @@
 	<section class="maintop"> 
 		<div class="wrap">
 		<div class="logo">
-			<a href="index.html"><img src="images/common/logo.png" alt="로고" /></a>
+			<a href="index.html"><img src="../images/common/logo.png" alt="로고" /></a>
 		</div>
 		<div class="adtext">
 			<p>2023년 흑묘년</p>
