@@ -64,7 +64,7 @@
 						<div id="map" style="width: 330px; height: 200px;"></div>
 					</div>
 					<div class="storelist">
-						<ul>
+						<ul class="storeul">
 							<c:forEach var="item" items="${list}">
 								<li class="listline">
 									<ul class="ulinner">
@@ -84,15 +84,6 @@
 									</ul>
 								</li>
 							</c:forEach>
-							<!-- 							<li class="listline"> -->
-							<!-- 								<ul class="ulinner"> -->
-							<!-- 									<li class="innerl"><img src="images/common/logo.png"></li> -->
-							<!-- 									<li class="innerl"><strong>성균관대점</strong> -->
-							<!-- 									<li class="innerl">주소주소주소</li> -->
-							<!-- 									<li class="innerl"><i class="fa-regular fa-star"></i></li> -->
-							<!-- 								</ul> -->
-
-							<!-- 							</li> -->
 						</ul>
 					</div>
 				</div>
@@ -104,27 +95,25 @@
 					<div class="mapper">
 						<div class="storelist2">
 							<ul>
+							<c:forEach var="item2" items="${book}">
 								<li class="listline">
 									<ul class="ulinner">
 										<li class="innerl"><img src="images/common/logo.png"></li>
-										<li class="innerl"><strong>종각점</strong> <c:if
-												test="${not empty sessionScope.B_PHONE}">
-												<a href="" id="storemodal"></a>
-											</c:if></li>
-										<li class="innerl">주소주소주소</li>
+										<li class="innerl"><strong>${item2.B_STORE}</strong>
+										<li class="innerl">${item2.ADDRESS1}</li>
 										<li class="innerl"><i class="fa-regular fa-star"></i></li>
-									</ul>
 
-								</li>
-								<li class="listline">
-									<ul class="ulinner">
-										<li class="innerl"><img src="images/common/logo.png"></li>
-										<li class="innerl"><strong>성균관대점</strong>
-										<li class="innerl">주소주소주소</li>
-										<li class="innerl"><i class="fa-regular fa-star"></i></li>
-									</ul>
+										<li class="mo" id="storemodal"><input type="hidden"
+											value="${item2.S_NAME}" name="s_name"> <input
+											type="hidden" id="${item2.ADDRESS1}" name="address1">
+											<input type="hidden" value="${item2.ADDRESS2}" name="address2">
+											<input type="hidden" value="${item2.S_PHONE}" name="s_phone">
 
+										</li>
+
+									</ul>
 								</li>
+							</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -132,23 +121,23 @@
 			</div>
 
 			<!-- 매장모달 -->
-			<div id="storemodal" class="modal-overlay wrap">
-				<div class="modal-window wrap">
-					<div class="modalcon">
-						<div class="m_title">
-							<div class="close-area">X</div>
-							<h3>
-								<span class="sname"></span><i class="fa-regular fa-star"></i>
-							</h3>
-							<span id="name"></span> <span></span>
+<!-- 			<div id="storemodal" class="modal-overlay wrap"> -->
+<!-- 				<div class="modal-window wrap"> -->
+<!-- 					<div class="modalcon"> -->
+<!-- 						<div class="m_title"> -->
+<!-- 							<div class="close-area">X</div> -->
+<!-- 							<h3> -->
+<!-- 								<span class="storename"></span><i class="fa-regular fa-star"></i> -->
+<!-- 							</h3> -->
+<!-- 							<span id="name"></span> <span></span> -->
 
-							<div class="storebtn">
-								<button type="button" id='modalstoreBtn'>주문하기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+<!-- 							<div class="storebtn"> -->
+<!-- 								<button type="button" id='modalstoreBtn'>주문하기</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 		</section>
 	</div>
 </body>
@@ -168,62 +157,15 @@
 </script>
 
 
-<script>
-var name =$('#s_name').val();
-var phone =$('#s_phone').val();
-var address1 =$('#address1').val();
-var address2 =$('#address2').val();
-
-console.log(address2,phone);
-
-
-</script>
 
 
 <script>
-	$(document).ready(function() {
-		
-		/* 모달 관련 변수 선언 */
-		let modal = $("#storemodal");
-		let modalInputStorename = modal.find("input[name='s_name']");
-		let modalInputStoreAds = modal.find("input[name='address1']");
-		let modalInputStorePhone = modal.find("input[name='s_phone']");
-		
-		
-		$(".storelist").on("click","ul li.listline",function(){
-	 		$(".storename").html($(this).closest("li").find("input[name=sname]").val());
-	 		modalInputStorename.val($(this).closest("li").find("input[name=sname]").val());
-			modalOn();
-			
-		});
-
- 		let rankRegisterBtn = $("#rankRegisterBtn");
-
-		/*모달확정*/
- 		rankRegisterBtn.on("click", function(e) {
-			var rank = {
-					M_NICKNAME : modalInputNickname.val(),
-					RANK : $('select[name=selectRank]').val()
-			};
-			
-			rankService.update(rank, function(result) {
-				alert("등급이 변경되었습니다.");
-				
-			});
-			modalOff();
-			location.reload();
-		}); 
-
-		 
-	});
-</script>
-
-<script>
-	
+	/*
 	const modal = document.getElementById("storemodal");
 
 	function modalOn() {
 	    modal.style.display = "flex"
+	    	 modal.style.block = "flex"
 	}
 	function isModalOn() {
 	    return modal.style.display === "flex"
@@ -250,6 +192,7 @@ console.log(address2,phone);
 	const testScrPop = $('modal-window');
    testScrPop.scroll(function(){
    const $this = $(this);
-});
+});*/
 </script>
+
 </html>

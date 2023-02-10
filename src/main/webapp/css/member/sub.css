@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
-@import url(default.css);
+@import url(../default.css);
 
-@import url(common.css);
+@import url(../common.css);
 
 @import url(main.css);
 
@@ -139,7 +139,6 @@
     top: 10px;
 }
 
-.store .store_mark .mapper
 .store .store_mark .mapper .storelist2 {
 	margin-top: 10px
 }
@@ -206,16 +205,18 @@
 }
 
 #storemodal .modal-window {
-	background: #FFF;
-	backdrop-filter: blur(13.5px);
-	border-radius: 10px;
-	border: 1px solid #9d9d9d;
-	width: 500px;
-	height: 510px;
-	position: relative;
-	top: 100px;
-	padding: 10px;
-	text-align: left;
+background: #FFF;
+    backdrop-filter: blur(13.5px);
+    border-radius: 10px;
+    border: 1px solid #9d9d9d;
+    width: 80%;
+    height: 50%;
+    position: fixed;
+    top: 14%;
+    padding: 10px;
+    text-align: left;
+    z-index: 100;
+}
 }
 
 #storemodal .title {

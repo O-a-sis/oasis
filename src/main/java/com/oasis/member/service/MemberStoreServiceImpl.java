@@ -10,33 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
-import com.oasis.member.dao.*;
+import com.oasis.member.dao.MemberStoreDAO;
 
 import lombok.AllArgsConstructor;
 
-@Service("memberstoreService")
+@Service("memberStoreService")
 @AllArgsConstructor
 public class MemberStoreServiceImpl implements MemberStoreService {
 
+	@SuppressWarnings("unused")
 	private MemberStoreDAO memberStoreDAO;
 
 	@Override
-	public List<Map<String, Object>> selectStoreList(Map<String, Object> map) throws Exception {
-	
-		return memberStoreDAO.selectStoreList(map);
-	}
-
+	public List<Map<String, Object>> getStoreList(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return  memberStoreDAO.getStoreList(map);
+		}
 
 	@Override
-	public Map<String, Object> MemberStoreDetail(Map<String, Object> map) throws Exception {
+	public List<Map<String, Object>> getBookList(Map<String, Object> map) throws Exception {
+		return  memberStoreDAO.getBookList(map);
+		}
 	
-
-		return memberStoreDAO.memberstoreDetail(map);
-	}
-
-
-
-
 
 
 }

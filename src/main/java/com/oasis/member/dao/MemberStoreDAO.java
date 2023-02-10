@@ -12,15 +12,15 @@ import com.oasis.common.dao.AbstractDAO;
 @Repository("MemberStoreDAO")
 public class MemberStoreDAO extends AbstractDAO{
 
+
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectStoreList(Map<String, Object> map) {
-		return (List<Map<String, Object>>)selectList("memberstore.selectStoreList", map);
+	public List<Map<String, Object>> getStoreList(Map<String, Object> map) {
+		return (List<Map<String, Object>>)selectList("memberstore.getStoreList", map);
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> memberstoreDetail(Map<String, Object> map) {
-		return (Map<String, Object>)selectOne("memberstore.memberstoreDetail", map);
+	public List<Map<String, Object>> getBookList(Map<String, Object> map) {
+		return (List<Map<String, Object>>)selectList("bookmark.getBookList", map);
 	}
-
 	
 }

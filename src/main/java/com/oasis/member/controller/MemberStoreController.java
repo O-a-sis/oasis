@@ -7,6 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+
 import com.oasis.common.CommandMap;
 import com.oasis.member.service.*;
 
@@ -17,28 +22,26 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MemberStoreController {
 
-	private MemberStoreService memberstoreService;
+	@SuppressWarnings("unused")
+	private MemberStoreService memberStoreService;
 
 	@RequestMapping(value = "/member/StoreList.oa")
-	public ModelAndView storeList(Map<String, Object> commandMap) throws Exception {
+	public ModelAndView memberStoreList(Map<String, Object> commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/member/storeList");
 		
-		List<Map<String, Object>> list = memberstoreService.selectStoreList(commandMap);
+		String subUrl = "&B_PHONE=" + commandMap.get("B_PHONE");
+		String url = "/member/StoreList.oa";
+		
+		
+		List<Map<String, Object>> list = memberStoreService.getStoreList(commandMap);
+		List<Map<String, Object>> bookmarklist = memberStoreService.getBookList(commandMap);
 		
 		mv.addObject("list", list);
+		mv.addObject("book", bookmarklist);
 		return mv;
 	}
 
 
-	@RequestMapping(value = "member/storeDetail.oa") // ajax??어캐넣지
-	public ModelAndView openStoreDetail(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/member/storeDetail");
-
-		Map<String, Object> map = memberstoreService.MemberStoreDetail(commandMap.getMap());
-		mv.addObject("map", map);
-
-		return mv;
-	}
 
 	
 }
