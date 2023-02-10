@@ -147,4 +147,25 @@ SELECT *
 		]]>
 		</select>
 
+<!-- 매장리스트 -->
+	<select id="getStoreList" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT 
+			STORE, S_NAME,  ADDRESS1, ADDRESS2, S_STATUS, S_PHONE
+			FROM  S_MEMBER 
+		]]>
+	</select>
+<!-- 매장디테일 -->
+	<select id="storeDetail" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				S_MEMBER
+			WHERE
+				STORE = #{STORE}		
+		]]>
+	</select>
 </mapper>
