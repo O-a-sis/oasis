@@ -44,10 +44,10 @@ public class StoreServiceImpl implements StoreService {
 	public List<Map<String, Object>> getOrdersList(Map<String, Object> map) throws Exception {
 		return storeDAO.getOrdersList(map);
 	}
-	
+
 	@Override
-	public List<Map<String, Object>> getOrdersListByStatus(Map<String, Object> map) throws Exception {
-		return storeDAO.getOrdersListByStatus(map);
+	public List<Map<String, Object>> getWaitingOrders(Map<String, Object> map) throws Exception {
+		return storeDAO.getWaitingOrders(map);
 	}
 
 	@Override
@@ -56,8 +56,18 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
+	public List<Map<String, Object>> getProcessingOrders(Map<String, Object> map) throws Exception {
+		return storeDAO.getProcessingOrders(map);
+	}
+
+	@Override
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateProcessingOrder(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getCompletedOrders(Map<String, Object> map) throws Exception {
+		return storeDAO.getCompletedOrders(map);
 	}
 
 	@Override
@@ -83,11 +93,6 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public Map<String, Object> getNoticeDetail(Map<String, Object> map) throws Exception {
 		return storeDAO.getNoticeDetail(map);
-	}
-
-	@Override
-	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
-		return storeDAO.getOrdersAllList(map);
 	}
 
 }
