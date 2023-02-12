@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
-	
 	<!-- 로그인시 지점 정보 가지고 오기 -->
 	<select id="getStore" parameterType="hashmap" resultType="hashmap">
 	SELECT 
@@ -102,6 +101,8 @@
 	WHERE
 		O_IDX = #{O_IDX}
 	</update>
+
+
 
 
 	<!-- 제조중 업데이트 -->

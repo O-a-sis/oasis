@@ -11,10 +11,6 @@
 			<strong>공지사항</strong>
 		</h2>
 	</div>
-	<div>
-		<button class="writebtn" type="button"
-			onClick="location.href='noticeForm.oa'">글쓰기</button>
-	</div>
 	<p>
 	<hr>
 	</p>
@@ -23,7 +19,7 @@
 			<!-- 검색처리기능 -->
 			<div class="search" align="center">
 				<form id="searchForm"
-					action="<c:url value='/admin/noticeList.oa' />" method="get">
+					action="<c:url value='/member/noticeList.oa' />" method="get">
 					<select class="searcht" name="type">
 						<option value="">--</option>
 						<option value="TWCNQ" name="type"
@@ -49,21 +45,19 @@
 						<th>날짜</th>
 					</tr>
 				</thead>
+						
 				<tbody align="center">
 					<c:forEach var="item" items="${list}">
 						<tr>
 							<td align="center">${item.N_IDX}</td>
 							<c:if test="${item.N_TYPE eq 'B'}">
-								<c:set var="type" value="구매자" />
-							</c:if>
-							<c:if test="${item.N_TYPE eq 'S'}">
-								<c:set var="type" value="판매자" />
+								<c:set var="type" value="공지" />
 							</c:if>
 							<c:if test="${item.N_TYPE eq 'E'}">
 								<c:set var="type" value="이벤트" />
 							</c:if>
 							<td><a style="color: #ff7f00"
-								href='<c:url value="/admin/noticeDetail.oa?N_IDX=${item.N_IDX}"/>'>[${type}]${item.N_TITLE}</a></td>
+								href='<c:url value="/member/noticeDetail.oa?N_IDX=${item.N_IDX}"/>'>[${type}]${item.N_TITLE}</a></td>
 							<td>${item.N_DATE}</td>
 						</tr>
 					</c:forEach>
