@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ include file="/WEB-INF/include/include-storeHeader.jspf" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,7 +84,6 @@ table {font-size: 12pt;}
             }, 1000);
         };
     </script>
-<<<<<<< HEAD
 <script>
     function openStore() {
     	if(confirm("매장을 오픈하시겠습니까?")) {
@@ -100,6 +97,4 @@ table {font-size: 12pt;}
     	} 
     }
 </script>
-=======
->>>>>>> 68c037c9f9f0a2c41fd01e95a714a07e7a2f73fe
 </html>
