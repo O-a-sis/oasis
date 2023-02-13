@@ -21,26 +21,23 @@ public class AdminStoreDAO extends AbstractDAO{
 		return (List<Map<String, Object>>)selectList("admin.storeListRank", map);
 		}
 
-	public void storeJoin(Map<String, Object> map) {
+	public void storeJoin(Map<String, Object> map) throws Exception{
 		insert("admin.storeJoin", map);
 		
 	}
 
-	public Map<String, Object> storeDetail(Map<String, Object> map) {
+	public Map<String, Object> storeDetail(Map<String, Object> map) throws Exception{
 		return (Map<String, Object>) selectOne("admin.storeDetail", map);
 	}
 
-	public void storeUpdate(Map<String, Object> map) {
-		update("admin.storeUpdate", map);
-		
+	public int update(Map<String, Object> map) throws Exception {
+		return (int) update("admin.storeUpdate", map);
 	}
-
-	public void storeDown(Map<String, Object> map) {
+     
+	public void storeDown(Map<String, Object> map) throws Exception{
 		update("admin.storeDown", map);
 		
 	}
-
-
 
 }
 
