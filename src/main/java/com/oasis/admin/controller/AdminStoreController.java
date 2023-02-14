@@ -32,7 +32,6 @@ public class AdminStoreController {
 		List<Map<String, Object>> listRank = adminStoreService.storeListRank(commandMap.getMap());
 		mv.addObject("listRank", listRank);
 		List<Map<String, Object>> list = adminStoreService.storeList(commandMap.getMap());
-		System.out.println();
 		mv.addObject("list", list);
 
 		return mv;
@@ -61,10 +60,13 @@ public class AdminStoreController {
 	@RequestMapping(value = "/storeDetail.oa")
 	public ModelAndView storeDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/storeDetail");
+		
+		List<Map<String, Object>> listSum = adminStoreService.storeSumRank(commandMap.getMap());
+		mv.addObject("listSum", listSum);
 
 		Map<String, Object> map = adminStoreService.storeDetail(commandMap.getMap());
-
 		mv.addObject("map", map);
+		System.out.println(map);
 
 		return mv;
 	}
@@ -78,6 +80,7 @@ public class AdminStoreController {
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	
 	// 관리자 - 지점폐쇄 버튼 눌렀을 때 (목록으로 넘어감)
 	@RequestMapping(value = "/storeDown.oa")
 	public ModelAndView storeDown(CommandMap commandMap) throws Exception {
@@ -86,5 +89,9 @@ public class AdminStoreController {
 		adminStoreService.storeDown(commandMap.getMap());
 
 		return mv;
+		
+		
 	}
+	
+
 }

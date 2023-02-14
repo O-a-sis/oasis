@@ -12,20 +12,16 @@
 }
 </style>
 <meta charset="UTF-8">
-<title>관리자 - 오늘 거래내역</title>
+<title>관리자 - 재고관리</title>
 </head>
 <body>
-
 <h1 id="clock"><strong></strong></h1>
 <br>
 <h2 style="display:inline"><strong>거래내역</strong></h2>&nbsp;&nbsp;
 <button type="button" class="button" style="color:white; background:orange" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=1"/>'">접수대기</button>
-<button type="button" class="button" style="color:white; background:blue" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=2"/>'">제조중</button>
-<button type="button" class="button" style="color:white; background:black" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=3"/>'">제조완료</button>
+<button type="button" class="button" style="color:white; background:orange" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=2"/>'">제조중</button>
+<button type="button" class="button" style="color:white; background:orange" onclick="location.href='<c:url value="todaysOrders.oa?O_STATUS=3"/>'">제조완료</button>
 <br><br>
-	<c:if test="${empty list}">
-	<center><h2><strong>내역이 없습니다.</strong></h2></center>
-	</c:if>
 	<c:forEach items="${list}" var="item">
 			<table class="orders" border=0 width=900px align=center>
 				<colgroup>
@@ -35,10 +31,9 @@
 					<col width="15%" />
 					<col width="20%" />
 				</colgroup>
-				<tr align=center>
-				<td><span>${item.O_LIST}</span> <input type=hidden id="oidx"
-						value="${item.O_IDX}"> <input type=hidden id="otime"
-						value="${item.O_TIME}">
+				<tr>
+				<td><span>${item.O_LIST}</span>
+				<input type=hidden id="oidx" value="${item.O_IDX}">
 				</td>
 				<td>${item.O_SUM}원</td>
 				<td>${item.O_DATE}</td>
@@ -59,77 +54,9 @@
 					<td><h3><strong>제조완료</strong></h3></td>
 					<td><button type="button" class="button" style="color:white; background:black">제조완료</button></td>
 				</c:if>
-	</c:forEach>
+				
 			</table>
-	<div class="paging">${paging.pageHtml}</div>
-	
-	<div id="modal" class="modal-overlay">
-		<div class="modal-window" id="popupPrdCompare"
-			data-popup-layer="popupPrdCompare">
-			<div class="title">
-
-				<div class="close-area" data-focus-next="popupPrdCompare">X</div>
-
-				<div>
-					<h2 style="text-align: left; display: inline;">
-						<strong>주문번호&nbsp;<span class="oidx"></span></strong>
-					</h2>
-					&nbsp;&nbsp;
-					<button type="button" class="button"
-						style="color: white; background: #5882FA" id="modalUptBtn">접수</button>
-					</td>&nbsp;&nbsp;
-					<button type="button" class="button"
-						style="color: white; background: #5882FA" id="modalProcessingBtn">제조완료</button>
-					</td>&nbsp;&nbsp;
-					<button type="button" class="button"
-						style="color: white; background: black" id="modalCompleteBtn">제조완료</button>
-					</td>&nbsp;&nbsp;
-					<button type="button" class="button"
-						style="color: white; background: #5882FA" id="modalCancelBtn">취소</button>
-					</td>
-					<h3>
-						상태-<span class="status"></span>
-					</h3>
-					<input type="hidden" name="oidx"> <input type="hidden"
-						name="otime">
-				</div>
-			</div>
-
-			<div class="content">
-				<h2>주문내역</h2>
-				<div class="contentin1">
-					<span class="list"></span>
-				</div>
-				<div class="contentin2">
-					<h4>
-						주문자명-<span class="phone"></span>
-					</h4>
-					<h4 style="display: inline">
-						판매 금액 <span class="sum"></span>원
-					</h4>
-					<h4 style="display: inline">
-						할인 금액 <span class="cprice"></span>원
-					</h4>
-					<h4 style="display: inline">
-						결제 금액 <span class="total"></span>원
-					</h4>
-				</div>
-				<br>
-
-				<h1 color=black align=right style="display: inline">
-					<strong><div id="timer"></div></strong>
-				</h1>
-				<h1 color=black align=right>
-					<strong><div id="timerComplete"></div></strong>
-				</h1>
-				<h1 color=black align=right>
-					<strong>픽업시간:&nbsp;<span class="otime"></span></strong>
-				</h1>
-			</div>
-
-		</div>
-	</div>
-		
+		</c:forEach>
 </body>
 
 <%@ include file="/WEB-INF/include/include-body.jspf"%>

@@ -26,6 +26,14 @@ public interface StoreService {
 	public int updateOrderAlarm(Map<String, Object> map) throws Exception;
 	
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception;
+
+	public List<Map<String, Object>> getWaitingOrders(Map<String, Object> map) throws Exception;
+	
+
+	public List<Map<String, Object>> getProcessingOrders(Map<String, Object> map) throws Exception;
+	
+	
+	public List<Map<String, Object>> getCompletedOrders(Map<String, Object> map) throws Exception;
 	
 	public int updateProcessingOrderAlarm(Map<String, Object> map) throws Exception;
 	

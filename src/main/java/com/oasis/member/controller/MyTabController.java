@@ -24,9 +24,10 @@ public class MyTabController {
 		ModelAndView mv = new ModelAndView("member/myMenuBar");
 
 		Map<String, Object> map = myTabService.myMenuBar(commandMap.getMap());
-
+		
+		
 		mv.addObject("map", map);
-
+		
 		return mv;
 	}
 
@@ -34,7 +35,7 @@ public class MyTabController {
 	public ModelAndView myCoupon(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("member/myCoupon");
 
-		List<Map<String, Object>> list = myTabService.myCoupon(commandMap.getMap());
+		List<Map<String, Object>> list = myTabService.myCouponList(commandMap.getMap());
 
 		mv.addObject("list", list);
 
@@ -59,8 +60,10 @@ public class MyTabController {
 		ModelAndView mv = new ModelAndView("member/myOrderDetail");
 
 		Map<String, Object> map = myTabService.myOrderDetail(commandMap.getMap());
-
+		List<Map<String, Object>> coupon = myTabService.myCouponList(commandMap.getMap());
+		
 		mv.addObject("map", map);
+		mv.addObject("coupon", coupon);
 
 		return mv;
 

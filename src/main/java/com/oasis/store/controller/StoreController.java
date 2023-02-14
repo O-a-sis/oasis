@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oasis.common.CommandMap;
 import com.oasis.common.util.Paging;
-import com.oasis.common.util.ProductPaging;
 import com.oasis.store.service.StoreService;
 
 import lombok.AllArgsConstructor;
@@ -90,33 +89,9 @@ public class StoreController {
 		if (commandMap.get("O_STATUS") == null) {
 			commandMap.put("O_STATUS", "1");
 		}
-		
-		int page = commandMap.get("page") == null ? 1 : Integer.parseInt((String) commandMap.get("page"));// 현재 페이지
-		int pageSize = 10;// 한 페이지에 보여줄 행의 수
-		int start = (page * pageSize) - pageSize + 1;
-		int end = page * pageSize;
-		int orderListCount = 0; // 전체 게시글 수
-		int pageBlock = 5; // 표시할 페이지의 수
-		String url = "todaysOrders.oa";
-		String subUrl = "&O_STATUS="+String.valueOf(commandMap.get("O_STATUS"));
-		String searchUrl = "";
-		
-
-		commandMap.put("START", start);
-		commandMap.put("END", end);
-
+		System.out.println(commandMap.get("O_STATUS"));
 		List<Map<String, Object>> orderList = storeService.getOrdersListByStatus(commandMap.getMap());
-
-		if (orderList.size() > 0) {
-			orderListCount = Integer.parseInt(String.valueOf(orderList.get(0).get("TOTAL_COUNT")));
-		}
-
-		// 페이징할 아이템의 총 수, 페이지의 수 ex> 1~5 6~10, 한 페이지에 표시할 게시글의 수, 현재 페이지, 이동주소, 검색시 사용할
-		// 주소 입력
-		ProductPaging paging = new ProductPaging(orderListCount, pageBlock, pageSize, page, url, searchUrl, subUrl);
-
 		mv.addObject("list", orderList);
-		mv.addObject("paging", paging);
 	
 		return mv;
 	}
@@ -131,30 +106,8 @@ public class StoreController {
 		int storeStatus = storeService.getStoreStatus(commandMap.getMap());
 		mv.addObject("status", storeStatus);
 		
-		int page = commandMap.get("page") == null ? 1 : Integer.parseInt((String) commandMap.get("page"));// 현재 페이지
-		int pageSize = 5;// 한 페이지에 보여줄 행의 수
-		int start = (page * pageSize) - pageSize + 1;
-		int end = page * pageSize;
-		int stockListCount = 0; // 전체 게시글 수
-		int pageBlock = 5; // 표시할 페이지의 수
-		String url = "stock.oa";
-		String searchUrl = "";
-
-		commandMap.put("START", start);
-		commandMap.put("END", end);
-
 		List<Map<String, Object>> stockList = storeService.getStockList(commandMap.getMap());
-
-		if (stockList.size() > 0) {
-			stockListCount = Integer.parseInt(String.valueOf(stockList.get(0).get("TOTAL_COUNT")));
-		}
-
-		// 페이징할 아이템의 총 수, 페이지의 수 ex> 1~5 6~10, 한 페이지에 표시할 게시글의 수, 현재 페이지, 이동주소, 검색시 사용할
-		// 주소 입력
-		Paging paging = new Paging(stockListCount, pageBlock, pageSize, page, url, searchUrl);
-
 		mv.addObject("list", stockList);
-		mv.addObject("paging", paging);
 	
 		return mv;
 	}
@@ -201,7 +154,6 @@ public class StoreController {
 
 		mv.addObject("list", noticeList);
 		mv.addObject("paging", paging);
-		mv.addObject("page", page);
 	
 		return mv;
 	}
@@ -215,7 +167,7 @@ public class StoreController {
 
 		int storeStatus = storeService.getStoreStatus(commandMap.getMap());
 		mv.addObject("status", storeStatus);
-
+		
 		Map<String, Object> noticeDetail = storeService.getNoticeDetail(commandMap.getMap());
 		mv.addObject("detail", noticeDetail);
 	
@@ -232,30 +184,12 @@ public class StoreController {
 		int storeStatus = storeService.getStoreStatus(commandMap.getMap());
 		mv.addObject("status", storeStatus);
 		
-		int page = commandMap.get("page") == null ? 1 : Integer.parseInt((String) commandMap.get("page"));// 현재 페이지
-		int pageSize = 10;// 한 페이지에 보여줄 행의 수
-		int start = (page * pageSize) - pageSize + 1;
-		int end = page * pageSize;
-		int orderListCount = 0; // 전체 게시글 수
-		int pageBlock = 5; // 표시할 페이지의 수
-		String url = "ordersAllList.oa";
-		String searchUrl = "&DATE="+String.valueOf(commandMap.get("DATE"));
-
-		commandMap.put("START", start);
-		commandMap.put("END", end);
-
-		List<Map<String, Object>> orderList = storeService.getOrdersAllList(commandMap.getMap());
-
-		if (orderList.size() > 0) {
-			orderListCount = Integer.parseInt(String.valueOf(orderList.get(0).get("TOTAL_COUNT")));
+		if (commandMap.get("O_STATUS") == null) {
+			commandMap.put("O_STATUS", "1");
 		}
-
-		// 페이징할 아이템의 총 수, 페이지의 수 ex> 1~5 6~10, 한 페이지에 표시할 게시글의 수, 현재 페이지, 이동주소, 검색시 사용할
-		// 주소 입력
-		Paging paging = new Paging(orderListCount, pageBlock, pageSize, page, url, searchUrl);
-
+		System.out.println(commandMap.get("O_STATUS"));
+		List<Map<String, Object>> orderList = storeService.getOrdersAllList(commandMap.getMap());
 		mv.addObject("list", orderList);
-		mv.addObject("paging", paging);
 	
 		return mv;
 	}

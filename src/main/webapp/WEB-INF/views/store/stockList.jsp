@@ -15,7 +15,6 @@
 <title>관리자 - 재고관리</title>
 </head>
 <body>
-
 <h1 id="clock"><strong></strong></h1>
 	<c:forEach items="${list}" var="item">
 		<table class="status" border=0>

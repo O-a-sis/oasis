@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ include file="/WEB-INF/include/include-storeheader.jspf"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,12 +12,31 @@
 <body>
 
 	<div style="padding: 20px" align="center">
-
+		<c:if test="${empty list}">
+			<h1 style="display: inline">
+				<strong>접수대기</strong>
+			</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="color: #ff751a; display: inline">
+				<strong>0건</strong>
+			</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="display: inline">
+				<strong>제조중</strong>
+			</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="color: #ff751a; display: inline">
+				<strong>0건</strong>
+			</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="display: inline">
+				<strong>제조완료</strong>
+			</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="color: #ff751a; display: inline">
+				<strong>0건</strong>
+			</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</c:if>
 		<c:forEach items="${list}" var="item">
 			<h1 style="display: inline">
 				<strong> <c:choose>
-						<c:when test="${item.RNUM eq '1'}">접수대기</c:when>
-						<c:when test="${item.RNUM eq '2'}">제조중</c:when>
+						<c:when test="${item.O_STATUS eq '1' or empty item.O_STATUS}">접수대기</c:when>
+						<c:when test="${item.O_STATUS eq '2' or empty item.O_STATUS}">제조중</c:when>
 						<c:otherwise>제조완료</c:otherwise>
 					</c:choose>
 				</strong>
@@ -53,7 +70,7 @@
 						<col width="15%" />
 						<col width="20%" />
 					</colgroup>
-					<tr align=center>
+					<tr>
 						<td><span>${item.O_LIST}</span> <input type=hidden id="oidx"
 							value="${item.O_IDX}"> <input type=hidden id="otime"
 							value="${item.O_TIME}"></td>
@@ -65,9 +82,9 @@
 								</h3></td>
 							<td><button type="button" class="button"
 									style="color: white; background: orange" id="uptBtn">접수</button>
-								<input type=hidden id="oidx" value="${item.O_IDX}">
-								<input type=hidden id="ostore" value="${item.O_STORE}">
-								<input type=hidden id="obidx" value="${item.OB_IDX}"></td>
+								<input type=hidden id="oidx" value="${item.O_IDX}"> <input
+								type=hidden id="ostore" value="${item.O_STORE}"> <input
+								type=hidden id="obidx" value="${item.OB_IDX}"></td>
 						</c:if>
 						<c:if test="${item.O_STATUS eq '2'}">
 							<td><h3>
@@ -75,9 +92,9 @@
 								</h3></td>
 							<td><button type="button" class="button"
 									style="color: white; background: blue" id="uptPcBtn">제조완료</button>
-								<input type=hidden id="oidx" value="${item.O_IDX}">
-								<input type=hidden id="ostore" value="${item.O_STORE}">
-								<input type=hidden id="obidx" value="${item.OB_IDX}"></td>
+								<input type=hidden id="oidx" value="${item.O_IDX}"> <input
+								type=hidden id="ostore" value="${item.O_STORE}"> <input
+								type=hidden id="obidx" value="${item.OB_IDX}"></td>
 
 						</c:if>
 						<c:if test="${item.O_STATUS eq '3'}">
@@ -90,9 +107,7 @@
 				</table>
 			</c:forEach>
 		</c:if>
-		<br>
-		<br>
-		<br>
+		<br> <br> <br>
 		<button type="button" style="color: white; background: gray"
 			onclick="location.href='<c:url value="logout.oa"/>'">지점 로그아웃</button>
 	</div>
