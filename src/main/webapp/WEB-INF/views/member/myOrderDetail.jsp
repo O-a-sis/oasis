@@ -23,7 +23,7 @@
 				<th width="170">주문번호</th>
 				<td>${map.O_IDX}</td>
 			</tr>
-		</div>
+		</div>	
 		<div>
 			<tr>
 				<%-- 주문날짜 --%>
@@ -62,13 +62,16 @@
 		</div>
 		<div>
 			<th width="170">할인 금액</th>
-
-		</div>
-		<div>
+				<td> <c:forEach var="item" items="${coupon}">
+						<td>${item.CU_PRICE } 원</td> </br>
+						
+						
+		
 			<tr>
 				<th width="170">결제 금액</th>
-				<td>${map.O_SUM }원</td>
+				<td>${map.O_SUM - item.CU_PRICE}원</td>
 			</tr>
+			</c:forEach>
 		</div>
 </body>
 </html>

@@ -23,9 +23,11 @@ public class MyTabServiceImpl implements MyTabService{
 	}
 
 	@Override
-	public List<Map<String, Object>> myCoupon(Map<String, Object> map) throws Exception {
-		return myTabDAO.myCoupon(map);
+	public List<Map<String, Object>> myCouponList(Map<String, Object> map) throws Exception {
+		return myTabDAO.myCouponList(map);
 	}
+	
+
 
 	@Override
 	public List<Map<String, Object>> myOrderList(Map<String, Object> map) throws Exception {
