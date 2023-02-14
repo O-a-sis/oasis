@@ -16,9 +16,10 @@ public class MyTabDAO extends AbstractDAO{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> myCoupon(Map<String, Object> map) throws Exception {
+	public List<Map<String, Object>> myCouponList(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>) selectList("member.myCouponList", map);
 	}
+
 
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> myOrderList(Map<String, Object> map) throws Exception {

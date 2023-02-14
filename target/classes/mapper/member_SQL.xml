@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 
+<!-- 공지사항 검색 -->
+	<sql id="noticeSearch">
+		<trim prefix=" AND ( " suffix=" ) " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="or">
+					<choose>
+						<when test="type=='T'.toString()">
+							N_TITLE like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							N_CONTENT like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
 		<!-- insertMember(회원가입) -->
 	<insert id="insertMember" parameterType="hashmap">
 <![CDATA[
@@ -61,11 +79,12 @@ SELECT *
 <![CDATA[
 SELECT *
 	FROM 
-		COUPON C
+		COUPON
 	WHERE 
-		CUB_IDX=#{CUB_IDX}
+		CUB_IDX=#{B_PHONE}
 ]]>
 	</select>
+
 
 	<!-- 주문 내역 -->
 <select id="myOrderList" parameterType="hashmap"
@@ -119,7 +138,7 @@ SELECT *
 	]]>
 	</select>
 	
-	  <!-- 공지사항 리스트 -->
+	    <!-- 공지사항 리스트 -->
 	<select id="noticeList" parameterType="hashmap"
 		resultType="hashmap">
 		<include refid="common.pagingPre" /> 
@@ -129,8 +148,9 @@ SELECT *
 	      FROM
    		         NOTICE
    		  WHERE
-   		  		NOT N_TYPE = 'S'
+   		  		NOT N_TYPE = 'S' 
 			]]>
+		<include refid="noticeSearch"></include>
 		<include refid="common.pagingPost" />
 	</select>
 
