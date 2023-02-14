@@ -30,19 +30,28 @@ public class StoreController {
 	
 	private StoreService storeService;
 	
+	@RequestMapping(value = "/getAlarm/{store}", method = RequestMethod.GET, consumes = "application/json", produces = {
+			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<List<Map<String, Object>>> getAlarm(@PathVariable("store") int store) throws Exception {
+
+		return new ResponseEntity<List<Map<String, Object>>>(storeService.getAlarm(store), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/orderUpdate.oa")
 	public ModelAndView updateOrder(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
 		
 		int openStore = storeService.updateOrder(commandMap.getMap());
+		int updateOrderAlarm = storeService.updateOrderAlarm(commandMap.getMap());
 		return mv;
 	}
 	
 	@RequestMapping(value = "/processingOrderUpdate.oa")
 	public ModelAndView updateProcessingOrder(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
-		
+
 		int openStore = storeService.updateProcessingOrder(commandMap.getMap());
+		int updateProcessingOrderAlarm = storeService.updateProcessingOrderAlarm(commandMap.getMap());
 		return mv;
 	}
 	
