@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="store">
+
+	<!-- 로그인시 지점 정보 가지고 오기 -->
+	<select id="getStore" parameterType="hashmap" resultType="hashmap">
+	SELECT 
+		*
+	FROM
+		S_MEMBER
+	WHERE
+		STORE = #{STORE}
+	</select>
+
+	<!-- 해당하는 지점의 오늘 날짜에 해당하는 주문접수, 제조중, 제조완료 내역 가져오기-->
+	<select id="getOrders" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+	SELECT 
+		RNUM, O_STATUS, NVL(SUM(a.cnt), 0) CNT
+	FROM ( SELECT O_STATUS, COUNT(*) CNT
+			FROM ORDERS
+			WHERE O_IDX LIKE TO_CHAR(SYSDATE, 'YYMMDD')||'%' AND O_STORE = #{O_STORE}
+			GROUP BY O_STATUS
+		) a
+		, ( SELECT LEVEL AS DT, ROW_NUMBER() OVER (ORDER BY LEVEL) RNUM
+			FROM DUAL
+			CONNECT BY LEVEL<=3
+		) b
+	WHERE b.DT=a.O_STATUS(+)
+	GROUP BY a.O_STATUS, b.DT, b.RNUM
+	ORDER BY b.DT
+	]]>
+	</select>
+	
+	<!-- 매장 오픈여부 가지고 오기 -->
+	<select id="getStoreStatus" parameterType="hashmap" resultType="int">
+	SELECT 
+		S_STATUS
+	FROM
+		S_MEMBER
+	WHERE
+		STORE = #{O_STORE}
+	</select>
+
+
+	<!-- 매장 오픈 -->
+	<update id="openStore" parameterType="hashmap">
+	UPDATE 
+		S_MEMBER
+	SET
+		S_STATUS = 1
+	WHERE 
+		STORE = #{STORE}
+	</update>
+
+
+	<!-- 매장 마감 -->
+	<update id="closeStore" parameterType="hashmap">
+	UPDATE 
+		S_MEMBER
+	SET
+		S_STATUS = 0
+	WHERE 
+		STORE = #{STORE}
+	</update>
+	
+	<!-- 지점의 오늘날짜 주문 전체내역 리스트 -->
+	<select id="getOrdersList" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		ORDERS
+	WHERE
+		O_STORE = #{O_STORE} AND
+		TO_CHAR(O_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+	ORDER BY
+		O_STATUS, O_DATE
+	</select>
+	
+	<!-- 지점의 오늘날짜 주문 리스트 상태별로 나누기(접수, 제조중, 제조완료) -->
+	<select id="getOrdersListByStatus" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
+	SELECT
+		ROW_NUMBER() OVER(ORDER BY O_DATE DESC) RNUM, O.*
+	FROM
+		ORDERS O
+	WHERE
+		O_STORE = #{O_STORE} AND
+		TO_CHAR(O_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+	<include refid="common.pagingPost" /> 
+	</select>
+
+
+	<!-- 접수대기 업데이트 -->
+	<update id="updateOrder" parameterType="hashmap">
+	UPDATE 
+		ORDERS
+	SET
+		O_STATUS = 2,
+		O_DATE = SYSDATE
+	WHERE
+		O_IDX = #{O_IDX}
+	</update>
+
+
+	<!-- 제조중 리스트 -->
+	<select id="getProcessingOrders" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		ORDERS
+	WHERE
+		O_STORE = #{O_STORE} AND
+		O_STATUS = 2
+	</select>
+
+
+	<!-- 제조중 업데이트 -->
+	<update id="updateProcessingOrder" parameterType="hashmap">
+	UPDATE 
+		ORDERS
+	SET
+		O_STATUS = 3,
+		O_DATE = SYSDATE
+		
+	WHERE
+		O_IDX = #{O_IDX}
+	</update>
+
+
+	<!-- 제조완료 리스트 -->
+	<select id="getCompletedOrders" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		ORDERS
+	WHERE
+		O_STORE = #{O_STORE} AND
+		O_STATUS = 3
+	</select>
+
+
+	<!-- 주문 상세보기 -->
+	<select id="getOrderDetail" parameterType="String" resultType="hashmap">
+	SELECT
+		O.*, C.CU_PRICE
+	FROM
+		ORDERS O, COUPON C
+	WHERE
+		O_IDX = #{oidx} AND
+		O.OCU_IDX=C.CU_IDX
+	</select>
+
+
+	<!-- 재고관리 보기 -->
+	<select id="getStockList" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
+	SELECT
+		ROW_NUMBER() OVER(ORDER BY S.SP_IDX) RNUM, 
+		S.*, P.*
+	FROM
+		STATUS S, PRODUCT P
+	WHERE
+		SS_IDX = #{O_STORE} AND
+		S.SP_IDX = P.P_IDX
+	<include refid="common.pagingPost" /> 
+	</select>
+
+
+	<!-- 재고관리 수정 -->
+	<update id="updateStock" parameterType="hashmap">
+	UPDATE 
+		STATUS
+	SET
+		S_SO = #{S_SO}
+	WHERE
+		SS_IDX = #{O_STORE} AND
+		SP_IDX = #{P_IDX}
+	</update>
+
+
+	<!-- 공지사항 -->
+	<select id="getNoticeList" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		ROW_NUMBER() OVER(ORDER BY DECODE (N_TYPE, 'S', 1), N_DATE DESC) RNUM, 
+		N_IDX, 
+		N_TITLE, 
+		N_DATE, 
+		N_TYPE
+	FROM
+		NOTICE
+	WHERE
+		N_TYPE = 'S'
+	</select>	
+
+
+	<!-- 공지사항 상세보기 -->
+	<select id="getNoticeDetail" parameterType="hashmap" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		NOTICE
+	WHERE
+		N_IDX = #{N_IDX}
+	</select>	
+	
+	<!-- 지점의 모든 주문내역 리스트 -->
+	<select id="getOrdersAllList" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
+	SELECT
+		ROW_NUMBER() OVER(ORDER BY O_DATE DESC) RNUM, O.*
+	FROM
+		ORDERS O
+	WHERE
+		O_STORE = #{O_STORE} 
+		<if test="DATE!=null and !DATE.equals('null')">
+		AND
+		TO_CHAR(O_DATE, 'yyyy-mm-dd') = #{DATE}
+		</if>
+	ORDER BY
+		O_DATE DESC
+	<include refid="common.pagingPost" /> 
+	</select>
+
+</mapper>
+
+
+
+
+
