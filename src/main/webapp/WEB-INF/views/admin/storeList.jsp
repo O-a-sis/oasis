@@ -124,7 +124,7 @@
 						<tr>
 							<td>${item.STORE}</td>
 							<td><a
-								href='<c:url value="/admin/storeDetail.oa?R_IDX=${item.R_IDX}"/>'>${item.S_NAME}</a>
+								href='<c:url value="/admin/storeDetail.oa?R_IDX=${item.STORE}"/>'>${item.S_NAME}</a>
 							</td>
 							<td>${item.S_MANAGER}</td>
 							<td>${item.ADDRESS1}</td>
