@@ -21,6 +21,26 @@
 	 	 }
 	  });
 	 }
+    
+	 function updateOrder(ccomment, callback, error){
+	 	
+	 	$.ajax({
+	 	type : 'put',
+	 	url : '/Flee/ccomment/update',
+	 	data : JSON.stringify(ccomment),
+	 	contentType : "application/json; charset=UTF-8",
+	 	success : function(result, status, xhr){
+	 		if(callback){
+	 			callback(result);
+	 		}
+	 	},
+	 	error : function(xhr, status, er){
+	 		if(error){
+	 			error(er);
+	 		}
+	 	 }
+	  });
+	 }
 	 
 	 function updateOrder(order, callback, error){
 	 	
@@ -86,6 +106,7 @@
     	get : get,
     	updateOrder : updateOrder,
     	updateProcessingOrder : updateProcessingOrder,
-    	updateStock : updateStock
+    	updateStock : updateStock,
+    	updateProcessingOrder : updateProcessingOrder
     };
 })();
