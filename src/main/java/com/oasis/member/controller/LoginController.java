@@ -28,17 +28,18 @@ public class LoginController {
   
   @RequestMapping(value = "/loginForm.oa")
   public String loginForm() throws Exception {
-	  return "member/loginForm";
+	  return "login/loginForm";
   }
   
   @RequestMapping(value = "/login.oa", method = RequestMethod.POST)
   public ModelAndView login(CommandMap commandMap, HttpServletRequest request) throws Exception {
   	HttpSession session = request.getSession(true);
   	String message = "";
+  	System.out.println(commandMap.get("B_PASSWORD"));
   	Map<String, Object> result = loginService.getMember(commandMap.getMap());
   	if (result == null) { //회원 아이디가 있는지 확인
   		ModelAndView mv = new ModelAndView("redirect:/member/loginForm.oa");
-  		message = "해당 지점 아이디가 존재하지 않습니다.";
+  		message = "해당 전화번호가 존재하지 않습니다.";
   		mv.addObject("message", message);
   		return mv;
   		
@@ -62,13 +63,17 @@ public class LoginController {
 	  ModelAndView mv = new ModelAndView("member/main");
 	  
 	  HttpSession session = request.getSession(); // request 의 getSession() 메서드는 서버에 생성된 세션이 있다면 세션을 반환하고, 없다면 새 세션을 받아 반환한다.
+	  if(session.getAttribute("B_PHONE")==null) { //로그인 안한 경우
+	 
+	  return mv;
+	  } else {  
 	  commandMap.put("B_PHONE", session.getAttribute("B_PHONE"));
 	  Map<String, Object> map = myTabService.myStamp(commandMap.getMap());
 	    
 	  mv.addObject("map", map);
 	  return mv;
+	  }
   }
-  
   @RequestMapping(value = "/logout.oa") // 로그아웃
   	public ModelAndView logout(CommandMap commandMap, HttpServletRequest request, HttpServletResponse response) throws Exception{
 	  
@@ -80,29 +85,27 @@ public class LoginController {
 	  return mv;
   }
   
-  @RequestMapping(value = "/findPw.oa") //비밀번호 찾기
+  @RequestMapping(value = "/findPw.oa") //비밀번호 찾기 폼 보여주는 메소드
   	public ModelAndView findPw(CommandMap commandMap) throws Exception {
-	  ModelAndView mv = new ModelAndView("member/findPw");
+	  ModelAndView mv = new ModelAndView("login/findPw");
+	  return mv;
+  }
+  
+  @RequestMapping(value = "/findPwResult.oa", method = RequestMethod.POST)// 입력한 정보에 대해 비밀번호 찾기 기능
+  public ModelAndView findPwResult(CommandMap commandMap) throws Exception{
+	  ModelAndView mv = new ModelAndView("login/findPw");
+	  
+	  Map<String, Object> member = loginService.findPassword(commandMap.getMap());
+	  if (member != null) {
+		  mv.addObject("result", true);
+	  } else {
+		  mv.addObject("result", false);
+	  }
+	  mv.addObject("b_phone", member);
 	  return mv;
   }
 }
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -3,15 +3,15 @@
  */
  
  var orderService=(function(){
-    
-	 function get(oidx, callback, error){
+ 
+ 	 function getAlarm(store, callback, error){
 	 $.ajax({
 	 	type : 'get',
-	 	url : '/Oasis/store/order/'+oidx+'.json',
+	 	url : '/Oasis/store/getAlarm/'+store+'.json',
 	 	contentType : "application/json; charset=UTF-8",
-	 	success : function(order, status, xhr){
+	 	success : function(alarm, status, xhr){
 	 		if(callback){
-	 			callback(order);
+	 			callback(alarm);
 	 		}
 	 	},
 	 	error : function(xhr, status, er){
@@ -22,16 +22,14 @@
 	  });
 	 }
     
-	 function updateOrder(ccomment, callback, error){
-	 	
-	 	$.ajax({
-	 	type : 'put',
-	 	url : '/Flee/ccomment/update',
-	 	data : JSON.stringify(ccomment),
+	 function get(oidx, callback, error){
+	 $.ajax({
+	 	type : 'get',
+	 	url : '/Oasis/store/order/'+oidx+'.json',
 	 	contentType : "application/json; charset=UTF-8",
-	 	success : function(result, status, xhr){
+	 	success : function(order, status, xhr){
 	 		if(callback){
-	 			callback(result);
+	 			callback(order);
 	 		}
 	 	},
 	 	error : function(xhr, status, er){
@@ -103,10 +101,10 @@
 	 }
 
     return {
+    	getAlarm : getAlarm,
     	get : get,
     	updateOrder : updateOrder,
     	updateProcessingOrder : updateProcessingOrder,
-    	updateStock : updateStock,
-    	updateProcessingOrder : updateProcessingOrder
+    	updateStock : updateStock
     };
 })();

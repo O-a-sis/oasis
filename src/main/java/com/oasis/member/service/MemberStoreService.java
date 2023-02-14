@@ -7,18 +7,11 @@ import java.util.Map;
 
 public interface MemberStoreService {
 	
-
-
-	List<Map<String, Object>> selectStoreList(Map<String, Object> map) throws Exception;//매장목록;
-
-
-
-	Map<String, Object> MemberStoreDetail(Map<String, Object> map) throws Exception;
+	List<Map<String, Object>> getStoreList(Map<String, Object> map) throws Exception;//매장목록;
+//	Map<String, Object> storeDetail(Map<String, Object> map) throws Exception;
 
 
 
-	
-
-	}
+}
 
 
