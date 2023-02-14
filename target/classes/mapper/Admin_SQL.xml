@@ -118,20 +118,6 @@
         ]]>
 	</select>
 
-<!-- 관리자 지점 관리 (+ 매출순위) 리스트 -->
-<select id="storeListRank" resultType="hashmap">
-        <![CDATA[
-        SELECT
-                R.*,S.*
-        FROM
-                S_MEMBER S, REVENUE R
-        WHERE
-                S.STORE = R.R_IDX(+)
-        Order by R.R_SUM DESC             
-        ]]>
-</select>
-
-
 
 
 	<!-- 관리자 지점 상세보기 -->
