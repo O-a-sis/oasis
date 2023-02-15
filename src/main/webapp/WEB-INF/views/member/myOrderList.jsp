@@ -15,7 +15,7 @@
 
 	<div>
 		<c:forEach var="item" items="${list}">
-		<a href = '/Oasis/member/myOrderDetail.oa?O_IDX=${item.O_IDX }&B_PHONE=${param.OB_IDX}'>
+		<a href = '/Oasis/member/myOrderDetail.oa?O_IDX=${item.O_IDX }'>
 			<div style="margin:10px;">
 				<c:if test="${item.O_PICK  eq '0' }">
 					<c:out value="픽업" />

@@ -48,7 +48,7 @@ public class MyTabController {
 		ModelAndView mv = new ModelAndView("member/myOrderList");
 
 		List<Map<String, Object>> list = myTabService.myOrderList(commandMap.getMap());
-
+		
 		mv.addObject("list", list);
 
 		return mv;
@@ -60,10 +60,8 @@ public class MyTabController {
 		ModelAndView mv = new ModelAndView("member/myOrderDetail");
 
 		Map<String, Object> map = myTabService.myOrderDetail(commandMap.getMap());
-		List<Map<String, Object>> coupon = myTabService.myCouponList(commandMap.getMap());
 		
 		mv.addObject("map", map);
-		mv.addObject("coupon", coupon);
 
 		return mv;
 
