@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
-
+	
 	<!-- 로그인시 지점 정보 가지고 오기 -->
 	<select id="getStore" parameterType="hashmap" resultType="hashmap">
 	SELECT 
@@ -74,7 +74,7 @@
 		O_STORE = #{O_STORE} AND
 		TO_CHAR(O_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
 	ORDER BY
-		O_STATUS, O_DATE
+		O_STATUS, O_DATE DESC
 	</select>
 
 
@@ -85,10 +85,21 @@
 	FROM
 		ORDERS
 	WHERE
+		O_STATUS = #{O_STATUS} AND
 		O_STORE = #{O_STORE} AND
 		O_STATUS = 1
 	</select>
 
+	<!-- 지점의 오늘날짜 주문 전체내역 리스트 -->
+	<select id="getAlarm" parameterType="int" resultType="hashmap">
+	SELECT
+		*
+	FROM
+		ALARM
+	WHERE
+		A_STORE = #{store} AND
+		ALARM = 1
+	</select>
 
 	<!-- 접수대기 업데이트 -->
 	<update id="updateOrder" parameterType="hashmap">
@@ -100,18 +111,17 @@
 	WHERE
 		O_IDX = #{O_IDX}
 	</update>
-
-
-	<!-- 제조중 리스트 -->
-	<select id="getProcessingOrders" parameterType="hashmap" resultType="hashmap">
-	SELECT
-		*
-	FROM
-		ORDERS
+	
+	<!-- 접수대기 알람 업데이트 (제조중입니다!)-->
+	<update id="updateOrderAlarm" parameterType="hashmap">
+	UPDATE 
+		ALARM
+	SET
+		ALARM = 2
 	WHERE
-		O_STORE = #{O_STORE} AND
-		O_STATUS = 2
-	</select>
+		A_STORE = #{O_STORE} AND
+		AB_IDX = #{OB_IDX}
+	</update>
 
 
 	<!-- 제조중 업데이트 -->
@@ -126,18 +136,16 @@
 		O_IDX = #{O_IDX}
 	</update>
 
-
-	<!-- 제조완료 리스트 -->
-	<select id="getCompletedOrders" parameterType="hashmap" resultType="hashmap">
-	SELECT
-		*
-	FROM
-		ORDERS
+	<!-- 제조중 알람 업데이트 (제조 완료 되었습니다!)-->
+	<update id="updateProcessingOrderAlarm" parameterType="hashmap">
+	UPDATE 
+		ALARM
+	SET
+		ALARM = 3
 	WHERE
-		O_STORE = #{O_STORE} AND
-		O_STATUS = 3
-	</select>
-
+		A_STORE = #{O_STORE} AND
+		AB_IDX = #{OB_IDX}
+	</update>
 
 	<!-- 주문 상세보기 -->
 	<select id="getOrderDetail" parameterType="String" resultType="hashmap">
@@ -170,19 +178,21 @@
 	SET
 		S_SO = #{S_SO}
 	WHERE
-		SS_IDX = #{O_STORE} AND
-		SP_IDX = #{P_IDX}
+		SS_IDX = #{SS_IDX} AND
+		SP_IDX = #{SP_IDX}
 	</update>
 
 
 	<!-- 공지사항 -->
 	<select id="getNoticeList" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
 	SELECT
 		*
 	FROM
 		NOTICE
 	WHERE
-		N_TYPE = 'S'
+		N_TYPE IN ('S', 'E')
+	<include refid="common.pagingPost" />
 	</select>	
 
 

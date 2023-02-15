@@ -1,0 +1,133 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/store/side.css'/>" />
+<style>
+.button {
+	border-radius: 7px;
+	font-size: 16px;
+	width: 100px;
+}
+</style>
+
+<!-- jQuery --> 
+<script src="https://kit.fontawesome.com/41c6b11e7f.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/common.js'/>" charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value='/js/orders.js'/>"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	let store='${sessionScope.STORE}';
+	
+	if(store!=null&&store!='') {
+		
+		getAlarm();
+		
+		function getAlarm() {
+			 orderService.getAlarm(store, function(alarm){
+				 let alarmslength = alarm.length;		 
+				 let str = "";
+				 
+					if(alarmslength) {
+						str = "<i class='fa-solid fa-n'></i>";
+						alert("주문이"+alarmslength+"건 들어왔습니다");
+					} else {
+						str = "";
+					}	
+					
+					$("#alarm").html(str);
+				});
+			
+		}
+		
+		let interval = setInterval(function() {
+			if($("#alarm").html()=="") {
+		    	getAlarm();
+		    } else {
+		    	clearInterval(interval);
+		    }
+		}, 10000);
+
+	}
+});
+</script>
+<script>
+        window.onload = function () {
+            // 변수를 선언합니다.
+            var clock = document.getElementById('clock');
+            // 매 1초마다 함수를 실행합니다.
+            setInterval(function () {
+                var today = new Date();
+                let day = ['일', '월', '화', '수', '목', '금', '토'];
+
+                function dateFormat(today) {
+                    let dateFormat=today.getFullYear() + '년 ' + (today.getMonth()+1) + '월 '
+                    + today.getDate() + '일 ' + day[today.getDay()] + '요일 '
+                    + today.getHours() + '시 ' + today.getMinutes() + '분 '
+                    + today.getSeconds() + '초';
+                    return dateFormat;
+                }
+
+                clock.innerHTML = dateFormat(today).toString();
+            }, 1000);
+        };
+</script>
+<script>
+    function openStore() {
+    	if(confirm("매장을 오픈하시겠습니까?")) {
+    		location.href="/Oasis/store/open?STORE=${sessionScope.STORE}";
+    	} 
+    }
+    
+    function closeStore() {
+    	if(confirm("매장을 마감하시겠습니까?")) {
+    		location.href="/Oasis/store/close?STORE=${sessionScope.STORE}";
+    	} 
+    }
+</script>
+<body>
+	<div>
+		<h1 style="display: inline" onclick="location.href='<c:url value="main.oa"/>'">오아시스</h1>
+		<h3 style="display: inline">${sessionScope.S_NAME}- 관리자</h3>
+
+		<span align=right id="alarm"></span>
+	</div>
+	<div
+		style="height: 100px; width: 100%; background-color: #ff6600; padding: 10px">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h1 style="color: white; display: inline"
+			onclick="location.href='<c:url value="todaysOrders.oa"/>'">
+			<strong>거래내역</strong>
+		</h1>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h1 style="color: white; display: inline"
+			onclick="location.href='<c:url value="stock.oa"/>'">
+			<strong>재고관리</strong>
+		</h1>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h1 style="color: white; display: inline"
+			onclick="location.href='<c:url value="noticeList.oa"/>'">
+			<strong>공지사항</strong>
+		</h1>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+		<c:if test="${status eq '1'}">
+			<button type="button" onclick="closeStore();">매장 마감</button>
+		</c:if>
+		<c:if test="${status eq '0'}">
+			<button type="button" onclick="openStore();">매장 오픈</button>
+		</c:if>
+
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h1 style="color: white; display: inline"
+			onclick="location.href='<c:url value="ordersAllList.oa"/>'">
+			<strong>이전 거래내역</strong>
+		</h1>
+	</div>
+	
+</body>
