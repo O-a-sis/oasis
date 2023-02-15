@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
-import com.oasis.bookmark.dao.BookmarkDAO;
+import com.oasis.bookm.dao.BookmDAO;
 import com.oasis.member.dao.MemberStoreDAO;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class MemberStoreServiceImpl implements MemberStoreService {
 
 	@SuppressWarnings("unused")
 	private MemberStoreDAO memberStoreDAO;
-	private BookmarkDAO bookmarkDAO;
+	private BookmDAO bookmDAO;
 
 
 	@Override
@@ -34,7 +34,7 @@ public class MemberStoreServiceImpl implements MemberStoreService {
 			
 			
 		}else {
-		List<Map<String, Object>> bookmarkList = bookmarkDAO.getBookList(map);
+		List<Map<String, Object>> bookmarkList = bookmDAO.getBookList(map);
 		for (Map<String, Object> store : storeList) {
 			for (Map<String, Object> bookmark : bookmarkList) {
 				if (String.valueOf(store.get("STORE")).equals(String.valueOf(bookmark.get("STORE")))) {

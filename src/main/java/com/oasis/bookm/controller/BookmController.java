@@ -1,4 +1,4 @@
-package com.oasis.bookmark.controller;
+package com.oasis.bookm.controller;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.oasis.bookmark.service.BookmarkService;
+import com.oasis.bookm.service.BookmService;
 import com.oasis.common.CommandMap;
 
 import lombok.AllArgsConstructor;
@@ -21,16 +21,16 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/member/")
 @Controller
 @AllArgsConstructor
-public class BookmarkController {
+public class BookmController {
 
-	private BookmarkService bookmarkService;
+	private BookmService bookmService;
 
 	@SuppressWarnings("unused")
 	
 	@RequestMapping(value = "/bookmarkWrite.oa", method = RequestMethod.POST, consumes = "application/json", produces = {
 			MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> writeBookmark(@RequestBody Map<String, Object> map) throws Exception {
-		int count = bookmarkService.writeBookmark(map);
+		int count = bookmService.writeBookmark(map);
 		
 		String bidx = String.valueOf(map.get("B_IDX"));
 		return count == 1 ? new ResponseEntity<String>(bidx, HttpStatus.OK)
@@ -40,7 +40,7 @@ public class BookmarkController {
 	@RequestMapping(value = "/bookmarkDelete.oa", method = RequestMethod.POST, consumes = "application/json", produces = {
 			MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> deleteBookmark(@RequestBody Map<String, Object> map) throws Exception {
-		int count = bookmarkService.deleteBookmark(map);
+		int count = bookmService.deleteBookmark(map);
 
 		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
