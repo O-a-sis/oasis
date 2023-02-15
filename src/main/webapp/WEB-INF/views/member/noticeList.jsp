@@ -31,7 +31,7 @@
 					</select> <input class="searchtext" type="text" name="keyword"
 						value="<c:out value='${param.keyword}'/>" />
 					<button class="btn btn-default sbtn">
-						<i class="fa-solid fa-magnifying-glass"></i>
+						<i class="fa-solid fa-magnifying-glass">검색</i>
 					</button>
 				</form>
 			</div>

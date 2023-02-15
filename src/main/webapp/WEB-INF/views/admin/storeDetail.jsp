@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,46 +55,56 @@
 <title>지점 상세</title>
 </head>
 <body>
-<h1>${map.S_NAME }의 정보</h1>
-<table class="board_list" border="1">
+	<h1>${map.S_NAME }의정보</h1>
+	<table class="board_list" border="1">
 		<h4>연락처 : ${map.S_PHONE}</h4>
 		<h4>주 소 : ${map.POSTCODE} ${map.ADDRESS1} ${map.ADDRESS2}</h4>
-		<h4>지점장명 : ${map.S_MANAGER}</h4> 
-		<h4>로그인 정 보 : ${map.STORE} / ${map.S_PASSWORD}</h4> 
+		<h4>지점장명 : ${map.S_MANAGER}</h4>
+		<h4>로그인 정 보 : ${map.STORE} / ${map.S_PASSWORD}</h4>
 		<br>
-		<h3>전일 매출 / 월 평균 ;;;; 이거해야돼 </h3>
-		
-		
-	 
-	<button type='button' id="modal_btn">지점수정</button>
-	<div class="black_bg"></div>
+		<h3>전일 매출 / 월 평균 ;;;; </h3>
 
-	
+	</table>
+
+		<button type='button' id="modal_btn">지점수정</button>
+		<div class="black_bg"></div>
+
+
 		<br>
 		<br>
-		
+<table class="board_list" border="1">
 		<thead>
 			<tr>
-				<th scope="col">일자</th>
-				<th scope="col">거래량</th>
-				<th scope="col">매출</th>
+				<th scope="col">매출일자</th>
+				<th scope="col">거래건수</th>
+				<th scope="col">매출합계</th>
 
 			</tr>
 		</thead>
-		<tbody>			
-			<c:forEach var="item" items="${list }">
-				<c:if test="${STORE eq item.R_IDX}">
-				<tr>
-					<td>${item.R_DATE}</td>
-					<td>${item.OR_COUNT}</td>
-					<td>${item.R_SUM}</td>
+		<tbody>
 
-				</tr>
-				</c:if>
-				 				
-			</c:forEach> 
+			<c:choose>
+				<c:when test="${fn:length(listSum) > 0}">
+					<c:forEach var="item" items="${listSum}">
+						
+
+							<tr>
+								<td>${item.R_DATE}</td>
+								<td>${item.OR_COUNT}</td>
+								<td>${item.R_SUM}</td>
+							</tr>
+					
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td colspan="4">조회된 결과가 없습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+
 		</tbody>
-</table>
+	</table>
 
 
 
@@ -105,7 +115,8 @@
 
 				<h4>지점 수정하기</h4>
 				<form id="writeForm" class="form-horizontal" method="POST"
-					action="<c:url value='/admin/openStoreUpdate.oa'/>" onSubmit="check()">
+					action="<c:url value='/admin/openStoreUpdate.oa'/>"
+					onSubmit="check()">
 
 					<!-- 지점명 ID  수정불가-->
 					<div class="joinfom">
@@ -150,11 +161,12 @@
 
 						<!-- 주소 -->
 						<div class="joinfom">
-							<label>주소(수정가능)</label><br /> <input class="putfomnum" type="text"
-								class="form-control" id="sample6_postcode" name="POSTCODE"
-								value="${map.POSTCODE}"> <input type="button"
-								class="postbtn" onclick="sample6_execDaumPostcode()"
-								value="우편번호 찾기"> <label id="ADDRW1"></label>
+							<label>주소(수정가능)</label><br /> <input class="putfomnum"
+								type="text" class="form-control" id="sample6_postcode"
+								name="POSTCODE" value="${map.POSTCODE}"> <input
+								type="button" class="postbtn"
+								onclick="sample6_execDaumPostcode()" value="우편번호 찾기"> <label
+								id="ADDRW1"></label>
 						</div>
 
 						<div class="joinfom">
@@ -166,8 +178,10 @@
 
 
 						<div class="bbtn">
-							<button type="button" id='modalDown' class="btn btn-primary conmbtn">폐쇄</button>
-							<button type="button" id='modalUpdate' class="btn btn-warning conmbtn2">수정</button>
+							<button type="button" id='modalDown'
+								class="btn btn-primary conmbtn">폐쇄</button>
+							<button type="button" id='modalUpdate'
+								class="btn btn-warning conmbtn2">수정</button>
 							<button type="button" class="close-area">닫기</button>
 						</div>
 					</div>
@@ -175,17 +189,19 @@
 			</div>
 		</div>
 	</div>
-	<script	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript" src="<c:url value='/js/post.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/joinForm.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/storeUpdate.js'/>"></script>
+	<script
+		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="<c:url value='/js/post.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/js/joinForm.js'/>"></script>
+	<script type="text/javascript"
+		src="<c:url value='/js/storeUpdate.js'/>"></script>
 
 
 
-<script>
+	<script>
 
 
 	function submit_ck() {
@@ -267,7 +283,7 @@
 
 </script>
 
-<!-- <script>
+	<!-- <script>
 	$("a[name=delete]").click(
 			function() {
 				let check = confirm("폐쇄 하시겠습니까?");

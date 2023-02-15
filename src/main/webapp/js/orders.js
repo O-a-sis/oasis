@@ -3,6 +3,24 @@
  */
  
  var orderService=(function(){
+ 
+ 	 function getAlarm(store, callback, error){
+	 $.ajax({
+	 	type : 'get',
+	 	url : '/Oasis/store/getAlarm/'+store+'.json',
+	 	contentType : "application/json; charset=UTF-8",
+	 	success : function(alarm, status, xhr){
+	 		if(callback){
+	 			callback(alarm);
+	 		}
+	 	},
+	 	error : function(xhr, status, er){
+	 		if(error){
+	 			error(er);
+	 		}
+	 	 }
+	  });
+	 }
     
 	 function get(oidx, callback, error){
 	 $.ajax({
@@ -103,6 +121,7 @@
 	 }
 
     return {
+    	getAlarm : getAlarm,
     	get : get,
     	updateOrder : updateOrder,
     	updateProcessingOrder : updateProcessingOrder,

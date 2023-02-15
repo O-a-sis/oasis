@@ -36,6 +36,10 @@ public class StoreDAO extends AbstractDAO {
 	public List<Map<String, Object>> getOrdersListByStatus(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>) selectList("store.getOrdersListByStatus", map);
 	}
+	
+	public List<Map<String, Object>> getAlarm(int store) throws Exception {
+		return (List<Map<String, Object>>) selectList("store.getAlarm", store);
+	}
 	public List<Map<String, Object>> getWaitingOrders(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>) selectList("store.getWaitingOrders", map);
 	}
@@ -44,18 +48,18 @@ public class StoreDAO extends AbstractDAO {
 		return (int) update("store.updateOrder", map);
 	}
 	
-	public List<Map<String, Object>> getProcessingOrders(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("store.getProcessingOrders", map);
+	public int updateOrderAlarm(Map<String, Object> map) throws Exception {
+		return (int) update("store.updateOrderAlarm", map);
 	}
-	
+
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return (int) update("store.updateProcessingOrder", map);
 	}
 	
-	public List<Map<String, Object>> getCompletedOrders(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("store.getCompletedOrders", map);
+	public int updateProcessingOrderAlarm(Map<String, Object> map) throws Exception {
+		return (int) update("store.updateProcessingOrderAlarm", map);
 	}
-	
+
 	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
 		return (Map<String, Object>) selectOne("store.getOrderDetail", oidx);
 	}
