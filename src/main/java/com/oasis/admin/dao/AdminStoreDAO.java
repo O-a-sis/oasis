@@ -20,6 +20,11 @@ public class AdminStoreDAO extends AbstractDAO{
 	public List<Map<String, Object>> storeListRank(Map<String, Object> map) throws Exception{
 		return (List<Map<String, Object>>)selectList("admin.storeListRank", map);
 		}
+	
+	public List<Map<String, Object>> storeSumRank(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("admin.storeSumRank", map);
+		}
+
 
 	public void storeJoin(Map<String, Object> map) throws Exception{
 		insert("admin.storeJoin", map);
@@ -30,14 +35,18 @@ public class AdminStoreDAO extends AbstractDAO{
 		return (Map<String, Object>) selectOne("admin.storeDetail", map);
 	}
 
+	
+
 	public int update(Map<String, Object> map) throws Exception {
-		return (int) update("admin.storeUpdate", map);
+		return (int) update("ccomment.updateComment", map);
 	}
-     
+
 	public void storeDown(Map<String, Object> map) throws Exception{
 		update("admin.storeDown", map);
 		
 	}
+	
+	
 
 }
 

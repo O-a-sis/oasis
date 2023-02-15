@@ -27,6 +27,12 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 	public List<Map<String, Object>> storeListRank(Map<String, Object> map) throws Exception {
 		return adminStoreDAO.storeListRank(map);
 	}
+	
+	@Override
+	public List<Map<String, Object>> storeSumRank(Map<String, Object> map) throws Exception {
+		return adminStoreDAO.storeSumRank(map);
+	}
+
 
 
 	@Override
@@ -47,12 +53,11 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 		adminStoreDAO.storeDown(map);
 		
 	}
-
-
+	
 	@Override
 	public int storeUpdate(Map<String, Object> map) throws Exception {
 		return adminStoreDAO.update(map);
 	}
-
 	
+
 }
