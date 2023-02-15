@@ -30,6 +30,9 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 	
 	@Override
 	public List<Map<String, Object>> storeSumRank(Map<String, Object> map) throws Exception {
+		String[] typeArr = String.valueOf(map.get("type")).split("");
+		map.put("typeArr", typeArr);
+		System.out.println("김효균");
 		return adminStoreDAO.storeSumRank(map);
 	}
 
@@ -59,5 +62,9 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 		return adminStoreDAO.update(map);
 	}
 	
+	@Override
+	public int getNameCheck(String email) throws Exception {
+		return adminStoreDAO.getNameCheck(email);
+	}
 
 }
