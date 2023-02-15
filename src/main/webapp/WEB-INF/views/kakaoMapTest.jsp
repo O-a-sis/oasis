@@ -46,7 +46,7 @@
 	</div>
 	<!-- 스크립트 -->
 	<script>
-		var imageSrc = './images/common/oasis.png', // 마커이미지의 주소입니다    
+		var imageSrc = './images/common/oasis2.png', // 마커이미지의 주소입니다    
 		imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
 		imageOption = {
 			offset : new kakao.maps.Point(27, 69)
