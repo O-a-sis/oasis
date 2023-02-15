@@ -92,6 +92,28 @@
 		]]>
 	</delete>
 
+
+
+<!-- 관리자 - 지점 매출 검색 -->
+	<sql id="storeSearch">
+		<trim prefix=" WHERE " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="or">
+					<choose>
+						<when test="type=='O'.toString()">
+							OR_COUNT like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='D'.toString()">
+							R_DATE like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	
+	
 	<!-- 관리자 지점 관리 리스트 -->
 	<select id="storeList" resultType="hashmap">
         <![CDATA[
@@ -135,8 +157,10 @@ where SUM_RANK <=3
 	<!-- 관리자 - 지점 상세보기 매출 목록 -->
 	<select id="storeSumRank" parameterType="hashmap"
 		resultType="hashmap">
+		<include refid="common.pagingPre" /> 
  <![CDATA[
     SELECT 
+    ROW_NUMBER() OVER(ORDER BY R_DATE DESC) RNUM,
 		R_IDX,
 		to_char(R_DATE,'YYYY/MM/DD') R_DATE,
 		R_SUM,
@@ -149,6 +173,8 @@ where SUM_RANK <=3
     ORDER BY R_DATE DESC 
  
    ]]>
+		<include refid="storeSearch" />
+		<include refid="common.pagingPost" />
 	</select>
 
 
@@ -177,21 +203,33 @@ where SUM_RANK <=3
  ]]>
 	</insert>
 
+
+	<!-- 지점명 Check -->
+	<select id="nameCheck" parameterType="String" resultType="int">
+<![CDATA[
+	SELECT COUNT(*) 
+	FROM 
+		S_MEMBER
+ 	WHERE 
+ 		S_NAME= #{S_NAME} 
+]]>
+	</select>
+	
+	
+	
 	<!-- 관리자 지점 수정기능 -->
 	<update id="storeUpdate" parameterType="hashmap">
         <![CDATA[
                 UPDATE 
                         S_MEMBER
-                SET 
-                        S_PASSWORD = #{S_PASSWORD}, 
+                SET  
                         S_MANAGER = #{S_MANAGER}, 
                         ADDRESS1 = #{ADDRESS1},
                         ADDRESS2 = #{ADDRESS2},
-                        POSTCODE = #{POSTCODE}
-                        S_PHONE = #{S_PHONE}, 
-                        S_STATUS =#{S_STATUS}, 
+                        POSTCODE = #{POSTCODE},
+                        S_PHONE = #{S_PHONE}
                 WHERE 
-                        S_NAME=#{S_NAME}
+                        STORE=#{STORE}
                 ]]>
 	</update>
 
