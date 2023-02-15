@@ -7,8 +7,8 @@
  function update(storeUpdate, callback, error){
  	
  	$.ajax({
- 	type : 'put',
- 	url : '/Oasis/storeUpdate/update',
+ 	type : 'post',
+ 	url : '/Oasis/admin/update',
  	data : JSON.stringify(storeUpdate),
  	contentType : "application/json; charset=UTF-8",
  	success : function(result, status, xhr){
@@ -26,7 +26,7 @@
  
 
  return {
- 	update:update,
+ 	update:update
  	};
  })();
  

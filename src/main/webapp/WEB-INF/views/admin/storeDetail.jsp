@@ -62,17 +62,37 @@
 		<h4>지점장명 : ${map.S_MANAGER}</h4>
 		<h4>로그인 정 보 : ${map.STORE} / ${map.S_PASSWORD}</h4>
 		<br>
-		<h3>전일 매출 / 월 평균 ;;;; </h3>
+		<h3>전일 매출 / 월 평균 ;;;;</h3>
 
 	</table>
+	<br>
+	<button type='button' id="modal_btn">지점수정</button>
+	<br>
+	<div class="black_bg"></div>
+	<br>
 
-		<button type='button' id="modal_btn">지점수정</button>
-		<div class="black_bg"></div>
+	<!-- 검색처리기능 -->
+	<div class="search" align="left">
+		<form id="searchForm" action="<c:url value='/admin/storeDetail.oa' />"
+			method="get">
+			<select class="searcht" name="type">
+				<option value="">--</option>
+				<option value="O" name="type"
+					<c:out value="${param.type eq 'O' ? 'selected' : ''}"/>>주문건수</option>
+				<option value="D" name="type"
+					<c:out value="${param.type eq 'D' ? 'selected' : ''}"/>>주문일자</option>
+			</select> <input class="searchtext" type="text" name="keyword"
+				value="<c:out value='${param.keyword}'/>" />
+			<button class="btn btn-default sbtn">
+				<i class="fa-solid fa-magnifying-glass"></i>
+			</button>
+		</form>
+	</div>
+	<br>
+	<br>
 
 
-		<br>
-		<br>
-<table class="board_list" border="1">
+	<table class="board_list" border="1">
 		<thead>
 			<tr>
 				<th scope="col">매출일자</th>
@@ -86,14 +106,14 @@
 			<c:choose>
 				<c:when test="${fn:length(listSum) > 0}">
 					<c:forEach var="item" items="${listSum}">
-						
 
-							<tr>
-								<td>${item.R_DATE}</td>
-								<td>${item.OR_COUNT}</td>
-								<td>${item.R_SUM}</td>
-							</tr>
-					
+
+						<tr>
+							<td>${item.R_DATE}</td>
+							<td>${item.OR_COUNT}</td>
+							<td>${item.R_SUM}</td>
+						</tr>
+
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -105,9 +125,13 @@
 
 		</tbody>
 	</table>
+	<div class="paging" align="center">${paging.pageHtml}</div>
 
 
 
+
+
+	<!-- 지점 수정 모달창 -->
 	<div id="modal" class="modal_wrap">
 		<div class="black_bg"></div>
 		<div class="modal-window">
@@ -259,9 +283,9 @@
 		var storeUpdate = {
 			STORE : $('#STORE').val(),
 			S_MANAGER : $('#S_MANAGER').val(),
-			ADDRESS1 : $('#ADDRESS1').val(),
-			ADDRESS2 : $('#ADDRESS2').val(),
-			POSTCODE : $('#POSTCODE').val(),
+			ADDRESS1 : $('input[name=ADDRESS1]').val(),
+			ADDRESS2 : $('input[name=ADDRESS2]').val(),
+			POSTCODE : $('input[name=POSTCODE]').val(),
 			S_PHONE : $('#S_PHONE').val()
 			
 		};
@@ -275,9 +299,10 @@
     				});
 
   //지점 정보 수정 모달 창 닫기
-    closeBtn.addEventListener("click", e => {
+    document.querySelector('.close-area').addEventListener("click", e => {
         modal.style.display = "none"//닫기 버튼 눌럿을떄 닫아지기
     });
+
 
 
 

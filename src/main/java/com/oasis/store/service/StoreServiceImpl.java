@@ -60,6 +60,7 @@ public class StoreServiceImpl implements StoreService {
 		return storeDAO.getWaitingOrders(map);
 	}
 
+
 	@Override
 	public int updateOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateOrder(map);
@@ -70,6 +71,7 @@ public class StoreServiceImpl implements StoreService {
 		return storeDAO.updateOrderAlarm(map);
 	}
 
+
 	@Override
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateProcessingOrder(map);
@@ -79,6 +81,7 @@ public class StoreServiceImpl implements StoreService {
 	public int updateProcessingOrderAlarm(Map<String, Object> map) throws Exception {
 		return storeDAO.updateProcessingOrderAlarm(map);
 	}
+
 
 	@Override
 	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
