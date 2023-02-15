@@ -81,11 +81,22 @@ SELECT *
 	FROM 
 		COUPON
 	WHERE 
-		CUB_IDX=#{B_PHONE}
+		CUB_IDX=#{CUB_IDX}
 ]]>
 	</select>
 
 
+<select id="useCoupon" parameterType="hashmap"
+	resultType="hashmap">
+	<![CDATA[
+	SELECT CU_PRICE
+		FROM COUPON
+			WHERE CU_IDX=#{CU_IDX}
+	]]>
+	
+	</select>
+	
+	
 	<!-- 주문 내역 -->
 <select id="myOrderList" parameterType="hashmap"
 		resultType="hashmap">

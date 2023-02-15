@@ -15,6 +15,7 @@
 <title>관리자 - 재고관리</title>
 </head>
 <body>
+
 <h1 id="clock"><strong></strong></h1>
 	<c:forEach items="${list}" var="item">
 		<table class="status" border=0>
@@ -57,7 +58,7 @@
 					<p>
 						<strong><span class="p_name"></span>의 재고를</strong>
 					</p>
-					<select style="float: left;" name="selectStatus">
+					<select style="float: left" " name="selectStatus">
 						<option value="Y">품절</option>
 						<option value="N">재고있음</option>
 					</select>
