@@ -15,9 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-
+import com.oasis.bookmark.service.BookmarkService;
 import com.oasis.common.CommandMap;
-import com.oasis.member.service.*;
+import com.oasis.member.service.MemberStoreService;
 
 import lombok.AllArgsConstructor;
 
@@ -41,10 +41,10 @@ public class MemberStoreController {
 	
 		List<Map<String, Object>> list = memberStoreService.getStoreList(commandMap);
 		List<Map<String, Object>> book = bookmarkService.getBookList(commandMap);
-		
-//		Map<String, Object> map = memberStoreService.storeDetail(commandMap);
-		
-//		mv.addObject("map", map);
+		for (Map<String, Object> map : list) {
+			System.out.println(map);
+		}
+
 
 		mv.addObject("list", list);
 		mv.addObject("book", book);
