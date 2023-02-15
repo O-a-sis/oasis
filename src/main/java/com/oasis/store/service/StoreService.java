@@ -12,8 +12,12 @@ public interface StoreService {
 	public int getStoreStatus(Map<String, Object> map) throws Exception;
 	
 	public int openStore(Map<String, Object> map) throws Exception;
+	
+	public int openRevenue(Map<String, Object> map) throws Exception;
 
 	public int closeStore(Map<String, Object> map) throws Exception;
+	
+	public int closeRevenue(Map<String, Object> map) throws Exception;
 	
 	public List<Map<String, Object>> getOrdersList(Map<String, Object> map) throws Exception;
 	
