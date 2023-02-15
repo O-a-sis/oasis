@@ -36,9 +36,20 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
+	public int openRevenue(Map<String, Object> map) throws Exception {
+		return storeDAO.openRevenue(map);
+	}
+	
+	@Override
 	public int closeStore(Map<String, Object> map) throws Exception {
 		return storeDAO.closeStore(map);
 	}
+	
+	@Override
+	public int closeRevenue(Map<String, Object> map) throws Exception {
+		return storeDAO.closeRevenue(map);
+	}
+
 	
 	@Override
 	public List<Map<String, Object>> getOrdersList(Map<String, Object> map) throws Exception {
@@ -109,9 +120,5 @@ public class StoreServiceImpl implements StoreService {
 	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
 		return storeDAO.getOrdersAllList(map);
 	}
-
-
-
-
 
 }

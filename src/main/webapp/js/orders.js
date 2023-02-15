@@ -119,13 +119,56 @@
 	 	 }
 	  });
 	 }
-
+	 
+	 function openRevenue(openRevenue, callback, error){
+	 	
+	 	$.ajax({
+	 	type : 'post',
+	 	url : '/Oasis/store/openRevenue.oa',
+	 	data : JSON.stringify(openRevenue),
+	 	contentType : "application/json; charset=UTF-8",
+	 	success : function(result, status, xhr){
+	 		if(callback){
+	 			callback(result);
+	 		}
+	 	},
+	 	error : function(xhr, status, er){
+	 		if(error){
+	 			error(er);
+	 		}
+	 	 }
+	  });
+	 }
+	 
+	 function closeRevenue(closeRevenue, callback, error){
+	 	
+	 	$.ajax({
+	 	type : 'put',
+	 	url : '/Oasis/store/closeRevenue.oa',
+	 	data : JSON.stringify(closeRevenue),
+	 	contentType : "application/json; charset=UTF-8",
+	 	success : function(result, status, xhr){
+	 		if(callback){
+	 			callback(result);
+	 		}
+	 	},
+	 	error : function(xhr, status, er){
+	 		if(error){
+	 			error(er);
+	 		}
+	 	 }
+	  });
+	 }
+	 
+	 
     return {
     	getAlarm : getAlarm,
     	get : get,
     	updateOrder : updateOrder,
     	updateProcessingOrder : updateProcessingOrder,
     	updateStock : updateStock,
-    	updateProcessingOrder : updateProcessingOrder
+    	updateProcessingOrder : updateProcessingOrder,
+    	openRevenue : openRevenue,
+    	closeRevenue : closeRevenue
     };
 })();
