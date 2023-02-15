@@ -7,7 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -91,6 +95,14 @@ public class StoreMainController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/openRevenue", method = RequestMethod.POST, consumes = "application/json", produces = {
+			MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> openRevenue(@RequestBody Map<String, Object> map) throws Exception {
+		int count = storeService.openRevenue(map);
+		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
+				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	@RequestMapping(value = "/close")
 	public ModelAndView close(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
@@ -98,6 +110,14 @@ public class StoreMainController {
 		int closeStore = storeService.closeStore(commandMap.getMap());
 	
 		return mv;
+	}
+	
+	@RequestMapping(value = "/closeRevenue", method = { RequestMethod.PATCH,
+			RequestMethod.PUT }, consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> closeRevenue(@RequestBody Map<String, Object> map) throws Exception {
+		int count = storeService.closeRevenue(map);
+		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
+				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 }

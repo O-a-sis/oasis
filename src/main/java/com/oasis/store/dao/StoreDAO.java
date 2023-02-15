@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+
 import com.oasis.common.dao.AbstractDAO;
 
 @Repository("storeDAO")
@@ -25,8 +26,16 @@ public class StoreDAO extends AbstractDAO {
 		return (int) update("store.openStore", map);
 	}
 	
+	public int openRevenue(Map<String, Object> map) throws Exception {
+		return (int) insert("store.openRevenue", map);
+	}
+	
 	public int closeStore(Map<String, Object> map) throws Exception {
 		return (int) update("store.closeStore", map);
+	}
+	
+	public int closeRevenue(Map<String, Object> map) throws Exception {
+		return (int) update("store.closeRevenue", map);
 	}
 	
 	public List<Map<String, Object>> getOrdersList(Map<String, Object> map) throws Exception {
