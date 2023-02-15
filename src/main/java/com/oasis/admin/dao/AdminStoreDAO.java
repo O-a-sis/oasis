@@ -38,16 +38,21 @@ public class AdminStoreDAO extends AbstractDAO{
 	
 
 	public int update(Map<String, Object> map) throws Exception {
-		return (int) update("ccomment.updateComment", map);
+		return (int) update("admin.storeUpdate", map);
 	}
 
 	public void storeDown(Map<String, Object> map) throws Exception{
 		update("admin.storeDown", map);
 		
 	}
-	
-	
 
+
+	public int getNameCheck(String name) throws Exception{
+		return (Integer)selectOne("admin.nameCheck", name);
+	}
+	
+	
+	
 }
 
 

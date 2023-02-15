@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oasis.common.CommandMap;
@@ -101,8 +103,24 @@ public class AdminNoticeContorller {
 
 //	공지사항 작성/수정 기능
 	@RequestMapping(value = "noticeSave.oa")
-	public ModelAndView adminNoticeSave(CommandMap commandMap, MultipartFile[] N_IMAGE) throws Exception {
+	public ModelAndView adminNoticeSave(CommandMap commandMap, MultipartHttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
+
+		List<MultipartFile> imgFile = request.getFiles("N_IMAGE");
+
+		for (MultipartFile file : imgFile) {
+			String fileName = file.getOriginalFilename();
+			String savePath = request.getSession().getServletContext().getRealPath("/") + File.separator + "img/"
+					+ fileName;
+			File uploadPath = new File(savePath);
+			System.out.println(savePath);
+			if (uploadPath.exists() == false) {
+				uploadPath.mkdirs();
+			}
+			file.transferTo(new File(savePath));
+			commandMap.put("N_IMAGE", fileName);
+			System.out.println(uploadPath);
+		}
 
 		if (commandMap.get("N_IDX") == null) {
 			adminNoticeService.adminNoticeWrite(commandMap.getMap());

@@ -36,9 +36,20 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
+	public int openRevenue(Map<String, Object> map) throws Exception {
+		return storeDAO.openRevenue(map);
+	}
+	
+	@Override
 	public int closeStore(Map<String, Object> map) throws Exception {
 		return storeDAO.closeStore(map);
 	}
+	
+	@Override
+	public int closeRevenue(Map<String, Object> map) throws Exception {
+		return storeDAO.closeRevenue(map);
+	}
+
 	
 	@Override
 	public List<Map<String, Object>> getOrdersList(Map<String, Object> map) throws Exception {
@@ -60,6 +71,7 @@ public class StoreServiceImpl implements StoreService {
 		return storeDAO.getWaitingOrders(map);
 	}
 
+
 	@Override
 	public int updateOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateOrder(map);
@@ -70,6 +82,7 @@ public class StoreServiceImpl implements StoreService {
 		return storeDAO.updateOrderAlarm(map);
 	}
 
+
 	@Override
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateProcessingOrder(map);
@@ -79,6 +92,7 @@ public class StoreServiceImpl implements StoreService {
 	public int updateProcessingOrderAlarm(Map<String, Object> map) throws Exception {
 		return storeDAO.updateProcessingOrderAlarm(map);
 	}
+
 
 	@Override
 	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
@@ -109,9 +123,5 @@ public class StoreServiceImpl implements StoreService {
 	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
 		return storeDAO.getOrdersAllList(map);
 	}
-
-
-
-
 
 }

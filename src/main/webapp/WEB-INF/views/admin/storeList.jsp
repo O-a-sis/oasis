@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>본사-지점관리</title>
 
 <style>
@@ -168,7 +169,7 @@
 			<div class="joinfom">
 				<label for="jointit">지점PW</label><br />
 				<input class="putfom" type="text" class="form-control" id="S_PASSWORD" name="S_PASSWORD"
-					placeholder="비밀번호 입력하세요" class="form-control" required />
+					placeholder="비밀번호 입력하세요"  required />
 				<label id="PASSWORDW"></label>
 			</div>
 
@@ -176,8 +177,8 @@
 			<div class="joinfom">
 				<label>지점명</label><br />
 				<input class="putfom" type="text" class="form-control" check="0" id="S_NAME" name="S_NAME"
-					minlength="2" maxlength="8" placeholder="지점명 입력하세요"
-					class="form-control" oninput="checkName()" required>
+			 placeholder="지점명 입력하세요"
+					class="form-control"  oninput="checkName()" required>	
 				<label id="NAMEW"></label>
 			</div>
 
@@ -228,11 +229,13 @@
 
 <script	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="<c:url value='/js/post.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/joinForm.js'/>"></script>
+<%-- <script type="text/javascript" src="<c:url value='/js/joinForm.js'/>"></script> --%>
+<script type="text/javascript" src="<c:url value='/js/common.js'/>"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 
 <script>	
-	function fsubmit(){
+function fsubmit(){
 		var STORE = $("#STORE")[0].value;
 		var S_PASSWORD = $("#S_PASSWORD")[0].value;
 		var S_NAME = $("#S_NAME")[0].value;
@@ -272,20 +275,51 @@
     function offClick() {
         document.querySelector('.modal_wrap').style.display ='none';
         document.querySelector('.black_bg').style.display ='none';
+        document.getElementById('writeForm').reset();
+        document.getElementById('NAMEW').innerText= "";
+       
     }
  
     document.getElementById('modal_btn').addEventListener('click', onClick); //지첨 회원가입 모달 창 열기
     document.querySelector('.close-area').addEventListener('click', offClick); //지첨 회원가입 모달 창 닫기
 
-  //지첨 회원가입 모달 창 닫기
-    closeBtn.addEventListener("click", e => {
-        modal.style.display = "none"
 
-    
-    });
 
 };
 
+
+
+
+/* 지점명 체크 */
+ var name = "";
+
+function checkName() {
+	var name = $('#S_NAME').val();
+	var comAjax = new ComAjax();
+	comAjax.setUrl("<c:url value='/admin/confirmName.oa'/>");
+	comAjax.setCallback("fn_checkIdCallback");
+	comAjax.addParam("name", name);
+	comAjax.ajax();
+}
+
+
+function fn_checkIdCallback(data) {
+	if (data) {
+		$('#NAMEW').text(" 사용중인 지점명");
+		$('#NAMEW').css("color", "red");
+		$('#NAMEW').css("font-size", "9pt");
+		$('#NAMEW').css("font-weight", "bold");
+		$('#S_NAME').attr("check", "0");
+	} else {
+		$('#NAMEW').text(" 사용가능");
+		$('#NAMEW').css("color", "green");
+		$('#NAMEW').css("font-size", "9pt");
+		$('#NAMEW').css("font-weight", "bold");
+		$('#S_NAME').attr("check", "1");
+	}
+}
+
+ 
 
 </script>
 </body>
