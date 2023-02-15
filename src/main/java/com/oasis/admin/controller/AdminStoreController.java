@@ -3,8 +3,13 @@ package com.oasis.admin.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oasis.admin.service.AdminStoreService;
@@ -26,13 +31,11 @@ public class AdminStoreController {
 
 		List<Map<String, Object>> listRank = adminStoreService.storeListRank(commandMap.getMap());
 		mv.addObject("listRank", listRank);
-		
 		List<Map<String, Object>> list = adminStoreService.storeList(commandMap.getMap());
-		System.out.println();
 		mv.addObject("list", list);
 
 		return mv;
-	
+
 	}
 
 	// 관리자 - 지점 회원가입폼
@@ -57,25 +60,27 @@ public class AdminStoreController {
 	@RequestMapping(value = "/storeDetail.oa")
 	public ModelAndView storeDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/storeDetail");
+		
+		List<Map<String, Object>> listSum = adminStoreService.storeSumRank(commandMap.getMap());
+		mv.addObject("listSum", listSum);
 
 		Map<String, Object> map = adminStoreService.storeDetail(commandMap.getMap());
-
 		mv.addObject("map", map);
+		System.out.println(map);
 
 		return mv;
 	}
 
 	// 관리자 - 지점수정
-	@RequestMapping(value = "/storeUpdate.oa")
-	public ModelAndView storeUpdate(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/storeDetail.oa");
-
-		adminStoreService.storeUpdate(commandMap.getMap());
-
-		mv.addObject("S_IDX", commandMap.get("S_IDX"));
-		return mv;
+	@RequestMapping(value = "/update", method = { RequestMethod.PATCH,
+			RequestMethod.PUT }, consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> update(@RequestBody Map<String, Object> map) throws Exception {
+		int count = adminStoreService.storeUpdate(map);
+		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
+				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	
 	// 관리자 - 지점폐쇄 버튼 눌렀을 때 (목록으로 넘어감)
 	@RequestMapping(value = "/storeDown.oa")
 	public ModelAndView storeDown(CommandMap commandMap) throws Exception {
@@ -84,5 +89,9 @@ public class AdminStoreController {
 		adminStoreService.storeDown(commandMap.getMap());
 
 		return mv;
+		
+		
 	}
+	
+
 }

@@ -25,7 +25,7 @@
 
 			<tr>
 					<th width="170">새소식</th>
-					<td><a href = '/Oasis/noticeList.oa'>공지사항</a></td>
+					<td><a href = '/Oasis/member/noticeList.oa'>공지사항</a></td>
 			</tr>
 
 			<tr>

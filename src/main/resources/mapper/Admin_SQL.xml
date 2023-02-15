@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="admin">
-    
-    <!-- 공지사항 검색 -->
+
+
+	<!-- 공지사항 검색 -->
 	<sql id="noticeSearch">
 		<trim prefix=" WHERE " prefixOverrides="OR">
 			<foreach item='type' collection="typeArr">
@@ -21,7 +22,7 @@
 		</trim>
 	</sql>
 
-    <!-- 공지사항 리스트 -->
+	<!-- 공지사항 리스트 -->
 	<select id="noticeList" parameterType="hashmap"
 		resultType="hashmap">
 		<include refid="common.pagingPre" /> 
@@ -69,7 +70,7 @@
 		]]>
 	</insert>
 
-    <!-- 공지사항 수정 -->
+	<!-- 공지사항 수정 -->
 	<update id="noticeUpdate" parameterType="hashmap">
 		<![CDATA[
 		UPDATE 
@@ -107,13 +108,13 @@
 	<!-- 관리자 지점 관리 (+ 매출순위) 리스트 -->
 	<select id="storeListRank" resultType="hashmap">
         <![CDATA[
-        SELECT
-                R.*,S.*
-        FROM
-                S_MEMBER S, REVENUE R
-        WHERE
-                S.STORE = R.R_IDX(+)
-        Order by R.R_SUM DESC             
+        
+select * from
+(SELECT  R.*,S.*,
+RANK() OVER(ORDER BY R.R_SUM DESC) as SUM_RANK
+FROM S_MEMBER S, REVENUE R
+WHERE S.STORE = R.R_IDX)
+where SUM_RANK <=3             
         ]]>
 	</select>
 
@@ -127,9 +128,29 @@
      FROM 
       S_MEMBER S, REVENUE R
                         WHERE
-                S.STORE = R.R_IDX and R.R_IDX = #{R_IDX}
+                S.STORE = R.R_IDX(+) and S.STORE = #{R_IDX}
    ]]>
 	</select>
+
+	<!-- 관리자 - 지점 상세보기 매출 목록 -->
+	<select id="storeSumRank" parameterType="hashmap"
+		resultType="hashmap">
+ <![CDATA[
+    SELECT 
+		R_IDX,
+		to_char(R_DATE,'YYYY/MM/DD') R_DATE,
+		R_SUM,
+		OR_COUNT
+	FROM
+   		 REVENUE
+   WHERE
+        R_IDX = #{R_IDX}
+   		 
+    ORDER BY R_DATE DESC 
+ 
+   ]]>
+	</select>
+
 
 
 	<!-- 관리자 지점 추가하기(회원가입) -->
