@@ -32,8 +32,16 @@
 							<c:out value="${param.type eq 'T' ? 'selected' : ''}"/>>제목</option>
 						<option value="C" name="type"
 							<c:out value="${param.type eq 'C' ? 'selected' : ''}"/>>내용</option>
-					</select> <input class="searchtext" type="text" name="keyword"
-						value="<c:out value='${param.keyword}'/>" />
+					</select>
+					<c:choose>
+						<c:when test="${param.keyword eq 'null'}">
+							<input class="searchtext" type="text" name="keyword" value="" />
+						</c:when>
+						<c:otherwise>
+							<input class="searchtext" type="text" name="keyword"
+								value="<c:out value='${param.keyword}'/>" />
+						</c:otherwise>
+					</c:choose>
 					<button class="btn btn-default sbtn">
 						<i class="fa-solid fa-magnifying-glass"></i>
 					</button>
@@ -54,10 +62,10 @@
 						<tr>
 							<td align="center">${item.N_IDX}</td>
 							<c:if test="${item.N_TYPE eq 'B'}">
-								<c:set var="type" value="구매자" />
+								<c:set var="type" value="고객" />
 							</c:if>
 							<c:if test="${item.N_TYPE eq 'S'}">
-								<c:set var="type" value="판매자" />
+								<c:set var="type" value="매장" />
 							</c:if>
 							<c:if test="${item.N_TYPE eq 'E'}">
 								<c:set var="type" value="이벤트" />

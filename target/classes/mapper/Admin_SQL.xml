@@ -79,6 +79,7 @@
 			  N_TITLE=#{N_TITLE},				
 			  N_CONTENT=#{N_CONTENT},
 			  N_IMAGE=#{N_IMAGE}
+			  N_IMAGE=#{N_IMAGE},
 			  N_DATE=SYSDATE
 		WHERE
 			  N_IDX=#{N_IDX}	
