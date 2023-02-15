@@ -103,7 +103,6 @@ public class AdminNoticeContorller {
 
 //	공지사항 작성/수정 기능
 	@RequestMapping(value = "noticeSave.oa")
-	public ModelAndView adminNoticeSave(CommandMap commandMap, MultipartFile[] N_IMAGE) throws Exception {
 	public ModelAndView adminNoticeSave(CommandMap commandMap, MultipartHttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 
