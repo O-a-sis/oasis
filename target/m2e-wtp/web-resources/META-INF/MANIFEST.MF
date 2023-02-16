@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: 82102
 Build-Jdk: 11.0.17
+=======
+Built-By: black
+Build-Jdk: 11.0.16
+>>>>>>> eb7cefc81a355c91159252bbd8cdc951697ab7ad
 Created-By: Maven Integration for Eclipse
 
