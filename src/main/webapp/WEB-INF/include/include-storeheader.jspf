@@ -33,7 +33,7 @@ $(document).ready(function(){
 				 
 					if(alarmslength) {
 						str = "<i class='fa-solid fa-n'></i>";
-						alert("주문이"+alarmslength+"건 들어왔습니다");
+						console.log("주문이"+alarmslength+"건 들어왔습니다");
 					} else {
 						str = "";
 					}	
@@ -76,14 +76,39 @@ $(document).ready(function(){
         };
 </script>
 <script>
-    function openStore() {
-    	if(confirm("매장을 오픈하시겠습니까?")) {
+	let today = new Date();
+	let month = today.getMonth()+1;
+	
+	let str = today.getFullYear()+'/'+(("00"+month.toString()).slice(-2))+'/'+today.getDate();
+	
+	function openRevenue() {
+		let openRevenue = {
+    			STORE : '${sessionScope.STORE}',
+    			TODAY : str
+    		}
+    	orderService.openRevenue(openRevenue, function(result){   			
+    		});
+	}
+	
+	function closeRevenue() {
+		let closeRevenue = {
+    			STORE : '${sessionScope.STORE}',
+    			TODAY : str
+    		}
+    	orderService.closeRevenue(closeRevenue, function(result){   			
+    		});
+	}
+	
+    function openStore() {   	
+    	if(confirm(str+" 매장을 오픈하시겠습니까?")) {
+    		openRevenue(); 			
     		location.href="/Oasis/store/open?STORE=${sessionScope.STORE}";
     	} 
     }
     
     function closeStore() {
-    	if(confirm("매장을 마감하시겠습니까?")) {
+    	if(confirm(str+" 매장을 마감하시겠습니까?")) {
+    		closeRevenue();
     		location.href="/Oasis/store/close?STORE=${sessionScope.STORE}";
     	} 
     }

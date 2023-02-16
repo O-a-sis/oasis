@@ -22,6 +22,8 @@ public interface AdminStoreService {
 	public int storeUpdate(Map<String, Object> map) throws Exception;
 
 	Map<String, Object> storeDetail(Map<String, Object> map) throws Exception;
+	
+	int getNameCheck(String email) throws Exception;
 
 	
 	 	
