@@ -15,9 +15,11 @@
 		<div class="title">
 			<c:if test="${map.N_TYPE eq 'B'}">
 				<c:set var="type" value="구매자" />
+				<c:set var="type" value="고객" />
 			</c:if>
 			<c:if test="${map.N_TYPE eq 'S'}">
 				<c:set var="type" value="판매자" />
+				<c:set var="type" value="매장" />
 			</c:if>
 			<c:if test="${map.N_TYPE eq 'E'}">
 				<c:set var="type" value="이벤트" />
@@ -35,6 +37,9 @@
 				<input type="hidden" name="N_CONTENT">
 			</p>
 			<p>${map.N_IMAGE}
+			<p>
+				<img src="/Oasis/img/${map.N_IMAGE}" alt="이미지"> 
+
 				<input type="hidden" name="N_IMAGE">
 			</p>
 		</div>

@@ -36,7 +36,9 @@
 			<div class="inforight">
 				<c:choose>
 					<c:when test="${not empty sessionScope.B_NAME}">
+				<a href='/Oasis/member/myMenuBar.oa?B_PHONE=${B_PHONE}'>
 				<stong>${sessionScope.B_NAME }</stong>님
+				</a>
 					</c:when>
 				<c:otherwise>
 					<strong>Oasis</strong>
