@@ -24,7 +24,7 @@
 <body>
 	<header>
 		<nav class="gnb_mobile">
-<input type="hidden" id="id" value="${sessionScope.B_PHONE}"/>
+			<input type="hidden" id="id" value="${sessionScope.B_PHONE}" />
 			<div class="m_slide">
 				<div class="menu_sub">
 					<div class="topmenu">
@@ -85,13 +85,14 @@
 	<footer>
 		<div class="bottomnav">
 			<ul>
-				<li><a href=<c:url value='/member/main.oa' />><i class="fa-solid fa-house"></i></a></li>
-				<li><a href=<c:url value='/member/storeList.oa' />><img src="../images/common/oasis.png"
-						alt="메뉴열기" /></a></li>
+				<li><a href=<c:url value='/member/main.oa' />><i
+						class="fa-solid fa-house"></i></a></li>
+				<li><a href=<c:url value='/member/storeList.oa' />><img
+						src="../images/common/oasis.png" alt="메뉴열기" /></a></li>
 				<li><a href="#"><i class="fa-solid fa-clipboard"></i></a></li>
 				<li><button class="gnb_open">
-				<img src="../images/common/gnb_open.png" alt="메뉴열기" />
-					</button> </li>
+						<img src="../images/common/gnb_open.png" alt="메뉴열기" />
+					</button></li>
 			</ul>
 		</div>
 	</footer>

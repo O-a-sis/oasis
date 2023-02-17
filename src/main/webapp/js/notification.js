@@ -19,8 +19,9 @@
                 // 브라우저 알림
                 const showNotification = () => {
                     
-                    const notification = new Notification('알림', {
+                    const notification = new Notification('[Oasis]에서 온 알림', {
                         body: data.content
+                        
                     });
                     
                     setTimeout(() => {

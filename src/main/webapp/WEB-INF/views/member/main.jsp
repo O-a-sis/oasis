@@ -41,12 +41,8 @@
 			<div class="inforight">
 				<c:choose>
 					<c:when test="${not empty sessionScope.B_NAME}">
-<<<<<<< HEAD
-				<stong>${sessionScope.B_NAME }</stong>님
-=======
 						<a href='/Oasis/member/myMenuBar.oa?B_PHONE=${B_PHONE}'> <strong>${sessionScope.B_NAME}</strong>님
 						</a>
->>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
 					</c:when>
 					<c:otherwise>
 						<strong>Oasis</strong>
@@ -90,23 +86,26 @@
 			</ul>
 		</div>
 		<button class="prev">
-			<img src="<c:url value='/images/contents/business_prev_m.png'/>" alt="이전배너보기" />
+			<img src="<c:url value='/images/contents/business_prev_m.png'/>"
+				alt="이전배너보기" />
 		</button>
 		<button class="next">
-			<img src="<c:url value='/images/contents/business_next_m.png'/>" alt="다음배너보기" />
+			<img src="<c:url value='/images/contents/business_next_m.png'/>"
+				alt="다음배너보기" />
 		</button>
 	</section>
 	<section class="mainmenulist">
 		<h3>추천메뉴</h3>
 		<div class="menuslide">
 			<ul>
-<c:forEach var="menulist" items="${plist}">
+				<c:forEach var="menulist" items="${plist}">
 
-												<li><img src="<c:url value='/images/contents/${menulist.P_IMG}.png'/>"
-													alt="" /></li>
-												
+					<li><img
+						src="<c:url value='/images/contents/${menulist.P_IMG}.png'/>"
+						alt="" /></li>
 
-							</c:forEach>
+
+				</c:forEach>
 			</ul>
 
 		</div>
@@ -114,15 +113,4 @@
 
 
 </body>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=17abac5a86d69afad0326b67e47cbd88"></script>
-<script>
-	var container = document.getElementById('map');
-	var options = {
-		center : new kakao.maps.LatLng(33.450701, 126.570667),
-		level : 3
-	};
-
-	var map = new kakao.maps.Map(container, options);
-</script>
 </html>
