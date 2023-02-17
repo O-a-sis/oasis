@@ -52,7 +52,7 @@
 </style>
 </head>
 <body>
-	<h1>지점매출순위 - 전일기준</h1>
+	<h1>지점매출 TOP3 - 전일기준</h1>
 	<table class="board_list" border="1">
 		<thead>
 			<tr>
@@ -62,6 +62,7 @@
 				<th scope="col">주소</th>
 				<th scope="col">전화번호</th>
 				<th scope="col">매출액</th>
+			
 			</tr>
 		</thead>
 		<tbody>
@@ -72,8 +73,6 @@
 						<tr>
 							<td>${item.STORE}</td>
 							<td>${item.S_NAME}</td>
-
-
 							<td>${item.S_MANAGER}</td>
 							<td>${item.ADDRESS1}</td>
 							<td>${item.S_PHONE}</td>
@@ -114,7 +113,8 @@
 				<th scope="col">지점장명</th>
 				<th scope="col">주소</th>
 				<th scope="col">전화번호</th>
-				<th scope="col">지점상태</th>
+				<th scope="col">지점폐쇄</th>
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -125,12 +125,18 @@
 						<tr>
 							<td>${item.STORE}</td>
 							<td><a
-								href='<c:url value="/admin/storeDetail.oa?R_IDX=${item.STORE}"/>'>${item.S_NAME}</a>
+								href='<c:url value="/admin/storeDetail.oa?STORE=${item.STORE}"/>'>${item.S_NAME}</a>
 							</td>
 							<td>${item.S_MANAGER}</td>
 							<td>${item.ADDRESS1}</td>
 							<td>${item.S_PHONE}</td>
-							<td>${item.S_STATUS}</td>
+							<td><c:choose>
+								<c:when test="${item.DEL_GB eq 'Y' }">폐쇄완료</c:when>
+								<c:otherwise>
+								<a href="/Oasis/admin/storeDown.oa?STORE=${item.STORE}&page=${param.page}">폐쇄하기</a>
+								</c:otherwise>
+								</c:choose>
+							</td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -141,9 +147,10 @@
 				</c:otherwise>
 			</c:choose>
 		</tbody>
+			
 	</table>
 	
-	
+	<div class="paging" align="center">${paging.pageHtml}</div>
 	
 
 <div id="modal" class="modal_wrap">

@@ -35,6 +35,9 @@ public class AdminStoreDAO extends AbstractDAO{
 		return (Map<String, Object>) selectOne("admin.storeDetail", map);
 	}
 
+	public List<Map<String, Object>> revenueList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("admin.revenueList", map);
+		}
 	
 
 	public int update(Map<String, Object> map) throws Exception {
@@ -46,13 +49,22 @@ public class AdminStoreDAO extends AbstractDAO{
 		
 	}
 
-
 	public int getNameCheck(String name) throws Exception{
 		return (Integer)selectOne("admin.nameCheck", name);
 	}
 	
+	public Map<String, Object> getYSum(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("admin.getYSum", map);
+	}
 	
+	public Map<String, Object> getMAvg(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("admin.getMAvg", map);
+	}
 	
+	public List<Map<String, Object>> memberList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("admin.memberList", map);
+		}
+
 }
 
 
