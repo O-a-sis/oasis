@@ -92,7 +92,7 @@ SELECT *
 <![CDATA[
 SELECT *
    FROM 
-      ORDERS
+      ORDERS 
    WHERE
       OB_IDX=#{OB_IDX}
 ]]>
@@ -105,9 +105,21 @@ SELECT *
 <![CDATA[
 SELECT * 
 	FROM 
-		ORDERS
+		ORDERS 
 	WHERE
-		O_IDX=#{O_IDX}
+		O_IDX=#{O_IDX} 
+]]>
+	</select>
+	
+		<!-- 주문내역 상세 -->
+<select id="OrderDetail" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+	FROM 
+		ORDERS_MENU
+	WHERE
+		OM_IDX=#{O_IDX}
 ]]>
 	</select>
 

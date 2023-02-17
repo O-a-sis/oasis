@@ -93,12 +93,7 @@
 	</delete>
 
 
-<<<<<<< HEAD
-
-	<!-- 관리자 - 지점 매출 검색 -->
-=======
 	<!-- 공지사항 검색 -->
->>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
 	<sql id="storeSearch">
 		<trim prefix=" WHERE " prefixOverrides="OR">
 			<foreach item='type' collection="typeArr">
@@ -116,10 +111,6 @@
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
 	<!-- 관리자 지점 관리 리스트 -->
 	<select id="storeList" resultType="hashmap">
 		<include refid="common.pagingPre" /> 
