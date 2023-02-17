@@ -9,6 +9,7 @@ public interface StoreService {
 	
 	public List<Map<String, Object>> getOrders(Map<String, Object> map) throws Exception;
 	
+<<<<<<< HEAD
 	public int getStoreStatus(Map<String, Object> map) throws Exception;
 	
 	public int openStore(Map<String, Object> map) throws Exception;
@@ -36,6 +37,23 @@ public interface StoreService {
 	public int updateProcessingOrderAlarm(Map<String, Object> map) throws Exception;
 	
 	public Map<String, Object> getOrderDetail(String oidx) throws Exception;
+=======
+	public int openStore(Map<String, Object> map) throws Exception;
+
+	public int closeStore(Map<String, Object> map) throws Exception;
+
+	public List<Map<String, Object>> getWaitingOrders(Map<String, Object> map) throws Exception;
+	
+	public int updateOrder(Map<String, Object> map) throws Exception;
+
+	public List<Map<String, Object>> getProcessingOrders(Map<String, Object> map) throws Exception;
+	
+	public int updateProcessingOrder(Map<String, Object> map) throws Exception;
+	
+	public List<Map<String, Object>> getCompletedOrders(Map<String, Object> map) throws Exception;
+	
+	public Map<String, Object> getOrderDetail(int oidx) throws Exception;
+>>>>>>> 795bd4b (no message)
 	
 	public List<Map<String, Object>> getStockList(Map<String, Object> map) throws Exception;
 	
@@ -45,7 +63,11 @@ public interface StoreService {
 	
 	public Map<String, Object> getNoticeDetail(Map<String, Object> map) throws Exception;
 	
+<<<<<<< HEAD
 	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception;
+=======
+	
+>>>>>>> 795bd4b (no message)
 	
 
 }

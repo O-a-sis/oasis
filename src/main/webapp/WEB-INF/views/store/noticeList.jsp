@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ include file="/WEB-INF/include/include-storeheader.jspf" %>
+=======
+>>>>>>> 795bd4b (no message)
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <title>관리자 - 공지사항</title>
 <STYLE TYPE="text/css">
 table {font-size: 12pt;}
@@ -40,5 +44,11 @@ table {font-size: 12pt;}
 		</tbody>
 	</table>
 	<div class="paging">${paging.pageHtml}</div>
+=======
+<title>Insert title here</title>
+</head>
+<body>
+
+>>>>>>> 795bd4b (no message)
 </body>
 </html>

@@ -24,11 +24,14 @@ public class StoreServiceImpl implements StoreService {
 	public List<Map<String, Object>> getOrders(Map<String, Object> map) throws Exception {
 		return storeDAO.getOrders(map);
 	}
+<<<<<<< HEAD
 	
 	@Override
 	public int getStoreStatus(Map<String, Object> map) throws Exception {
 		return storeDAO.getStoreStatus(map);
 	}
+=======
+>>>>>>> 795bd4b (no message)
 
 	@Override
 	public int openStore(Map<String, Object> map) throws Exception {
@@ -36,6 +39,7 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public int openRevenue(Map<String, Object> map) throws Exception {
 		return storeDAO.openRevenue(map);
 	}
@@ -65,28 +69,45 @@ public class StoreServiceImpl implements StoreService {
 	public List<Map<String, Object>> getAlarm(int store) throws Exception {
 		return storeDAO.getAlarm(store);
 	}
+=======
+	public int closeStore(Map<String, Object> map) throws Exception {
+		return storeDAO.closeStore(map);
+	}
+>>>>>>> 795bd4b (no message)
 
 	@Override
 	public List<Map<String, Object>> getWaitingOrders(Map<String, Object> map) throws Exception {
 		return storeDAO.getWaitingOrders(map);
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 795bd4b (no message)
 	@Override
 	public int updateOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateOrder(map);
 	}
+<<<<<<< HEAD
 	
 	@Override
 	public int updateOrderAlarm(Map<String, Object> map) throws Exception {
 		return storeDAO.updateOrderAlarm(map);
 	}
 
+=======
+
+	@Override
+	public List<Map<String, Object>> getProcessingOrders(Map<String, Object> map) throws Exception {
+		return storeDAO.getProcessingOrders(map);
+	}
+>>>>>>> 795bd4b (no message)
 
 	@Override
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateProcessingOrder(map);
 	}
+<<<<<<< HEAD
 	
 	@Override
 	public int updateProcessingOrderAlarm(Map<String, Object> map) throws Exception {
@@ -96,6 +117,16 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
+=======
+
+	@Override
+	public List<Map<String, Object>> getCompletedOrders(Map<String, Object> map) throws Exception {
+		return storeDAO.getCompletedOrders(map);
+	}
+
+	@Override
+	public Map<String, Object> getOrderDetail(int oidx) throws Exception {
+>>>>>>> 795bd4b (no message)
 		return storeDAO.getOrderDetail(oidx);
 	}
 
@@ -118,10 +149,15 @@ public class StoreServiceImpl implements StoreService {
 	public Map<String, Object> getNoticeDetail(Map<String, Object> map) throws Exception {
 		return storeDAO.getNoticeDetail(map);
 	}
+<<<<<<< HEAD
 
 	@Override
 	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
 		return storeDAO.getOrdersAllList(map);
 	}
+=======
+	
+	
+>>>>>>> 795bd4b (no message)
 
 }

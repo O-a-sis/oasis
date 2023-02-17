@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD
 	pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/include/include-storeheader.jspf"%>
@@ -414,4 +415,65 @@ function CountDownTimer(dt, id) {
      timer = setInterval(showRemaining, 1000);
  }
 </script>
+=======
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div>
+<h1 style="display:inline">오아시스</h1>
+<h3 style="display:inline">종각점 - 관리자</h3>
+</div>
+<div style="height: 100px; width: 100%; background-color: #ff6600; padding:10px">
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 style="color:white; display:inline"><strong>거래내역</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <h1 style="color:white; display:inline"><strong>재고관리</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <h1 style="color:white; display:inline"><strong>공지사항</strong></h1>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+       <button type="button">매장 오픈</button>
+</div>
+<div style="padding:20px" align="center">
+<h1 style="display:inline"><strong>접수대기</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="color:#ff751a; display:inline"><strong>00건</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="display:inline"><strong>제조중</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="color:#ff751a; display:inline"><strong>00건</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="display:inline"><strong>제조완료</strong></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="color:#ff751a; display:inline"><strong>00건</strong></h1>
+</div>
+<br>
+<div style="height:200px; width:600px;">
+<h1 id="clock"><strong></strong></h1>
+<h1><strong>접수대기 주문현황</strong></h1>
+<h4>오픈 전입니다</h4>
+<button type="button" style="color:white; background:gray">지점 로그아웃</button>
+</div>
+</body>
+    <script>
+        window.onload = function () {
+            // 변수를 선언합니다.
+            var clock = document.getElementById('clock');
+            // 매 1초마다 함수를 실행합니다.
+            setInterval(function () {
+                var today = new Date();
+                let day = ['일', '월', '화', '수', '목', '금', '토'];
+
+                function dateFormat(today) {
+                    let dateFormat=today.getFullYear() + '년 ' + (today.getMonth()+1) + '월 '
+                    + today.getDate() + '일 ' + day[today.getDay()] + '요일 '
+                    + today.getHours() + '시 ' + today.getMinutes() + '분 '
+                    + today.getSeconds() + '초';
+                    return dateFormat;
+                }
+
+                clock.innerHTML = dateFormat(today).toString();
+            }, 1000);
+        };
+    </script>
+>>>>>>> 795bd4b (no message)
 </html>

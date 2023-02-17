@@ -7,11 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+=======
+import org.springframework.stereotype.Controller;
+>>>>>>> 795bd4b (no message)
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,6 +43,7 @@ public class StoreMainController {
 		String message = "";
 		Map<String, Object> result = storeService.getStore(commandMap.getMap());
 		if (result == null) { // 지점 아이디가 있는지 확인
+<<<<<<< HEAD
 			ModelAndView mv = new ModelAndView("redirect:/store/loginForm.oa");
 			message = "해당 지점 아이디가 존재하지 않습니다.";
 			mv.addObject("message",message);
@@ -55,6 +60,23 @@ public class StoreMainController {
 				message = "비밀번호가 맞지 않습니다.";
 				mv.addObject("message",message);
 				return mv;
+=======
+			ModelAndView mav = new ModelAndView("redirect:/loginForm.fe");
+			message = "해당 지점 아이디가 존재하지 않습니다.";
+			mav.addObject("message",message);
+			return mav;
+
+		} else {
+			if (result.get("S_PASSWORD").equals(commandMap.get("S_PASSWORD"))) { // 비밀번호가 같다면				
+				ModelAndView mav = new ModelAndView("redirect:/main.oa");
+				session.setAttribute("STORE", result.get("STORE"));
+				return mav;
+			} else {// 비밀번호가 일치하지않을 때
+				ModelAndView mav = new ModelAndView("redirect:/loginForm.oa");
+				message = "비밀번호가 맞지 않습니다.";
+				mav.addObject("message",message);
+				return mav;
+>>>>>>> 795bd4b (no message)
 			}
 		}
 	}
@@ -65,6 +87,7 @@ public class StoreMainController {
 		HttpSession session = request.getSession();
 		if (session != null)
 			session.invalidate();
+<<<<<<< HEAD
 		ModelAndView mv = new ModelAndView("redirect:/store/loginForm.oa");
 		
 		return mv;
@@ -119,5 +142,20 @@ public class StoreMainController {
 		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+=======
+		ModelAndView mav = new ModelAndView("redirect:/main.oa");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/main.oa") // 메인
+	public ModelAndView findId(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("store/main");
+		
+		//List<Map<String, Object>> orders = storeService.getOrders(commandMap.getMap());
+		//mv.addObject("list", orders);
+		return mv;
+	}
+>>>>>>> 795bd4b (no message)
 
 }
