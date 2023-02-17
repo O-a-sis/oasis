@@ -32,7 +32,7 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 	public List<Map<String, Object>> storeSumRank(Map<String, Object> map) throws Exception {
 		String[] typeArr = String.valueOf(map.get("type")).split("");
 		map.put("typeArr", typeArr);
-		System.out.println("김효균");
+
 		return adminStoreDAO.storeSumRank(map);
 	}
 
@@ -47,7 +47,12 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 
 	@Override
 	public Map<String, Object> storeDetail(Map<String, Object> map) throws Exception {
-		return adminStoreDAO.storeDetail(map);
+		Map<String, Object> store = adminStoreDAO.storeDetail(map);
+		store.put("YSum", adminStoreDAO.getYSum(map));
+		store.put("MAvg", adminStoreDAO.getMAvg(map));
+		store.put("RList", adminStoreDAO.revenueList(map));
+	
+		return store;
 	}
 	
 
@@ -56,15 +61,24 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 		adminStoreDAO.storeDown(map);
 		
 	}
-	
+
 	@Override
 	public int storeUpdate(Map<String, Object> map) throws Exception {
 		return adminStoreDAO.update(map);
 	}
+	
+	
 	
 	@Override
 	public int getNameCheck(String email) throws Exception {
 		return adminStoreDAO.getNameCheck(email);
 	}
 
+
+	
+	@Override
+	public List<Map<String, Object>> memberList(Map<String, Object> map) throws Exception {
+		return adminStoreDAO.memberList(map);
+	}
+	
 }

@@ -6,8 +6,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
+	<link rel="stylesheet" href="<c:url value='/css/store/jquery-ui.css'/>">
+	<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/js/jquery-ui.js'/>"></script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript" src="<c:url value='/js/post.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/js/joinForm.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/js/storeUpdate.js'/>"></script>
+<title>본사-지점 상세보기</title>
 <style>
 .modal_wrap {
 	display: none;
@@ -55,14 +61,28 @@
 <title>지점 상세</title>
 </head>
 <body>
-	<h1>${map.S_NAME }의정보</h1>
+	<h1>${map.S_NAME}의정보</h1>
+
 	<table class="board_list" border="1">
+		<h2>
+			<c:choose>
+				<c:when test="${map.DEL_GB eq 'Y'}">
+					<p>
+						<strong> <span style="color: red">지점상태 폐쇄 입니다.</span></strong>
+					</p>
+				</c:when>
+				<c:otherwise>
+					<p>
+						<strong> <span style="color: blue">지점상태 정상 입니다.</span></strong>
+					</p>
+				</c:otherwise>
+			</c:choose>
+		</h2>
 		<h4>연락처 : ${map.S_PHONE}</h4>
 		<h4>주 소 : ${map.POSTCODE} ${map.ADDRESS1} ${map.ADDRESS2}</h4>
 		<h4>지점장명 : ${map.S_MANAGER}</h4>
 		<h4>로그인 정 보 : ${map.STORE} / ${map.S_PASSWORD}</h4>
-		<br>
-		<h3>전일 매출 / 월 평균 ;;;;</h3>
+		<h3>전일 매출 : ${map.YSum.R_SUM} / 월 평균 : ${map.MAvg.AVG}</h3>
 
 	</table>
 	<br>
@@ -70,26 +90,13 @@
 	<br>
 	<div class="black_bg"></div>
 	<br>
+	<br>
 
-	<!-- 검색처리기능 -->
-	<div class="search" align="left">
-		<form id="searchForm" action="<c:url value='/admin/storeDetail.oa' />"
-			method="get">
-			<select class="searcht" name="type">
-				<option value="">--</option>
-				<option value="O" name="type"
-					<c:out value="${param.type eq 'O' ? 'selected' : ''}"/>>주문건수</option>
-				<option value="D" name="type"
-					<c:out value="${param.type eq 'D' ? 'selected' : ''}"/>>주문일자</option>
-			</select> <input class="searchtext" type="text" name="keyword"
-				value="<c:out value='${param.keyword}'/>" />
-			<button class="btn btn-default sbtn">
-				<i class="fa-solid fa-magnifying-glass"></i>
-			</button>
-		</form>
-	</div>
-	<br>
-	<br>
+<form action="<c:url value="storeDetail.oa"/>">
+<p>날짜 선택: <input type="text" name="DATE" id="datepicker" value=<c:out value="${param.DATE eq 'null' ? '' : param.DATE}"/>>
+
+<input type="submit" value="선택하기"> </p>
+</form>
 
 
 	<table class="board_list" border="1">
@@ -98,6 +105,7 @@
 				<th scope="col">매출일자</th>
 				<th scope="col">거래건수</th>
 				<th scope="col">매출합계</th>
+
 
 			</tr>
 		</thead>
@@ -202,8 +210,7 @@
 
 
 						<div class="bbtn">
-							<button type="button" id='modalDown'
-								class="btn btn-primary conmbtn">폐쇄</button>
+
 							<button type="button" id='modalUpdate'
 								class="btn btn-warning conmbtn2">수정</button>
 							<button type="button" class="close-area">닫기</button>
@@ -213,21 +220,12 @@
 			</div>
 		</div>
 	</div>
-	<script
-		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script type="text/javascript" src="<c:url value='/js/post.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/js/joinForm.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='/js/storeUpdate.js'/>"></script>
+	
 
 
 
 	<script>
-
-
+	// 지점 변경
 	function submit_ck() {
 		if ($('#S_MANAGER').val().length == 0) {
 			$('#MANAGERW').text("변경 할 이름을 입력하세요.");
@@ -275,10 +273,11 @@
     
     }
 
-    $(document)
-    		.ready(
-    				function() {    
-    /* 수정 */
+    
+    /* 지점 정보 수정 */
+    $(document).ready(
+    function() {    
+
 	$("#modalUpdate").on("click", function(e) {
 		var storeUpdate = {
 			STORE : $('#STORE').val(),
@@ -292,19 +291,43 @@
 
 		adminStoreService.update(storeUpdate, function(result) {
 		modal.style.display = "none";
+		
 		location.reload(); //새로고침
 		
 		});
 	});
-    				});
+});
 
-  //지점 정보 수정 모달 창 닫기
+//지점 정보 수정 모달 창 닫기
     document.querySelector('.close-area').addEventListener("click", e => {
-        modal.style.display = "none"//닫기 버튼 눌럿을떄 닫아지기
+        modal.style.display = "none"//닫아지기
     });
-
-
-
+    </script>
+    <script>
+    $(function() {
+        //input을 datepicker로 선언
+        $("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd' //달력 날짜 형태
+            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+            ,changeYear: true //option값 년 선택 가능
+            ,changeMonth: true //option값  월 선택 가능                
+            ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+            ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+            ,buttonText: "선택" //버튼 호버 텍스트              
+            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+            ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+            ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)  
+        });                    
+        
+        //초기값을 오늘 날짜로 설정해줘야 합니다.
+        //$('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
+    });
 
 </script>
 
