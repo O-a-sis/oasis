@@ -25,6 +25,4 @@ public interface AdminStoreService {
 	
 	int getNameCheck(String email) throws Exception;
 
-	
-	 	
 }	

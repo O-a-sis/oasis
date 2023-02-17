@@ -43,7 +43,7 @@
 						<div class="shop">
 							<c:if test="${not empty sessionScope.B_PHONE}">
 
-								<h3>00님</h3>
+								<h3>${sessionScope.B_NAME}님</h3>
 							</c:if>
 
 

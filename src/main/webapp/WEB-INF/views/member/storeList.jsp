@@ -44,21 +44,14 @@
 			<ul class="store_tab">
 				<li class="tab_search onon">검색</li>
 				<li class="tab_mark">즐겨찾기</li>
-
 			</ul>
 			<div class="tabon">
 				<div class="store_search tab_search">
 					<div class="search">
 						<form id="searchForm" action="<c:url value='' />" method="get">
-							<%-- 					<c:choose> --%>
-							<%-- 						<c:when test="${param.keyword eq 'null'}"> --%>
+
 							<input class="searchtext" type="text" name="keyword" value=" " />
-							<%-- 						</c:when> --%>
-							<%-- 						<c:otherwise> --%>
-							<!-- 							<input  class="searchtext"  type="text" name="keyword" -->
-							<%-- 								value="<c:out value='${param.keyword}'/>" /> --%>
-							<%-- 						</c:otherwise> --%>
-							<%-- 					</c:choose> --%>
+
 							<button class="btn btn-default sbtn">
 								<i class="fa-solid fa-magnifying-glass"></i>
 							</button>
@@ -100,20 +93,22 @@
 										<ul class="ulinner">
 											<li class="innerl"><img src="images/common/logo.png"></li>
 											<li class="innerl"><strong>${item2.S_NAME}</strong>
-											<li class="innerl">${item2.ADDRESS1}</li>
-											<li class="innerl"><c:if
-													test="${item2.BS_NAME} not empty">
-													<i class="fa-regular fa-star"></i>
-												</c:if>흠</li>
-
-											<li class="mo" id="storemodal"><input type="hidden"
-												value="${item2.S_NAME}" name="s_name"> <input
+											<li class="innerl">${item2.ADDRESS1}${item2.ADDRESS2}</li>
+											<li class="innerl"> 	<div class="bookmark1">
+								<span class="on"><i class="fa-solid fa-heart"></i></span>
+							<input type="hidden"
+												value="${item2.BS_NAME}" name="bs_name"> <input
 												type="hidden" id="${item2.ADDRESS1}" name="address1">
 												<input type="hidden" value="${item2.ADDRESS2}"
 												name="address2"> <input type="hidden"
-												value="${item2.S_PHONE}" name="s_phone"></li>
+												value="${item2.S_PHONE}" name="s_phone"><input type="hidden"
+												value="${item2.B_IDX}" name="b_idx"><input type="hidden"
+												value="${item2.B_STORE}" name="b_store"></div></li>
+
+											
 
 										</ul>
+										<button class="sbtn" onclick="javascript:location.href='/Oasis/member/menuList.oa?S_NAME=${item2.BS_NAME}&STORE=${item2.B_STORE}'">주문하기</button>
 									</li>
 								</c:forEach>
 							</ul>
@@ -159,7 +154,7 @@
 <script src="<c:url value='/js/bookmark.js'/>"></script>
 <!-- 스크립트 -->
 <script>
-	var imageSrc = '../images/common/oasis2.png', // 마커이미지의 주소입니다    
+	var imageSrc = '../images/common/opin.png', // 마커이미지의 주소입니다    
 	imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
 	imageOption = {
 		offset : new kakao.maps.Point(27, 69)
@@ -312,8 +307,11 @@
 	});
 
 	$(modalstoreBtn).on("click", function() {
-
-	});
+	location.href="/Oasis/member/menuList.oa?S_NAME="
+			+storename.html()
+			+"&STORE="
+			+store.val();
+	});	
 	
 	$(".bookmark").on("click", "span", function() {
 		let mark = $(this);
@@ -351,46 +349,39 @@
 
 </script>
 <script type="text/javascript">
-// 	$(document).ready(function() {
+$(".bookmark1").on("click", "span", function() {
+	let mark = $(this);
+	let bookmoal = $(".storeul div");
+	if ($(this).attr("class") == "off") {
 
-// 		$(".bookmark").on("click", "span", function() {
-// 			let bookmark = $(this);
-// 			let bookmoal = $(".storeul div");
-// 			if ($(this).attr("class") == "off") {
+		let bookmark = {
+			BB_IDX : '${sessionScope.B_PHONE}',
+			BS_NAME : $('input[name=bs_name]').val(),
+			B_STORE : $('input[name=b_store]').val()
+		};
 
-// 				let bookmark = {
-// 					BB_IDX : '${sessionScope.B_PHONE}',
-// 					BS_NAME : bookmoal.find("input[name=S_NAME]").val(),
-// 					B_STORE : bookmoal.find("input[name=STORE]").val()
-// 				};
+		console.log(bookmark)
 
-// 				console.log(bookmark)
+		bookmarkService.add(bookmark, function(result) {
+			bidx.val(result);
+		});
 
-// 				bookmarkService.add(bookmark, function(result) {
+		$(this).attr("class", "on");
+		$(this).find("i").attr("class", "fa-solid fa-heart");
 
-// 				});
+	} else {
+		let bookmark = {
+			B_IDX : $('input[name=b_idx]').val()
+		};
+		console.log(bookmark)
 
-// 				$(this).attr("class", "on");
-// 				$(this).find("i").attr("class", "fa-solid fa-heart");
+		bookmarkService.remove(bookmark, function(result) {
+		});
+		$(this).attr("class", "off");
+		$(this).find("i").attr("class", "fa-regular fa-heart");
 
-// 			} else {
-// 				let bookmark = {
-
-// 					STORE : bookmoal.find("input[name=STORE]").val(),
-// 					B_PHONE : '${sessionScope.B_PHONE}'
-
-// 				};
-// 				console.log(bookmark)
-
-// 				bookmarkService.remove(bookmark, function(result) {
-// 				});
-// 				$(this).attr("class", "off");
-// 				$(this).find("i").attr("class", "fa-regular fa-heart");
-
-// 			}
-// 		});
-
-// 	});
+	}
+});
 </script>
 
 </html>
