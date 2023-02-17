@@ -53,9 +53,9 @@
 
 .preview {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: 500px;
 	gap: 16px;
-	padding: 16px;
+	padding: 16xp;
 	margin-bottom: 16px;
 	border-radius: 8px;
 	align-items: center;
@@ -64,12 +64,15 @@
 
 .embed-img {
 	width: 100%;
-	height: 128px;
-	object-position: center;
+	height: 100% object-position: center;
 	object-fit: cover;
 	border-radius: 8px;
 }
 </style>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 	<div align="center">
@@ -86,7 +89,7 @@
 				<h4>제목</h4>
 				<c:choose>
 					<c:when test="${map.N_TITLE eq NULL}">
-						<input type="text" name="N_TITLE">
+						<input type="text" name="N_TITLE" id="title">
 					</c:when>
 					<c:otherwise>
 						<input type="text" name="N_TITLE" value="${map.N_TITLE}">
@@ -120,7 +123,7 @@
 								<label class="label" id="label" for="input">
 									<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
 								</label> <input id="input" class="input" accept="image/*" type="file"
-									required="true" name="N_IMAGE" multiple="true" hidden="true">
+									required="true" name="N_IMAGE" hidden="true">
 								<p class="preview-title">미리보기</p>
 								<div class="preview" id="preview"></div>
 							</main>
@@ -132,7 +135,7 @@
 								<label class="label" id="label" for="input">
 									<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
 								</label> <input id="input" class="input" accept="image/*" type="file"
-									required="true" name="N_IMAGE" multiple="true" hidden="true">
+									required="true" name="N_IMAGE" hidden="true">
 								<p class="preview-title">미리보기</p>
 								<div class="preview" id="preview">
 									<div class="container-img">
@@ -145,10 +148,10 @@
 				</c:choose>
 			</div>
 			<div class="btn" align="center">
-				<button class="writebtn" type="submit">작성</button>
+				<button class="writebtn" type="submit" id="btnCheck">작성</button>
 				<c:if test="${map.N_IDX != NULL}">
-					<button class="writebtn" type="button"
-						onClick="location.href='noticeDelete.oa'">삭제</button>
+					<button class="savebtn" type="button"
+						onClick="location.href='noticeDelete.oa?N_IDX=${map.N_IDX}'">삭제</button>
 				</c:if>
 				<button class="cancelbtn" type="button"
 					onClick="javascript:history.go(-1);">취소</button>
@@ -226,17 +229,23 @@ function handleUpdate(fileList){
         className: "embed-img",
         src: event.target?.result,
       });
+<<<<<<< HEAD
+=======
       if('${map.N_IMAGE}'==''){
         const imgContainer = el("div", { className: "container-img" }, img);
         preview.append(imgContainer);
       } else {
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
         const imgTag = document.querySelector('.preview');
         while (imgTag.firstChild) {
           imgTag.removeChild(imgTag.firstChild);
         }
         const imgContainer = el("div", { className: "container-img" }, img);
         preview.append(imgContainer);
+<<<<<<< HEAD
+=======
       }
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
     });
     reader.readAsDataURL(file);
   });

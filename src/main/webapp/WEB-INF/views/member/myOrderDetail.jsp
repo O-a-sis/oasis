@@ -62,15 +62,16 @@
 		</div>
 		<div>
 			<th width="170">할인 금액</th>
-				<td> 
-						<td> 원</td> </br>
+				<td> <c:forEach var="item" items="${coupon}">
+						<td>${item.CU_PRICE } 원</td> </br>
 						
 						
 		
 			<tr>
 				<th width="170">결제 금액</th>
-				<td>${map.O_SUM}원</td>
+				<td>${map.O_SUM - item.CU_PRICE}원</td>
 			</tr>
+			</c:forEach>
 		</div>
 </body>
 </html>
