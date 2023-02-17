@@ -25,6 +25,8 @@ public interface AdminStoreService {
 	
 	int getNameCheck(String email) throws Exception;
 
+	List<Map<String, Object>> memberList(Map<String, Object> map) throws Exception;
+
 	
 	 	
 }	
