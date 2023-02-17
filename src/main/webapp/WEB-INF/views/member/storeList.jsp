@@ -36,21 +36,14 @@
 			<ul class="store_tab">
 				<li class="tab_search onon">검색</li>
 				<li class="tab_mark">즐겨찾기</li>
-
 			</ul>
 			<div class="tabon">
 				<div class="store_search tab_search">
 					<div class="search">
 						<form id="searchForm" action="<c:url value='' />" method="get">
-							<%-- 					<c:choose> --%>
-							<%-- 						<c:when test="${param.keyword eq 'null'}"> --%>
+
 							<input class="searchtext" type="text" name="keyword" value=" " />
-							<%-- 						</c:when> --%>
-							<%-- 						<c:otherwise> --%>
-							<!-- 							<input  class="searchtext"  type="text" name="keyword" -->
-							<%-- 								value="<c:out value='${param.keyword}'/>" /> --%>
-							<%-- 						</c:otherwise> --%>
-							<%-- 					</c:choose> --%>
+
 							<button class="btn btn-default sbtn">
 								<i class="fa-solid fa-magnifying-glass"></i>
 							</button>
@@ -99,17 +92,30 @@
 										<ul class="ulinner">
 											<li class="innerl"><img src="images/common/logo.png"></li>
 											<li class="innerl"><strong>${item2.S_NAME}</strong>
+<<<<<<< HEAD
 											<li class="innerl">${item2.ADDRESS1}</li>
 											<li class="innerl"><c:if test="${item2.BS_NAME} not empty"><i class="fa-regular fa-star"></i></c:if>흠</li>
 
 											<li class="mo" id="storemodal"><input type="hidden"
 												value="${item2.S_NAME}" name="s_name"> <input
+=======
+											<li class="innerl">${item2.ADDRESS1}${item2.ADDRESS2}</li>
+											<li class="innerl"> 	<div class="bookmark1">
+								<span class="on"><i class="fa-solid fa-heart"></i></span>
+							<input type="hidden"
+												value="${item2.BS_NAME}" name="bs_name"> <input
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
 												type="hidden" id="${item2.ADDRESS1}" name="address1">
 												<input type="hidden" value="${item2.ADDRESS2}"
 												name="address2"> <input type="hidden"
-												value="${item2.S_PHONE}" name="s_phone"></li>
+												value="${item2.S_PHONE}" name="s_phone"><input type="hidden"
+												value="${item2.B_IDX}" name="b_idx"><input type="hidden"
+												value="${item2.B_STORE}" name="b_store"></div></li>
+
+											
 
 										</ul>
+										<button class="sbtn" onclick="javascript:location.href='/Oasis/member/menuList.oa?S_NAME=${item2.BS_NAME}&STORE=${item2.B_STORE}'">주문하기</button>
 									</li>
 								</c:forEach>
 							</ul>
@@ -150,12 +156,20 @@
 <script src="<c:url value='/js/tab.js'/>"></script>
 <script src="<c:url value='/js/map.js'/>"></script>
 <script>
+<<<<<<< HEAD
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
 		center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 		level : 3
 	// 지도의 확대 레벨
 	};
+=======
+	var imageSrc = '../images/common/opin.png', // 마커이미지의 주소입니다    
+	imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
+	imageOption = {
+		offset : new kakao.maps.Point(27, 69)
+	}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
 
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
@@ -169,6 +183,7 @@
 	// 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
 	});
 
+<<<<<<< HEAD
 	//아래 코드는 위의 마커를 생성하는 코드에서 clickable: true 와 같이
 	//마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
 	//marker.setClickable(true);
@@ -192,5 +207,84 @@
 	});
 </script>
 
+=======
+	$(modalstoreBtn).on("click", function() {
+	location.href="/Oasis/member/menuList.oa?S_NAME="
+			+storename.html()
+			+"&STORE="
+			+store.val();
+	});	
+	
+	$(".bookmark").on("click", "span", function() {
+		let mark = $(this);
+		let bookmoal = $(".storeul div");
+		if ($(this).attr("class") == "off") {
+
+			let bookmark = {
+				BB_IDX : '${sessionScope.B_PHONE}',
+				BS_NAME : storename.html(),
+				B_STORE : store.val()
+			};
+
+			console.log(bookmark)
+
+			bookmarkService.add(bookmark, function(result) {
+				bidx.val(result);
+			});
+
+			$(this).attr("class", "on");
+			$(this).find("i").attr("class", "fa-solid fa-heart");
+
+		} else {
+			let bookmark = {
+				B_IDX : bidx.val()
+			};
+			console.log(bookmark)
+
+			bookmarkService.remove(bookmark, function(result) {
+			});
+			$(this).attr("class", "off");
+			$(this).find("i").attr("class", "fa-regular fa-heart");
+
+		}
+	});
+
+</script>
+<script type="text/javascript">
+$(".bookmark1").on("click", "span", function() {
+	let mark = $(this);
+	let bookmoal = $(".storeul div");
+	if ($(this).attr("class") == "off") {
+
+		let bookmark = {
+			BB_IDX : '${sessionScope.B_PHONE}',
+			BS_NAME : $('input[name=bs_name]').val(),
+			B_STORE : $('input[name=b_store]').val()
+		};
+
+		console.log(bookmark)
+
+		bookmarkService.add(bookmark, function(result) {
+			bidx.val(result);
+		});
+
+		$(this).attr("class", "on");
+		$(this).find("i").attr("class", "fa-solid fa-heart");
+
+	} else {
+		let bookmark = {
+			B_IDX : $('input[name=b_idx]').val()
+		};
+		console.log(bookmark)
+
+		bookmarkService.remove(bookmark, function(result) {
+		});
+		$(this).attr("class", "off");
+		$(this).find("i").attr("class", "fa-regular fa-heart");
+
+	}
+});
+</script>
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
 
 </html>

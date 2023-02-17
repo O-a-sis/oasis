@@ -37,4 +37,10 @@ public class AdminNoticeDAO extends AbstractDAO {
 		update("admin.noticeDelete", map);
 	}
 
+	//메인에 올릴 공지사항이미지
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> mainImg(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>) selectList("admin.mainImg", map);
+	}
+	
 }

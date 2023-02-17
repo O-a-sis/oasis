@@ -1,21 +1,23 @@
 package com.oasis.member.controller;
   
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.MenuSelectionManager;
 
 import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.oasis.admin.service.AdminNoticeService;
 import com.oasis.common.CommandMap;
 import com.oasis.member.service.LoginService;
+import com.oasis.member.service.MenuService;
 import com.oasis.member.service.MyTabService;
-import com.oasis.store.service.StoreService;
-
 import lombok.AllArgsConstructor;
   
 @Controller
@@ -24,7 +26,9 @@ import lombok.AllArgsConstructor;
 public class LoginController {
   
   private LoginService loginService;
+  private MenuService menuService;
   private MyTabService myTabService;
+  private AdminNoticeService adminNoticeService;
   
   @RequestMapping(value = "/loginForm.oa")
   public String loginForm() throws Exception {
@@ -69,7 +73,13 @@ public class LoginController {
 	  } else {  
 	  commandMap.put("B_PHONE", session.getAttribute("B_PHONE"));
 	  Map<String, Object> map = myTabService.myStamp(commandMap.getMap());
-	    
+	  List<Map<String, Object>> mainimg = adminNoticeService.mainImg(commandMap.getMap());
+	  List<Map<String, Object>> list = menuService.menuList(commandMap.getMap());
+		
+		
+		
+	  mv.addObject("plist", list); 
+	  mv.addObject("mainimg", mainimg);
 	  mv.addObject("map", map);
 	  return mv;
 	  }

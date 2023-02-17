@@ -93,19 +93,21 @@
 	</delete>
 
 
+<<<<<<< HEAD
 
 	<!-- 관리자 - 지점 매출 검색 -->
+=======
+	<!-- 공지사항 검색 -->
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
 	<sql id="storeSearch">
 		<trim prefix=" WHERE " prefixOverrides="OR">
 			<foreach item='type' collection="typeArr">
 				<trim prefix="or">
 					<choose>
-						<when test="type=='O'.toString()">
-							OR_COUNT like '%'||#{keyword}||'%'
-						</when>
-						<when test="type=='D'.toString()">
+						<when test="type=='R'.toString()">
 							R_DATE like '%'||#{keyword}||'%'
 						</when>
+
 					</choose>
 				</trim>
 			</foreach>
@@ -114,45 +116,89 @@
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
 	<!-- 관리자 지점 관리 리스트 -->
 	<select id="storeList" resultType="hashmap">
+		<include refid="common.pagingPre" /> 
         <![CDATA[
         SELECT
-                R.*,S.*
+               ROW_NUMBER() OVER(ORDER BY STORE DESC) RNUM, S.*
         FROM
-                S_MEMBER S, REVENUE R
-        WHERE
-                S.STORE = R.R_IDX(+)
-        Order by S.STORE DESC             
+                S_MEMBER S
+                   
         ]]>
+		<include refid="common.pagingPost" />
 	</select>
 
 	<!-- 관리자 지점 관리 (+ 매출순위) 리스트 -->
 	<select id="storeListRank" resultType="hashmap">
         <![CDATA[
         
+
 select * from
 (SELECT  R.*,S.*,
 RANK() OVER(ORDER BY R.R_SUM DESC) as SUM_RANK
 FROM S_MEMBER S, REVENUE R
-WHERE S.STORE = R.R_IDX)
-where SUM_RANK <=3             
+WHERE S.STORE = R.R_IDX and R.R_DATE =  to_char(sysdate-1,'yyyymmdd'))
+where SUM_RANK <= 3            
         ]]>
 	</select>
-
-
 
 	<!-- 관리자 지점 상세보기 -->
 	<select id="storeDetail" parameterType="hashmap"
 		resultType="hashmap">
  <![CDATA[
-     SELECT S.*, R.*
+     SELECT *
      FROM 
-      S_MEMBER S, REVENUE R
-                        WHERE
-                S.STORE = R.R_IDX(+) and S.STORE = #{R_IDX}
+      S_MEMBER
+      WHERE
+                STORE =  #{STORE}
    ]]>
 	</select>
+
+	<select id="revenueList" parameterType="hashmap"
+		resultType="hashmap">
+ <![CDATA[
+     SELECT *
+     FROM 
+      REVENUE
+      WHERE
+    R_IDX = #{STORE}
+   ]]>
+	</select>
+
+
+
+	<!-- 관리자 지점 전일 매출 -->
+	<select id="getYSum" parameterType="hashmap"
+		resultType="hashmap">
+ <![CDATA[
+      SELECT
+      	R_SUM
+        FROM
+    REVENUE 
+		WHERE 
+			R_IDX =  #{STORE} and R_DATE =  to_char(sysdate-1,'yyyymmdd')
+   ]]>
+	</select>
+
+	<!-- 관리자 지점 월평균 -->
+	<select id="getMAvg" parameterType="hashmap"
+		resultType="hashmap">
+ <![CDATA[
+    SELECT
+     
+    TRUNC(AVG(R_SUM),2)AS AVG
+    FROM
+    REVENUE 
+    where R_IDX =  #{STORE} and R_DATE between TRUNC(SYSDATE, 'MM') and sysdate
+   ]]>
+	</select>
+
+
 
 	<!-- 관리자 - 지점 상세보기 매출 목록 -->
 	<select id="storeSumRank" parameterType="hashmap"
@@ -168,7 +214,7 @@ where SUM_RANK <=3
 	FROM
    		 REVENUE
    WHERE
-        R_IDX = #{R_IDX}
+        R_IDX = #{STORE}
    		 
     ORDER BY R_DATE DESC 
  
@@ -245,4 +291,39 @@ where SUM_RANK <=3
                         STORE = #{STORE}
                         ]]>
 	</update>
+	
+	
+	<!-- 메인화면 공지사항 이미지리스트 -->
+		<select id="mainImg" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+	      SELECT 
+	             N_IDX, N_IMAGE
+	      FROM
+   		         NOTICE
+			]]>
+	</select>
+
+
+	<!-- 관리자 - 회원 목록 -->
+	<select id="memberList" resultType="hashmap">
+		<include refid="common.pagingPre" /> 
+        <![CDATA[
+      
+		SELECT 
+   			 ROW_NUMBER() OVER(ORDER BY B_DATE DESC) RNUM,
+		B_PHONE,
+		B_PASSWORD,
+		B_NAME,
+		to_char(B_BIRTH,'YYYY/MM/DD') B_BIRTH,
+		B_NICKNAME,
+		B_DATE
+		
+		FROM
+   				 B_MEMBER   		 
+                   
+        ]]>
+		<include refid="common.pagingPost" />
+	</select>
+
 </mapper>

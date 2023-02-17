@@ -229,12 +229,23 @@ function handleUpdate(fileList){
         className: "embed-img",
         src: event.target?.result,
       });
+<<<<<<< HEAD
+=======
+      if('${map.N_IMAGE}'==''){
+        const imgContainer = el("div", { className: "container-img" }, img);
+        preview.append(imgContainer);
+      } else {
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
         const imgTag = document.querySelector('.preview');
         while (imgTag.firstChild) {
           imgTag.removeChild(imgTag.firstChild);
         }
         const imgContainer = el("div", { className: "container-img" }, img);
         preview.append(imgContainer);
+<<<<<<< HEAD
+=======
+      }
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
     });
     reader.readAsDataURL(file);
   });
