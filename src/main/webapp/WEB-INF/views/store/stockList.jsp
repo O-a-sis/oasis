@@ -58,7 +58,7 @@
 					<p>
 						<strong><span class="p_name"></span>의 재고를</strong>
 					</p>
-					<select style="float: left" " name="selectStatus">
+					<select style="float: left;" name="selectStatus">
 						<option value="Y">품절</option>
 						<option value="N">재고있음</option>
 					</select>
