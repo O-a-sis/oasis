@@ -23,5 +23,47 @@
 ]]>
 
 </select>
+<select id="menuDetail" parameterType="hashmap" resultType="hashmap">
+<![CDATA[
+      SELECT  
+         * 
+      FROM 
+         PRODUCT
+      WHERE
+         P_IDX = #{P_IDX}
+]]>
+</select>
 
+<insert id="insertCart" parameterType="hashmap">
+   INSERT INTO 
+      CART (CP_NAME,C_PRICE, C_OP,C_IDX, C_STORE, CB_IDX, CP_IDX, C_COUNT, CP_IMG)
+   VALUES (
+      #{CP_NAME},
+      #{C_PRICE},
+      #{C_OP},
+      C_IDX_SEQ.NEXTVAL,
+      #{C_STORE},
+      #{CB_IDX},
+      #{CP_IDX},
+      #{C_COUNT},
+      #{CP_IMG}
+      
+   )
+   </insert>
+   
+   
+<select id="cartList" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+		SELECT  * 
+		 FROM 
+		 CART
+		 WHERE
+		 C_STORE=#{C_STORE} 
+		 AND
+		 CB_IDX=#{B_PHONE}
+		 
+]]>
+
+</select>
 </mapper>

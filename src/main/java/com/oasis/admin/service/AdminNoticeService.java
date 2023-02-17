@@ -15,7 +15,9 @@ public interface AdminNoticeService {
 	
 	void adminNoticeDelete(Map<String, Object> map) throws Exception;  //공지사항 삭제
 
-	
+
+	List<Map<String, Object>> mainImg(Map<String, Object> map) throws Exception;
+	 	
 
 	
 
