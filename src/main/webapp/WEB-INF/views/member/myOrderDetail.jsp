@@ -89,7 +89,6 @@
 		
 			<tr>
 				<th width="170">결제 금액</th>
-				<td>${map.O_SUM}원</td>
 			</tr>
 			</div>
 		</div>

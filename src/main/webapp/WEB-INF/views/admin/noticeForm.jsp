@@ -2,14 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 :root { -
-	-bgColor: #E56D29; -
-	-hoverBg: #D2691E; -
-	-text: #;
+	-bgColor: #3a3a3a; -
+	-hoverBg: #616161; -
+	-text: #bbb;
 }
 
 .container {
@@ -53,9 +53,9 @@
 
 .preview {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: 500px;
 	gap: 16px;
-	padding: 16px;
+	padding: 16xp;
 	margin-bottom: 16px;
 	border-radius: 8px;
 	align-items: center;
@@ -64,12 +64,15 @@
 
 .embed-img {
 	width: 100%;
-	height: 128px;
-	object-position: center;
+	height: 100% object-position: center;
 	object-fit: cover;
 	border-radius: 8px;
 }
 </style>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 	<div align="center">
@@ -77,7 +80,6 @@
 		<hr>
 	</div>
 	<div>
-		<form method="post" action="/Oasis/admin/noticeSave.oa">
 		<form method="post" action="/Oasis/admin/noticeSave.oa"
 			enctype="multipart/form-data">
 			<c:if test="${map.N_IDX ne NULL}">
@@ -87,7 +89,7 @@
 				<h4>제목</h4>
 				<c:choose>
 					<c:when test="${map.N_TITLE eq NULL}">
-						<input type="text" name="N_TITLE">
+						<input type="text" name="N_TITLE" id="title">
 					</c:when>
 					<c:otherwise>
 						<input type="text" name="N_TITLE" value="${map.N_TITLE}">
@@ -97,8 +99,6 @@
 			<div class="category">
 				카테고리<select name="N_TYPE">
 					<option selected value="">구분</option>
-					<option value="B" ${map.N_TYPE eq 'B' ? 'selected="selected"' : ''}>구매자</option>
-					<option value="S" ${map.N_TYPE eq 'S' ? 'selected="selected"' : ''}>판매자</option>
 					<option value="B" ${map.N_TYPE eq 'B' ? 'selected="selected"' : ''}>고객</option>
 					<option value="S" ${map.N_TYPE eq 'S' ? 'selected="selected"' : ''}>매장</option>
 					<option value="E" ${map.N_TYPE eq 'E' ? 'selected="selected"' : ''}>이벤트</option>
@@ -118,46 +118,40 @@
 			<div class="image" align="center">
 				<c:choose>
 					<c:when test="${map.N_IMAGE eq NULL}">
-						<div class="uploadDiv">
-							<input type=file name="N_IMAGE" multiple>
 						<div class="image" align="center">
 							<main class="container">
 								<label class="label" id="label" for="input">
 									<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
 								</label> <input id="input" class="input" accept="image/*" type="file"
-									required="true" name="N_IMAGE" multiple="true" hidden="true">
+									required="true" name="N_IMAGE" hidden="true">
 								<p class="preview-title">미리보기</p>
 								<div class="preview" id="preview"></div>
 							</main>
 						</div>
-						<button id="uploadBtn">Upload</button>
 					</c:when>
 					<c:otherwise>
-						<div class="uploadDiv">
-							<input type=file name="N_IMAGE" multiple>
 						<div class="image" align="center">
 							<main class="container">
 								<label class="label" id="label" for="input">
 									<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
 								</label> <input id="input" class="input" accept="image/*" type="file"
-									required="true" name="N_IMAGE" multiple="true" hidden="true">
+									required="true" name="N_IMAGE" hidden="true">
 								<p class="preview-title">미리보기</p>
 								<div class="preview" id="preview">
-									<img id="preview-image" src="/Oasis/img/${map.N_IMAGE}"
-										alt="preview image">
+									<div class="container-img">
+										<img class="embed-img" src="/Oasis/img/${map.N_IMAGE}">
+									</div>
 								</div>
 							</main>
 						</div>
-						<button id="uploadBtn">Upload</button>
 					</c:otherwise>
 				</c:choose>
-
 			</div>
 			<div class="btn" align="center">
-				<button class="writebtn" type="submit">작성</button>
+				<button class="writebtn" type="submit" id="btnCheck">작성</button>
 				<c:if test="${map.N_IDX != NULL}">
-					<button class="writebtn" type="button"
-						onClick="location.href='noticeDelete.oa'">삭제</button>
+					<button class="savebtn" type="button"
+						onClick="location.href='noticeDelete.oa?N_IDX=${map.N_IDX}'">삭제</button>
 				</c:if>
 				<button class="cancelbtn" type="button"
 					onClick="javascript:history.go(-1);">취소</button>
@@ -165,52 +159,9 @@
 		</form>
 	</div>
 </body>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
 
 <script>
-	$(document).ready(function() {
 
-		$("#uploadBtn").on("click", function(e) {
-			var formData = new FormData();
-			var inputFile = $("input[name='N_IMAGE']");
-			var files = inputFile[0].files;
-			console.log(files);
-
-			//add file data to formdata
-			for (var i = 0; i < files.length; i++) {
-				formData.append("N_IMAGE", files[i]);
-			}
-			$.ajax({
-				url : './noticeSave.oa',
-				processData : false,
-				contentType : false,
-				data : formData,
-				type : 'POST',
-				success : function(result) {
-					alert("Uploaded");
-				}
-			}); //$.ajax		
-		});
-		
-		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-		var maxSize = 5242880; //5MB
-
-		function checkExtension(fileName, fileSize) {
-
-			if (fileSize >= maxSize) {
-				alert("파일 사이즈 초과");
-				return false;
-			}
-
-			if (regex.test(fileName)) {
-				alert("해당 종류의 파일은 업로드할 수 없습니다.");
-				return false;
-			}
-			return true;
-		}
-	});
 var input = document.getElementById("input");
 var initLabel = document.getElementById("label");
 
@@ -248,7 +199,7 @@ document.addEventListener("dragleave", (event) => {
   event.preventDefault();
   console.log("dragleave");
   if (event.target.className === "inner") {
-    event.target.style.background = "#F5601B";
+    event.target.style.background = "#3a3a3a";
   }
 });
 
@@ -257,7 +208,8 @@ document.addEventListener("drop", (event) => {
   console.log("drop");
   if (event.target.className === "inner") {
     const files = event.dataTransfer?.files;
-    event.target.style.background = "#F5601B";
+    event.target.style.background = "#3a3a3a";
+    input.files = files;
     handleUpdate([...files]);
   }
 });
@@ -277,8 +229,23 @@ function handleUpdate(fileList){
         className: "embed-img",
         src: event.target?.result,
       });
-      const imgContainer = el("div", { className: "container-img" }, img);
-      preview.append(imgContainer);
+<<<<<<< HEAD
+=======
+      if('${map.N_IMAGE}'==''){
+        const imgContainer = el("div", { className: "container-img" }, img);
+        preview.append(imgContainer);
+      } else {
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
+        const imgTag = document.querySelector('.preview');
+        while (imgTag.firstChild) {
+          imgTag.removeChild(imgTag.firstChild);
+        }
+        const imgContainer = el("div", { className: "container-img" }, img);
+        preview.append(imgContainer);
+<<<<<<< HEAD
+=======
+      }
+>>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
     });
     reader.readAsDataURL(file);
   });
