@@ -48,23 +48,27 @@ public class MyTabController {
 		ModelAndView mv = new ModelAndView("member/myOrderList");
 
 		List<Map<String, Object>> list = myTabService.myOrderList(commandMap.getMap());
-		
+
 		mv.addObject("list", list);
 
 		return mv;
 
 	}
 
-	@RequestMapping(value="/myOrderDetail.oa") // http://localhost:8000/oasis/member/myOrderDetail.oa?O_IDX=1
+	@RequestMapping(value="/myOrderDetail.oa") // http://localhost:8000/oasis/member/myOrderDetail.oa?OM_IDX=2
 	public ModelAndView myOrderDetail(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("member/myOrderDetail");
+	    ModelAndView mv = new ModelAndView("member/myOrderDetail");
 
-		Map<String, Object> map = myTabService.myOrderDetail(commandMap.getMap());
-		
-		mv.addObject("map", map);
+	    Map<String, Object> map = myTabService.myOrderDetail(commandMap.getMap());
+//	    Map<String, Object> map2 = myTabService.useCoupon(commandMap.getMap());
+	    List<Map<String, Object>> list = myTabService.OrderDetail(commandMap.getMap());
+	    
 
-		return mv;
-
+	    mv.addObject("map", map);	
+//	    mv.addObject("map2", map2);
+	    mv.addObject("list", list);
+	    
+	    return mv;
 	}
 
 	@RequestMapping(value="/myStamp.oa")

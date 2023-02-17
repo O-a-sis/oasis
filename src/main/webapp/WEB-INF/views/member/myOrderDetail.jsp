@@ -50,27 +50,50 @@
 
 			</c:choose>
 		</div>
-		<tr>
-			<%-- <th width="170">주문한 메뉴</th>--%>
-			<td>${map.O_LIST}</td>
-		</tr>
+
+			<div><th width="170">주문한 메뉴</th>
+			 <c:forEach var="item" items="${list}">
+			 <div>
+			<div>${item.OM_NAME }</div>
+			<div><img src="<c:url value='/images/contents/${item.OM_IMG}.png' />" /></div>
+			<div>${item.OM_OP }</div>
+			<div>${item.OM_PRICE }원</div>
+			</div>
+			</c:forEach>
+			</div>
 		<div>
-			<tr>
-				<th width="170">상품 금액</th>
-				<td>${map.O_SUM }원</td>
-			</tr>
-		</div>
+			</div>
+			<div>
+				
+				<tbody>
+    <c:set var="totalPrice" value="0" />
+    <c:forEach var="item" items="${list}">
+      <c:set var="totalPrice" value="${totalPrice + item.OM_PRICE}" />
+    </c:forEach>
+  </tbody>
+  <tfoot>
+  <div>
+    <tr>
+      <td colspan="3">총 주문 가격:</td>
+      <td>${totalPrice}</td>
+    </tr>
+    </div>
+  </tfoot>
+</div>
+		
 		<div>
 			<th width="170">할인 금액</th>
-				<td> 
 						<td> 원</td> </br>
 						
 						
 		
 			<tr>
 				<th width="170">결제 금액</th>
-				<td>${map.O_SUM}원</td>
 			</tr>
+			</div>
 		</div>
 </body>
+<script>
+	
+</script>
 </html>

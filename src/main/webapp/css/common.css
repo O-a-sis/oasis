@@ -42,10 +42,6 @@ button {
 	margin: 0 5%;
 }
 
-/* 
-	display:none;으로 숨기면 tab이동이 안 됨. 아예 사라져서..
-	원래 안 보이다가 tab으로 이동 할 때 보이게 하려면 top:-100으로 컨텐츠 밖으로 나가서 안 보이게 해야함.
-*/
 header {
 	position: fixed;
 	left: 0;
@@ -118,10 +114,16 @@ header .gnb_mobile .m_slide {
 	height: 100%;
 }
 
-header .gnb_mobile .m_slide .topmenu {
+header .gnb_mobile .m_slide .menu_sub .topmenu {
 	text-align: left;
 	padding-left: 30px;
 	font-size: 14px;
+	z-index: 303;	
+}
+header .gnb_mobile .m_slide .menu_sub .topmenu a{
+		text-decoration: none;
+		z-index: 303;	
+	
 }
 
 header .gnb_mobile .m_slide .member {
@@ -129,24 +131,24 @@ header .gnb_mobile .m_slide .member {
 	padding: 30px;
 }
 
-header .gnb_mobile .m_slide .menu_sub {
+header .gnb_mobile .m_slide .menu_sub .member {
 	display: block;
 	position: absolute;
 	right: 0;
-	width: 100%;
+	width: 86%;
 	z-index: 303;
 }
 
-header .gnb_mobile .m_slide .menu_sub>ul {
+header .gnb_mobile .m_slide .menu_sub .member>ul {
 	text-align: left;
 	margin: 0 8%;
 }
 
-header .gnb_mobile .m_slide .menu_sub>ul>li {
+header .gnb_mobile .m_slide .menu_sub .member>ul>li {
 	
 }
 
-header .gnb_mobile .m_slide .menu_sub>ul>li>span {
+header .gnb_mobile .m_slide .menu_sub .member>ul>li>span {
 	color: #333;
 	font-size: 13px;
 	font-weight: 400;
@@ -155,12 +157,12 @@ header .gnb_mobile .m_slide .menu_sub>ul>li>span {
 	display: block;
 }
 
-header .gnb_mobile .m_slide .menu_sub>ul>li>ul {
+header .gnb_mobile .m_slide .menu_sub .member>ul>li>ul {
 	display: block;
 	background: #fff;
 }
 
-header .gnb_mobile .m_slide .menu_sub>ul>li>ul>li>a {
+header .gnb_mobile .m_slide .menu_sub .member >ul>li>ul>li>a {
 	color: #3d3d3d;
 	font-weight: 400;
 	font-size: 16px;

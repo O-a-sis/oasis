@@ -1,14 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.thumbnail {
+	background-color: gray;
+	margin: 10px;
+	width: 300px;
+	height: 300px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.product_view_more_wrap {
+	height: 55px;
+	margin-bottom: 70px;
+	width: 100%;
+}
+
+.product_view_more_wrap p {
+	height: 55px;
+	margin: 0 auto;
+	width: 55px;
+}
+
+.product_view_more_wrap p a {
+	background: url("");
+	background-size: 100% auto;
+	display: block;
+	height: 100%;
+	overflow: hidden;
+	text-indent: -20000px;
+	width: 100%;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	width: 300px;
+	height: 300px;
+	padding: 10px;
+	vertical-align: top;
+}
+</style>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 	<div>
 		<h2 align="left">
-			<strong>공지사항</strong>
+			<strong><a href="/Oasis/admin/noticeList.oa">공지사항</a></strong>
 		</h2>
 	</div>
 	<div>
@@ -17,7 +66,6 @@
 	</div>
 	<p>
 	<hr>
-	</p>
 	<div class="noticeboard">
 		<div class="wrap">
 			<!-- 검색처리기능 -->
@@ -26,7 +74,7 @@
 					action="<c:url value='/admin/noticeList.oa' />" method="get">
 					<select class="searcht" name="type">
 						<option value="">--</option>
-						<option value="TWCNQ" name="type"
+						<option value="TC" name="type"
 							<c:out value="${param.type eq 'TC' ? 'selected' : ''}"/>>전체</option>
 						<option value="T" name="type"
 							<c:out value="${param.type eq 'T' ? 'selected' : ''}"/>>제목</option>
@@ -47,40 +95,134 @@
 					</button>
 				</form>
 			</div>
-
-			<table class="board_list" width="800px" height="300px"
-				cellpadding="5" align="center" border="0">
-				<thead>
-					<tr bgcolor="dcdcdc">
-						<th>글번호</th>
-						<th>제목</th>
-						<th>날짜</th>
-					</tr>
-				</thead>
-				<tbody align="center">
-					<c:forEach var="item" items="${list}">
+			<p>
+			<hr>
+			<table align="center">
+				<c:forEach var="item" items="${list}" varStatus="status">
+					<c:if test="${status.index % 4 == 0}">
 						<tr>
-							<td align="center">${item.N_IDX}</td>
-							<c:if test="${item.N_TYPE eq 'B'}">
-								<c:set var="type" value="고객" />
-							</c:if>
-							<c:if test="${item.N_TYPE eq 'S'}">
-								<c:set var="type" value="매장" />
-							</c:if>
-							<c:if test="${item.N_TYPE eq 'E'}">
-								<c:set var="type" value="이벤트" />
-							</c:if>
-							<td><a style="color: #ff7f00"
-								href='<c:url value="/admin/noticeDetail.oa?N_IDX=${item.N_IDX}"/>'>[${type}]${item.N_TITLE}</a></td>
-							<td>${item.N_DATE}</td>
+					</c:if>
+					<td><a href="/Oasis/admin/noticeDetail.oa?N_IDX=${item.N_IDX}">
+							<div class="thumbnail"
+								style="background-image:url(/Oasis/img/${item.N_IMAGE}); border-radius: 10%;"></div>
+					</a>
+						<div class="setting" style="text-align: center;">
+							<div class="noticeTitle">
+								<c:if test="${item.N_TYPE eq 'B'}">
+									<c:set var="type" value="고객" />
+								</c:if>
+								<c:if test="${item.N_TYPE eq 'S'}">
+									<c:set var="type" value="매장" />
+								</c:if>
+								<c:if test="${item.N_TYPE eq 'E'}">
+									<c:set var="type" value="이벤트" />
+								</c:if>
+								<h3>
+									<a href="/Oasis/admin/noticeDetail.oa?N_IDX=${item.N_IDX}">[${type}]${item.N_TITLE}</a>
+								</h3>
+							</div>
+							<div class="notieceDate">
+								<p>
+									<fmt:formatDate value="${item.N_DATE}" pattern="yyyy-MM-dd" />
+								</p>
+							</div>
+						</div></td>
+					<c:if test="${status.index % 4 == 3 or status.last}">
 						</tr>
-					</c:forEach>
-				</tbody>
+					</c:if>
+				</c:forEach>
 			</table>
 		</div>
-		<div class="paging" align="center">${paging.pageHtml}</div>
+	</div>
+	<div class="product_view_more_wrap" style="">
+		<p>
+			<button class="loadmore" type="button" onClick="loadMore()">더보기</button>
+			<input type="hidden" id="page" />
+		</p>
 	</div>
 </body>
+<script>
+	function loadMore() {
+		var url = "<c:url value='/admin/loadMoreNotice.oa'/>"; // 추가 데이터를 가져올 URL
+		var page = $("#page").val() == '' ? 1 : $("#page").val(); // 현재 페이지
+		var type = "${param.type}"; // 검색 조건
+		var keyword = "${param.keyword}"; // 검색 키워드
+
+		// AJAX를 이용해 추가 데이터를 가져옵니다.
+		$
+				.ajax({
+					url : url,
+					type : "GET",
+					data : {
+						page : page,
+						type : type,
+						keyword : keyword
+					},
+					success : function(data) {
+						// 추가 데이터를 가져와서 HTML 코드를 생성합니다.
+						var html = "";
+						$
+								.each(
+										data.list,
+										function(i, item) {
+											if (i % 4 == 0) {
+												html += '<tr>';
+											}
+											var date = new Date(item.N_DATE);
+											var year = date.getFullYear();
+											var month = ('0' + (date.getMonth() + 1))
+													.slice(-2);
+											var day = ('0' + date.getDate())
+													.slice(-2);
+											var formattedDate = year + '-'
+													+ month + '-' + day;
+
+											html += '<td><a href="/Oasis/admin/noticeDetail.oa?N_IDX='
+													+ item.N_IDX
+													+ '">'
+													+ '<div class="thumbnail" style="background-image:url(/Oasis/img/'
+													+ item.N_IMAGE
+													+ '); border-radius: 10%;"></div>'
+													+ '</a><div class="setting" style="text-align: center;">'
+													+ '<div class="noticeTitle">';
+											if (item.N_TYPE === 'B') {
+												html += '<c:set var="type" value="고객"/>';
+											} else if (item.N_TYPE === 'S') {
+												html += '<c:set var="type" value="매장"/>';
+											} else if (item.N_TYPE === 'E') {
+												html += '<c:set var="type" value="이벤트"/>';
+											}
+											html += '<h3><a href="/Oasis/admin/noticeDetail.oa?N_IDX='
+													+ item.N_IDX
+													+ '">[${type}]'
+													+ item.N_TITLE
+													+ '</a></h3>'
+													+ '</div><div class="notieceDate"><p>'
+													+ formattedDate
+													+ '</p></div></div></td>';
+											if (i % 4 == 3
+													|| i == data.list.length) {
+												html += '</tr>';
+											}
+										});
+
+						// HTML 코드를 DOM에 추가합니다.
+						var table = $("table");
+						var rows = table.find("tr");
+						var lastRow = rows[rows.length - 1];
+						$(lastRow).after(html);
+
+						// 페이지네이션 정보를 업데이트합니다.
+						var paging = data.paging;
+						if (paging.currentPage < paging.totalPage) {
+							$("#page").val(paging.currentPage + 1);
+						} else {
+							$(".loadmore").hide();
+						}
+					}
+				});
+	}
+</script>
 </html>
 
 

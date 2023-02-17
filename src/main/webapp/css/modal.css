@@ -60,34 +60,6 @@
 #modal2.modalon.out .modal-window .modalcon {
 	animation: scaleDown 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
-
-#smodal{ transform: scale(0);display:none;z-index:100}
-#smodal.modalon {
-	transform: scale(1);
-	display:contents;
-    position: fixed;
-
-}
-#smodal.modalon .modal-window {
-	background: transparent;
-	animation: fadeIn .5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-#smodal.modalon .modal-window .modalcon {
-	/* 콘텐츠를 초기에 보여주지 않음 */
-	opacity: 0;
-	animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-
-#smodal.modalon.out {
-	/* 전체 모달 컨테이너를 숨김 처리(다른 애니메이션이 모두 끝난 0.5초 후에 처리하기 위해 0.5초 지연시킴 */
-	animation: quickScaleDown 0s .1s linear forwards;
-}
-#smodal.modalon.out .modal-window {
-	animation: fadeOut 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-#smodal.modalon.out .modal-window .modalcon {
-	animation: scaleDown 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
 /* Dimmed showing */
 @keyframes fadeIn {
 	0% {
