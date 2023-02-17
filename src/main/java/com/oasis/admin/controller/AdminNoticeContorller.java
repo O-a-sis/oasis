@@ -1,24 +1,13 @@
 package com.oasis.admin.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -29,7 +18,6 @@ import com.oasis.common.util.Paging;
 import com.oasis.admin.service.AdminNoticeService;
 
 import lombok.AllArgsConstructor;
-import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
 @RequestMapping("/admin/")
@@ -44,9 +32,9 @@ public class AdminNoticeContorller {
 
 		/* 페이징을 위한 변수 */
 		int page = commandMap.get("page") == null ? 1 : Integer.parseInt((String) commandMap.get("page"));// 현재 페이지
-		int pageSize = 10;// 한 페이지에 보여줄 행의 수
-		int start = (page * pageSize) - pageSize + 1;
-		int end = page * pageSize;
+		int start = 1; // 가져올 데이터의 시작 인
+		int pageSize = 16;// 한 페이지에 보여줄 행의 수
+		int end = 16;
 		int noticeListCount = 0; // 전체 게시글 수
 		int pageBlock = 5; // 표시할 페이지의 수
 		String url = "noticeList.oa";
@@ -70,6 +58,29 @@ public class AdminNoticeContorller {
 		return mv;
 	}
 
+	@RequestMapping(value = "/loadMoreNotice.oa")
+	public @ResponseBody Map<String, Object> loadMoreNotice(@RequestParam int page, @RequestParam String type,
+			@RequestParam String keyword) throws Exception {
+		System.out.println("page : " + page);
+		int perPage = 12; // 한 페이지에 표시할 게시물 수
+		int offset = (page * perPage) - perPage + 1; // 가져올 데이터의 시작 인덱스
+
+		CommandMap commandMap = new CommandMap();
+		commandMap.put("START", offset);
+		commandMap.put("END", page * perPage);
+		commandMap.put("type", type);
+		commandMap.put("keyword", keyword);
+
+		List<Map<String, Object>> list = adminNoticeService.adminNoticeList(commandMap.getMap());
+		int totalCount = Integer.parseInt(String.valueOf(list.get(0).get("TOTAL_COUNT")));
+
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("list", list);
+		resultMap.put("paging",
+				new Paging(totalCount, 5, perPage, page, "noticeList.oa", "&type=" + type + "&keyword=" + keyword));
+		return resultMap;
+	}
+
 //	공지사항 상세보기
 	@RequestMapping(value = "noticeDetail.oa")
 	public ModelAndView adminNoticeDetail(CommandMap commandMap) throws Exception {
@@ -89,7 +100,7 @@ public class AdminNoticeContorller {
 		return mv;
 	}
 
-//	공지사항 수정 폼(추후 작성 폼 하나로 작성/수정 구현)
+//	공지사항 수정 폼
 	@RequestMapping(value = "UpdateForm.oa")
 	public ModelAndView adminNoticeUpdateForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeForm");
@@ -103,7 +114,6 @@ public class AdminNoticeContorller {
 
 //	공지사항 작성/수정 기능
 	@RequestMapping(value = "noticeSave.oa")
-	public ModelAndView adminNoticeSave(CommandMap commandMap, MultipartFile[] N_IMAGE) throws Exception {
 	public ModelAndView adminNoticeSave(CommandMap commandMap, MultipartHttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 
@@ -114,13 +124,11 @@ public class AdminNoticeContorller {
 			String savePath = request.getSession().getServletContext().getRealPath("/") + File.separator + "img/"
 					+ fileName;
 			File uploadPath = new File(savePath);
-			System.out.println(savePath);
 			if (uploadPath.exists() == false) {
 				uploadPath.mkdirs();
 			}
 			file.transferTo(new File(savePath));
 			commandMap.put("N_IMAGE", fileName);
-			System.out.println(uploadPath);
 		}
 
 		if (commandMap.get("N_IDX") == null) {
@@ -133,74 +141,9 @@ public class AdminNoticeContorller {
 		return mv;
 	}
 
-	@GetMapping("/uploadAjax")
-	public void uploadForm() {
-		System.out.println("upload form");
-	}
-
-	private String getFolder() {
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		Date date = new Date();
-
-		String str = sdf.format(date);
-
-		return str.replace("-", File.separator);
-	}
-
-	private boolean checkImageType(File file) {
-		try {
-			String contentType = Files.probeContentType(file.toPath());
-
-			return contentType.startsWith("image");
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		}
-		return false;
-	}
-
-	@RequestMapping(value = "uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ResponseBody
-	public ResponseEntity<Map<String, Object>> uploadAjaxPost(MultipartFile[] uploadFile) {
-
-		System.out.println("update ajax post..............");
-		
-		System.out.println(uploadFile);
-
-		String uploadFolder = "C:\\upload";
-
-		File uploadPath = new File(uploadFolder, getFolder());
-
-		System.out.println("upload path : " + uploadPath);
-
-		if (uploadPath.exists() == false) {
-			uploadPath.mkdirs();
-		}
-
-		for (MultipartFile multipartFile : uploadFile) {
-			System.out.println("--------------------------------------");
-			System.out.println("Upload File Name : " + multipartFile.getOriginalFilename());
-			System.out.println("Upload File Size : " + multipartFile.getSize());
-
-			String uploadFileName = multipartFile.getOriginalFilename();
-
-			System.out.println("only file name : " + uploadFileName);
-
-			try {
-				File saveFile = new File(uploadFolder, uploadFileName);
-				multipartFile.transferTo(saveFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
 //	공지사항 삭제 기능
 	@RequestMapping(value = "noticeDelete.oa")
-	public ModelAndView qnaDelete(CommandMap commandMap) throws Exception {
+	public ModelAndView adminNoticeDelete(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 
 		adminNoticeService.adminNoticeDelete(commandMap.getMap());
