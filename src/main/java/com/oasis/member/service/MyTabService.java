@@ -14,6 +14,8 @@ public interface MyTabService {
 	List<Map<String, Object>> myOrderList(Map<String, Object> map) throws Exception;
 
 	Map<String, Object> myOrderDetail(Map<String,Object> map) throws Exception;
+	
+	List<Map<String, Object>> OrderDetail(Map<String, Object> map) throws Exception;
 
 	Map<String, Object> myStamp(Map<String,Object> map) throws Exception;
 

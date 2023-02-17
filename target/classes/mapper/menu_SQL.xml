@@ -12,16 +12,4 @@
 
 </select>
 
-<select id="storePick" parameterType="hashmap"
-		resultType="hashmap">
-<![CDATA[
-		SELECT  * 
-		 FROM 
-		 			S_MEMBER
-		 WHERE 
-		 	 		STORE=#{STORE}
-]]>
-
-</select>
-
 </mapper>

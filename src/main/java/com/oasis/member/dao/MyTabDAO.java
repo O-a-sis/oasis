@@ -35,6 +35,11 @@ public class MyTabDAO extends AbstractDAO{
 	public Map<String, Object> myOrderDetail(Map<String, Object> map) throws Exception {
 		return (Map<String, Object>) selectOne("member.myOrderDetail", map);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> OrderDetail(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>) selectList("member.OrderDetail", map);
+	}
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> myOrderDetailImage(Map<String, Object> map) throws Exception {

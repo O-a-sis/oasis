@@ -42,6 +42,11 @@ public class MyTabServiceImpl implements MyTabService{
 	  public Map<String, Object> myOrderDetail(Map<String, Object>map) throws Exception {
 	  	  return myTabDAO.myOrderDetail(map);  
 	  }
+	  
+	  @Override
+		public List<Map<String, Object>> OrderDetail(Map<String, Object> map) throws Exception {
+			return myTabDAO.OrderDetail(map);
+		}
 
 	  @Override 
 	  public Map<String, Object> myStamp(Map<String, Object>map) throws Exception {
