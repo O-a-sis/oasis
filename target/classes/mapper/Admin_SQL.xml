@@ -78,7 +78,6 @@
 		SET
 			  N_TITLE=#{N_TITLE},				
 			  N_CONTENT=#{N_CONTENT},
-			  N_IMAGE=#{N_IMAGE}
 			  N_IMAGE=#{N_IMAGE},
 			  N_DATE=SYSDATE
 		WHERE
@@ -109,8 +108,6 @@
 			</foreach>
 		</trim>
 	</sql>
-
-
 
 
 	<!-- 관리자 지점 관리 리스트 -->
@@ -284,6 +281,19 @@ where SUM_RANK <= 3
                         STORE = #{STORE}
                         ]]>
 	</update>
+
+	
+	<!-- 메인화면 공지사항 이미지리스트 -->
+		<select id="mainImg" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+	      SELECT 
+	             N_IDX, N_IMAGE
+	      FROM
+   		         NOTICE
+			]]>
+	</select>
+
 
 
 	<!-- 관리자 - 회원 목록 -->

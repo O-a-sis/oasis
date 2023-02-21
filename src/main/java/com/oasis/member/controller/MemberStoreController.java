@@ -8,15 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.oasis.bookm.service.BookmService;
-import com.oasis.common.CommandMap;
 import com.oasis.member.service.MemberStoreService;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +21,7 @@ import lombok.AllArgsConstructor;
 public class MemberStoreController {
 
 	@SuppressWarnings("unused")
-	private BookmService bookmService;
+	private BookmService bookmarkService;
 	private MemberStoreService memberStoreService;
 	
 	@RequestMapping(value = "/storeList.oa")
@@ -40,17 +34,16 @@ public class MemberStoreController {
 		
 	
 		List<Map<String, Object>> list = memberStoreService.getStoreList(commandMap);
-		List<Map<String, Object>> book = bookmService.getBookList(commandMap);
-		for (Map<String, Object> map : list) {
-			System.out.println(map);
-		}
-
+		List<Map<String, Object>> book = bookmarkService.getBookList(commandMap);
+		
+//		Map<String, Object> map = memberStoreService.storeDetail(commandMap);
+		
+//		mv.addObject("map", map);
 
 		mv.addObject("list", list);
 		mv.addObject("book", book);
 		return mv;
 	}
-
 
 
 }
