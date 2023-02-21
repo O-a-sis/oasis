@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-
+import com.oasis.bookm.service.BookmService;
 import com.oasis.common.CommandMap;
 import com.oasis.member.service.*;
 
@@ -27,7 +27,7 @@ import lombok.AllArgsConstructor;
 public class MemberStoreController {
 
 	@SuppressWarnings("unused")
-	private BookmarkService bookmarkService;
+	private BookmService bookmarkService;
 	private MemberStoreService memberStoreService;
 	
 	@RequestMapping(value = "/storeList.oa")

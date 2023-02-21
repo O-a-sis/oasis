@@ -73,6 +73,7 @@
 										type="hidden" name="STORE" value="${item.STORE}" /> <input
 										type="hidden" name="B_IDX" id="B_IDX" value="${item.B_IDX}" /><input
 										type="hidden" name="check" id="check" value="${item.check}" />
+
 								</div>
 							</c:forEach>
 						</ul>
@@ -92,18 +93,19 @@
 											<li class="innerl"><img src="images/common/logo.png"></li>
 											<li class="innerl"><strong>${item2.S_NAME}</strong>
 											<li class="innerl">${item2.ADDRESS1}${item2.ADDRESS2}</li>
-											<li class="innerl">
-												<div class="bookmark1">
-													<span class="on"><i class="fa-solid fa-heart"></i></span> <input
-														type="hidden" value="${item2.BS_NAME}" name="bs_name">
-													<input type="hidden" id="${item2.ADDRESS1}" name="address1">
-													<input type="hidden" value="${item2.ADDRESS2}"
-														name="address2"> <input type="hidden"
-														value="${item2.S_PHONE}" name="s_phone"><input
-														type="hidden" value="${item2.B_IDX}" name="b_idx"><input
-														type="hidden" value="${item2.B_STORE}" name="b_store">
-												</div>
-											</li>
+
+											<li class="innerl"> 	<div class="bookmark1">
+								<span class="on"><i class="fa-solid fa-heart"></i></span>
+							<input type="hidden"
+												value="${item2.BS_NAME}" name="bs_name"> <input
+												type="hidden" id="${item2.ADDRESS1}" name="address1">
+												<input type="hidden" value="${item2.ADDRESS2}"
+												name="address2"> <input type="hidden"
+												value="${item2.S_PHONE}" name="s_phone"><input type="hidden"
+												value="${item2.B_IDX}" name="b_idx"><input type="hidden"
+												value="${item2.B_STORE}" name="b_store"></div></li>
+
+
 
 
 
@@ -134,8 +136,10 @@
 							<span id="status"></span> <span id="address"></span>
 
 							<div class="storebtn">
-								<input type="hidden" id="store" name="store" /> <input
-									type="hidden" id="bidx" name="bidx" />
+
+								<input type="hidden" id="store" name="store" />
+								<input type="hidden" id="bidx" name="bidx" />
+
 								<button type="button" id='modalstoreBtn'>주문하기</button>
 							</div>
 						</div>
@@ -333,11 +337,11 @@
 			status.html(storeContent.status);
 			address.html(storeContent.groupAddress);
 			store.val(storeContent.store);
-			if (storeContent.check == "true") {
+			if(storeContent.check=="true"){
 				bookmark.removeAttr('class').addClass('on');
 				icon.removeAttr('class').addClass('fa-solid fa-heart');
 				bidx.val(storeContent.bidx);
-			} else {
+			}else{
 				bookmark.removeAttr('class').addClass('off');
 			}
 			modal.removeAttr('class').addClass('modalon');
@@ -351,13 +355,13 @@
 		}
 	});
 
-	$(modalstoreBtn).on(
-			"click",
-			function() {
-				location.href = "/Oasis/member/menuList.oa?S_NAME="
-						+ storename.html() + "&STORE=" + store.val();
-			});
-
+	$(modalstoreBtn).on("click", function() {
+	location.href="/Oasis/member/menuList.oa?S_NAME="
+			+storename.html()
+			+"&STORE="
+			+store.val();
+	});	
+	
 	$(".bookmark").on("click", "span", function() {
 		let mark = $(this);
 		let bookmoal = $(".storeul div");
