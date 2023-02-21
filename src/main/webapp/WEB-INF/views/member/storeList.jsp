@@ -104,9 +104,6 @@
 														type="hidden" value="${item2.B_STORE}" name="b_store">
 												</div>
 											</li>
-
-
-
 										</ul>
 										<button class="sbtn"
 											onclick="javascript:location.href='/Oasis/member/menuList.oa?S_NAME=${item2.BS_NAME}&STORE=${item2.B_STORE}'">주문하기</button>

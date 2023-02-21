@@ -14,7 +14,7 @@
 			<table>
 			<tr>
 					<th width="170">멤버십</th>
-					<td><a href = '/Oasis/member/myCouponList.oa?CUB_IDX=${map.B_PHONE }'>쿠폰</a></td>
+					<td><a href = '/Oasis/member/myCouponList.oa?B_PHONE=${map.B_PHONE }'>쿠폰</a></td>
 					<td><a href = '/Oasis/member/myStamp.oa?B_PHONE=${map.B_PHONE }'>스탬프</a></td>
 			</tr>
 

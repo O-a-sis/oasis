@@ -81,7 +81,7 @@ SELECT *
 	FROM 
 		COUPON
 	WHERE 
-		CUB_IDX=#{B_PHONE}
+		CUB_IDX=#{B_PHONE} AND CU_USE='N'
 ]]>
 	</select>
 
@@ -96,6 +96,19 @@ SELECT *
    WHERE
       OB_IDX=#{OB_IDX}
 ]]>
+	</select>
+
+	<!-- 쿠폰 사용  -->
+	<select id="useCoupon" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+	 SELECT 
+         *
+   FROM 
+        COUPON
+   WHERE
+         CU_IDX=#{OCU_IDX}
+	]]>
 	</select>
 
 
