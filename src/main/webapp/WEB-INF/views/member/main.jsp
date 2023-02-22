@@ -13,6 +13,8 @@
 	href="<c:url value='/css/default.css'/>" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/css/main.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/main.scss'/>" />
 <%@ include file="/WEB-INF/include/include-header.jspf"%>
 <meta charset="UTF-8">
 <script src=<c:url value='/js/jquery-1.12.4.min.js'/>></script>
@@ -62,7 +64,7 @@
 					<li><a
 						href='/Oasis/member/myCouponList.oa?CUB_IDX=${map.B_PHONE }'>COUPON<i
 							class="fa-solid fa-ticket"></i></a></li>
-					<li>BOOKMARK<i class="fa-regular fa-bookmark"></i></li>
+					<li>MyCart<i class="fa-solid fa-basket-shopping"></i></li>
 				</ul>
 			</div>
 		</div>
@@ -86,23 +88,37 @@
 			</ul>
 		</div>
 		<button class="prev">
-			<img src="<c:url value='/images/contents/business_prev_m.png'/>" alt="이전배너보기" />
+			<img src="<c:url value='/images/contents/business_prev_m.png'/>"
+				alt="이전배너보기" />
 		</button>
 		<button class="next">
-			<img src="<c:url value='/images/contents/business_next_m.png'/>" alt="다음배너보기" />
+			<img src="<c:url value='/images/contents/business_next_m.png'/>"
+				alt="다음배너보기" />
 		</button>
 	</section>
 	<section class="mainmenulist">
 		<h3>추천메뉴</h3>
 		<div class="menuslide">
 			<ul>
-<c:forEach var="menulist" items="${plist}">
+				<c:forEach var="menulist" items="${plist}">
 
-												<li><img src="<c:url value='/images/contents/${menulist.P_IMG}.png'/>"
-													alt="" /></li>
-												
+					<li><div class="scene">
+							<div class="card">
+								<div class="card__face card__face--front">
+									<img
+										src="<c:url value='/images/contents/${menulist.P_IMG}.png'/>"
+										alt="" />
+								</div>
+								<div class="card__face card__face--back">
+								<div class="inner2">오아시스 추천!</div>
+									<div class="inner" style="font-weight:700;">${menulist.P_NAME}</div>
+									<div class="inner"style="font-size:14px">${menulist.P_PRICE}원</div>
+								</div>
+							</div>
+						</div></li>
 
-							</c:forEach>
+
+				</c:forEach>
 			</ul>
 
 		</div>
@@ -113,12 +129,13 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=17abac5a86d69afad0326b67e47cbd88"></script>
 <script>
-	var container = document.getElementById('map');
-	var options = {
-		center : new kakao.maps.LatLng(33.450701, 126.570667),
-		level : 3
-	};
-
-	var map = new kakao.maps.Map(container, options);
+// 	var card = document.querySelector('.menuslide>ul>li>div>div');
+// 	card.addEventListener('click', function() {
+// 		card.classList.toggle('is-flipped');
+// 	});
+	$(".menuslide").on("click", "ul li div div", function(){
+		$(this).toggleClass('is-flipped');
+	});
+	
 </script>
 </html>

@@ -22,20 +22,23 @@
 </head>
 <body>
 	<header>
+<!-- 				<div id="carticon"> -->
+<!-- 			<i class="fa-solid fa-basket-shopping"></i> -->
+<!-- 			</div> -->
 		<nav class="gnb_mobile">
 
 			<div class="m_slide">
 				<div class="menu_sub">
 					<div class="topmenu">
-						<c:choose>
-							<c:when test="${not empty sessionScope.B_PHONE}">
-								<a href=<c:url value='/logout.fe' />>로그아웃</a>
-							</c:when>
-							<c:otherwise>
-								<a href=<c:url value='/loginForm.fe' />>로그인</a> /
-								<a href=<c:url value='/joinForm.fe' />>회원가입</a>
-							</c:otherwise>
-						</c:choose>
+					<c:choose>
+						<c:when test="${not empty sessionScope.B_PHONE}">
+							<a href=<c:url value='/member/logout.oa' />>로그아웃</a>
+						</c:when>
+						<c:otherwise>
+							<a href=<c:url value='/member/loginForm.oa' />>로그인</a> /
+								<a href=<c:url value='/member/joinForm.oa' />>회원가입</a>
+						</c:otherwise>
+					</c:choose>
 					</div>
 					<!--회원일 경우 보임 -->
 					<div class="member">
@@ -84,14 +87,16 @@
 	<footer>
 		<div class="bottomnav">
 			<ul>
-				<li><a href=<c:url value='/member/main.oa' />><i class="fa-solid fa-house"></i></a></li>
-				<li><a href=<c:url value='/member/storeList.oa' />><img src="../images/common/oasis.png"
-						alt="메뉴열기" /></a></li>
+				<li><a href=<c:url value='/member/main.oa' />><i
+						class="fa-solid fa-house"></i></a></li>
+				<li><a href=<c:url value='/member/storeList.oa' />><img
+						src="../images/common/oasis.png" alt="메뉴열기" /></a></li>
 				<li><a href="#"><i class="fa-solid fa-clipboard"></i></a></li>
 				<li><button class="gnb_open">
-				<img src="../images/common/gnb_open.png" alt="메뉴열기" />
-					</button> </li>
+						<img src="../images/common/gnb_open.png" alt="메뉴열기" />
+					</button></li>
 			</ul>
+
 		</div>
 	</footer>
 </body>

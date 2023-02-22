@@ -31,26 +31,35 @@
 		<div class="subhead">
 			<ul>
 				<li><i class="fa-solid fa-chevron-left"></i></li>
-				<li><span class="subtit">메뉴선택</span>
+				<li><span class="subtit">주문하기</span>
 			</ul>
 		</div>
-		<section class="cartlist">
+		<section id="cartlist">
 			<div class="st">
-				<h3>${list[1].OS_NAME}주문중!</h3>
+				<h3>${list[0].S_NAME}에서주문중!</h3>
 			</div>
 			<div class="list">
-				<c:forEach var="cart" items="${list}">
-					<li><ul>
-							<li>${cart.CP_NAME}</li>
-							<li><img
-								src="<c:url value='/images/contents/${cart.CP_IMG}.png'/>"></li>
-							<li>${cart.C_PRICE}</li>
-							<li>${cart.C_OP}</li>
-							<li>${cart.C_IDX}</li>
-							<li>${cart.C_COUNT}</li>
+				<ul>
+					<c:forEach var="cart" items="${list}">
+						<li><ul>
 
-						</ul></li>
-				</c:forEach>
+								<li><img
+									src="<c:url value='/images/contents/${cart.CP_IMG}.png'/>"></li>
+								<li>${cart.CP_NAME}</li>
+
+								<li>${cart.C_OP}</li>
+								<li>${cart.C_COUNT}</li>
+								<li>${cart.C_PRICE}<input type="hidden" id="price" value="${cart.C_PRICE}"></li>
+							</ul></li>
+					</c:forEach>
+				</ul>
+				<div class="cartcount">
+					<ul>
+						<li>상품금액</li>
+						<li><span class="total"><strong> <fmt:formatNumber
+												value="${map.P_PRICE}" pattern="#,###" /></strong></span>원</li>
+					</ul>
+				</div>
 			</div>
 		</section>
 	</div>
@@ -61,4 +70,7 @@
 </script>
 
 <script src="<c:url value='/js/tab2.js'/>"></script>
+<script>
+
+</script>
 </html>

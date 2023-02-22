@@ -55,10 +55,12 @@
 <select id="cartList" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
-		SELECT  * 
+		SELECT  c.*,s.S_NAME,s.STORE 
 		 FROM 
-		 CART
+		 CART c, S_MEMBER s
 		 WHERE
+		 c.C_STORE = s.STORE
+		 AND
 		 C_STORE=#{C_STORE} 
 		 AND
 		 CB_IDX=#{B_PHONE}

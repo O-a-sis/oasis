@@ -6,56 +6,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>로그인</title>
-	
 <meta name="viewport" content="width=device-width, initial-scale=0.8" />
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/common.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/default.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/member/main.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/member/sub.css'/>" />
+<%@ include file="/WEB-INF/include/include-header.jspf"%>
+<meta charset="UTF-8">
+<title>메뉴선택</title>
 
 </head>
 <body>
-	<div class="layout">
-		<section id="findform">
-			<div class="sub_visual">
-				<div class="wrap">
-				</div>
-			</div>
-			<div class="wrap">
-				<div class="findPw">
-				<center>
-					<h2>비밀번호 찾기</h2>
-					<div class="f_line">
+	<div class="wrap">
+		<div class="subhead">
+			<ul style="text-align: center;">
+				<li></li>
+				<li><span class="subtit">비밀번호 찾기</span></li>
+			</ul>
+		</div>
+		<section id="findpw">
 						<form id="findPwForm"
 							action="<c:url value='/member/findPwResult.oa'/>" method="POST">
 
 							<!-- 이름 -->
-							<div class="find">
+							<div class="tag">
 
-								이름 : <input  type="text" check="0" id="B_NAME"
+								이름 </div> <input  type="text" check="0" id="B_NAME"
 									name="B_NAME" placeholder="이름을 입력하세요" />
 
-							</div>
 
 							<!-- 전화번호 -->
-							<div class="find">
-								전화번호 : <input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" 
+							<div class="tag">
+								전화번호</div> <input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" 
 								id="B_PHONE" name="B_PHONE">
 
-							</div>
 							
 							<button type="submit" class="findbtn">비밀번호찾기</button>
-
+							<button type="button" class="lbtn" onclick="javascript:location.href='/Oasis/member/loginForm.oa'">로그인 하기</button>
 						</form>
-					</div>
-				</div>
-
-				</center>
-
+</section>
+</div>
 </body>
 </html>
 <script type="text/javascript">

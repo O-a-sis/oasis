@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oasis.common.CommandMap;
+import com.oasis.member.service.MemberStoreService;
 import com.oasis.member.service.MenuService;
 import com.oasis.member.service.MyTabService;
 
@@ -24,7 +25,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MenuController {
 
-	
 	private MenuService menuService;
 	
 	@RequestMapping(value="/menuList.oa") 
@@ -56,7 +56,6 @@ public class MenuController {
 		commandMap.put("B_PHONE",session.getAttribute("B_PHONE"));
 		commandMap.put("C_STORE",store);
 		List<Map<String, Object>> list = menuService.cartList(commandMap.getMap());
-		System.out.println(store);
 		
 		mv.addObject("list", list);
 		return mv;
