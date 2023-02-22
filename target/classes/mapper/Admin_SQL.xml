@@ -92,7 +92,6 @@
 		]]>
 	</delete>
 
-
 	<!-- 공지사항 검색 -->
 	<sql id="storeSearch">
 		<trim prefix=" WHERE " prefixOverrides="OR">
@@ -108,8 +107,6 @@
 			</foreach>
 		</trim>
 	</sql>
-
-
 
 	<!-- 관리자 지점 관리 리스트 -->
 	<select id="storeList" resultType="hashmap">

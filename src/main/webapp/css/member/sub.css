@@ -210,7 +210,7 @@
 	top: 10px;
 }
 /*매장모달*/
-#smodal {
+#storemodal {
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -224,7 +224,7 @@
 	border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-#smodal .modal-window {
+#storemodal .modal-window {
 	background: #FFF;
 	backdrop-filter: blur(13.5px);
 	border-radius: 10px;
@@ -238,31 +238,31 @@
 	z-index: 100;
 }
 
-#smodal .title {
+#storemodal .title {
 	margin-top: 70px;
 	padding-left: 10px;
 	display: inline;
 	color: #5d5d5d;
 }
 
-#smodal .title p {
+#storemodal .title p {
 	padding-left: 10px;
 	font-size: 15px;
 	padding-bottom: 10px;
 }
 
-#smodal .title .rvwho {
+#storemodal .title .rvwho {
 	height: 80px;
 	margin-top: 20px;
 	padding-left: 22px;
 }
 
-#smodal .title .rvwho h3 {
+#storemodal .title .rvwho h3 {
 	text-align: left;
 	padding-left: 10px;
 }
 
-#smodal .title .rvwho span {
+#storemodal .title .rvwho span {
 	padding-top: 15px;
 	text-align: left;
 	padding-left: 10px;
@@ -270,7 +270,7 @@
 	font-weight: 400;
 }
 
-#smodal .close-area {
+#storemodal .close-area {
 	display: inline;
 	float: right;
 	padding-right: 10px;
@@ -279,17 +279,17 @@
 	font-size: 19px;
 }
 
-#smodal .content {
+#storemodal .content {
 	padding: 0px 10px;
 	color: white;
 	text-align: center;
 }
 
-#smodal .content ul {
+#storemodal .content ul {
 	text-align: center;
 }
 
-#smodal .content ul li.off {
+#storemodal .content ul li.off {
 	width: 80%;
 	height: 20px;
 	padding: 5px 10px;
@@ -298,7 +298,7 @@
 	margin: 20px;
 }
 
-#smodal .content ul li.on {
+#storemodal .content ul li.on {
 	width: 80%;
 	height: 20px;
 	padding: 5px 10px;
@@ -309,39 +309,39 @@
 	color: #fff
 }
 
-#smodal .content ul li.on a {
+#storemodal .content ul li.on a {
 	color: #fff
 }
 
-#smodal .content ul li a {
+#storemodal .content ul li a {
 	text-decoration: none;
 	color: #3d3d3d;
 }
 
-#smodal .content p {
+#storemodal .content p {
 	color: #3d3d3d;
 	font-size: 15px;
 }
 
-#smodal .modal-window .content .stardr {
+#storemodal .modal-window .content .stardr {
 	margin: 0 auto;
 	height: 90px;
 	padding: 0 24px;
 }
 
-#smodal .modal-window .content .stardr p {
+#storemodal .modal-window .content .stardr p {
 	width: 100px;
 	margin: 0 auto;
 	padding: 15px 16px 1px 0;
 }
 
-#smodal .modal-window .content .stardr .star {
+#storemodal .modal-window .content .stardr .star {
 	position: relative;
 	font-size: 2rem;
 	color: #ddd;
 }
 
-#smodal .modal-window .content .stardr .star input {
+#storemodal .modal-window .content .stardr .star input {
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -350,7 +350,7 @@
 	cursor: pointer;
 }
 
-#smodal .modal-window .content .stardr .star span {
+#storemodal .modal-window .content .stardr .star span {
 	width: 0;
 	position: absolute;
 	left: 0;
@@ -359,14 +359,14 @@
 	pointer-events: none;
 }
 
-#smodal .modal-window .content .reviewtext {
+#storemodal .modal-window .content .reviewtext {
 	width: 90%;
 	height: 200px;
 	margin: 0 auto;
 	padding-bottom: 20px;
 }
 
-#smodal .modal-window .modalbtn {
+#storemodal .modal-window .modalbtn {
 	margin: 0 auto;
 	display: block;
 	width: 120px;

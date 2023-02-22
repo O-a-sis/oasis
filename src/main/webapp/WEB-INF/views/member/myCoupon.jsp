@@ -21,7 +21,6 @@
 				<th scope="col">쿠폰가격</th>
 				<th scope="col">구매자IDX</th>
 				<th scope="col">발급일</th>
-				<th scope="col">사용여부</th>
 
 			</tr>
 		</thead>
@@ -34,14 +33,6 @@
 					<td>${item.CU_PRICE}</td>
 					<td>${item.CUB_IDX}</td>
 					<td>${item.CU_LIMIT}</td>
-					<td>
-					<c:if test="${item.CU_USE eq 'N'}">
-								<c:out value="사용가능" />
-							</c:if>
-					<c:if test="${item.CU_USE eq 'Y'}">
-								<c:out value="사용불가" />
-							</c:if>
-					</td>
 				</tr>
 			</c:forEach>
 	</tbody>

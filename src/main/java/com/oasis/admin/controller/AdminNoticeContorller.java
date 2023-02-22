@@ -127,10 +127,13 @@ public class AdminNoticeContorller {
 			if (uploadPath.exists() == false) {
 				uploadPath.mkdirs();
 			}
-			file.transferTo(new File(savePath));
-			commandMap.put("N_IMAGE", fileName);
+			if (fileName == "") {
+				commandMap.put("N_IMAGE", commandMap.get("PREV_IMAGE"));
+			} else {
+				file.transferTo(new File(savePath));
+				commandMap.put("N_IMAGE", fileName);
+			}
 		}
-
 		if (commandMap.get("N_IDX") == null) {
 			adminNoticeService.adminNoticeWrite(commandMap.getMap());
 		} else {
