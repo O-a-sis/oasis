@@ -50,28 +50,54 @@
 
 			</c:choose>
 		</div>
-		<tr>
-			<%-- <th width="170">주문한 메뉴</th>--%>
-			<td>${map.O_LIST}</td>
-		</tr>
-		<div>
-			<tr>
-				<th width="170">상품 금액</th>
-				<td>${map.O_SUM }원</td>
-			</tr>
-		</div>
-		<div>
-			<th width="170">할인 금액</th>
-				<td> <c:forEach var="item" items="${coupon}">
-						<td>${item.CU_PRICE } 원</td> </br>
-						
-						
-		
-			<tr>
-				<th width="170">결제 금액</th>
-				<td>${map.O_SUM - item.CU_PRICE}원</td>
-			</tr>
+
+			<div><th width="170">주문한 메뉴</th>
+			 <c:forEach var="item" items="${list}">
+			 <div>
+			<div>${item.OM_NAME }</div>
+			<div><img src="<c:url value='/images/contents/${item.OM_IMG}.png' />" /></div>
+			<div>${item.OM_OP }</div>
+			<div>${item.OM_COUNT } 개</div>
+			<div>${item.OM_PRICE * item.OM_COUNT} 원</div>
+			</div>
 			</c:forEach>
+			</div>
+		<div>
+			</div>
+			<div>
+				
+				<tbody>
+    <c:set var="totalPrice" value="0" />
+    <c:forEach var="item" items="${list}">
+    
+      <c:set var="totalPrice" value="${totalPrice + item.OM_PRICE * item.OM_COUNT}" />
+    </c:forEach>
+  </tbody>
+  <tfoot>
+  <div>
+    <tr>
+   
+      <td colspan="3">총 주문 가격:</td>
+      <td>${totalPrice + map2.CU_PRICE } 원	</td>
+    </tr>
+    </div>
+  </tfoot>
+</div>
+		
+		<div>
+				할인 금액 :${map2.CU_PRICE } 원 </br>
+		</div>		
+						
+		<div>
+				결제 금액 : ${totalPrice } 원 
+			</div>
+			
+		<div>
+				적립된 스탬프 : ${map.O_COUNT} 개
 		</div>
+		
 </body>
+<script>
+	
+</script>
 </html>

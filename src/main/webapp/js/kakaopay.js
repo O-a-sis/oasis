@@ -35,7 +35,7 @@
 			if(resp.status === 500){
 				alert("카카오페이결제를 실패하였습니다.")
 			} else{
-				 // alert(resp.tid); //결제 고유 번호
+				// alert(resp.tid); //결제 고유 번호
 				var box = resp.next_redirect_pc_url;
 				//window.open(box); // 새창 열기
 				location.href = box;
