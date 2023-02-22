@@ -76,7 +76,7 @@
   <tfoot>
   <div>
     <tr>
-   
+   	
       <td colspan="3">총 주문 가격:</td>
       <td>${totalPrice + map2.CU_PRICE } 원	</td>
     </tr>
