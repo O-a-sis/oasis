@@ -8,6 +8,14 @@ public class Paging {
 	private int endPage;
 	private int currentPage;
 
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
 	private StringBuffer pageHtml = new StringBuffer();
 
 	public Paging(int countItemAll, int pageBlock, int pageSize, int currentPage, String url, String searchUrl) {

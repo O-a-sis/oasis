@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @charset "UTF-8";
 
 @import url(../default.css);
@@ -783,3 +784,608 @@ position:absolute;
 }
 
 #coupon .cinfo{margin-top:50px;font-size:15px;}
+=======
+@charset "UTF-8";
+
+@import url(../default.css);
+
+@import url(../common.css);
+
+@import url(main.css);
+
+/*공통 서브헤드*/
+.subhead {
+	margin-top: 20px;
+	height: 50px;
+	text-align: left;
+	padding: 10px 20px;
+	text-align: left;
+	padding: 10px 20px
+}
+
+.subhead ul li {
+	display: inline-block;
+	margin-right: 32%
+}
+
+.subhead ul li i {
+	font-size: 22px;
+	color: #9d9d9d
+}
+
+.subhead ul li .subtit {
+	font-size: 19px;
+	font-weight: 500
+}
+
+/*매장리스트*/
+.store {
+	width: 100%;
+	height: 400px;
+	text-align: center;
+}
+
+.store .tabon::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.store ul.store_tab {
+	
+}
+
+.store .store_tab li {
+	float: left;
+	height: 30px;
+	text-align: center;
+	cursor: pointer;
+	color: #666;
+	width: 50%;
+	text-align: center;
+	font-weight: 400;
+}
+
+.store .store_tab li.onon {
+	border-bottom: 5px solid #e68e41;
+}
+
+.store .store_search {
+	padding: 50px 0;
+}
+
+.store .search input {
+	height: 20px;
+	width: 80%;
+	border: 2px solid #e68e41;
+	border-radius: 15px;
+}
+
+.store .search i {
+	color: #e68e41;
+	font-size: 19px;
+	padding-left: 5px
+}
+
+.store .mapline {
+	width: 100%;
+	height: 555px;
+	margin-top: 21px;
+	padding: 10px 0
+}
+
+.store .mapline #map {
+	border-radius: 15px
+}
+
+.store .tabon>div>div.active {
+	display: block;
+}
+
+.store .storelist {
+	margin-top: 10px
+}
+
+.store .storelist ul {
+	text-align: left;
+	position: relative;
+}
+
+.store .storelist ul li.listline {
+	width: 98%;
+	height: 80px;
+	margin-bottom: 5px;
+	border-bottom: 2px solid #ffebde;
+}
+
+.store .storelist ul li ul.ulinner li.innerl {
+	margin-top: 10px
+}
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(1) {
+	width: 20%;
+	float: left;
+	padding: 5px 10px;
+}
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(1) img {
+	width: 100%;
+}
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(2) {
+	margin-top: 19px;
+	float: left;
+	margin-left: 10px;
+	width: 50%;
+	/* position: relative; */
+	text-align: left;
+}
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(3) {
+	position: absolute;
+	left: 29%;
+	top: 43%;
+	margin: 40px 0;
+}
+
+.store .storelist ul li ul.ulinner li.innerl:nth-child(4) {
+	position: absolute;
+	top: 43;
+	right: 30px;
+	top: 10px;
+}
+
+.store .store_mark .mapper .storelist2 {
+	margin-top: 10px
+}
+
+.store .store_mark h4 {
+	text-align: left;
+}
+
+.store .store_mark .mapper .storelist2 ul {
+	text-align: left;
+	position: relative;
+}
+
+.store .store_mark .mapper .storelist2 ul li.listline {
+	width: 98%;
+	height: 80px;
+	margin-bottom: 5px;
+	border-bottom: 2px solid #ffebde;
+}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl {
+	margin-top: 10px
+}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(1)
+	{
+	width: 20%;
+	float: left;
+	padding: 5px 10px;
+}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(1) img
+	{
+	width: 100%;
+}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(2)
+	{
+	margin-top: 19px;
+	float: left;
+	margin-left: 10px;
+	width: 50%;
+	/* position: relative; */
+	text-align: left;
+}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(3)
+	{
+	position: absolute;
+	left: 29%;
+	top: 43%;
+	margin: 40px 0;
+}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(4)
+	{
+	position: absolute;
+	top: 43;
+	right: 30px;
+	top: 10px;
+}
+/*매장모달*/
+#smodal {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 100;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#smodal .modal-window {
+	background: #FFF;
+	backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid #9d9d9d;
+	width: 80%;
+	height: 50%;
+	position: fixed;
+	top: 14%;
+	padding: 10px;
+	text-align: left;
+	z-index: 100;
+}
+
+#smodal .title {
+	margin-top: 70px;
+	padding-left: 10px;
+	display: inline;
+	color: #5d5d5d;
+}
+
+#smodal .title p {
+	padding-left: 10px;
+	font-size: 15px;
+	padding-bottom: 10px;
+}
+
+#smodal .title .rvwho {
+	height: 80px;
+	margin-top: 20px;
+	padding-left: 22px;
+}
+
+#smodal .title .rvwho h3 {
+	text-align: left;
+	padding-left: 10px;
+}
+
+#smodal .title .rvwho span {
+	padding-top: 15px;
+	text-align: left;
+	padding-left: 10px;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+#smodal .close-area {
+	display: inline;
+	float: right;
+	padding-right: 10px;
+	cursor: pointer;
+	color: #2d2d2d;
+	font-size: 19px;
+}
+
+#smodal .content {
+	padding: 0px 10px;
+	color: white;
+	text-align: center;
+}
+
+#smodal .content ul {
+	text-align: center;
+}
+
+#smodal .content ul li.off {
+	width: 80%;
+	height: 20px;
+	padding: 5px 10px;
+	border-radius: 100px;
+	border: 1px solid #a7b5d8;
+	margin: 20px;
+}
+
+#smodal .content ul li.on {
+	width: 80%;
+	height: 20px;
+	padding: 5px 10px;
+	border-radius: 100px;
+	border: 1px solid #487BE1;
+	background: #487BE1;
+	margin: 20px;
+	color: #fff
+}
+
+#smodal .content ul li.on a {
+	color: #fff
+}
+
+#smodal .content ul li a {
+	text-decoration: none;
+	color: #3d3d3d;
+}
+
+#smodal .content p {
+	color: #3d3d3d;
+	font-size: 15px;
+}
+
+#smodal .modal-window .content .stardr {
+	margin: 0 auto;
+	height: 90px;
+	padding: 0 24px;
+}
+
+#smodal .modal-window .content .stardr p {
+	width: 100px;
+	margin: 0 auto;
+	padding: 15px 16px 1px 0;
+}
+
+#smodal .modal-window .content .stardr .star {
+	position: relative;
+	font-size: 2rem;
+	color: #ddd;
+}
+
+#smodal .modal-window .content .stardr .star input {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+#smodal .modal-window .content .stardr .star span {
+	width: 0;
+	position: absolute;
+	left: 0;
+	color: #ffd500;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+#smodal .modal-window .content .reviewtext {
+	width: 90%;
+	height: 200px;
+	margin: 0 auto;
+	padding-bottom: 20px;
+}
+
+#smodal .modal-window .modalbtn {
+	margin: 0 auto;
+	display: block;
+	width: 120px;
+	height: 30px;
+	border: 1px solid #487BE1;
+	padding: 0 15px;
+	border-radius: 100px;
+	background: #487BE1;
+	color: #fff;
+	margin-top: 10px;
+}
+
+/*메뉴리스트*/
+.menulist {
+	width: 100%;
+	text-align: left;
+	padding-left: 10px;
+}
+
+.menulist .st {
+	height: 30px;
+	margin: 10px 0;
+}
+
+.menulist .menutablist ul.menu_tab {
+	white-space: nowrap;
+	overflow-x: auto;
+	text-align: center;
+	width: 100%;
+	height: 30px;
+}
+
+.menulist .menutablist .menu_tab li {
+	display: inline-block;
+	width: 77px;
+	border: 1px solid #e68e41;
+	color: #fff;
+	border-radius: 74px;
+	background-color: #e68e41;
+	margin-right: 5px;
+	padding: 2px 0;
+}
+
+.menulist .menutablist .menuselect {
+	margin-top: 30px
+}
+
+.menulist .menutablist .menuselect div>div>ul>li {
+	width: 100%;
+	height: 100px;
+}
+
+.menulist .menutablist .menuselect div>div>ul>li {
+	display: block;
+	width: 100%
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>a {
+	display: block;
+	text-decoration: none;
+	color: #242424
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>a>ul>li {
+	float: left;
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>a>ul>li img {
+	width: 90px;
+	height: 90px;
+	border-radius: 100%;
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>a>ul>li:nth-child(1) {
+	width: 31%
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>a>ul>li:nth-child(2) {
+	padding-top: 17px;
+	font-size: 17px;
+	font-weight: 400;
+	float: none;
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>a>ul>li:nth-child(3) {
+	padding-left: 10px;
+	padding-top: 5px;
+	font-size: 15px;
+	font-weight: 500;
+	float: none;
+}
+
+.menu_tab::-webkit-scrollbar {
+	display: none;
+}
+
+/* 메뉴디테일 */
+.menudetail {
+	height: 1000px
+}
+
+.menudetail .menuimg {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e9e9e9;
+	margin-bottom: 20px;
+}
+
+.menudetail .menuimg img {
+	height: 250px
+}
+
+.menudetail .menuimg h2 {
+	font-size: 22px;
+	padding-bottom: 10px;
+}
+
+.menudetail .menuop {
+	maring-top: 10px;
+	height: auto;
+	margin-bottom: 300px;
+	text-align: left
+}
+
+.menudetail .menuop #hide {
+	padding-left: 14px;
+}
+
+.menudetail .menuop #hide ul li.oplist {
+	width: 80%;
+	    min-height: 120px;
+	    padding-bottom:20px
+}
+
+.menudetail .menuop #hide ul li.oplist>ul>li {
+	height:30px
+}
+.menudetail .menuop #hide ul li.oplist>ul>li strong{font-weight:400}
+
+.menudetail .menuop #hide ul li.oplist ul li:first-child {
+	font-size:17px;
+	color:##726464;
+	padding-bottom:10px
+}
+
+.menudetail .menuop #hide ul li.oplist ul li:nth-child(3) {
+}
+
+.menudetail .menuop #hide ul li.oplist ul li input[type='radio'],
+input[type='radio']:checked {
+  appearance: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 100%;
+  margin-right: 0.1rem;
+}
+
+.menudetail .menuop #hide ul li.oplist ul li input[type='radio'] {
+  background-color: #fff;
+  border: 2px solid #e68e41;
+}
+.menudetail .menuop #hide ul li.oplist ul li input[type='radio']:checked {
+  background-color: #e68e41;
+}
+
+.menudetail .menuop a {
+	    padding: 10px;
+	text-decoration: none;
+	color: #373737
+}
+
+.menudetail #checkflex {
+	position: fixed;
+	width: 67%;
+	border: 2px solid #e68e41;
+	bottom: 36px;
+	padding: 24px 45px;
+	height: 119px;
+	text-align: left;
+	border-radius: 15px;
+	background-color: #fff;
+}
+
+.menudetail #checkflex .num {
+	margin-bottom: 10px
+}
+
+.menudetail #checkflex .num a {
+	text-decoration: none;
+}
+
+.menudetail #checkflex .num ul li:first-child {
+	float: left;
+	width: 50%
+}
+
+.menudetail #checkflex .num ul li #result {
+	padding: 0 20px;
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.menudetail #checkflex .num ul li i {
+	font-size: 16px;
+	color: #e68e41;
+}
+
+.menudetail #checkflex .num ul li:nth-child(2) {
+	text-align: right;
+}
+
+.menudetail #checkflex .num h3 {
+	display: inline
+}
+
+.menudetail #checkflex .pprice ul li:first-child {
+	float: left;
+	width: 50%
+}
+
+.menudetail #checkflex .pprice ul li:nth-child(2) {
+	text-align: right;
+}
+
+.menudetail #checkflex .mbtn {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.menudetail #checkflex .mbtn button {
+	width: 48%;
+	color: white;
+	padding: 5px 10px;
+	background: #e68e41;
+}
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c

@@ -48,7 +48,11 @@
 				<div class="menuimg">
 					<img src="<c:url value='/images/contents/${map.P_IMG}.png'/>" />
 					<h2>${map.P_NAME}</h2>
+<<<<<<< HEAD
 					${map.P_CONTENT} <br>
+=======
+					${map.P_CONTENT} 에스프레소 위에 올려진 우유 거품, 그리고 시나몬 파우더로 완성한 조화로운 맛의 커피 <br>
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 				</div>
 				<div class="menuop">
 					<a href=#none id="show"
@@ -59,6 +63,7 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 					<div id="hide" style="display: none">
 						<ul>
 							<li class="oplist"><ul>
+<<<<<<< HEAD
 									<li><strong> </strong></li>
 									<li><input type="radio" name="option1" value="HOT"
 										checked />HOT</li>
@@ -71,6 +76,14 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 									<li><input type="radio" name="option2" value="시나몬X" />시나몬
 										X</li>
 								</ul></li> -->
+=======
+									<li><strong>시나몬 여부</strong></li>
+									<li><input type="radio" name="option1" value="시나몬O"
+										checked />시나몬 O</li>
+									<li><input type="radio" name="option1" value="시나몬X" />시나몬
+										X</li>
+								</ul></li>
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 							<li class="oplist"><ul>
 									<li><strong>농도</strong></li>
 									<li><input type="radio" name="option2" value=""
@@ -118,16 +131,27 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 									id="result">1</span> <a href="#" class="plus"><i
 										class="fa-regular fa-plus"></i></a></li>
 							<li><h3>
+<<<<<<< HEAD
 									<strong><span style="display: none" class="cost"
 										id="cost"> <fmt:formatNumber value="${map.P_PRICE}"
 												pattern="#,###" />원
 									</span>
 									</strong>
+=======
+									<strong><span style="display: inline" class="cost"
+										id="cost"> <fmt:formatNumber value="${map.P_PRICE}"
+												pattern="#,###" />원
+									</span></strong>
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 								</h3></li>
 						</ul>
 
 						<div class="hidecount" style="display: none;">
+<<<<<<< HEAD
 							<span class="costhidden1">${map.P_PRICE }</span> <span class="costhidden2">00</span>
+=======
+							<span class="costhidden1">2500</span> <span class="costhidden2">00</span>
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 							<span class="costhidden3">00</span> <span class="costhidden4">00</span>
 							<span class="costhidden5">${map.P_PRICE}</span>
 						</div>

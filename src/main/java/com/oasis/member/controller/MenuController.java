@@ -56,6 +56,7 @@ public class MenuController {
 		commandMap.put("B_PHONE",session.getAttribute("B_PHONE"));
 		commandMap.put("C_STORE",store);
 		List<Map<String, Object>> list = menuService.cartList(commandMap.getMap());
+		System.out.println(store);
 		
 		mv.addObject("list", list);
 		return mv;

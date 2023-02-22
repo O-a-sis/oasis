@@ -19,21 +19,26 @@ public class MyTabDAO extends AbstractDAO{
 	public List<Map<String, Object>> myCouponList(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>) selectList("member.myCouponList", map);
 	}
-	
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> useCoupon(Map<String, Object> map) throws Exception {
-		return (Map<String, Object>) selectOne("member.useCoupon", map);
-	}
 
 
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> myOrderList(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>) selectList("member.myOrderList", map);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> useCoupon(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) selectOne("member.useCoupon", map);
+	}
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> myOrderDetail(Map<String, Object> map) throws Exception {
 		return (Map<String, Object>) selectOne("member.myOrderDetail", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> OrderDetail(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>) selectList("member.OrderDetail", map);
 	}
 
 	@SuppressWarnings("unchecked")

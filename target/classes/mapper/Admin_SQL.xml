@@ -78,7 +78,6 @@
 		SET
 			  N_TITLE=#{N_TITLE},				
 			  N_CONTENT=#{N_CONTENT},
-			  N_IMAGE=#{N_IMAGE}
 			  N_IMAGE=#{N_IMAGE},
 			  N_DATE=SYSDATE
 		WHERE
@@ -92,7 +91,6 @@
 		  DELETE FROM NOTICE WHERE N_IDX = #{N_IDX}	
 		]]>
 	</delete>
-
 
 	<!-- 공지사항 검색 -->
 	<sql id="storeSearch">
@@ -109,9 +107,6 @@
 			</foreach>
 		</trim>
 	</sql>
-
-
-
 
 	<!-- 관리자 지점 관리 리스트 -->
 	<select id="storeList" resultType="hashmap">

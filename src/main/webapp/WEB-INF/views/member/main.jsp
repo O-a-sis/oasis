@@ -62,9 +62,15 @@
 			<div class="booklink">
 				<ul>
 					<li><a
+<<<<<<< HEAD
 						href='/Oasis/member/myCouponList.oa?CUB_IDX=${map.B_PHONE }'>COUPON<i
 							class="fa-solid fa-ticket"></i></a></li>
 					<li>MyCart<i class="fa-solid fa-basket-shopping"></i></li>
+=======
+						href='/Oasis/member/myCouponList.oa?B_PHONE=${map.B_PHONE }'>COUPON<i
+							class="fa-solid fa-ticket"></i></a></li>
+					<li>BOOKMARK<i class="fa-regular fa-bookmark"></i></li>
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 				</ul>
 			</div>
 		</div>
@@ -102,6 +108,7 @@
 			<ul>
 				<c:forEach var="menulist" items="${plist}">
 
+<<<<<<< HEAD
 					<li><div class="scene">
 							<div class="card">
 								<div class="card__face card__face--front">
@@ -116,6 +123,11 @@
 								</div>
 							</div>
 						</div></li>
+=======
+					<li><img
+						src="<c:url value='/images/contents/${menulist.P_IMG}.png'/>"
+						alt="" /></li>
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 
 
 				</c:forEach>
@@ -126,6 +138,7 @@
 
 
 </body>
+<<<<<<< HEAD
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=17abac5a86d69afad0326b67e47cbd88"></script>
 <script>
@@ -138,4 +151,6 @@
 	});
 	
 </script>
+=======
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 </html>

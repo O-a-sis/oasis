@@ -49,11 +49,19 @@
 				<div class="store_search tab_search">
 					<div class="search">
 
+<<<<<<< HEAD
 						<input class="searchtext" type="text" name="keyword" />
 
 						<button class="btn btn-default sbtn" id="searchbtn">
 							<i class="fa-solid fa-magnifying-glass"></i>
 						</button>
+=======
+							<input class="searchtext" type="text" name="keyword"  />
+
+							<button class="btn btn-default sbtn" id="searchbtn">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</button>
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 					</div>
 
 
@@ -104,9 +112,12 @@
 														type="hidden" value="${item2.B_STORE}" name="b_store">
 												</div>
 											</li>
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 										</ul>
 										<button class="sbtn"
 											onclick="javascript:location.href='/Oasis/member/menuList.oa?S_NAME=${item2.BS_NAME}&STORE=${item2.B_STORE}'">주문하기</button>
@@ -145,6 +156,14 @@
 
 
 
+<<<<<<< HEAD
+=======
+							<div class="storebtn">
+								<input type="hidden" id="store" name="store" /> <input
+									type="hidden" id="bidx" name="bidx" />
+								<button type="button" id='modalstoreBtn'>주문하기</button>
+							</div>
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 						</div>
 					</div>
 				</div>
@@ -434,6 +453,44 @@
 		}
 	});
 </script>
+<<<<<<< HEAD
 
+=======
+<script type="text/javascript">
+	$(".bookmark1").on("click", "span", function() {
+		let mark = $(this);
+		let bookmoal = $(".storeul div");
+		if ($(this).attr("class") == "off") {
+
+			let bookmark = {
+				BB_IDX : '${sessionScope.B_PHONE}',
+				BS_NAME : $('input[name=bs_name]').val(),
+				B_STORE : $('input[name=b_store]').val()
+			};
+
+			console.log(bookmark)
+
+			bookmarkService.add(bookmark, function(result) {
+				bidx.val(result);
+			});
+
+			$(this).attr("class", "on");
+			$(this).find("i").attr("class", "fa-solid fa-heart");
+
+		} else {
+			let bookmark = {
+				B_IDX : $('input[name=b_idx]').val()
+			};
+			console.log(bookmark)
+
+			bookmarkService.remove(bookmark, function(result) {
+			});
+			$(this).attr("class", "off");
+			$(this).find("i").attr("class", "fa-regular fa-heart");
+
+		}
+	});
+</script>
+>>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 
 </html>
