@@ -205,8 +205,8 @@ public class StoreController {
 	
 		return mv;
 	}
-	
-	@RequestMapping(value = "/noticeDetail.oa") // 공지사항
+		
+	@RequestMapping(value = "/noticeDetail.oa") // 공지사항 상세보기
 	public ModelAndView noticeDetail(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("store/noticeDetail");
 		

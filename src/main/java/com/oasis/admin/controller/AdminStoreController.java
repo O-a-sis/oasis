@@ -108,7 +108,7 @@ public class AdminStoreController {
 
 	// 관리자 - 지점 회원가입등록
 	@RequestMapping(value = "/storeJoin.oa")
-	public ModelAndView noticeWrite(CommandMap commandMap) throws Exception {
+	public ModelAndView storeJoin(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
 
 		adminStoreService.storeJoin(commandMap.getMap());
