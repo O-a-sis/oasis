@@ -60,7 +60,7 @@
 			<div class="booklink">
 				<ul>
 					<li><a
-						href='/Oasis/member/myCouponList.oa?CUB_IDX=${map.B_PHONE }'>COUPON<i
+						href='/Oasis/member/myCouponList.oa?B_PHONE=${map.B_PHONE }'>COUPON<i
 							class="fa-solid fa-ticket"></i></a></li>
 					<li>BOOKMARK<i class="fa-regular fa-bookmark"></i></li>
 				</ul>
