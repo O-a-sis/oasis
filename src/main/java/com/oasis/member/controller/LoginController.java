@@ -1,5 +1,6 @@
 package com.oasis.member.controller;
   
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -65,11 +66,11 @@ public class LoginController {
   @RequestMapping(value = "/main.oa")  // 회원메인
   public ModelAndView main(CommandMap commandMap, HttpServletRequest request) throws Exception {  
 	  ModelAndView mv = new ModelAndView("member/main");
-	  
+	  System.out.println(request.getSession().getServletContext().getRealPath("/") + File.separator + "img/");
 	  HttpSession session = request.getSession(); // request 의 getSession() 메서드는 서버에 생성된 세션이 있다면 세션을 반환하고, 없다면 새 세션을 받아 반환한다.
 	  if(session.getAttribute("B_PHONE")==null) { //로그인 안한 경우
 		  List<Map<String, Object>> mainimg = adminNoticeService.mainImg(commandMap.getMap());
-		  List<Map<String, Object>> list = menuService.menuList(commandMap.getMap());
+		  List<Map<String, Object>> list = menuService.mainmenuList(commandMap.getMap());
 		  mv.addObject("plist", list); 
 		  mv.addObject("mainimg", mainimg);
 	  return mv;
@@ -77,7 +78,7 @@ public class LoginController {
 	  commandMap.put("B_PHONE", session.getAttribute("B_PHONE"));
 	  Map<String, Object> map = myTabService.myStamp(commandMap.getMap());
 	  List<Map<String, Object>> mainimg = adminNoticeService.mainImg(commandMap.getMap());
-	  List<Map<String, Object>> list = menuService.menuList(commandMap.getMap());
+	  List<Map<String, Object>> list = menuService.mainmenuList(commandMap.getMap());
 		
 		
 		

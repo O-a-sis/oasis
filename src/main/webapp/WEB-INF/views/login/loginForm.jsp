@@ -26,7 +26,9 @@
 </head>
 <body>
 	<div class="wrap">
-		<div class="subhead">
+		<div class="subhead"style="text-align: center;margin-bottom:50px;height:100px;">
+			<a href=<c:url value='/member/main.oa' />><img src="../images/common/logo.png"
+					alt="로고" /></a>
 			<ul style="text-align: center;">
 				<li></li>
 				<li><span class="subtit">로그인</span></li>

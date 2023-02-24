@@ -56,8 +56,8 @@
 							<c:if test="${not empty sessionScope.B_PHONE}">
 								<li><span>멤버십</span>
 									<ul>
-										<li><a href="#">스탬프</a></li>
-										<li><a href="#">쿠폰</a></li>
+										<li><a href="http://localhost:8000/Oasis/member/myStamp.oa?B_PHONE=${sessionScope.B_PHONE}">스탬프</a></li>
+										<li><a href="http://localhost:8000/Oasis/member/myCouponList.oa?B_PHONE=${sessionScope.B_PHONE}">쿠폰</a></li>
 
 									</ul></li>
 							</c:if>

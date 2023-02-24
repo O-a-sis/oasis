@@ -13,8 +13,8 @@
 	href="<c:url value='/css/default.css'/>" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/css/main.css'/>" />
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/main.scss'/>" />
+	<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/option.css'/>" />
 <%@ include file="/WEB-INF/include/include-header.jspf"%>
 <meta charset="UTF-8">
 <script src=<c:url value='/js/jquery-1.12.4.min.js'/>></script>
@@ -27,8 +27,8 @@
 	<section class="maintop">
 		<div class="wrap">
 			<div class="logo">
-				<a href="index.html"><img src="../images/common/logo.png"
-					alt="로고" /></a>
+				<a href=<c:url value='/member/main.oa' />><img
+					src="../images/common/logo.png" alt="로고" /></a>
 			</div>
 			<div class="adtext">
 				<p>2023년 흑묘년</p>
@@ -38,43 +38,41 @@
 			</div>
 		</div>
 	</section>
-	<section class="myinfo">
-		<div class="infobox">
-			<div class="inforight">
-				<c:choose>
-					<c:when test="${not empty sessionScope.B_NAME}">
+	<c:choose>
+		<c:when test="${not empty sessionScope.B_NAME}">
+			<section class="myinfo">
+				<div class="infobox">
+
+					<div class="inforight">
 						<a href='/Oasis/member/myMenuBar.oa?B_PHONE=${B_PHONE}'> <strong>${sessionScope.B_NAME}</strong>님
 						</a>
-					</c:when>
-					<c:otherwise>
-						<strong>Oasis</strong>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div class="infoleft">
-				<ul>
-					<li>Ostamp</li>
-					<li><strong>${map.STAMP}</strong> / 10★</li>
-					<li class="stampbar"><progress id="progress"
-							value="${map.STAMP}" min="0" max="10"></progress></li>
-				</ul>
-			</div>
-			<div class="booklink">
-				<ul>
-					<li><a
-<<<<<<< HEAD
-						href='/Oasis/member/myCouponList.oa?CUB_IDX=${map.B_PHONE }'>COUPON<i
-							class="fa-solid fa-ticket"></i></a></li>
-					<li>MyCart<i class="fa-solid fa-basket-shopping"></i></li>
-=======
-						href='/Oasis/member/myCouponList.oa?B_PHONE=${map.B_PHONE }'>COUPON<i
-							class="fa-solid fa-ticket"></i></a></li>
-					<li>BOOKMARK<i class="fa-regular fa-bookmark"></i></li>
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
-				</ul>
-			</div>
+					</div>
+					<div class="infoleft">
+						<ul>
+							<li>Ostamp</li>
+							<li><strong>${map.STAMP}</strong> / 10★</li>
+							<li class="stampbar"><progress id="progress"
+									value="${map.STAMP}" min="0" max="10"></progress></li>
+						</ul>
+					</div>
+					<div class="booklink">
+						<ul>
+							<li><a
+								href='/Oasis/member/myCouponList.oa?B_PHONE=${map.B_PHONE }'>COUPON<i
+									class="fa-solid fa-ticket"></i></a></li>
+							<li>MyCart<i class="fa-solid fa-basket-shopping"></i></li>
+
+						</ul>
+					</div>
+	
+
 		</div>
-	</section>
+		</section>
+			</c:when>
+		<c:otherwise>
+			<section class="myinfo2" style="height:100px;"></section>
+		</c:otherwise>
+	</c:choose>
 	<section class="mainslide">
 		<div class="imgslide">
 			<ul>
@@ -108,7 +106,6 @@
 			<ul>
 				<c:forEach var="menulist" items="${plist}">
 
-<<<<<<< HEAD
 					<li><div class="scene">
 							<div class="card">
 								<div class="card__face card__face--front">
@@ -117,17 +114,12 @@
 										alt="" />
 								</div>
 								<div class="card__face card__face--back">
-								<div class="inner2">오아시스 추천!</div>
-									<div class="inner" style="font-weight:700;">${menulist.P_NAME}</div>
-									<div class="inner"style="font-size:14px">${menulist.P_PRICE}원</div>
+									<div class="inner2">오아시스 추천!</div>
+									<div class="inner" style="font-weight: 700;">${menulist.P_NAME}</div>
+									<div class="inner" style="font-size: 14px">${menulist.P_PRICE}원</div>
 								</div>
 							</div>
 						</div></li>
-=======
-					<li><img
-						src="<c:url value='/images/contents/${menulist.P_IMG}.png'/>"
-						alt="" /></li>
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 
 
 				</c:forEach>
@@ -138,19 +130,9 @@
 
 
 </body>
-<<<<<<< HEAD
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=17abac5a86d69afad0326b67e47cbd88"></script>
 <script>
-// 	var card = document.querySelector('.menuslide>ul>li>div>div');
-// 	card.addEventListener('click', function() {
-// 		card.classList.toggle('is-flipped');
-// 	});
-	$(".menuslide").on("click", "ul li div div", function(){
+	$(".menuslide").on("click", "ul li div div", function() {
 		$(this).toggleClass('is-flipped');
 	});
-	
 </script>
-=======
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 </html>

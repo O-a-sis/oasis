@@ -276,7 +276,7 @@ function fsubmit(){
         if ('${fn:length(list)}'==0){
         	document.getElementById('STORE').value=10001;
         }else{
-        	document.getElementById('STORE').value='${list[0].STORE+1}';
+        	document.getElementById('STORE').value=Number('${list[0].STORE}')+1;
         }
     }   
     function offClick() {

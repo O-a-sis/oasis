@@ -15,11 +15,20 @@ public class MenuDAO extends AbstractDAO{
 	public List<Map<String, Object>> menuList(Map<String, Object> map) throws Exception{
 		return (List<Map<String, Object>>) selectList("menu.menuList", map);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> mainmenuList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>) selectList("menu.mainmenuList", map);
+	}
 
 	public Map<String, Object> menuDetail(Map<String, Object> map) throws Exception{
 		return (Map<String, Object>) selectOne("menu.menuDetail", map);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> productList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>) selectList("menu.productList", map);
+	}
 	
 
 	@SuppressWarnings("unchecked")
@@ -27,8 +36,19 @@ public class MenuDAO extends AbstractDAO{
 		return (List<Map<String, Object>>) selectList("menu.cartList", map);
 	}
 
-	public void insertCart(Map<String, Object> map) throws Exception {
-		insert("menu.insertCart", map);
+	public int insertCart(Map<String, Object> map) throws Exception {
+		return (int)insert("menu.insertCart", map);
+	}
+	
+	public int updateCart(Map<String, Object> map) throws Exception {
+		return (int)update("menu.updateCart", map);
 	}
 
+	public int cartDeleteAll(Map<String, Object> map) throws Exception {
+		return (int)delete("menu.cartDeleteAll", map);
+	}
+	
+	public int cartDelete(Map<String, Object> map) throws Exception {
+		return (int)delete("menu.cartDelete", map);
+	}
 }

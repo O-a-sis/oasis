@@ -185,10 +185,7 @@
 
 <script>
 
-<<<<<<< HEAD
-=======
 //HTML 문서에서 id가 "input"인 요소와 "label"인 요소를 가져온다.
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 var input = document.getElementById("input");
 var initLabel = document.getElementById("label");
 
@@ -244,17 +241,12 @@ document.addEventListener("drop", (event) => {
   if (event.target.className === "inner") {
     // 드롭한 파일 리스트를 가져온다.
     const files = event.dataTransfer?.files;
-<<<<<<< HEAD
-    event.target.style.background = "#3a3a3a";
-    input.files = files;
-=======
     // 대상의 배경 색상을 변경한다.
     event.target.style.background = "#3a3a3a";
     // 파일 input 요소에 드롭한 파일 리스트를 설정한다.
     input.files = files;
     console.log(files)
     // 파일을 처리하는 함수를 호출한다.
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
     handleUpdate([...files]);
   }
 });
@@ -279,19 +271,6 @@ function handleUpdate(fileList){
         className: "embed-img",
         src: event.target?.result,
       });
-<<<<<<< HEAD
-      if('${map.N_IMAGE}'==''){
-        const imgContainer = el("div", { className: "container-img" }, img);
-        preview.append(imgContainer);
-      } else {
-        const imgTag = document.querySelector('.preview');
-        while (imgTag.firstChild) {
-          imgTag.removeChild(imgTag.firstChild);
-        }
-        const imgContainer = el("div", { className: "container-img" }, img);
-        preview.append(imgContainer);
-      }
-=======
 
       // 미리보기 컨테이너에서 기존 이미지를 제거하고 새 이미지를 추가
       const imgTag = document.querySelector('.preview');
@@ -300,7 +279,6 @@ function handleUpdate(fileList){
       }
       const imgContainer = el("div", { className: "container-img" }, img);
       preview.append(imgContainer);
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
     });
 
     // 미리보기 컨테이너에서 기존 이미지를 제거하고 새 이미지를 추가

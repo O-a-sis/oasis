@@ -49,19 +49,12 @@
 				<div class="store_search tab_search">
 					<div class="search">
 
-<<<<<<< HEAD
 						<input class="searchtext" type="text" name="keyword" />
 
 						<button class="btn btn-default sbtn" id="searchbtn">
 							<i class="fa-solid fa-magnifying-glass"></i>
 						</button>
-=======
-							<input class="searchtext" type="text" name="keyword"  />
 
-							<button class="btn btn-default sbtn" id="searchbtn">
-								<i class="fa-solid fa-magnifying-glass"></i>
-							</button>
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 					</div>
 
 
@@ -102,7 +95,7 @@
 											<li class="innerl">${item2.ADDRESS1}${item2.ADDRESS2}</li>
 											<li class="innerl">
 												<div class="bookmark1">
-													<span class="on"><i class="fa-solid fa-heart"></i></span> <input
+													<span class="on"><i class="fa-solid fa-star"></i></span> <input
 														type="hidden" value="${item2.BS_NAME}" name="bs_name">
 													<input type="hidden" id="${item2.ADDRESS1}" name="address1">
 													<input type="hidden" value="${item2.ADDRESS2}"
@@ -112,12 +105,6 @@
 														type="hidden" value="${item2.B_STORE}" name="b_store">
 												</div>
 											</li>
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 										</ul>
 										<button class="sbtn"
 											onclick="javascript:location.href='/Oasis/member/menuList.oa?S_NAME=${item2.BS_NAME}&STORE=${item2.B_STORE}'">주문하기</button>
@@ -134,14 +121,15 @@
 				<div class="modal-window wrap">
 					<div class="modalcon">
 						<div class="m_title">
-							<ul>	<li><span id="status"></span></li>
+							<ul>
+								<li><span id="status"></span></li>
 								<li><span class="storename"></span></li>
 								<li>
 									<div class="bookmark">
 										<span class="off"><i class="fa-regular fa-star"></i></span>
 									</div>
 								</li>
-							
+
 								<li><span id="address"></span></li>
 								<li>
 									<div class="storebtn">
@@ -153,17 +141,6 @@
 
 							</ul>
 
-
-
-
-<<<<<<< HEAD
-=======
-							<div class="storebtn">
-								<input type="hidden" id="store" name="store" /> <input
-									type="hidden" id="bidx" name="bidx" />
-								<button type="button" id='modalstoreBtn'>주문하기</button>
-							</div>
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 						</div>
 					</div>
 				</div>
@@ -361,7 +338,7 @@
 			store.val(storeContent.store);
 			if (storeContent.check == "true") {
 				bookmark.removeAttr('class').addClass('on');
-				icon.removeAttr('class').addClass('fa-solid fa-heart');
+				icon.removeAttr('class').addClass('fa-solid fa-star');
 				bidx.val(storeContent.bidx);
 			} else {
 				bookmark.removeAttr('class').addClass('off');
@@ -437,7 +414,7 @@
 			});
 
 			$(this).attr("class", "on");
-			$(this).find("i").attr("class", "fa-solid fa-heart");
+			$(this).find("i").attr("class", "fa-solid fa-star");
 
 		} else {
 			let bookmark = {
@@ -448,49 +425,9 @@
 			bookmarkService.remove(bookmark, function(result) {
 			});
 			$(this).attr("class", "off");
-			$(this).find("i").attr("class", "fa-regular fa-heart");
+			$(this).find("i").attr("class", "fa-regular fa-star");
 
 		}
 	});
 </script>
-<<<<<<< HEAD
-
-=======
-<script type="text/javascript">
-	$(".bookmark1").on("click", "span", function() {
-		let mark = $(this);
-		let bookmoal = $(".storeul div");
-		if ($(this).attr("class") == "off") {
-
-			let bookmark = {
-				BB_IDX : '${sessionScope.B_PHONE}',
-				BS_NAME : $('input[name=bs_name]').val(),
-				B_STORE : $('input[name=b_store]').val()
-			};
-
-			console.log(bookmark)
-
-			bookmarkService.add(bookmark, function(result) {
-				bidx.val(result);
-			});
-
-			$(this).attr("class", "on");
-			$(this).find("i").attr("class", "fa-solid fa-heart");
-
-		} else {
-			let bookmark = {
-				B_IDX : $('input[name=b_idx]').val()
-			};
-			console.log(bookmark)
-
-			bookmarkService.remove(bookmark, function(result) {
-			});
-			$(this).attr("class", "off");
-			$(this).find("i").attr("class", "fa-regular fa-heart");
-
-		}
-	});
-</script>
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
-
 </html>

@@ -31,7 +31,6 @@
 		<div class="subhead">
 			<ul>
 				<li><i class="fa-solid fa-chevron-left"></i></li>
-<<<<<<< HEAD
 				<li><span class="subtit">주문하기</span>
 			</ul>
 		</div>
@@ -39,64 +38,133 @@
 			<div class="st">
 				<h3>${list[0].S_NAME}에서주문중!</h3>
 			</div>
+			<c:set var="sum" />
+
 			<div class="list">
 				<ul>
-					<c:forEach var="cart" items="${list}">
-						<li><ul>
+					<c:choose>
+						<c:when test="${fn:length(list)>0}">
+							<c:forEach var="cart" items="${list}">
+								<li><ul>
 
-								<li><img
-									src="<c:url value='/images/contents/${cart.CP_IMG}.png'/>"></li>
-								<li>${cart.CP_NAME}</li>
+										<li><img
+											src="<c:url value='/images/contents/${cart.CP_IMG}.png'/>"></li>
+										<li>${cart.CP_NAME}</li>
 
-								<li>${cart.C_OP}</li>
-								<li>${cart.C_COUNT}</li>
-								<li>${cart.C_PRICE}<input type="hidden" id="price" value="${cart.C_PRICE}"></li>
-							</ul></li>
-					</c:forEach>
+										<li><c:forEach var="i" items="${cart.C_OP}"
+												varStatus="status">
+								${i}<c:if test="${!status.last}">/</c:if>
+											</c:forEach></li>
+										<li>${cart.C_COUNT}</li>
+										<li><span>${cart.C_PRICE}</span><input type="hidden"
+											name="price" value="${cart.C_PRICE}"></li>
+										<li><i class="fa-solid fa-xmark"></i><input type="hidden"
+											name="C_IDX" value="${cart.C_IDX}"></li>
+									</ul></li>
+								<c:set var="sum" value="${sum+cart.C_PRICE}" />
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+						<li>텅</li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
-				<div class="cartcount">
-					<ul>
-						<li>상품금액</li>
-						<li><span class="total"><strong> <fmt:formatNumber
-												value="${map.P_PRICE}" pattern="#,###" /></strong></span>원</li>
-					</ul>
-				</div>
-=======
-				<li><span class="subtit">메뉴선택</span>
-			</ul>
-		</div>
-		<section class="cartlist">
-			<div class="st">
-				<h3>${list[1].OS_NAME}주문중!</h3>
-			</div>
-			<div class="list">
-				<c:forEach var="cart" items="${list}">
-					<li><ul>
-							<li>${cart.CP_NAME}</li>
-							<li><img
-								src="<c:url value='/images/contents/${cart.CP_IMG}.png'/>"></li>
-							<li>${cart.C_PRICE}</li>
-							<li>${cart.C_OP}</li>
-							<li>${cart.C_IDX}</li>
-							<li>${cart.C_COUNT}</li>
 
-						</ul></li>
-				</c:forEach>
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
+
 			</div>
 		</section>
+		<div id="linecss">
+			<div id="shadow"></div>
+		</div>
+		<section id="orderinfo">
+			<div class="where">
+				<h4>메뉴수령</h4>
+				<ul>
+					<li style="float: left;"><input type="radio" id="here"
+						name="option1" value="1" checked /> <label for="here">매장</label></li>
+					<li><input type="radio" name="option1" value="0" id="takeout" />
+						<label for="takeout">포장</label></li>
+				</ul>
+			</div>
+			<div class="coupon">
+				<div class="line">
+					<a href=#none id="show">쿠폰 <i id="chevorn"
+						class="fa-solid fa-chevron-down"></i></a>
+				</div>
+				<div id="hide" class="off" style="display: none">
+
+
+					<ul class="clist">
+
+						<c:forEach var="item" items="${clist}">
+							<li class="cli"><ul>
+									<li>${item.COUPON}!</li>
+									<li>${item.CU_PRICE}원</li>
+									<li><fmt:formatDate value="${item.CU_LIMIT}"
+											pattern="yyyy-MM-dd" /></li>
+
+								</ul></li>
+						</c:forEach>
+
+					</ul>
+
+				</div>
+			</div>
+			<div class="how">
+				<h4>결제</h4>
+				<div class="kakao">
+					<button id="" class="kbtn">
+						<img src="../images/common/kakao.png" alt="카카오페이">카카오페이로
+						결제하기
+					</button>
+				</div>
+			</div>
+		</section>
+		<div class="total">
+			총합 : <span id="totalAmount">${sum}</span>원
+		</div>
 	</div>
 </body>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=17abac5a86d69afad0326b67e47cbd88">
-	
-</script>
 
-<script src="<c:url value='/js/tab2.js'/>"></script>
-<<<<<<< HEAD
+
+<script src=<c:url value='/js/cart.js'/>></script>
+<script src=<c:url value='/js/jquery-1.12.4.min.js'/>></script>
 <script>
+	$('#show').on("click", function() {
+		if ($('#hide').attr('class') === 'off') {
+			$('#hide').slideDown(800);
+			$('#hide').removeClass().addClass('on');
+			$('#show').find("i").css("transform", "rotate(180deg)");
 
+		} else {
+			$('#hide').slideUp(800);
+			$('#hide').removeClass().addClass('off');
+			$('#show').find("i").css("transform", "rotate(0deg)");
+		}
+	});
+
+	//삭제 버튼
+	$(".list").on(
+			"click",
+			"i",
+			function() {
+				let cidx = $(this).closest("li").find("input[name=C_IDX]")
+						.val();
+				let cartitem = $(this).closest("li").closest("ul")
+						.closest("li");
+				let cart = {
+					C_IDX : cidx
+				};
+				cartService.remove(cart,
+						function(result) {
+							cartitem.remove();// li 삭제
+							$("#totalAmount").html(
+									$("#totalAmount").html()
+											- cartitem
+													.find("input[name=price]")
+													.val()); // total에서 뺌
+							console.log(result);
+						});
+			});
 </script>
-=======
->>>>>>> f8242390b39f3d203874638d0e02e1ed2be3632c
 </html>
