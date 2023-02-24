@@ -110,7 +110,7 @@ public class AdminStoreController {
 	@RequestMapping(value = "/storeJoin.oa")
 	public ModelAndView noticeWrite(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
-
+System.out.println(commandMap.get("STORE"));
 		adminStoreService.storeJoin(commandMap.getMap());
 
 		return mv;

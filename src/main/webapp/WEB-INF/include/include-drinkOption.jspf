@@ -1,0 +1,74 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+
+<div class="icesize" id="radiooption">
+	<ul>
+		<li class="icelist"><ul>
+				<li style="float: left;"><input type="radio" id="ice"
+					name="option1" value="ICE" checked />
+					<label for="ice">ICE</label></li>
+				<li><input type="radio" name="option1" value="HOT" id="hot"
+					/> <label for="hot">HOT</label></li>
+			</ul>
+		<li class="sizelist"><ul>
+				<li style="float: left"><input type="radio" name="option0"
+					id="S" value="S" onchange="handleChange0(this);"  /> 
+					<label for="S">S</label></li>
+				<li style="float: left"><input type="radio" name="option0" id="M" value="M"
+					onchange="handleChange0(this);" checked /> <label for="M">M</label>
+
+				</li>
+				<li><input type="radio" name="option0" id="L" value="L"
+					onchange="handleChange0(this);"  /> <label for="L">L</label>
+
+				</li>
+			</ul>
+		</li>
+		</ul>
+</div>
+
+<div class="menuop">
+<div class="line">
+	<a href=#none id="show">퍼스널옵션 <i id="chevorn" class="fa-solid fa-chevron-up"></i></a></div>
+	<div id="hide" class="off" style="display: none">
+		<ul>
+			<!-- 			<li class="oplist"><ul> -->
+			<!-- 					<li><strong> </strong></li> -->
+			<!-- 					<li><input type="radio" name="option1" value="HOT" checked />HOT</li> -->
+			<!-- 					<li><input type="radio" name="option1" value="ICE" />ICE</li> -->
+			<!-- 				</ul></li> -->
+
+			<li class="oplist"><ul>
+					<li><strong>농도</strong></li>
+					<li><input type="radio" name="option2" value=""
+						onchange="handleChange1(this);" checked />선택안함</li>
+					<li><input type="radio" name="option2" value="연하게"
+						onchange="handleChange1(this);" />연하게</li>
+					<li><input type="radio" name="option2" value="샷추가"
+						onchange="handleChange1(this);" />샷 추가 +1000원</li>
+				</ul></li>
+			<li class="oplist"><ul>
+					<li><strong>시럽추가</strong></li>
+					<li><input type="radio" name="option3" value=""
+						onchange="handleChange2(this);" checked />선택안함</li>
+					<li><input type="radio" name="option3" value="헤이즐넛시럽추가"
+						onchange="handleChange2(this);" />헤이즐넛시럽추가 +500원</li>
+					<li><input type="radio" name="option3" value="바닐라시럽추가"
+						onchange="handleChange2(this);" />바닐라시럽추가 +500원</li>
+					<li><input type="radio" name="option3" value="라이트바닐라시럽추가"
+						onchange="handleChange2(this);" />라이트바닐라시럽추가 +500원</li>
+
+				</ul> <!-- if문 아메리카노 -->
+			<li class="oplist"><ul>
+					<li><strong>우유 변경</strong></li>
+					<li><input type="radio" name="option4" value=""
+						onchange="handleChange3(this);" checked />선택안함</li>
+					<li><input type="radio" name="option4" value="아몬드밀크변경"
+						onchange="handleChange3(this);" />아몬드밀크변경</li>
+					<li><input type="radio" name="option4" value="오트밀크변경"
+						onchange="handleChange3(this);" />오트밀크변경 +500원</li>
+				</ul></li>
+		</ul>
+	</div>
+</div>

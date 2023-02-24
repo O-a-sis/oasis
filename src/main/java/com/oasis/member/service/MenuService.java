@@ -6,9 +6,12 @@ import java.util.Map;
 public interface MenuService {
 
 	List<Map<String, Object>> menuList(Map<String, Object> map) throws Exception;
+	List<Map<String, Object>> mainmenuList(Map<String, Object> map) throws Exception;
 	Map<String,Object> menuDetail(Map<String,Object> map) throws Exception;
-	public void insertCart(Map<String,Object> map) throws Exception;
+	public int insertCart(Map<String,Object> map) throws Exception;
 	List<Map<String, Object>> cartList(Map<String, Object> map) throws Exception;
+	public int cartDeleteAll(Map<String,Object> map) throws Exception;
+	public int cartDelete(Map<String,Object> map) throws Exception;
 } 
 
 	

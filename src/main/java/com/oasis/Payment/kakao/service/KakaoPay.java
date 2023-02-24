@@ -54,7 +54,7 @@ public class KakaoPay {
         params.add("quantity", String.valueOf(map.get("count")));
         params.add("total_amount", String.valueOf(map.get("price")));
         params.add("tax_free_amount", "0");
-        params.add("approval_url", "http://localhost:8000/Oasis/kakaoPaySuccess?id="+map.get("userId")+"&orderno="+map.get("orderno")+"&price="+map.get("price"));
+        params.add("approval_url", "http://localhost:8000/Oasis/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8000/Oasis/kakaoPayCancel");
         params.add("fail_url", "http://localhost:8000/Oasis/kakaoPaySuccessFail");
  
@@ -84,7 +84,7 @@ public class KakaoPay {
         log.info("-----------------------------");
         
         RestTemplate restTemplate = new RestTemplate();
- 
+ System.out.println(tmpMap);
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "11ebe2541cbc4b69fa182398040bf4c7");
@@ -95,10 +95,10 @@ public class KakaoPay {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid());
-        params.add("partner_order_id", String.valueOf(map.get("orderno")));
-        params.add("partner_user_id", String.valueOf(map.get("id")));
+        params.add("partner_order_id", String.valueOf(tmpMap.get("orderno")));
+        params.add("partner_user_id", String.valueOf(tmpMap.get("userId")));
         params.add("pg_token",String.valueOf(map.get("pg_token")));
-        params.add("total_amount", String.valueOf(map.get("price")));
+        params.add("total_amount", String.valueOf(tmpMap.get("price")));
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 

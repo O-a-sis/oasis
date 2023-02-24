@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.oasis.admin.dao.AdminStoreDAO;
+import com.oasis.member.dao.MenuDAO;
 
 import lombok.AllArgsConstructor;
 
@@ -15,6 +17,7 @@ import lombok.AllArgsConstructor;
 public class AdminStoreServiceImpl implements AdminStoreService{
 	
 	private AdminStoreDAO adminStoreDAO;
+	private MenuDAO menuDAO;
 	
 	
 	/* 관리자 지점 리스트 (+매출) */
@@ -37,11 +40,16 @@ public class AdminStoreServiceImpl implements AdminStoreService{
 	}
 
 
-
+	@Transactional
 	@Override
 	public void storeJoin(Map<String, Object> map) throws Exception {
 		adminStoreDAO.storeJoin(map);
-		
+		System.out.println(map);
+		List<Map<String, Object>> productList = menuDAO.productList(map);
+		for (Map<String, Object> product : productList) {
+			map.put("P_IDX", product.get("P_IDX"));
+			adminStoreDAO.insertStatus(map);
+		}
 	}
 
 
