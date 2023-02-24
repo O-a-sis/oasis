@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,8 @@ public class AdminNoticeContorller {
 		/* 페이징을 위한 변수 */
 		int page = commandMap.get("page") == null ? 1 : Integer.parseInt((String) commandMap.get("page"));// 현재 페이지
 		int start = 1; // 가져올 데이터의 시작 인
-		int pageSize = 16;// 한 페이지에 보여줄 행의 수
-		int end = 16;
+		int pageSize = 8;// 한 페이지에 보여줄 행의 수
+		int end = 8;
 		int noticeListCount = 0; // 전체 게시글 수
 		int pageBlock = 5; // 표시할 페이지의 수
 		String url = "noticeList.oa";
@@ -58,11 +59,12 @@ public class AdminNoticeContorller {
 		return mv;
 	}
 
+//	더보기 버튼 Ajax
 	@RequestMapping(value = "/loadMoreNotice.oa")
 	public @ResponseBody Map<String, Object> loadMoreNotice(@RequestParam int page, @RequestParam String type,
 			@RequestParam String keyword) throws Exception {
 		System.out.println("page : " + page);
-		int perPage = 12; // 한 페이지에 표시할 게시물 수
+		int perPage = 8; // 한 페이지에 표시할 게시물 수
 		int offset = (page * perPage) - perPage + 1; // 가져올 데이터의 시작 인덱스
 
 		CommandMap commandMap = new CommandMap();
@@ -121,6 +123,9 @@ public class AdminNoticeContorller {
 
 		for (MultipartFile file : imgFile) {
 			String fileName = file.getOriginalFilename();
+			UUID uuid = UUID.randomUUID();
+			fileName = uuid.toString();
+			System.out.println("fileName:"+fileName);
 			String savePath = request.getSession().getServletContext().getRealPath("/") + File.separator + "img/"
 					+ fileName;
 			File uploadPath = new File(savePath);
