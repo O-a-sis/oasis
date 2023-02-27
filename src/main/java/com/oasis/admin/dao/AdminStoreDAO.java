@@ -30,6 +30,11 @@ public class AdminStoreDAO extends AbstractDAO{
 		insert("admin.storeJoin", map);
 		
 	}
+	
+	public void insertStatus(Map<String, Object> map) throws Exception{
+		insert("admin.insertStatus", map);
+		
+	}
 
 	public Map<String, Object> storeDetail(Map<String, Object> map) throws Exception{
 		return (Map<String, Object>) selectOne("admin.storeDetail", map);

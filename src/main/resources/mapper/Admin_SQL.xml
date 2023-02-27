@@ -92,7 +92,6 @@
 		]]>
 	</delete>
 
-
 	<!-- 공지사항 검색 -->
 	<sql id="storeSearch">
 		<trim prefix=" WHERE " prefixOverrides="OR">
@@ -108,8 +107,6 @@
 			</foreach>
 		</trim>
 	</sql>
-
-
 
 	<!-- 관리자 지점 관리 리스트 -->
 	<select id="storeList" resultType="hashmap">
@@ -217,8 +214,7 @@ where SUM_RANK <= 3
 
 
 	<!-- 관리자 지점 추가하기(회원가입) -->
-	<insert id="storeJoin" parameterType="hashmap"
-		useGeneratedKeys="true" keyProperty="STORE">
+	<insert id="storeJoin" parameterType="hashmap">
         <![CDATA[
                 INSERT INTO 
                         S_MEMBER(
@@ -237,6 +233,20 @@ where SUM_RANK <= 3
                                 SYSDATE, 
                                 0,
                                 'N')
+ ]]>
+	</insert>
+
+
+	<!-- 지점 재고현황 삽입 -->
+	<insert id="insertStatus" parameterType="hashmap">
+        <![CDATA[
+                INSERT INTO 
+                        STATUS
+                        VALUES (
+                                #{STORE}, 
+                                #{P_IDX}, 
+                                'N'
+                                )
  ]]>
 	</insert>
 
@@ -282,10 +292,10 @@ where SUM_RANK <= 3
                         STORE = #{STORE}
                         ]]>
 	</update>
-	
-	
+
+
 	<!-- 메인화면 공지사항 이미지리스트 -->
-		<select id="mainImg" parameterType="hashmap"
+	<select id="mainImg" parameterType="hashmap"
 		resultType="hashmap">
 		<![CDATA[
 	      SELECT 

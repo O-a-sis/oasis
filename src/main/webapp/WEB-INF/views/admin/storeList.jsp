@@ -96,7 +96,6 @@
 	<button type='button' id="modal_btn">지점추가</button>
 	<div class="black_bg"></div>
 
-<<<<<<< HEAD
 	
 	
 	<br>
@@ -150,11 +149,6 @@
 	
 	<div class="paging" align="center">${paging.pageHtml}</div>
 	
-=======
-
-	<div class="modal_wrap">
-		<h4>지점추가</h4>
->>>>>>> 1c86325 (Revert "Feature/min j")
 
 		<form id="storeJoin" class="form-horizontal" method="POST"
 			action="<c:url value='Oasis/admin/storeList.oa'/>" onSubmit="check()">
@@ -242,7 +236,6 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 
-<<<<<<< HEAD
 <script>	
 function fsubmit(){
 		var STORE = $("#STORE")[0].value;
@@ -253,21 +246,6 @@ function fsubmit(){
 		
 		
 		if(STORE==null || STORE==''){
-=======
-	</div>
-
-
-
-<script>
-	
-	
-	
-	function fsubmit(){
-		var id = $("#STORE")[0].value;
-		var pw = $("#S_PASSWORD")[0].value;
-		if(id==null || id==''){
-			alert("아이디를 입력하세요.");
->>>>>>> 1c86325 (Revert "Feature/min j")
 			return false;
 		}
 		if(pw==null || pw==''){
@@ -289,6 +267,11 @@ function fsubmit(){
     function onClick() {
         document.querySelector('.modal_wrap').style.display ='block';
         document.querySelector('.black_bg').style.display ='block';
+        if ('${fn:length(list)}'==0){
+        	document.getElementById('STORE').value=10001;
+        }else{
+        	document.getElementById('STORE').value=Number('${list[0].STORE}')+1;
+        }
     }   
     function offClick() {
         document.querySelector('.modal_wrap').style.display ='none';
@@ -298,48 +281,6 @@ function fsubmit(){
        
     }
  
-<<<<<<< HEAD
-    document.getElementById('modal_btn').addEventListener('click', onClick); //지첨 회원가입 모달 창 열기
-    document.querySelector('.close-area').addEventListener('click', offClick); //지첨 회원가입 모달 창 닫기
-
-
-
-};
-
-
-
-
-/* 지점명 체크 */
- var name = "";
-
-function checkName() {
-	var name = $('#S_NAME').val();
-	var comAjax = new ComAjax();
-	comAjax.setUrl("<c:url value='/admin/confirmName.oa'/>");
-	comAjax.setCallback("fn_checkIdCallback");
-	comAjax.addParam("name", name);
-	comAjax.ajax();
-}
-
-
-function fn_checkIdCallback(data) {
-	if (data) {
-		$('#NAMEW').text(" 사용중인 지점명");
-		$('#NAMEW').css("color", "red");
-		$('#NAMEW').css("font-size", "9pt");
-		$('#NAMEW').css("font-weight", "bold");
-		$('#S_NAME').attr("check", "0");
-	} else {
-		$('#NAMEW').text(" 사용가능");
-		$('#NAMEW').css("color", "green");
-		$('#NAMEW').css("font-size", "9pt");
-		$('#NAMEW').css("font-weight", "bold");
-		$('#S_NAME').attr("check", "1");
-	}
-}
-
- 
-=======
     document.getElementById('modal_btn').addEventListener('click', onClick);
     document.querySelector('.modal_close').addEventListener('click', offClick);
     document.querySelector('.modal_update').addEventListener('click', offClick);
@@ -376,7 +317,6 @@ modalRemoveBtn.on("click", function(e) {
 $(".close-area").on('click', function() {
 	$modalContainer.addClass('out');
 });
->>>>>>> 1c86325 (Revert "Feature/min j")
 
 </script>
 
