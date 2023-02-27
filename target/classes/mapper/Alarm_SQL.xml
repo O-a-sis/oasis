@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="alarm">
+
+	<insert id="writeAlarm" parameterType="hashMap">
+		INSERT INTO ALARM
+		VALUES (#{ALARM}
+		<if test="STORE!=null">
+			,${STORE}
+		</if>
+		<if test="B_IDX!=null">
+			,#{B_IDX}
+		</if>
+		, 0
+		)
+	</insert>
+
+	<select id="getAlarmList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT * FROM ALARM WHERE
+		<if test="STORE!=null">
+			A_STORE = ${STORE} AND
+		</if>
+		<if test="B_IDX!=null">
+			AB_IDX = #{B_IDX} AND
+		</if>
+		ISREAD = 0
+	</select>
+	
+	<update id="updateRead" parameterType="hashmap">
+	UPDATE ALARM SET ISREAD = 1 WHERE
+		<if test="STORE!=null">
+			A_STORE = ${STORE} AND
+		</if>
+		<if test="B_IDX!=null">
+			AB_IDX = #{B_IDX} AND
+		</if> 
+		ALARM = ${ALARM}
+	</update>
+
+</mapper>

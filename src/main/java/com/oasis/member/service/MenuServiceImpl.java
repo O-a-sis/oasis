@@ -33,5 +33,16 @@ public class MenuServiceImpl implements MenuService {
 	public List<Map<String, Object>> cartList(Map<String, Object> map) throws Exception {
 		return menuDAO.cartList(map);
 	}
+
+	@Override
+	public int menuUpdate(Map<String, Object> map) throws Exception {
+		return menuDAO.menuUpdate(map);
+	}
+
+    @Override
+	public void productDelete(Map<String, Object> map) throws Exception {
+	    menuDAO.productDelete(map);
+	}
+
 	
 }

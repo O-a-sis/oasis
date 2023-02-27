@@ -34,6 +34,19 @@
 ]]>
 </select>
 
+<update id="menuUpdate" parameterType="hashmap">
+<![CDATA[
+      UPDATE 
+      	PRODUCT
+      SET
+      	P_IMG = #{P_IMG},
+      	P_CONTENT = #{P_CONTENT},
+      	P_PRICE	= #{P_PRICE}
+      WHERE
+      	P_IDX= #{P_IDX}
+]]>
+</update>
+
 <insert id="insertCart" parameterType="hashmap">
    INSERT INTO 
       CART (CP_NAME,C_PRICE, C_OP,C_IDX, C_STORE, CB_IDX, CP_IDX, C_COUNT, CP_IMG)
@@ -64,6 +77,14 @@
 		 CB_IDX=#{B_PHONE}
 		 
 ]]>
-
 </select>
+
+<delete id="productDelete" parameterType="hashmap">
+      <![CDATA[
+         DELETE FROM PRODUCT
+         WHERE
+            P_IDX = #{P_IDX}   
+      ]]>
+</delete>
+
 </mapper>

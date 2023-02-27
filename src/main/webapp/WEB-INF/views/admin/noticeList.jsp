@@ -69,7 +69,7 @@ td {
 	<div class="noticeboard">
 		<div class="wrap">
 			<!-- 검색처리기능 -->
-			<div class="search" align="center">
+			<div class="search">
 				<form id="searchForm"
 					action="<c:url value='/admin/noticeList.oa' />" method="get">
 					<select class="searcht" name="type">

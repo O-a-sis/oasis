@@ -39,26 +39,6 @@
 	 	 }
 	  });
 	 }
-    
-	 function updateOrder(ccomment, callback, error){
-	 	
-	 	$.ajax({
-	 	type : 'put',
-	 	url : '/Flee/ccomment/update',
-	 	data : JSON.stringify(ccomment),
-	 	contentType : "application/json; charset=UTF-8",
-	 	success : function(result, status, xhr){
-	 		if(callback){
-	 			callback(result);
-	 		}
-	 	},
-	 	error : function(xhr, status, er){
-	 		if(error){
-	 			error(er);
-	 		}
-	 	 }
-	  });
-	 }
 	 
 	 function updateOrder(order, callback, error){
 	 	
@@ -159,6 +139,43 @@
 	 	 }
 	  });
 	 }
+	
+ 	 function getTodayCount(today, callback, error){
+	 $.ajax({
+	 	type : 'get',
+	 	url : '/Oasis/store/todayCount/'+today+'.json',
+	 	contentType : "application/json; charset=UTF-8",
+	 	success : function(count, status, xhr){
+	 		if(callback){
+	 			callback(count);
+	 		}
+	 	},
+	 	error : function(xhr, status, er){
+	 		if(error){
+	 			error(er);
+	 		}
+	 	 }
+	  });
+	 }
+
+ 	 function getTodaySum(today, callback, error){
+	 $.ajax({
+	 	type : 'get',
+	 	url : '/Oasis/store/todaySum/'+today+'.json',
+	 	contentType : "application/json; charset=UTF-8",
+	 	success : function(sum, status, xhr){
+	 		if(callback){
+	 			callback(sum);
+	 		}
+	 	},
+	 	error : function(xhr, status, er){
+	 		if(error){
+	 			error(er);
+	 		}
+	 	 }
+	  });
+	 }
+
 	 
 	 
     return {
@@ -167,8 +184,9 @@
     	updateOrder : updateOrder,
     	updateProcessingOrder : updateProcessingOrder,
     	updateStock : updateStock,
-    	updateProcessingOrder : updateProcessingOrder,
     	openRevenue : openRevenue,
-    	closeRevenue : closeRevenue
+    	closeRevenue : closeRevenue,
+    	getTodayCount : getTodayCount,
+    	getTodaySum : getTodaySum
     };
 })();

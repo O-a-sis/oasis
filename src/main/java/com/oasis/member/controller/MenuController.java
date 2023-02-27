@@ -39,14 +39,14 @@ public class MenuController {
 	}
 	   @RequestMapping(value = "/menuDetail.oa")
 	   public ModelAndView menuDetail(CommandMap commandMap) throws Exception {
-	      ModelAndView mv = new ModelAndView("member/menuDetail");
+	      ModelAndView mv = new ModelAndView("member/dessertDetail");
 	   
 	      
 	      Map<String,Object> map = menuService.menuDetail(commandMap.getMap());
 	      mv.addObject("map", map);
 	      return mv;
 	   }
-	   
+	
 	   
 		@RequestMapping(value = "/cartList.oa")
 		public ModelAndView cartList(CommandMap commandMap, HttpServletRequest request,@RequestParam("store") String store) throws Exception {

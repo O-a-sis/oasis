@@ -3,6 +3,9 @@ package com.oasis.admin.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +24,18 @@ import com.oasis.common.util.Paging;
 import lombok.AllArgsConstructor;
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/admin/")
+@AllArgsConstructor
 public class AdminStoreController {
 
 	private AdminStoreService adminStoreService;
+	
+	@RequestMapping(value = "/main.oa") // 메인
+	public ModelAndView main(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("admin/main");
+
+		return mv;
+	}
 
 	// 관리자 메인 - 지점 리스트 (+매출)
 	@RequestMapping(value = "/storeList.oa")
@@ -99,7 +109,7 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점 회원가입폼
-	@RequestMapping(value = "/openStoreJoin.oa")
+	@RequestMapping(value = "/admin/openStoreJoin.oa")
 	public ModelAndView openStoreJoin(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/storeJoin");
 
@@ -107,9 +117,9 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점 회원가입등록
-	@RequestMapping(value = "/storeJoin.oa")
+	@RequestMapping(value = "/admin/storeJoin.oa")
 	public ModelAndView noticeWrite(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
+		ModelAndView mv = new ModelAndView("redirect:/storeList.oa");
 
 		adminStoreService.storeJoin(commandMap.getMap());
 
@@ -139,7 +149,7 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점폐쇄 버튼 눌렀을 때 (목록으로 넘어감)
-	@RequestMapping(value = "/storeDown.oa")
+	@RequestMapping(value = "/admin/storeDown.oa")
 	public ModelAndView storeDown(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
 

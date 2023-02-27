@@ -20,13 +20,12 @@ import com.oasis.admin.service.AdminNoticeService;
 import lombok.AllArgsConstructor;
 
 @Controller
-@RequestMapping("/admin/")
 @AllArgsConstructor
 public class AdminNoticeContorller {
 
 	private AdminNoticeService adminNoticeService;
 
-	@RequestMapping(value = "noticeList.oa")
+	@RequestMapping(value = "/admin/noticeList.oa")
 	public ModelAndView adminNoticeList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeList");
 
@@ -82,7 +81,7 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 상세보기
-	@RequestMapping(value = "noticeDetail.oa")
+	@RequestMapping(value = "/admin/noticeDetail.oa")
 	public ModelAndView adminNoticeDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeDetail");
 
@@ -93,7 +92,7 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 작성 폼
-	@RequestMapping(value = "noticeForm.oa")
+	@RequestMapping(value = "/admin/noticeForm.oa")
 	public ModelAndView adminNoticeForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeForm");
 
@@ -107,7 +106,7 @@ public class AdminNoticeContorller {
 
 		Map<String, Object> map = adminNoticeService.adminNoticeDetail(commandMap.getMap());
 		mv.addObject("N_IDX", commandMap.get("N_IDX"));
-		mv.addObject("map", map);
+		mv.addObject("map", map.get("map"));
 
 		return mv;
 	}
@@ -134,10 +133,13 @@ public class AdminNoticeContorller {
 		if (commandMap.get("N_IDX") == null) {
 			adminNoticeService.adminNoticeWrite(commandMap.getMap());
 		} else {
-			adminNoticeService.adminNoticeUpdate(commandMap.getMap());
+			adminNoticeService.adminNoticeUpdate(commandMap.getMap(), request);
 			mv.addObject("N_IDX", commandMap.get("N_IDX"));
 		}
 
+		adminNoticeService.adminNoticeUpdate(commandMap.getMap(), request);
+
+		mv.addObject("N_IDX", commandMap.get("N_IDX"));
 		return mv;
 	}
 

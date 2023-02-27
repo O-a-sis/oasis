@@ -1,4 +1,11 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
+<<<<<<< HEAD
 encoding//src/main/webapp/WEB-INF/views/notificationTest.jsp=UTF-8
 encoding//src/test/java=UTF-8
+=======
+encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
+encoding//src/main/webapp/css=UTF-8
+encoding//src/main/webapp/images=UTF-8
+encoding//src/main/webapp/js=UTF-8
+>>>>>>> 1c86325 (Revert "Feature/min j")

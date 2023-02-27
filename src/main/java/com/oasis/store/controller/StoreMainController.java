@@ -37,26 +37,35 @@ public class StoreMainController {
 	public ModelAndView login(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(true);
 		String message = "";
-		Map<String, Object> result = storeService.getStore(commandMap.getMap());
+		Map<String, Object> result = storeService.getStore(commandMap.getMap());		
+
 		if (result == null) { // 지점 아이디가 있는지 확인
 			ModelAndView mv = new ModelAndView("redirect:/store/loginForm.oa");
 			message = "해당 지점 아이디가 존재하지 않습니다.";
 			mv.addObject("message",message);
 			return mv;
-
 		} else {
-			if (result.get("S_PASSWORD").equals(commandMap.get("S_PASSWORD"))) { // 비밀번호가 같다면				
-				ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
-				session.setAttribute("STORE", result.get("STORE"));
-				session.setAttribute("S_NAME", result.get("S_NAME"));
-				return mv;
+			if (result.get("S_PASSWORD").equals(commandMap.get("S_PASSWORD"))) {// 비밀번호가 같다면	
+				if(commandMap.get("STORE").equals("10000")) {
+					ModelAndView mv = new ModelAndView("redirect:/admin/main.oa");
+					return mv;
+				}
+				else {
+					ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
+					session.setAttribute("STORE", result.get("STORE"));
+					session.setAttribute("S_NAME", result.get("S_NAME"));
+					return mv;
+				}
+
+				
 			} else {// 비밀번호가 일치하지않을 때
 				ModelAndView mv = new ModelAndView("redirect:/store/loginForm.oa");
 				message = "비밀번호가 맞지 않습니다.";
 				mv.addObject("message",message);
 				return mv;
-			}
+			} 
 		}
+		
 	}
 	
 	@RequestMapping(value = "/logout.oa") // 로그아웃
