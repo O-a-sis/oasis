@@ -36,7 +36,7 @@
 					<col width="20%" />
 				</colgroup>
 				<tr align=center>
-				<td><span>${item.O_LIST}</span> <input type=hidden id="oidx"
+				<td><span>${item.O_CONTENT}</span> <input type=hidden id="oidx"
 						value="${item.O_IDX}"> <input type=hidden id="otime"
 						value="${item.O_TIME}">
 				</td>
@@ -172,21 +172,19 @@
 			var oidx=$(this).closest("td").find("input[id=oidx]").val();
 			modalInputOidx.val(oidx);
 			orderService.get(oidx, function(order) {
-				$(".oidx").html(order.O_IDX);
+				$(".oidx").html(order[0].O_IDX);
 				
-				let o_list = order.O_LIST;
-				let o_listSplit = o_list.split(',');
 				let str="";
-				for (var i in o_listSplit) {
-					str+='<p>'+o_listSplit[i]+'</p>';
+				for(var i=0, len=order.length||0; i<len; i++) {
+					str+='<p>'+order[i].OM_NAME+' '+order[i].OM_OP+' '+order[i].OM_PRICE+'원</p>';
 				}
 				
 				$(".list").html(str);
-				$(".phone").html(order.OB_IDX);
-				$(".cprice").html(order.CU_PRICE);
-				$(".total").html(order.O_SUM);
-				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
-				let status = order.O_STATUS;
+				$(".phone").html(order[0].OB_IDX);
+				$(".cprice").html(order[0].CU_PRICE);
+				$(".total").html(order[0].O_SUM);
+				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				let status = order[0].O_STATUS;
 				if(status=='1') {
 					$(".status").html("접수대기")
 					modalProcessingBtn.hide();
@@ -221,43 +219,27 @@
 			orderService.updateOrder(order, function(result) {			
 			});		
 			orderService.get(oidx, function(order) {
-				$(".oidx").html(order.O_IDX);
+				$(".oidx").html(order[0].O_IDX);
 				
-				let o_list = order.O_LIST;
-				let o_listSplit = o_list.split(',');
 				let str="";
-				for (var i in o_listSplit) {
-					str+='<p>'+o_listSplit[i]+'</p>';
+				for(var i=0, len=order.length||0; i<len; i++) {
+					str+='<p>'+order[i].OM_NAME+' '+order[i].OM_OP+' '+order[i].OM_PRICE+'원</p>';
 				}
 				
 				$(".list").html(str);
-				$(".phone").html(order.OB_IDX);
-				$(".cprice").html(order.CU_PRICE);
-				$(".total").html(order.O_SUM);
-				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
-				let status = order.O_STATUS;
-				/* if(status=='1') {
-					$(".status").html("접수대기")
-					modalProcessingBtn.hide();
-					modalCompleteBtn.hide();
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
-				} else  */
-					/* if(status=='2') { */
+				$(".phone").html(order[0].OB_IDX);
+				$(".cprice").html(order[0].CU_PRICE);
+				$(".total").html(order[0].O_SUM);
+				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				let status = order[0].O_STATUS;
+
 					$(".status").html("제조중")
 					modalUptBtn.hide();
 					modalProcessingBtn.show();
 					modalCompleteBtn.hide();
 					modalCancelBtn.hide();
 					CountDownTimer(modalInputOtime.val(), 'timer'); 
-			/* 	} else {
-					$(".status").html("제조완료")
-					modalCompleteBtn.show();
-					modalUptBtn.hide();
-					modalProcessingBtn.hide();
-					modalCancelBtn.hide();
-					$("#timer").hide;
-					$("#timerComplete").html("제조가 완료되었습니다!");
-				/* }; */
+
 			});		
  		});
  		
@@ -269,34 +251,20 @@
 			orderService.updateProcessingOrder(order, function(result) {			
 			});		
 			orderService.get(oidx, function(order) {
-				$(".oidx").html(order.O_IDX);
+				$(".oidx").html(order[0].O_IDX);
 				
-				let o_list = order.O_LIST;
-				let o_listSplit = o_list.split(',');
 				let str="";
-				for (var i in o_listSplit) {
-					str+='<p>'+o_listSplit[i]+'</p>';
+				for(var i=0, len=order.length||0; i<len; i++) {
+					str+='<p>'+order[i].OM_NAME+' '+order[i].OM_OP+' '+order[i].OM_PRICE+'원</p>';
 				}
 				
 				$(".list").html(str);
-				$(".phone").html(order.OB_IDX);
-				$(".cprice").html(order.CU_PRICE);
-				$(".total").html(order.O_SUM);
-				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
-				let status = order.O_STATUS;
-				/* if(status=='1') {
-					$(".status").html("접수대기")
-					modalProcessingBtn.hide();
-					modalCompleteBtn.hide();		
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
-				} else if(status=='2') {
-					$(".status").html("제조중")
-					modalUptBtn.hide();
-					modalProcessingBtn.show();
-					modalCompleteBtn.hide();
-					modalCancelBtn.hide();
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
-				} else { */
+				$(".phone").html(order[0].OB_IDX);
+				$(".cprice").html(order[0].CU_PRICE);
+				$(".total").html(order[0].O_SUM);
+				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				let status = order[0].O_STATUS;
+
 					$(".status").html("제조완료")
 					modalCompleteBtn.show();
 					modalUptBtn.hide();
@@ -304,7 +272,7 @@
 					modalCancelBtn.hide();
 					document.getElementById('timer').style.display='none';
 					$("#timerComplete").html("제조가 완료되었습니다!");
-				/* }; */
+
 			});		
  			
  		});

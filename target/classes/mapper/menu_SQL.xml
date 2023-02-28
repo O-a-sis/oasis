@@ -2,16 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
 
-	<select id="menuList" parameterType="hashmap"
-		resultType="hashmap">
-<![CDATA[
-		SELECT  p.*,s.S_SO  
-		 FROM 
-		 	PRODUCT p , STATUS s
-		 WHERE p.P_IDX=s.SP_IDX AND s.SS_IDX=${STORE}	
-]]>
+	<!-- 메뉴 인서트(관리자) -->
+	<insert id="insertMenu" parameterType="hashmap">
+	INSERT INTO 
+		PRODUCT (P_IDX, P_NAME, P_IMG, P_CONTENT, P_PRICE)
+	VALUES (
+		P_IDX_SEQ.NEXTVAL,
+		#{P_NAME},
+		#{P_IMG},
+		#{P_CONTENT},
+		#{P_PRICE}
+	)
+	</insert>
 
+	<select id="menuList" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
+		SELECT  
+			ROW_NUMBER() OVER(ORDER BY P_IDX) RNUM, P.* 
+		FROM PRODUCT P
+	<include refid="common.pagingPost" /> 
 	</select>
+	
+	
 	<select id="mainmenuList" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
@@ -45,27 +57,38 @@
 ]]>
 	</select>
 
-	<insert id="insertCart" parameterType="hashmap">
-		INSERT INTO
-		CART
-		(CP_NAME,C_PRICE, C_OP,C_IDX, C_STORE, CB_IDX, CP_IDX, C_COUNT,
-		CP_IMG)
-		VALUES (
-		#{CP_NAME},
-		#{C_PRICE},
-		#{C_OP},
-		C_IDX_SEQ.NEXTVAL,
-		#{C_STORE},
-		#{CB_IDX},
-		#{CP_IDX},
-		#{C_COUNT},
-		#{CP_IMG}
+<update id="menuUpdate" parameterType="hashmap">
+<![CDATA[
+      UPDATE 
+      	PRODUCT
+      SET
+      	P_IMG = #{P_IMG},
+      	P_CONTENT = #{P_CONTENT},
+      	P_PRICE	= #{P_PRICE}
+      WHERE
+      	P_IDX= #{P_IDX}
+]]>
+</update>
 
-		)
-	</insert>
-
-
-	<select id="cartList" parameterType="hashmap"
+<insert id="insertCart" parameterType="hashmap">
+   INSERT INTO 
+      CART (CP_NAME,C_PRICE, C_OP,C_IDX, C_STORE, CB_IDX, CP_IDX, C_COUNT, CP_IMG)
+   VALUES (
+      #{CP_NAME},
+      #{C_PRICE},
+      #{C_OP},
+      C_IDX_SEQ.NEXTVAL,
+      #{C_STORE},
+      #{CB_IDX},
+      #{CP_IDX},
+      #{C_COUNT},
+      #{CP_IMG}
+      
+   )
+   </insert>
+   
+   
+<select id="cartList" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
 		SELECT  C.*,S.* 
@@ -79,19 +102,14 @@
 		 CB_IDX=#{B_PHONE}
 		 
 ]]>
+</select>
 
-	</select>
+<delete id="productDelete" parameterType="hashmap">
+      <![CDATA[
+         DELETE FROM PRODUCT
+         WHERE
+            P_IDX = #{P_IDX}   
+      ]]>
+</delete>
 
-	<update id="updateCart" parameterType="hashmap">
-		UPDATE CART SET
-		C_PRICE=${UP_PRICE}, C_COUNT=${UP_COUNT} WHERE C_IDX=${UP_CIDX}
-	</update>
-
-	<delete id="cartDeleteAll" parameterType="hashmap">
-		DELETE FROM CART WHERE CB_IDX=${B_PHONE}
-	</delete>
-
-	<delete id="cartDelete" parameterType="hashmap">
-		DELETE FROM CART WHERE C_IDX=${C_IDX}
-	</delete>
 </mapper>
