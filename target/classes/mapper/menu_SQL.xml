@@ -74,13 +74,13 @@
 		 WHERE
 		 C.C_STORE=S.STORE
 		 AND
-		 C_STORE=#{C_STORE} 
-		 AND
 		 CB_IDX=#{B_PHONE}
 		 
 ]]>
 
 	</select>
+	
+	
 
 	<update id="updateCart" parameterType="hashmap">
 		UPDATE CART SET

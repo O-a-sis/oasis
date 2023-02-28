@@ -51,4 +51,16 @@ public class MenuDAO extends AbstractDAO{
 	public int cartDelete(Map<String, Object> map) throws Exception {
 		return (int)delete("menu.cartDelete", map);
 	}
+	
+	public Map<String, Object> selectNextOIDX() throws Exception{
+		return (Map<String, Object>) selectOne("member.selectNextOIDX");
+	}
+	
+	public int insertOrder(Map<String, Object> map) throws Exception {
+		return (int)insert("member.insertOrder", map);
+	}
+	
+	public int insertOrderMenu(Map<String, Object> map) throws Exception {
+		return (int)insert("member.insertOrderMenu", map);
+	}
 }

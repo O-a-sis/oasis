@@ -64,11 +64,11 @@
 
 							<li><span>주문</span>
 								<ul>
-									<li><a href="#">주문내역</a></li>
+									<li><a href="http://localhost:8000/Oasis/member/myOrderList.oa?B_PHONE=${sessionScope.B_PHONE}">주문내역</a></li>
 								</ul></li>
 							<li><span>새소식</span>
 								<ul>
-									<li><a href="#">공지사항</a></li>
+									<li><a href="http://localhost:8000/Oasis/member/noticeList.oa">공지사항</a></li>
 								</ul></li>
 							<li><span>약관 및 정책</span>
 								<ul>

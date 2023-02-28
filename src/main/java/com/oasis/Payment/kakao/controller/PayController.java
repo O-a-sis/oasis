@@ -1,13 +1,20 @@
 package com.oasis.Payment.kakao.controller;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.oasis.Payment.kakao.domain.KakaoPayApprovalVO;
 import com.oasis.Payment.kakao.service.KakaoPay;
 import com.oasis.common.CommandMap;
 
@@ -27,21 +34,22 @@ public class PayController {
         
     }
     
-    @PostMapping("/kakaoPay")
-    public String kakaoPay(CommandMap commandMap) throws UnsupportedEncodingException {
-        log.info("kakaoPay post............................................");
+    @PostMapping(value = "/kakaoPay", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> kakaoPay(@RequestBody Map<String, Object> map) throws Exception {
+        log.info("kakaoPay post……………………………………..");
         
-        return "redirect:" + kakaopay.kakaoPayReady(commandMap.getMap());
+        return new ResponseEntity<String>(kakaopay.kakaoPayReady(map),HttpStatus.OK);
  
     }
     
     @GetMapping("/kakaoPaySuccess")
-    public void kakaoPaySuccess(CommandMap commandMap, Model model) {
+    public ModelAndView kakaoPaySuccess(CommandMap commandMap) throws Exception {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + commandMap.get("pg_token"));
         
-        model.addAttribute("info", kakaopay.kakaoPayInfo(commandMap.getMap()));
-        
+        KakaoPayApprovalVO kakaoPayApprovalVO = kakaopay.kakaoPayInfo(commandMap.getMap());
+        ModelAndView mv = new ModelAndView("redirect:/member/myOrderDetail.oa?O_IDX="+kakaoPayApprovalVO.getPartner_order_id());
+        return mv;
     }
     
 }

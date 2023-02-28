@@ -119,7 +119,7 @@ section {
 	width: 100%;
 	display: inline-block;
 }
-
+.myinfo .infobox .booklink ul li a{text-decoration:none;    color:#e68e41;}
 .myinfo .infobox .booklink ul li {
 	float: left;
 	width: 45%;

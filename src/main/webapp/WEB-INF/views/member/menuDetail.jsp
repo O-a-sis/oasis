@@ -104,7 +104,8 @@
 			<br>
 			<div id="checkflex">
 				<div class="num">
-					<ul><li><h3>
+					<ul>
+						<li><h3>
 								<strong>수량</strong>
 							</h3></li>
 						<li><span style="display: inline" class="count"> <a
@@ -174,27 +175,35 @@ $('#show').on("click",function(){
 </script>
 <script type="text/javascript">
     function getlist() {
-    	let cartstore = '${sessionScope.cart}';
     	
-    	if(cartstore!=''){
-    		if('${param.STORE}'!=cartstore){
-    			if(!confirm("장바구니에는 한 지점의 메뉴만 담을수 있습니다.\n (확인)을 누를경우 기존의 장바구니는 비워집니다.")){
-    				
-    			}else{
-    				 let cart = {
-    					B_PHONE:'${sessionScope.B_PHONE}'	 
-    				 };
-    				cartService.removeAll(cart, function(result){
-    					console.log(result);
-    					addCart();
-    				});
-    			}
-    		}else{
-    			addCart();
+    	let bphone = '${sessionScope.B_PHONE}';
+    	let cartstore = '';
+    	cartService.get(bphone,function(result){
+    		if(result.check){// 장바구니에 상품이 있는지 확인
+    			cartstore = result.STORE; // 장바구니의 지점 번호 저장
     		}
-    	}else{
-    		addCart();
-    	}
+    		if(cartstore!=''){
+        		if('${param.STORE}'!=cartstore){ // 현재 지점과 같지 않다면
+        			if(!confirm("장바구니에는 한 지점의 메뉴만 담을수 있습니다.\n (확인)을 누를경우 기존의 장바구니는 비워집니다.")){
+        				
+        			}else{
+        				 let cart = {
+        					B_PHONE:'${sessionScope.B_PHONE}'	 
+        				 };
+        				cartService.removeAll(cart, function(result){// 모두 삭제
+        					console.log(result);
+        					addCart();
+        				});
+        			}
+        		}else{
+        			addCart();
+        		}
+        	}else{
+        		addCart();
+        	}
+    	});
+    	
+    	console.log(cartstore);
     }
     
     function addCart(){
