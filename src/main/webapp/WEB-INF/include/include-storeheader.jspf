@@ -22,6 +22,7 @@
 <script src="<c:url value='/js/notification.js'/>" charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value='/js/orders.js'/>"></script>
 <script type="text/javascript">
+<<<<<<< HEAD
 	$(document).ready(function() {
 
 		let store = '${sessionScope.STORE}';
@@ -36,6 +37,22 @@
 					let str = "";
 
 					if (alarmslength) {
+=======
+/* $(document).ready(function(){
+	
+	let store='${sessionScope.STORE}';
+	
+	if(store!=null&&store!='') {
+		
+		getAlarm();
+		
+		function getAlarm() {
+			 orderService.getAlarm(store, function(alarm){
+				 let alarmslength = alarm.length;		 
+				 let str = "";
+				 
+					if(alarmslength) {
+>>>>>>> ce61e81ed0cc829d4e1a33ee957ba4b1429354b6
 						str = "<i class='fa-solid fa-n'></i>";
 						console.log("주문이" + alarmslength + "건 들어왔습니다");
 					} else {
@@ -45,6 +62,7 @@
 					$("#alarm").html(str);
 				});
 
+<<<<<<< HEAD
 			}
 
 			let interval = setInterval(function() {
@@ -57,6 +75,10 @@
 
 		}
 	});
+=======
+	}
+}); */
+>>>>>>> ce61e81ed0cc829d4e1a33ee957ba4b1429354b6
 </script>
 <script>
 	window.onload = function() {
@@ -82,11 +104,19 @@
 </script>
 <script>
 	let today = new Date();
+<<<<<<< HEAD
 	let month = today.getMonth() + 1;
 
 	let str = today.getFullYear() + '/' + (("00" + month.toString()).slice(-2))
 			+ '/' + today.getDate();
 
+=======
+	let month = today.getMonth()+1;
+	
+	let str = today.getFullYear()+'/'+(("00"+month.toString()).slice(-2))+'/'+today.getDate();
+	let str2 = today.getFullYear()+(("00"+month.toString()).slice(-2))+today.getDate();
+	
+>>>>>>> ce61e81ed0cc829d4e1a33ee957ba4b1429354b6
 	function openRevenue() {
 		let openRevenue = {
 			STORE : '${sessionScope.STORE}',
@@ -118,6 +148,54 @@
 			location.href = "/Oasis/store/close?STORE=${sessionScope.STORE}";
 		}
 	}
+<<<<<<< HEAD
+=======
+	
+    function openStore() {   	
+    	if(confirm(str+" 매장을 오픈하시겠습니까?")) {
+    		openRevenue(); 			
+    		location.href="/Oasis/store/open?STORE=${sessionScope.STORE}";
+    	} 
+    }
+    
+	function todayCount() {
+		let today = str2;
+		orderService.getTodayCount(today, function(count){
+				$(".todayCount").html(count);
+			});
+	}
+
+	function todaySum() {
+		let today = str2;
+		orderService.getTodaySum(today, function(sum){
+			$(".todaySum").html(sum);
+		});
+	}
+    
+    function closeStore() {
+    	modal2On();
+    	todayCount();
+    	todaySum();
+    	
+    	$(".todays").html(str);
+
+    	/* if(confirm(str+" 매장을 마감하시겠습니까?")) {
+    		closeRevenue();
+    		location.href="/Oasis/store/close?STORE=${sessionScope.STORE}";
+    	}  */
+    }
+
+$(document).ready(function(){
+	let closeBtn2 = $("#closeBtn2");
+	
+	closeBtn2.on("click", function(){
+		if(confirm(str+" 매장을 마감하시겠습니까?")) {
+    		closeRevenue();
+    		location.href="/Oasis/store/close?STORE=${sessionScope.STORE}";
+		}
+	});
+});
+>>>>>>> ce61e81ed0cc829d4e1a33ee957ba4b1429354b6
 </script>
 <body>
 	<div>
@@ -150,10 +228,10 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 		<c:if test="${status eq '1'}">
-			<button type="button" onclick="closeStore();">매장 마감</button>
+			<button type="button" class="button" style="background: #cccccc" onclick="closeStore();">매장 마감</button>
 		</c:if>
 		<c:if test="${status eq '0'}">
-			<button type="button" onclick="openStore();">매장 오픈</button>
+			<button type="button" class="button" style="background: #cccccc" onclick="openStore();">매장 오픈</button>
 		</c:if>
 
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -162,5 +240,71 @@
 			<strong>이전 거래내역</strong>
 		</h1>
 	</div>
+<<<<<<< HEAD
 
 </body>
+=======
+	
+	<div id="modal2" class="modal-overlay">
+		<div class="modal-window" id="popupPrdCompare"
+			data-popup-layer="popupPrdCompare">
+			<div class="title">
+
+				<div class="close-area" data-focus-next="popupPrdCompare">X</div>
+
+				<div>
+					<center>
+					<h3>${sessionScope.S_NAME} <span class="todays"></span> 정산</h3>
+				</div>
+			</div>
+
+			<div class="content">
+					제조 완료 건수 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="todayCount" align=right></span>건
+					<br>
+					총금액 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="todaySum"></span>원
+					<br><br><br>
+					<center>
+					<button type="button" class="button" style="color: white; background: orange" id="closeBtn2">매장마감</button>		
+					</center>
+			</div>
+
+		</div>
+	</div>
+	
+</body>
+<script>
+	
+	const modal2 = document.getElementById("modal2");
+
+	function modal2On() {
+	    modal2.style.display = "flex"
+	}
+	function ismodal2On() {
+	    return modal2.style.display === "flex"
+	}
+	function modal2Off() {
+	    modal2.style.display = "none"
+	}
+	
+	const closeBtn2 = modal2.querySelector(".close-area")
+	closeBtn2.addEventListener("click", e => {
+	    modal2Off()
+	    location.reload();
+	});
+	modal2.addEventListener("click", e => {
+	    const evTarget = e.target
+	    if(evTarget.classList.contains("modal2-overlay")) {
+	        modal2Off()
+	    }
+	});
+	window.addEventListener("keyup", e => {
+	    if(ismodal2On() && e.key === "Escape") {
+	        modal2Off()
+	    }
+	});
+	const testScrPop2 = $('modal2-window');
+   testScrPop2.scroll(function(){
+   const $this = $(this);
+});
+</script>
+>>>>>>> ce61e81ed0cc829d4e1a33ee957ba4b1429354b6

@@ -58,19 +58,15 @@ public class StoreDAO extends AbstractDAO {
 	}
 	
 	public int updateOrderAlarm(Map<String, Object> map) throws Exception {
-		return (int) update("store.updateOrderAlarm", map);
+		return (int) insert("store.updateOrderAlarm", map);
 	}
 
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return (int) update("store.updateProcessingOrder", map);
 	}
-	
-	public int updateProcessingOrderAlarm(Map<String, Object> map) throws Exception {
-		return (int) update("store.updateProcessingOrderAlarm", map);
-	}
 
-	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
-		return (Map<String, Object>) selectOne("store.getOrderDetail", oidx);
+	public List<Map<String, Object>> getOrderDetail(String oidx) throws Exception {
+		return (List<Map<String, Object>>) selectList("store.getOrderDetail", oidx);
 	}
 	
 	public List<Map<String, Object>> getStockList(Map<String, Object> map) throws Exception {
@@ -91,6 +87,14 @@ public class StoreDAO extends AbstractDAO {
 	
 	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>) selectList("store.getOrdersAllList", map);
+	}
+	
+	public int getTodayCount(String today) throws Exception {
+		return (int) selectOne("store.getTodayCount", today);
+	}
+	
+	public int getTodaySum(String today) throws Exception {
+		return (int) selectOne("store.getTodaySum", today);
 	}
 	
 	

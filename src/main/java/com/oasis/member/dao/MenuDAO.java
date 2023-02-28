@@ -9,7 +9,10 @@ import com.oasis.common.dao.AbstractDAO;
 
 @Repository("MenuDAO")
 public class MenuDAO extends AbstractDAO{
-
+	
+	public int insertMenu(Map<String, Object> map) throws Exception {
+		return (int)insert("menu.insertMenu", map);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> menuList(Map<String, Object> map) throws Exception{
@@ -43,6 +46,14 @@ public class MenuDAO extends AbstractDAO{
 	public int updateCart(Map<String, Object> map) throws Exception {
 		return (int)update("menu.updateCart", map);
 	}
+	
+	public int menuUpdate(Map<String, Object> map) throws Exception {
+		return (int) update("menu.menuUpdate", map);
+	}
+	
+    public void productDelete(Map<String, Object> map) throws Exception{
+        delete("menu.productDelete", map);
+  }
 
 	public int cartDeleteAll(Map<String, Object> map) throws Exception {
 		return (int)delete("menu.cartDeleteAll", map);

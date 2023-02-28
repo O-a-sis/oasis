@@ -25,7 +25,7 @@
 	href="<c:url value='/css/member/sub.css'/>" />
 <%@ include file="/WEB-INF/include/include-header.jspf"%>
 <meta charset="UTF-8">
-<title>{map.P_NAME}</title>
+<title>커피 - 카푸치노</title>
 </head>
 <body>
 	<form role="form" action='<c:url value="insertCart.oa"/>' method="post">
@@ -48,7 +48,7 @@
 				<div class="menuimg">
 					<img src="<c:url value='/images/contents/${map.P_IMG}.png'/>" />
 					<h2>${map.P_NAME}</h2>
-					${map.P_CONTENT} <br>
+					${map.P_CONTENT} 에스프레소 위에 올려진 우유 거품, 그리고 시나몬 파우더로 완성한 조화로운 맛의 커피 <br>
 				</div>
 				<div class="menuop">
 					<a href=#none id="show"
@@ -58,43 +58,49 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 						></a>
 					<div id="hide" style="display: none">
 						<ul>
-<<<<<<< HEAD
 							<li class="oplist"><ul>
-									<li><strong>꿀 추가</strong></li>
-									<li><input type="radio" name="option1" value=""
-										onchange="handleChange1(this);" checked />선택안함</li>
-									<li><input type="radio" name="option1" value="꿀추가"
-										onchange="handleChange1(this);" />꿀추가 +700</li>
+									<li><strong>시나몬 여부</strong></li>
+									<li><input type="radio" name="option1" value="시나몬O"
+										checked />시나몬 O</li>
+									<li><input type="radio" name="option1" value="시나몬X" />시나몬
+										X</li>
 								</ul></li>
 							<li class="oplist"><ul>
-									<li><strong>박스추가</strong></li>
+									<li><strong>농도</strong></li>
+									<li><input type="radio" name="option2" value=""
+										onchange="handleChange1(this);" checked />선택안함</li>
+									<li><input type="radio" name="option2" value="연하게"
+										onchange="handleChange1(this);" />연하게</li>
+									<li><input type="radio" name="option2" value="샷추가"
+										onchange="handleChange1(this);" />샷 추가 +1000원</li>
+								</ul></li>
+							<li class="oplist"><ul>
+									<li><strong>시럽추가</strong></li>
 									<li><input type="radio"
-								name="option2" value="" onchange="handleChange2(this);" checked />선택안함
+								name="option3" value="" onchange="handleChange2(this);" checked />선택안함
 								</li><li>
-								<input type="radio" name="option2" value="박스추가"
-								onchange="handleChange2(this);" />박스추가 +500원</li>
+								<input type="radio" name="option3" value="헤이즐넛시럽추가"
+								onchange="handleChange2(this);" />헤이즐넛시럽추가 +500원</li>
+									<li><input
+								type="radio" name="option3" value="바닐라시럽추가"
+								onchange="handleChange2(this);" />바닐라시럽추가 +500원</li>
+									<li><input
+								type="radio" name="option3" value="라이트바닐라시럽추가"
+								onchange="handleChange2(this);" />라이트바닐라시럽추가 +500원</li>
+
+								</ul>
+								<li class="oplist"><ul>
+								<li><strong>우유 변경</strong></li>
+								<li><input type="radio"
+								name="option4" value="" onchange="handleChange3(this);" checked />선택안함</li>
+								<li>	<input type="radio" name="option4" value="아몬드밀크변경"
+								onchange="handleChange3(this);" />아몬드밀크변경</li>
+								<li><input
+								type="radio" name="option4" value="오트밀크변경"
+								onchange="handleChange3(this);" />오트밀크변경 +500원</li>
 								</ul>
 
 					</div>
-=======
-											
-								<li class="oplist"><ul>
-									<li><strong>꿀 추가 선태</strong></li>
-									<li><input type="radio" name="option1" value=""
-										onchange="handleChange1(this);" checked />선택안함</li>
-									<li><input type="radio" name="option1" value="꿀추가"
-										onchange="handleChange1(this);" checked />꿀 추가 +700원</li>
-								</ul>
-
-							<li class="oplist"><ul>
-									<li><strong>박스추가</strong></li>
-									<li><input type="radio" name="option2" value=""
-										onchange="handleChange2(this);" checked />추가안함</li>
-									<li><input type="radio" name="option2" value="박스추가"
-										onchange="handleChange2(this);" checked />박스 추가 +500원</li>
-								</ul>
-						</div>
->>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
 				</div>
 
 				<br>
@@ -106,27 +112,16 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 									id="result">1</span> <a href="#" class="plus"><i
 										class="fa-regular fa-plus"></i></a></li>
 							<li><h3>
-<<<<<<< HEAD
 									<strong><span style="display: none" class="cost"
 										id="cost"> <fmt:formatNumber value="${map.P_PRICE}"
 												pattern="#,###" />원
 									</span>
 									</strong>
-=======
-									<strong><span style="display: inline" class="cost"
-										id="cost"> <fmt:formatNumber value="${map.P_PRICE}"
-												pattern="#,###" />원
-									</span></strong>
->>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
 								</h3></li>
 						</ul>
 
 						<div class="hidecount" style="display: none;">
-<<<<<<< HEAD
 							<span class="costhidden1">${map.P_PRICE }</span> <span class="costhidden2">00</span>
-=======
-							<span class="costhidden1">${map.P_PRICE}</span> <span class="costhidden2">00</span>
->>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
 							<span class="costhidden3">00</span> <span class="costhidden4">00</span>
 							<span class="costhidden5">${map.P_PRICE}</span>
 						</div>
@@ -164,11 +159,9 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
          
         list.push($("input[name=option1]").val());
         list.push($("input[name=option2]").val());
-<<<<<<< HEAD
+        list.push($("input[name=option3]").val());
+        list.push($("input[name=option4]").val());
         
-=======
-
->>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
         let result=document.querySelector("#result").textContent;
         $("#C_COUNT").val(result);
         
@@ -194,28 +187,39 @@ let i = 1;
 let totalcost = document.querySelector(".totalcost");
 	
 	function handleChange1() {
- 		if($("input[name='option1']:checked").val() == '꿀추가'){
-			costhidden2.innerHTML = Number(700);
+ 		if($("input[name='option2']:checked").val() == '샷추가'){
+			costhidden2.innerHTML = Number(1000);
 		} else {
 			costhidden2.innerHTML = 0;
 		}
 	}
 	
 	function handleChange2() {
-		if($("input[name='option2']:checked").val() == '') {
+		if($("input[name='option3']:checked").val() == '') {
 			costhidden3.innerHTML = 0;
 		} 
-		if($("input[name='option2']:checked").val() == '박스추가') {
+		if($("input[name='option3']:checked").val() == '헤이즐넛시럽추가') {
 			costhidden3.innerHTML = Number(500);
 		} 
-<<<<<<< HEAD
-
-=======
-		
+		if($("input[name='option3']:checked").val() == '바닐라시럽추가') {
+			costhidden3.innerHTML = Number(500);
+		} 
+		if($("input[name='option3']:checked").val() == '라이트바닐라시럽추가') {
+			costhidden3.innerHTML = Number(500);
+		} 
 	}
 	
-	
->>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
+	function handleChange3() {
+		if($("input[name='option4']:checked").val() == '') {
+			costhidden4.innerHTML = 0;
+		} 
+		if($("input[name='option4']:checked").val() == '아몬드밀크변경') {
+			costhidden4.innerHTML = 0;
+		} 
+		if($("input[name='option4']:checked").val() == '오트밀크변경') {
+			costhidden4.innerHTML = Number(500);
+		} 
+	}
 	
 	$(".costhidden1").on('DOMSubtreeModified', function() {
 		let sum1 = Number(costhidden1.innerHTML)+i*Number(costhidden2.innerHTML)+i*Number(costhidden3.innerHTML)+i*Number(costhidden4.innerHTML);
@@ -313,8 +317,4 @@ let totalcost = document.querySelector(".totalcost");
 	})
 		
 </script>
-<<<<<<< HEAD
-</html>>
-=======
 </html>
->>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142

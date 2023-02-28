@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Flee</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=0.8" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%-- <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %> --%>
+<script src=<c:url value='/js/jquery-1.12.4.min.js'/>></script>
+
+<script src="<c:url value='/js/side.js'/>"></script>
+<!--jQuery-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src=<c:url value='/js/common.js'/>></script>
+<script src=<c:url value='/js/adminnav.js'/>></script>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/common.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/default.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/admin.css'/>" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.navbtn').menuBar();
+	});
+</script>
+
+<body>
+	<div class="layout">
+		<div class="wrap">
+			<div class="lnb">
+				<div class="wrap">
+					<div class="depth2 menu_depth">
+						<ul class="clearfix navbtn">
+							<li style="width: 14.2%"><a
+								href=<c:url value='/memberList.fe' />>회원리스트</a></li>
+							<li style="width: 14.2%"><a
+								href=<c:url value='/adminAList.fe' />>회원신고리스트</a></li>
+							<li style="width: 14.2%"><a
+								href=<c:url value='/adminTradeList.fe' />>거래내역리스트</a></li>
+							<li style="width: 14.2%"><a
+								href=<c:url value='/adminProductList.fe' />>상품리스트</a></li>
+							<li style="width: 14.2%"><a
+								href=<c:url value='/adminCommunityList.fe' />>자유게시판관리</a></li>
+							<li style="width: 14.2%"><a
+								href=<c:url value='/adminNoticeList.fe' />>공지게시판관리</a></li>
+							<li style="width: 14.2%"><a
+								href=<c:url value='/adminReview.fe' />>후기리스트관리</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</body>
