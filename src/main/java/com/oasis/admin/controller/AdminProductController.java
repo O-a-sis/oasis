@@ -34,6 +34,7 @@ import com.oasis.member.service.MenuService;
 import lombok.AllArgsConstructor;
 import net.coobird.thumbnailator.Thumbnailator;
 import com.oasis.common.util.FileUpload;
+import com.oasis.common.util.Paging;
 
 @Controller
 @RequestMapping("/admin/")
@@ -46,9 +47,32 @@ public class AdminProductController {
 	public ModelAndView productList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/productList");
 		
-		List<Map<String, Object>> list = menuService.menuList(commandMap.getMap());
-		mv.addObject("list", list);
+		int page = commandMap.get("page") == null ? 1 : Integer.parseInt((String) commandMap.get("page"));// 현재 페이지
+		int pageSize = 5;// 한 페이지에 보여줄 행의 수
+		int start = (page * pageSize) - pageSize + 1;
+		int end = page * pageSize;
+		int menuListCount = 0; // 전체 게시글 수
+		int pageBlock = 5; // 표시할 페이지의 수
+		String url = "productList.oa";
+		String searchUrl = "";
 
+		commandMap.put("START", start);
+		commandMap.put("END", end);
+		
+		List<Map<String, Object>> menuList = menuService.menuList(commandMap.getMap());
+
+		if (menuList.size() > 0) {
+			menuListCount = Integer.parseInt(String.valueOf(menuList.get(0).get("TOTAL_COUNT")));
+		}
+
+		// 페이징할 아이템의 총 수, 페이지의 수 ex> 1~5 6~10, 한 페이지에 표시할 게시글의 수, 현재 페이지, 이동주소, 검색시 사용할
+		// 주소 입력
+		Paging paging = new Paging(menuListCount, pageBlock, pageSize, page, url, searchUrl);
+
+		mv.addObject("list", menuList);
+		mv.addObject("paging", paging);
+		mv.addObject("page", page);
+		
 		return mv;
 	}
 	

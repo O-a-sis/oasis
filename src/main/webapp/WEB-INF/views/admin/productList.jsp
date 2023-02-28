@@ -16,16 +16,16 @@
 </head>
 <body>
 	<div>
-		<h1 style="display: inline" onclick="location.href='<c:url value="main.oa"/>'">오아시스</h1>
+		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
 		<h3 style="display: inline">관리자</h3>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="todaysOrders.oa"/>'">
+			onclick="location.href='<c:url value="storeList.oa"/>'">
 			<strong>지점관리</strong>
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="stock.oa"/>'">
+			onclick="location.href='<c:url value="productList.oa"/>'">
 			<strong>상품관리</strong>
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,7 +35,7 @@
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="ordersAllList.oa"/>'">
+			onclick="location.href='<c:url value="memberList.oa"/>'">
 			<strong>사이트관리</strong>
 		</h2>
 
@@ -49,9 +49,9 @@
 	<c:forEach items="${list}" var="item">
 		<table class="status" border=0>
 			<tr>
-			<td rowspan=3><img height=200px src="<c:url value='/images/contents/${item.P_IMG}.png'/>" /></td>
+			<td rowspan=3><img height=200px src="<c:url value='/img/image-${item.P_IMG}.jpg'/>" /></td>
 			
-			<td><h3 onclick="location.href='<c:url value="productDetail.oa?P_IDX=${item.P_IDX}"/>'">${item.P_IDX}.&nbsp;<strong>${item.P_NAME }</strong></h3></td>
+			<td><h3 onclick="location.href='<c:url value="productDetail.oa?P_IDX=${item.P_IDX}&page=${page}"/>'">${item.P_IDX}.&nbsp;<strong>${item.P_NAME }</strong></h3></td>
 			
 			</tr>
 			<tr>
@@ -63,6 +63,7 @@
 		<br>
 	</c:forEach>
 	
+	<div class="paging">${paging.pageHtml}</div>
 <br>
 	<button type="submit" class="button" style="color: white; background: orange" onclick="location.href='<c:url value="productRegisterForm.oa"/>'">상품 등록하기</button></td>
 </body>

@@ -109,7 +109,7 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점 회원가입폼
-	@RequestMapping(value = "/admin/openStoreJoin.oa")
+	@RequestMapping(value = "/openStoreJoin.oa")
 	public ModelAndView openStoreJoin(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/storeJoin");
 
@@ -117,7 +117,7 @@ public class AdminStoreController {
 	}
 
 	// 관리자 - 지점 회원가입등록
-	@RequestMapping(value = "/admin/storeJoin.oa")
+	@RequestMapping(value = "/storeJoin.oa")
 	public ModelAndView noticeWrite(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
 System.out.println(commandMap.get("STORE"));
@@ -149,7 +149,7 @@ System.out.println(commandMap.get("STORE"));
 	}
 
 	// 관리자 - 지점폐쇄 버튼 눌렀을 때 (목록으로 넘어감)
-	@RequestMapping(value = "/admin/storeDown.oa")
+	@RequestMapping(value = "/storeDown.oa")
 	public ModelAndView storeDown(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
 

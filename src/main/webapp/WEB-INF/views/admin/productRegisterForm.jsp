@@ -17,11 +17,11 @@
 </head>
 <body>
 	<div>
-		<h1 style="display: inline" onclick="location.href='<c:url value="main.oa"/>'">오아시스</h1>
+		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
 		<h3 style="display: inline">관리자</h3>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="todaysOrders.oa"/>'">
+			onclick="location.href='<c:url value="storeList.oa"/>'">
 			<strong>지점관리</strong>
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -36,7 +36,7 @@
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="ordersAllList.oa"/>'">
+			onclick="location.href='<c:url value="memberList.oa"/>'">
 			<strong>사이트관리</strong>
 		</h2>
 
@@ -63,28 +63,19 @@
           </div>
           <br>
           
-	  <div class="panel-heading"><strong>제품 이미지</strong></div>
+<!-- 	  <div class="panel-heading"><strong>제품 이미지</strong></div>
         <div class="form-group uploadDiv">
-            <input type="file" name='P_IMG'>
+            <input type="file" name='P_IMG' onchange="setThumbnail(event);">
         </div>
         
-        <div>
-			<img id="preview" style="width: 40%" />
-		</div>
+        <div id="image_container"></div> -->
 
-		<script>
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                document.getElementById('preview').src = e.target.result;
-            };
-            reader.readAsDataURL(input.files[0]);
-            } else {
-                document.getElementById('preview').src = "";
-            }
-          }
-         </script>
+<div class="image-container"><strong>제품 이미지</strong></div>
+    
+    <input style="display: block;" name='P_IMG' type="file" id="input-image">
+    
+    <img style="width: 500px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
+</div>
 
       </div>
 	<br><br>
@@ -97,23 +88,25 @@
 </body>
 <script>
 function readImage(input) {
-	// 인풋 태그에 파일이 있는 경우
-	if(input.files && input.files[0]) {
-		// 이미지 파일인지 검사 (생략)
-		
-		// FileReader 인스턴스 생성
-		const reader = new FileReader();
-		
-		// 이미지가 로드가 된 경우
-		reader.onload = e => {
-			const previewImage = document.getElementById("preview-image");
-			previewImage.src = e.target.result;
-		};
-		
-		// reader가 이미지 읽도록 하기
-		reader.readAsDataURL(input.files[0]);
-	}	
+    // 인풋 태그에 파일이 있는 경우
+    if(input.files && input.files[0]) {
+        // 이미지 파일인지 검사 (생략)
+        // FileReader 인스턴스 생성
+        const reader = new FileReader()
+        // 이미지가 로드가 된 경우
+        reader.onload = e => {
+            const previewImage = document.getElementById("preview-image")
+            previewImage.src = e.target.result
+        }
+        // reader가 이미지 읽도록 하기
+        reader.readAsDataURL(input.files[0])
+    }
 }
+// input file에 change 이벤트 부여
+const inputImage = document.getElementById("input-image")
+inputImage.addEventListener("change", e => {
+    readImage(e.target)
+})
 </script>
 
 </html>

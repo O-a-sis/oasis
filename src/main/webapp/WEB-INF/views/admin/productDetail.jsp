@@ -16,11 +16,11 @@
 </head>
 <body>
 	<div>
-		<h1 style="display: inline" onclick="location.href='<c:url value="main.oa"/>'">오아시스</h1>
+		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
 		<h3 style="display: inline">관리자</h3>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="todaysOrders.oa"/>'">
+			onclick="location.href='<c:url value="storeList.oa"/>'">
 			<strong>지점관리</strong>
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,7 +35,7 @@
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="ordersAllList.oa"/>'">
+			onclick="location.href='<c:url value="memberList.oa"/>'">
 			<strong>사이트관리</strong>
 		</h2>
 
@@ -51,18 +51,20 @@
 	
 	<table>
 	  <tr>
-	    <td colspan=2><img height=200px src="<c:url value='/images/contents/${map.P_IMG}.png'/>" /></td>
+	    <td colspan=2><img height=200px src="<c:url value='/img/image-${map.P_IMG}.jpg'/>" /></td>
 	    <td><h3>가격:&nbsp;&nbsp;${map.P_PRICE }</h3>
 	    	${map.P_CONTENT }</td>
 	  </tr>
 	</table>
 
 	</div>
-	
+	<br><br>
 	<div>
 	<button type="button" class="button" style="color: white; background: orange" onclick="location.href='<c:url value="productUpdateForm.oa?P_IDX=${map.P_IDX}"/>'">수정</button></td>
-	&nbsp;
-	<button type="button" class="button" style="color: white; background: black" onclick="removeCheck();">삭제</button></td>
+	&nbsp;&nbsp;
+	<button type="button" class="button" style="color: white; background: black" onclick="removeCheck();">삭제</button>
+	&nbsp;&nbsp;
+	<button type="button" class="button" style="color: white; background: blue" onclick="location.href='<c:url value="productList.oa?page=${param.page}"/>'">목록으로</button></td>
 	</div>
 </body>
 <script>

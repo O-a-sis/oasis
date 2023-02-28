@@ -15,14 +15,15 @@
 	)
 	</insert>
 
-	<select id="menuList" parameterType="hashmap"
-		resultType="hashmap">
-<![CDATA[
-		SELECT  * 
-		FROM PRODUCT 
-]]>
-
+	<select id="menuList" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre" /> 
+		SELECT  
+			ROW_NUMBER() OVER(ORDER BY P_IDX) RNUM, P.* 
+		FROM PRODUCT P
+	<include refid="common.pagingPost" /> 
 	</select>
+	
+	
 	<select id="mainmenuList" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[

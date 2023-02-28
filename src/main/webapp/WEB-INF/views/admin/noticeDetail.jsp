@@ -7,7 +7,36 @@
 <head>
 </head>
 <body>
-<<<<<<< HEAD
+	<div>
+		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
+		<h3 style="display: inline">관리자</h3>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="storeList.oa"/>'">
+			<strong>지점관리</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="productList.oa"/>'">
+			<strong>상품관리</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="noticeList.oa"/>'">
+			<strong>공지사항</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="memberList.oa"/>'">
+			<strong>사이트관리</strong>
+		</h2>
+
+	</div>
+	<br>
+		<div
+		style="height: 20px; width: 100%; background-color: #ff6600;">
+	</div>
+	<br><br>
 	<div class="head">
 		<h2>공지사항</h2>
 		<hr>
@@ -43,10 +72,6 @@
 					type="hidden" name="N_IMAGE">
 			</p>
 		</div>
-=======
-	<h2>공지사항 상세보기</h2>
-	<table border="1" width=600>
->>>>>>> 1c86325 (Revert "Feature/min j")
 
 		<thead>
 			<tr>
@@ -59,7 +84,7 @@
 		</thead>
 		<tbody>
 			<form method="post"
-				action="/Oasis/admin/UpdateForm.oa?N_IDX=${map.N_IDX}">
+				action="/Oasis/admin/updateForm.oa?N_IDX=${map.N_IDX}">
 			<tr>
 				<td>${map.N_IDX}</td>
 				<td><c:if test="${map.N_TYPE eq 'B'}">

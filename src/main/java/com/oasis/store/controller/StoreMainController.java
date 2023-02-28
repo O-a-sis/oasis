@@ -47,7 +47,7 @@ public class StoreMainController {
 	      } else {
 	         if (result.get("S_PASSWORD").equals(commandMap.get("S_PASSWORD"))) {// 비밀번호가 같다면   
 	            if(commandMap.get("STORE").equals("10000")) {
-	               ModelAndView mv = new ModelAndView("redirect:/admin/main.oa");
+	               ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
 	               return mv;
 	            }
 	            else {

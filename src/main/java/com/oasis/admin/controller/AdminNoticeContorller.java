@@ -102,7 +102,7 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 수정 폼
-	@RequestMapping(value = "UpdateForm.oa")
+	@RequestMapping(value = "/admin/updateForm.oa")
 	public ModelAndView adminNoticeUpdateForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeForm");
 
@@ -114,7 +114,7 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 작성/수정 기능
-	@RequestMapping(value = "noticeSave.oa")
+	@RequestMapping(value = "/admin/noticeSave.oa")
 	public ModelAndView adminNoticeSave(CommandMap commandMap, MultipartHttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 
@@ -152,7 +152,7 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 삭제 기능
-	@RequestMapping(value = "noticeDelete.oa")
+	@RequestMapping(value = "/admin/noticeDelete.oa")
 	public ModelAndView adminNoticeDelete(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 

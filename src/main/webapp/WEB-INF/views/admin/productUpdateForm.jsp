@@ -16,11 +16,11 @@
 </head>
 <body>
 	<div>
-		<h1 style="display: inline" onclick="location.href='<c:url value="main.oa"/>'">오아시스</h1>
+		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
 		<h3 style="display: inline">관리자</h3>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="todaysOrders.oa"/>'">
+			onclick="location.href='<c:url value="storeList.oa"/>'">
 			<strong>지점관리</strong>
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,7 +35,7 @@
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="ordersAllList.oa"/>'">
+			onclick="location.href='<c:url value="memberList.oa"/>'">
 			<strong>사이트관리</strong>
 		</h2>
 
