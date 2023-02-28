@@ -28,134 +28,6 @@
 <title>{map.P_NAME}</title>
 </head>
 <body>
-<<<<<<< HEAD
-	<form role="form" action='<c:url value="insertCart.oa"/>' method="post">
-		<input type="hidden" name="CP_NAME" value="${map.P_NAME}"> <input
-			type="hidden" name="CP_IMG" value="${map.P_IMG}"> <input
-			type="hidden" name="C_STORE" value="${param.STORE}"> <input
-			type="hidden" name="CB_IDX" value="${sessionScope.B_PHONE}">
-		<input type="hidden" name="CP_IDX" value="${map.P_IDX}"> <input
-			type="hidden" name='C_OP' id='test_list' value=''> <input
-			type="hidden" name='C_PRICE' id='C_PRICE' value=''> <input
-			type="hidden" name='C_COUNT' id='C_COUNT' value=''>
-		<div class="wrap">
-			<div class="subhead">
-				<ul>
-					<li><i class="fa-solid fa-chevron-left"></i></li>
-					<li><span class="subtit">메뉴선택</span>
-				</ul>
-			</div>
-			<section class="menudetail">
-				<div class="menuimg">
-					<img src="<c:url value='/images/contents/${map.P_IMG}.png'/>" />
-					<h2>${map.P_NAME}</h2>
-					${map.P_CONTENT} <br>
-				</div>
-				<div class="menuop">
-					<a href=#none id="show"
-						onclick="if(hide.style.display=='none')
-{hide.style.display='';show.innerText='∧'}
-else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>'}">퍼스널옵션&nbsp&nbsp&nbsp
-						></a>
-					<div id="hide" style="display: none">
-						<ul>
-							<li class="oplist"><ul>
-									<li><strong> </strong></li>
-									<li><input type="radio" name="option1" value="HOT"
-										checked />HOT</li>
-									<li><input type="radio" name="option1" value="ICE" />ICE</li>
-								</ul></li>						
-<!-- 							<li class="oplist"><ul>
-									<li><strong>시나몬 여부</strong></li>
-									<li><input type="radio" name="option2" value="시나몬O"
-										checked />시나몬 O</li>
-									<li><input type="radio" name="option2" value="시나몬X" />시나몬
-										X</li>
-								</ul></li> -->
-							<li class="oplist"><ul>
-									<li><strong>농도</strong></li>
-									<li><input type="radio" name="option2" value=""
-										onchange="handleChange1(this);" checked />선택안함</li>
-									<li><input type="radio" name="option2" value="연하게"
-										onchange="handleChange1(this);" />연하게</li>
-									<li><input type="radio" name="option2" value="샷추가"
-										onchange="handleChange1(this);" />샷 추가 +1000원</li>
-								</ul></li>
-							<li class="oplist"><ul>
-									<li><strong>시럽추가</strong></li>
-									<li><input type="radio"
-								name="option3" value="" onchange="handleChange2(this);" checked />선택안함
-								</li><li>
-								<input type="radio" name="option3" value="헤이즐넛시럽추가"
-								onchange="handleChange2(this);" />헤이즐넛시럽추가 +500원</li>
-									<li><input
-								type="radio" name="option3" value="바닐라시럽추가"
-								onchange="handleChange2(this);" />바닐라시럽추가 +500원</li>
-									<li><input
-								type="radio" name="option3" value="라이트바닐라시럽추가"
-								onchange="handleChange2(this);" />라이트바닐라시럽추가 +500원</li>
-
-								</ul>
-								<li class="oplist"><ul>
-								<li><strong>우유 변경</strong></li>
-								<li><input type="radio"
-								name="option4" value="" onchange="handleChange3(this);" checked />선택안함</li>
-								<li>	<input type="radio" name="option4" value="아몬드밀크변경"
-								onchange="handleChange3(this);" />아몬드밀크변경</li>
-								<li><input
-								type="radio" name="option4" value="오트밀크변경"
-								onchange="handleChange3(this);" />오트밀크변경 +500원</li>
-								</ul>
-
-					</div>
-				</div>
-
-				<br>
-				<div id="checkflex">
-					<div class="num">
-						<ul>
-							<li><span style="display: inline" class="count"> <a
-									href="#" class="minus"><i class="fa-solid fa-minus"></i></a> <span
-									id="result">1</span> <a href="#" class="plus"><i
-										class="fa-regular fa-plus"></i></a></li>
-							<li><h3>
-									<strong><span style="display: none" class="cost"
-										id="cost"> <fmt:formatNumber value="${map.P_PRICE}"
-												pattern="#,###" />원
-									</span>
-									</strong>
-								</h3></li>
-						</ul>
-
-						<div class="hidecount" style="display: none;">
-							<span class="costhidden1">${map.P_PRICE }</span> <span class="costhidden2">00</span>
-							<span class="costhidden3">00</span> <span class="costhidden4">00</span>
-							<span class="costhidden5">${map.P_PRICE}</span>
-						</div>
-					</div>
-					<div class="pprice">
-						<ul>
-							<li><h3>
-									<strong>상품금액</strong>
-								</h3></li>
-							<li>
-								<h3 style="color: #ff751a; display: inline">
-									<span class="costhiddentotal"><strong> <fmt:formatNumber
-												value="${map.P_PRICE}" pattern="#,###" /></span>원</strong>
-								</h3>
-							</li>
-						</ul>
-
-					</div>
-					<div class="mbtn">
-						<button type="submit" data-oper='order' onclick='getlist()'
-							class="button" style="color: white">바로주문</button>
-						<button type="submit" data-oper='cart' onclick='getlist()'
-							style="color: white">장바구니 담기</button>
-					</div>
-				</div>
-			</section>
-=======
 	<input type="hidden" name="CP_NAME" value="${map.P_NAME}">
 	<input type="hidden" name="CP_IMG" value="${map.P_IMG}">
 	<input type="hidden" name="C_STORE" value="${param.STORE}">
@@ -170,7 +42,6 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 				<li><i class="fa-solid fa-chevron-left"></i></li>
 				<li><span class="subtit">메뉴선택</span>
 			</ul>
->>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
 		</div>
 		<section class="menudetail">
 			<div class="menuimg">
@@ -183,52 +54,6 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 					file="/WEB-INF/include/include-drinkOption.jspf"%></c:if>
 			<c:if test="${map.P_CATEGORY ne 'C'}"><%@ include
 					file="/WEB-INF/include/include-dessertOption.jspf"%></c:if>
-			<!-- 			<div class="menuop"> -->
-			<!-- 				<a href=#none id="show" -->
-			<!-- 					onclick="if(hide.style.display=='none') -->
-			<!-- {hide.style.display='';show.innerText='∧'} -->
-			<!-- else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>'}">퍼스널옵션&nbsp&nbsp&nbsp -->
-			<!-- 					></a> -->
-			<!-- 				<div id="hide" style="display: none"> -->
-			<!-- 					<ul> -->
-			<!-- 						<li class="oplist"><ul> -->
-			<!-- 								<li><strong> </strong></li> -->
-			<!-- 								<li><input type="radio" name="option1" value="HOT" checked />HOT</li> -->
-			<!-- 								<li><input type="radio" name="option1" value="ICE" />ICE</li> -->
-			<!-- 							</ul></li> -->
-
-			<!-- 						<li class="oplist"><ul> -->
-			<!-- 								<li><strong>농도</strong></li> -->
-			<!-- 								<li><input type="radio" name="option2" value="" -->
-			<!-- 									onchange="handleChange1(this);" checked />선택안함</li> -->
-			<!-- 								<li><input type="radio" name="option2" value="연하게" -->
-			<!-- 									onchange="handleChange1(this);" />연하게</li> -->
-			<!-- 								<li><input type="radio" name="option2" value="샷추가" -->
-			<!-- 									onchange="handleChange1(this);" />샷 추가 +1000원</li> -->
-			<!-- 							</ul></li> -->
-			<!-- 						<li class="oplist"><ul> -->
-			<!-- 								<li><strong>시럽추가</strong></li> -->
-			<!-- 								<li><input type="radio" name="option3" value="" -->
-			<!-- 									onchange="handleChange2(this);" checked />선택안함</li> -->
-			<!-- 								<li><input type="radio" name="option3" value="헤이즐넛시럽추가" -->
-			<!-- 									onchange="handleChange2(this);" />헤이즐넛시럽추가 +500원</li> -->
-			<!-- 								<li><input type="radio" name="option3" value="바닐라시럽추가" -->
-			<!-- 									onchange="handleChange2(this);" />바닐라시럽추가 +500원</li> -->
-			<!-- 								<li><input type="radio" name="option3" value="라이트바닐라시럽추가" -->
-			<!-- 									onchange="handleChange2(this);" />라이트바닐라시럽추가 +500원</li> -->
-
-			<!-- 							</ul> -->
-			<!-- 						<li class="oplist"><ul> -->
-			<!-- 								<li><strong>우유 변경</strong></li> -->
-			<!-- 								<li><input type="radio" name="option4" value="" -->
-			<!-- 									onchange="handleChange3(this);" checked />선택안함</li> -->
-			<!-- 								<li><input type="radio" name="option4" value="아몬드밀크변경" -->
-			<!-- 									onchange="handleChange3(this);" />아몬드밀크변경</li> -->
-			<!-- 								<li><input type="radio" name="option4" value="오트밀크변경" -->
-			<!-- 									onchange="handleChange3(this);" />오트밀크변경 +500원</li> -->
-			<!-- 							</ul> -->
-			<!-- 				</div> -->
-			<!-- 			</div> -->
 
 			<br>
 			<div id="checkflex">
