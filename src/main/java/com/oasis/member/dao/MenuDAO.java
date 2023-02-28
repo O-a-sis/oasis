@@ -9,7 +9,10 @@ import com.oasis.common.dao.AbstractDAO;
 
 @Repository("MenuDAO")
 public class MenuDAO extends AbstractDAO{
-
+	
+	public int insertMenu(Map<String, Object> map) throws Exception {
+		return (int)insert("menu.insertMenu", map);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> menuList(Map<String, Object> map) throws Exception{

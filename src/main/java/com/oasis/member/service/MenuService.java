@@ -5,6 +5,8 @@ import java.util.Map;
 
 public interface MenuService {
 
+	public int insertMenu(Map<String, Object> map) throws Exception;
+	
 	List<Map<String, Object>> menuList(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> mainmenuList(Map<String, Object> map) throws Exception;
 	Map<String,Object> menuDetail(Map<String,Object> map) throws Exception;

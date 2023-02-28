@@ -13,7 +13,7 @@
 		<h3 style="display: inline">관리자</h3>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="todaysOrders.oa"/>'">
+			onclick="location.href='<c:url value="storeList.oa"/>'">
 			<strong>지점관리</strong>
 		</h2>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

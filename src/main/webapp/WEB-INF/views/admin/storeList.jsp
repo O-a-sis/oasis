@@ -51,6 +51,35 @@
 </style>
 </head>
 <body>
+	<div>
+		<h1 style="display: inline" onclick="location.href='<c:url value="main.oa"/>'">오아시스</h1>
+		<h3 style="display: inline">관리자</h3>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="storeList.oa"/>'">
+			<strong>지점관리</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="productList.oa"/>'">
+			<strong>상품관리</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="noticeList.oa"/>'">
+			<strong>공지사항</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="ordersAllList.oa"/>'">
+			<strong>사이트관리</strong>
+		</h2>
+
+	</div>
+	<br>
+	<div
+		style="height: 20px; width: 100%; background-color: #ff6600;">
+	</div>
 	<h1>지점매출 TOP3 - 전일기준</h1>
 	<table class="board_list" border="1">
 		<thead>

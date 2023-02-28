@@ -4,6 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.button {
+	border-radius: 7px;
+	font-size: 16px;
+	width: 150px;
+}
+</style>
 <meta charset="UTF-8">
 <title>상품관리-관리자</title>
 </head>
@@ -55,5 +62,8 @@
 
 		<br>
 	</c:forEach>
+	
+<br>
+	<button type="submit" class="button" style="color: white; background: orange" onclick="location.href='<c:url value="productRegisterForm.oa"/>'">상품 등록하기</button></td>
 </body>
 </html>

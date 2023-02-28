@@ -17,6 +17,10 @@ public class MenuServiceImpl implements MenuService {
 	private MenuDAO menuDAO;
 	
 	@Override
+	public int insertMenu(Map<String, Object> map) throws Exception {
+		return menuDAO.insertMenu(map);
+	}
+	@Override
 	public List<Map<String, Object>> menuList(Map<String, Object> map) throws Exception {
 		return menuDAO.menuList(map);
 	}
@@ -66,6 +70,8 @@ public class MenuServiceImpl implements MenuService {
 	public void productDelete(Map<String, Object> map) throws Exception {
 	    menuDAO.productDelete(map);
 	}
+
+
 
 	
 }

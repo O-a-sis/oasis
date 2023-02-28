@@ -83,28 +83,26 @@ public class MenuController {
 				: new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@PostMapping(value = "/cartDeleteAll.oa", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> cartDeleteAll(@RequestBody Map<String, Object> map, HttpServletRequest request)
-			throws Exception {
-System.out.println(map.get("B_PHONE"));
-		// 세션
-		HttpSession session = request.getSession();
-		if (session.getAttribute("cart") != null) {
-			session.removeAttribute("cart");
-		}
-
-		int count = menuService.cartDeleteAll(map);
-
-		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
-				: new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-
-	@PostMapping(value = "/cartDelete.oa", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> cartDelete(@RequestBody Map<String, Object> map) throws Exception {
-
-		int count = menuService.cartDelete(map);
-
-		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
-				: new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+	/*
+	 * @PostMapping(value = "/cartDeleteAll.oa", consumes = "application/json",
+	 * produces = MediaType.TEXT_PLAIN_VALUE) public ResponseEntity<String>
+	 * cartDeleteAll(@RequestBody Map<String, Object> map, HttpServletRequest
+	 * request) throws Exception { System.out.println(map.get("B_PHONE")); // 세션
+	 * HttpSession session = request.getSession(); if (session.getAttribute("cart")
+	 * != null) { session.removeAttribute("cart"); }
+	 * 
+	 * int count = menuService.cartDeleteAll(map);
+	 * 
+	 * return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK) :
+	 * new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR); }
+	 * 
+	 * @PostMapping(value = "/cartDelete.oa", consumes = "application/json",
+	 * produces = MediaType.TEXT_PLAIN_VALUE) public ResponseEntity<String>
+	 * cartDelete(@RequestBody Map<String, Object> map) throws Exception {
+	 * 
+	 * int count = menuService.cartDelete(map);
+	 * 
+	 * return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK) :
+	 * new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR); }
+	 */
 }
