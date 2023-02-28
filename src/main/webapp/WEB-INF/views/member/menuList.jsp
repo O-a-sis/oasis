@@ -108,7 +108,7 @@
 									<ul>
 							<c:forEach var="menu" items="${list}">
 								<c:if test="${menu.P_CATEGORY eq 'A'}">
-									<li><a href="<c:url value='/member/menuDetail.oa?P_IDX=${menu.STORE}'/>" ><ul>
+									<li><a href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>" ><ul>
 												<li><img src="<c:url value='/images/contents/${menu.P_IMG}.png'/>"
 													alt="" /></li>
 												<li>${menu.P_NAME}</li>

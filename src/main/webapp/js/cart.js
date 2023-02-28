@@ -62,9 +62,27 @@
  		}
  	});
  }
+  function get(bphone, callback, error){
+	 $.ajax({
+	 	type : 'get',
+	 	url : '/Oasis/member/cart/'+bphone+'.json',
+	 	contentType : "application/json; charset=UTF-8",
+	 	success : function(cart, status, xhr){
+	 		if(callback){
+	 			callback(cart);
+	 		}
+	 	},
+	 	error : function(xhr, status, er){
+	 		if(error){
+	 			error(er);
+	 		}
+	 	 }
+	  });
+	 }
  return {
  	add:add,
  	remove:remove,
- 	removeAll:removeAll
+ 	removeAll:removeAll,
+ 	get:get
  	};
  })();

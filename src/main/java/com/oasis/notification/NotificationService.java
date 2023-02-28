@@ -127,12 +127,12 @@ public class NotificationService {
 	private Notification createNotification(String receiver, String content, String type, String urlValue) {
 
 		if (type.equals("memberOrder")) { // 회원주문
-			return Notification.builder().receiver(receiver).content(content).url("/Oasis/member/main.oa" + urlValue)
+			return Notification.builder().receiver(receiver).content(content).url("/Oasis/member/myOrderDetail.oa?O_IDX=" + urlValue)
 					.notificationType(type).isRead(false).build();
 		}
 
 		else if (type.equals("storeOrder")) { // 지점주문
-			return Notification.builder().content(content).url("/store/main.oa" + urlValue).notificationType(type)
+			return Notification.builder().content(content).url("/Oasis/store/main.oa" + urlValue).notificationType(type)
 					.isRead(false).build();
 		}
 
