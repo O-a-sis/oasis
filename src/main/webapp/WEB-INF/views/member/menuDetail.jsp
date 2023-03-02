@@ -54,57 +54,12 @@
 					file="/WEB-INF/include/include-drinkOption.jspf"%></c:if>
 			<c:if test="${map.P_CATEGORY ne 'C'}"><%@ include
 					file="/WEB-INF/include/include-dessertOption.jspf"%></c:if>
-			<!-- 			<div class="menuop"> -->
-			<!-- 				<a href=#none id="show" -->
-			<!-- 					onclick="if(hide.style.display=='none') -->
-			<!-- {hide.style.display='';show.innerText='∧'} -->
-			<!-- else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>'}">퍼스널옵션&nbsp&nbsp&nbsp -->
-			<!-- 					></a> -->
-			<!-- 				<div id="hide" style="display: none"> -->
-			<!-- 					<ul> -->
-			<!-- 						<li class="oplist"><ul> -->
-			<!-- 								<li><strong> </strong></li> -->
-			<!-- 								<li><input type="radio" name="option1" value="HOT" checked />HOT</li> -->
-			<!-- 								<li><input type="radio" name="option1" value="ICE" />ICE</li> -->
-			<!-- 							</ul></li> -->
-
-			<!-- 						<li class="oplist"><ul> -->
-			<!-- 								<li><strong>농도</strong></li> -->
-			<!-- 								<li><input type="radio" name="option2" value="" -->
-			<!-- 									onchange="handleChange1(this);" checked />선택안함</li> -->
-			<!-- 								<li><input type="radio" name="option2" value="연하게" -->
-			<!-- 									onchange="handleChange1(this);" />연하게</li> -->
-			<!-- 								<li><input type="radio" name="option2" value="샷추가" -->
-			<!-- 									onchange="handleChange1(this);" />샷 추가 +1000원</li> -->
-			<!-- 							</ul></li> -->
-			<!-- 						<li class="oplist"><ul> -->
-			<!-- 								<li><strong>시럽추가</strong></li> -->
-			<!-- 								<li><input type="radio" name="option3" value="" -->
-			<!-- 									onchange="handleChange2(this);" checked />선택안함</li> -->
-			<!-- 								<li><input type="radio" name="option3" value="헤이즐넛시럽추가" -->
-			<!-- 									onchange="handleChange2(this);" />헤이즐넛시럽추가 +500원</li> -->
-			<!-- 								<li><input type="radio" name="option3" value="바닐라시럽추가" -->
-			<!-- 									onchange="handleChange2(this);" />바닐라시럽추가 +500원</li> -->
-			<!-- 								<li><input type="radio" name="option3" value="라이트바닐라시럽추가" -->
-			<!-- 									onchange="handleChange2(this);" />라이트바닐라시럽추가 +500원</li> -->
-
-			<!-- 							</ul> -->
-			<!-- 						<li class="oplist"><ul> -->
-			<!-- 								<li><strong>우유 변경</strong></li> -->
-			<!-- 								<li><input type="radio" name="option4" value="" -->
-			<!-- 									onchange="handleChange3(this);" checked />선택안함</li> -->
-			<!-- 								<li><input type="radio" name="option4" value="아몬드밀크변경" -->
-			<!-- 									onchange="handleChange3(this);" />아몬드밀크변경</li> -->
-			<!-- 								<li><input type="radio" name="option4" value="오트밀크변경" -->
-			<!-- 									onchange="handleChange3(this);" />오트밀크변경 +500원</li> -->
-			<!-- 							</ul> -->
-			<!-- 				</div> -->
-			<!-- 			</div> -->
 
 			<br>
 			<div id="checkflex">
 				<div class="num">
-					<ul><li><h3>
+					<ul>
+						<li><h3>
 								<strong>수량</strong>
 							</h3></li>
 						<li><span style="display: inline" class="count"> <a
@@ -174,27 +129,35 @@ $('#show').on("click",function(){
 </script>
 <script type="text/javascript">
     function getlist() {
-    	let cartstore = '${sessionScope.cart}';
     	
-    	if(cartstore!=''){
-    		if('${param.STORE}'!=cartstore){
-    			if(!confirm("장바구니에는 한 지점의 메뉴만 담을수 있습니다.\n (확인)을 누를경우 기존의 장바구니는 비워집니다.")){
-    				
-    			}else{
-    				 let cart = {
-    					B_PHONE:'${sessionScope.B_PHONE}'	 
-    				 };
-    				cartService.removeAll(cart, function(result){
-    					console.log(result);
-    					addCart();
-    				});
-    			}
-    		}else{
-    			addCart();
+    	let bphone = '${sessionScope.B_PHONE}';
+    	let cartstore = '';
+    	cartService.get(bphone,function(result){
+    		if(result.check){// 장바구니에 상품이 있는지 확인
+    			cartstore = result.STORE; // 장바구니의 지점 번호 저장
     		}
-    	}else{
-    		addCart();
-    	}
+    		if(cartstore!=''){
+        		if('${param.STORE}'!=cartstore){ // 현재 지점과 같지 않다면
+        			if(!confirm("장바구니에는 한 지점의 메뉴만 담을수 있습니다.\n (확인)을 누를경우 기존의 장바구니는 비워집니다.")){
+        				
+        			}else{
+        				 let cart = {
+        					B_PHONE:'${sessionScope.B_PHONE}'	 
+        				 };
+        				cartService.removeAll(cart, function(result){// 모두 삭제
+        					console.log(result);
+        					addCart();
+        				});
+        			}
+        		}else{
+        			addCart();
+        		}
+        	}else{
+        		addCart();
+        	}
+    	});
+    	
+    	console.log(cartstore);
     }
     
     function addCart(){

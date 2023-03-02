@@ -71,7 +71,6 @@ public class StoreServiceImpl implements StoreService {
 		return storeDAO.getWaitingOrders(map);
 	}
 
-
 	@Override
 	public int updateOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateOrder(map);
@@ -82,20 +81,13 @@ public class StoreServiceImpl implements StoreService {
 		return storeDAO.updateOrderAlarm(map);
 	}
 
-
 	@Override
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return storeDAO.updateProcessingOrder(map);
 	}
 	
 	@Override
-	public int updateProcessingOrderAlarm(Map<String, Object> map) throws Exception {
-		return storeDAO.updateProcessingOrderAlarm(map);
-	}
-
-
-	@Override
-	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
+	public List<Map<String, Object>> getOrderDetail(String oidx) throws Exception {
 		return storeDAO.getOrderDetail(oidx);
 	}
 
@@ -123,5 +115,18 @@ public class StoreServiceImpl implements StoreService {
 	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
 		return storeDAO.getOrdersAllList(map);
 	}
+
+	@Override
+	public int getTodayCount(String today) throws Exception {
+		return storeDAO.getTodayCount(today);
+	}
+
+	@Override
+	public int getTodaySum(String today) throws Exception {
+		return storeDAO.getTodaySum(today);
+	}
+	
+	
+
 
 }

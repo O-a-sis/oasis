@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ include file="/WEB-INF/include/include-storeheader.jspf" %>
 <!DOCTYPE html>
 <html>
@@ -58,7 +59,7 @@
 					<p>
 						<strong><span class="p_name"></span>의 재고를</strong>
 					</p>
-					<select style="float: left;" name="selectStatus">
+					<select style="float: left" " name="selectStatus">
 						<option value="Y">품절</option>
 						<option value="N">재고있음</option>
 					</select>
@@ -142,4 +143,15 @@
    const $this = $(this);
 });
 </script>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+>>>>>>> 795bd4b (no message)
 </html>

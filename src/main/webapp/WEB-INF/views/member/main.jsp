@@ -60,7 +60,7 @@
 							<li><a
 								href='/Oasis/member/myCouponList.oa?B_PHONE=${map.B_PHONE }'>COUPON<i
 									class="fa-solid fa-ticket"></i></a></li>
-							<li>MyCart<i class="fa-solid fa-basket-shopping"></i></li>
+							<li><a href="http://localhost:8000/Oasis/member/cartList.oa">MyCart<i class="fa-solid fa-basket-shopping"></i></a></li>
 
 						</ul>
 					</div>

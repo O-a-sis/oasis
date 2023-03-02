@@ -58,6 +58,25 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 						></a>
 					<div id="hide" style="display: none">
 						<ul>
+<<<<<<< HEAD
+							<li class="oplist"><ul>
+									<li><strong>꿀 추가</strong></li>
+									<li><input type="radio" name="option1" value=""
+										onchange="handleChange1(this);" checked />선택안함</li>
+									<li><input type="radio" name="option1" value="꿀추가"
+										onchange="handleChange1(this);" />꿀추가 +700</li>
+								</ul></li>
+							<li class="oplist"><ul>
+									<li><strong>박스추가</strong></li>
+									<li><input type="radio"
+								name="option2" value="" onchange="handleChange2(this);" checked />선택안함
+								</li><li>
+								<input type="radio" name="option2" value="박스추가"
+								onchange="handleChange2(this);" />박스추가 +500원</li>
+								</ul>
+
+					</div>
+=======
 											
 								<li class="oplist"><ul>
 									<li><strong>꿀 추가 선태</strong></li>
@@ -75,6 +94,7 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 										onchange="handleChange2(this);" checked />박스 추가 +500원</li>
 								</ul>
 						</div>
+>>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
 				</div>
 
 				<br>
@@ -86,15 +106,27 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
 									id="result">1</span> <a href="#" class="plus"><i
 										class="fa-regular fa-plus"></i></a></li>
 							<li><h3>
+<<<<<<< HEAD
+									<strong><span style="display: none" class="cost"
+										id="cost"> <fmt:formatNumber value="${map.P_PRICE}"
+												pattern="#,###" />원
+									</span>
+									</strong>
+=======
 									<strong><span style="display: inline" class="cost"
 										id="cost"> <fmt:formatNumber value="${map.P_PRICE}"
 												pattern="#,###" />원
 									</span></strong>
+>>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
 								</h3></li>
 						</ul>
 
 						<div class="hidecount" style="display: none;">
+<<<<<<< HEAD
+							<span class="costhidden1">${map.P_PRICE }</span> <span class="costhidden2">00</span>
+=======
 							<span class="costhidden1">${map.P_PRICE}</span> <span class="costhidden2">00</span>
+>>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
 							<span class="costhidden3">00</span> <span class="costhidden4">00</span>
 							<span class="costhidden5">${map.P_PRICE}</span>
 						</div>
@@ -132,7 +164,11 @@ else {hide.style.display='none';show.innerText='퍼스널 옵션&nbsp&nbsp&nbsp>
          
         list.push($("input[name=option1]").val());
         list.push($("input[name=option2]").val());
+<<<<<<< HEAD
+        
+=======
 
+>>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
         let result=document.querySelector("#result").textContent;
         $("#C_COUNT").val(result);
         
@@ -172,10 +208,14 @@ let totalcost = document.querySelector(".totalcost");
 		if($("input[name='option2']:checked").val() == '박스추가') {
 			costhidden3.innerHTML = Number(500);
 		} 
+<<<<<<< HEAD
+
+=======
 		
 	}
 	
 	
+>>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142
 	
 	$(".costhidden1").on('DOMSubtreeModified', function() {
 		let sum1 = Number(costhidden1.innerHTML)+i*Number(costhidden2.innerHTML)+i*Number(costhidden3.innerHTML)+i*Number(costhidden4.innerHTML);
@@ -273,4 +313,8 @@ let totalcost = document.querySelector(".totalcost");
 	})
 		
 </script>
+<<<<<<< HEAD
+</html>>
+=======
 </html>
+>>>>>>> d6825cf0b285c9508d0f3c34494534a26fa04142

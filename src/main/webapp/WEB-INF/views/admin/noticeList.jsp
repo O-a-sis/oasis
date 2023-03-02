@@ -66,6 +66,36 @@ td {
 </head>
 <body>
 	<div>
+		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
+		<h3 style="display: inline">관리자</h3>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="storeList.oa"/>'">
+			<strong>지점관리</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="productList.oa"/>'">
+			<strong>상품관리</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="noticeList.oa"/>'">
+			<strong>공지사항</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="memberList.oa"/>'">
+			<strong>사이트관리</strong>
+		</h2>
+
+	</div>
+	<br>
+		<div
+		style="height: 20px; width: 100%; background-color: #ff6600;">
+	</div>
+	<br><br>
+	<div>
 		<h2 align="left">
 			<strong><a href="/Oasis/admin/noticeList.oa">공지사항</a></strong>
 		</h2>
@@ -79,7 +109,7 @@ td {
 	<div class="noticeboard">
 		<div class="wrap">
 			<!-- 검색처리기능 -->
-			<div class="search" align="center">
+			<div class="search">
 				<form id="searchForm"
 					action="<c:url value='/admin/noticeList.oa' />" method="get">
 					<select class="searcht" name="type">

@@ -1,5 +1,6 @@
 package com.oasis.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,13 +61,31 @@ public class MenuController {
 
 		HttpSession session = request.getSession();
 		commandMap.put("B_PHONE", session.getAttribute("B_PHONE"));
-		commandMap.put("C_STORE", session.getAttribute("cart"));
 		List<Map<String, Object>> list = menuService.cartList(commandMap.getMap());
 		List<Map<String, Object>> clist = myTabService.myCouponList(commandMap.getMap());
 
 		mv.addObject("clist", clist);
 		mv.addObject("list", list);
 		return mv;
+	}
+
+	@GetMapping(value = "/cart/{bphone}", consumes = "application/json", produces = { MediaType.APPLICATION_XML_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<Map<String, Object>> cartListAjax(@PathVariable("bphone") String bphone) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("B_PHONE", bphone);
+		List<Map<String, Object>> list = menuService.cartList(paramMap);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		if (list.size() > 0) {
+			for (Map<String, Object> map : list) {
+				resultMap.put("STORE", map.get("C_STORE"));
+				resultMap.put("check", true);
+			}
+		} else {
+			resultMap.put("check", false);
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/insertCart.oa", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
@@ -86,7 +107,7 @@ public class MenuController {
 	@PostMapping(value = "/cartDeleteAll.oa", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> cartDeleteAll(@RequestBody Map<String, Object> map, HttpServletRequest request)
 			throws Exception {
-System.out.println(map.get("B_PHONE"));
+		System.out.println(map.get("B_PHONE"));
 		// 세션
 		HttpSession session = request.getSession();
 		if (session.getAttribute("cart") != null) {
@@ -95,7 +116,7 @@ System.out.println(map.get("B_PHONE"));
 
 		int count = menuService.cartDeleteAll(map);
 
-		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
+		return count >= 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
 				: new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

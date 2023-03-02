@@ -332,7 +332,6 @@
 	function makeClickListener(map, storeContent) {
 		return function() {
 			storename.html(storeContent.name);
-			console.log(storeContent.check);
 			status.html(storeContent.status);
 			address.html(storeContent.groupAddress);
 			store.val(storeContent.store);
@@ -342,6 +341,7 @@
 				bidx.val(storeContent.bidx);
 			} else {
 				bookmark.removeAttr('class').addClass('off');
+				icon.removeAttr('class').addClass('fa-regular fa-star');
 			}
 			modal.removeAttr('class').addClass('modalon');
 		};

@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
 
+	<!-- 메뉴 인서트(관리자) -->
+	<insert id="insertMenu" parameterType="hashmap">
+		INSERT INTO
+		PRODUCT (P_IDX,
+		P_NAME, P_IMG, P_CONTENT, P_PRICE)
+		VALUES (
+		P_IDX_SEQ.NEXTVAL,
+		#{P_NAME},
+		#{P_IMG},
+		#{P_CONTENT},
+		#{P_PRICE}
+		)
+	</insert>
+
 	<select id="menuList" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
@@ -10,8 +24,9 @@
 		 	PRODUCT p , STATUS s
 		 WHERE p.P_IDX=s.SP_IDX AND s.SS_IDX=${STORE}	
 ]]>
-
 	</select>
+
+
 	<select id="mainmenuList" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
@@ -45,6 +60,19 @@
 ]]>
 	</select>
 
+	<update id="menuUpdate" parameterType="hashmap">
+<![CDATA[
+      UPDATE 
+      	PRODUCT
+      SET
+      	P_IMG = #{P_IMG},
+      	P_CONTENT = #{P_CONTENT},
+      	P_PRICE	= #{P_PRICE}
+      WHERE
+      	P_IDX= #{P_IDX}
+]]>
+	</update>
+
 	<insert id="insertCart" parameterType="hashmap">
 		INSERT INTO
 		CART
@@ -74,13 +102,11 @@
 		 WHERE
 		 C.C_STORE=S.STORE
 		 AND
-		 C_STORE=#{C_STORE} 
-		 AND
 		 CB_IDX=#{B_PHONE}
 		 
 ]]>
-
 	</select>
+
 
 	<update id="updateCart" parameterType="hashmap">
 		UPDATE CART SET
@@ -88,10 +114,22 @@
 	</update>
 
 	<delete id="cartDeleteAll" parameterType="hashmap">
-		DELETE FROM CART WHERE CB_IDX=${B_PHONE}
+		DELETE FROM CART WHERE
+		CB_IDX=${B_PHONE}
 	</delete>
 
+
 	<delete id="cartDelete" parameterType="hashmap">
-		DELETE FROM CART WHERE C_IDX=${C_IDX}
+		DELETE FROM CART WHERE
+		C_IDX=${C_IDX}
 	</delete>
+
+	<delete id="productDelete" parameterType="hashmap">
+      <![CDATA[
+         DELETE FROM PRODUCT
+         WHERE
+            P_IDX = #{P_IDX}   
+      ]]>
+	</delete>
+
 </mapper>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 
-<!-- 공지사항 검색 -->
+	<!-- 공지사항 검색 -->
 	<sql id="noticeSearch">
 		<trim prefix=" AND ( " suffix=" ) " prefixOverrides="OR">
 			<foreach item='type' collection="typeArr">
@@ -20,7 +20,7 @@
 		</trim>
 	</sql>
 
-		<!-- insertMember(회원가입) -->
+	<!-- insertMember(회원가입) -->
 	<insert id="insertMember" parameterType="hashmap">
 <![CDATA[
 INSERT INTO 
@@ -38,7 +38,7 @@ INSERT INTO
 	</insert>
 
 	<!-- 로그인 -->
-<select id="getMember" parameterType="hashmap"
+	<select id="getMember" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
 SELECT *
@@ -49,7 +49,7 @@ SELECT *
 ]]>
 	</select>
 
-<!-- findPassword(비밀번호 찾기) -->
+	<!-- findPassword(비밀번호 찾기) -->
 	<select id="findPassword" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
@@ -61,8 +61,8 @@ SELECT *
 ]]>
 	</select>
 
-		<!-- 메뉴바 -->
-<select id="myMenuBar" parameterType="hashmap"
+	<!-- 메뉴바 -->
+	<select id="myMenuBar" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
 SELECT *
@@ -74,7 +74,7 @@ SELECT *
 	</select>
 
 	<!-- 쿠폰 목록 -->
-<select id="myCouponList" parameterType="hashmap"
+	<select id="myCouponList" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
 SELECT *
@@ -87,18 +87,18 @@ SELECT *
 
 
 	<!-- 주문 내역 -->
-<select id="myOrderList" parameterType="hashmap"
+	<select id="myOrderList" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
 SELECT *
    FROM 
       ORDERS 
    WHERE
-      OB_IDX=#{OB_IDX}
+      OB_IDX=#{B_PHONE}
 ]]>
 	</select>
 
-	<!-- 쿠폰 사용  -->
+	<!-- 사용된 쿠폰 -->
 	<select id="useCoupon" parameterType="hashmap"
 		resultType="hashmap">
 	<![CDATA[
@@ -111,9 +111,47 @@ SELECT *
 	]]>
 	</select>
 
+	<!-- 쿠폰 사용표시 -->
+	<update id="updateCoupon" parameterType="hashmap">
+		UPDATE COUPON SET
+		CU_USE='Y' WHERE CU_IDX=#{OCU_IDX}
+	</update>
+
+	<!-- 주문번호 가져오기 -->
+	<select id="selectNextOIDX" resultType="hashmap">
+		SELECT
+		ZBF_GET_O_IDX('NOW') O_IDX
+		FROM
+		DUAL
+	</select>
+
+	<!-- 오더 작성 -->
+	<insert id="insertOrder" parameterType="hashmap">
+		INSERT INTO ORDERS
+		(O_STORE,OS_NAME,O_CONTENT,O_COUNT,O_SUM,O_IDX,O_STATUS,O_DATE,O_PICK,OB_IDX
+		<if test="OCU_IDX!=null">
+			,OCU_IDX
+		</if>
+		)
+		VALUES
+		(#{O_STORE},#{OS_NAME},#{O_CONTENT},#{O_COUNT},#{O_SUM},#{O_IDX},#{O_STATUS},SYSDATE,#{O_PICK},#{OB_IDX}
+		<if test="OCU_IDX!=null">
+			,#{OCU_IDX}
+		</if>
+		)
+	</insert>
+
+	<!-- 주문한 메뉴 작성 -->
+	<insert id="insertOrderMenu" parameterType="hashmap">
+		INSERT INTO
+		ORDERS_MENU
+		(OM_NAME,OM_IMG,OM_PRICE,OM_OP,OM_IDX,OM_STORE,OMB_IDX,OMP_IDX,OM_COUNT)
+		VALUES
+		(#{OM_NAME},#{OM_IMG},#{OM_PRICE},#{OM_OP},#{OM_IDX},#{OM_STORE},#{OMB_IDX},#{OMP_IDX},#{OM_COUNT})
+	</insert>
 
 	<!-- 주문내역 상세 -->
-<select id="myOrderDetail" parameterType="hashmap"
+	<select id="myOrderDetail" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
 SELECT * 
@@ -123,9 +161,9 @@ SELECT *
 		O_IDX=#{O_IDX} 
 ]]>
 	</select>
-	
-		<!-- 주문내역 상세 -->
-<select id="OrderDetail" parameterType="hashmap"
+
+	<!-- 주문내역 상세 -->
+	<select id="OrderDetail" parameterType="hashmap"
 		resultType="hashmap">
 <![CDATA[
 SELECT *
@@ -136,8 +174,8 @@ SELECT *
 ]]>
 	</select>
 
-	<!-- 이미지???????  -->
-<select id="selectImageList" parameterType="hashmap"
+	<!-- 이미지??????? -->
+	<select id="selectImageList" parameterType="hashmap"
 		resultType="hashmap">
 	<![CDATA[
 	 SELECT 
@@ -148,9 +186,9 @@ SELECT *
          
 	]]>
 	</select>
-	
-	
-	<!-- 내 스탬프  -->
+
+
+	<!-- 내 스탬프 -->
 	<select id="myStamp" parameterType="hashmap"
 		resultType="hashmap">
 	<![CDATA[
@@ -162,8 +200,8 @@ SELECT *
          B_PHONE=#{B_PHONE}
 	]]>
 	</select>
-	
-	    <!-- 공지사항 리스트 -->
+
+	<!-- 공지사항 리스트 -->
 	<select id="noticeList" parameterType="hashmap"
 		resultType="hashmap">
 		<include refid="common.pagingPre" /> 
@@ -190,9 +228,9 @@ SELECT *
 		WHERE 
 				N_IDX =#{N_IDX}
 		]]>
-		</select>
+	</select>
 
-<!-- 매장리스트 -->
+	<!-- 매장리스트 -->
 	<select id="getStoreList" parameterType="hashmap"
 		resultType="hashmap">
 		<![CDATA[
@@ -201,7 +239,7 @@ SELECT *
 			FROM  S_MEMBER 
 		]]>
 	</select>
-<!-- 매장디테일 -->
+	<!-- 매장디테일 -->
 	<select id="storeDetail" parameterType="hashmap"
 		resultType="hashmap">
 		<![CDATA[
