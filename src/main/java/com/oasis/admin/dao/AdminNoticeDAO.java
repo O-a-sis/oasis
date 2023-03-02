@@ -28,7 +28,7 @@ public class AdminNoticeDAO extends AbstractDAO {
 	}
 
 //	공지사항 수정 기능
-	public void noticeUpdate(Map<String, Object> map) throws Exception {
+	public void NoticeUpdate(Map<String, Object> map) throws Exception {
 		update("admin.noticeUpdate", map);
 	}
 

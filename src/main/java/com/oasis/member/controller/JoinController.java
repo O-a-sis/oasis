@@ -25,7 +25,7 @@ public class JoinController {
 	 }
 	  @RequestMapping(value="/joinSuccess.oa", method=RequestMethod.POST)
 	   public ModelAndView memberVerify(CommandMap commandMap) throws Exception{
-	     ModelAndView mv=new ModelAndView("join/joinForm2");
+	     ModelAndView mv=new ModelAndView("redirect:/member/loginForm.oa");
 	     joinService.insertMember(commandMap.getMap()); 
 
 	     return mv;

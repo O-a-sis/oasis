@@ -49,11 +49,12 @@
 				<div class="store_search tab_search">
 					<div class="search">
 
-							<input class="searchtext" type="text" name="keyword"  />
+						<input class="searchtext" type="text" name="keyword" />
 
-							<button class="btn btn-default sbtn" id="searchbtn">
-								<i class="fa-solid fa-magnifying-glass"></i>
-							</button>
+						<button class="btn btn-default sbtn" id="searchbtn">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+
 					</div>
 
 
@@ -94,7 +95,7 @@
 											<li class="innerl">${item2.ADDRESS1}${item2.ADDRESS2}</li>
 											<li class="innerl">
 												<div class="bookmark1">
-													<span class="on"><i class="fa-solid fa-heart"></i></span> <input
+													<span class="on"><i class="fa-solid fa-star"></i></span> <input
 														type="hidden" value="${item2.BS_NAME}" name="bs_name">
 													<input type="hidden" id="${item2.ADDRESS1}" name="address1">
 													<input type="hidden" value="${item2.ADDRESS2}"
@@ -104,9 +105,6 @@
 														type="hidden" value="${item2.B_STORE}" name="b_store">
 												</div>
 											</li>
-
-
-
 										</ul>
 										<button class="sbtn"
 											onclick="javascript:location.href='/Oasis/member/menuList.oa?S_NAME=${item2.BS_NAME}&STORE=${item2.B_STORE}'">주문하기</button>
@@ -123,21 +121,26 @@
 				<div class="modal-window wrap">
 					<div class="modalcon">
 						<div class="m_title">
-							<h3>
-								<span class="storename"></span>
+							<ul>
+								<li><span id="status"></span></li>
+								<li><span class="storename"></span></li>
+								<li>
+									<div class="bookmark">
+										<span class="off"><i class="fa-regular fa-star"></i></span>
+									</div>
+								</li>
 
+								<li><span id="address"></span></li>
+								<li>
+									<div class="storebtn">
+										<input type="hidden" id="store" name="store" /> <input
+											type="hidden" id="bidx" name="bidx" />
+										<button type="button" id='modalstoreBtn'>주문하기</button>
+									</div>
+								</li>
 
-							</h3>
-							<div class="bookmark">
-								<span class="off"><i class="fa-regular fa-heart"></i></span>
-							</div>
-							<span id="status"></span> <span id="address"></span>
+							</ul>
 
-							<div class="storebtn">
-								<input type="hidden" id="store" name="store" /> <input
-									type="hidden" id="bidx" name="bidx" />
-								<button type="button" id='modalstoreBtn'>주문하기</button>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -329,16 +332,16 @@
 	function makeClickListener(map, storeContent) {
 		return function() {
 			storename.html(storeContent.name);
-			console.log(storeContent.check);
 			status.html(storeContent.status);
 			address.html(storeContent.groupAddress);
 			store.val(storeContent.store);
 			if (storeContent.check == "true") {
 				bookmark.removeAttr('class').addClass('on');
-				icon.removeAttr('class').addClass('fa-solid fa-heart');
+				icon.removeAttr('class').addClass('fa-solid fa-star');
 				bidx.val(storeContent.bidx);
 			} else {
 				bookmark.removeAttr('class').addClass('off');
+				icon.removeAttr('class').addClass('fa-regular fa-star');
 			}
 			modal.removeAttr('class').addClass('modalon');
 		};
@@ -376,7 +379,7 @@
 			});
 
 			$(this).attr("class", "on");
-			$(this).find("i").attr("class", "fa-solid fa-heart");
+			$(this).find("i").attr("class", "fa-solid fa-star");
 
 		} else {
 			let bookmark = {
@@ -387,7 +390,7 @@
 			bookmarkService.remove(bookmark, function(result) {
 			});
 			$(this).attr("class", "off");
-			$(this).find("i").attr("class", "fa-regular fa-heart");
+			$(this).find("i").attr("class", "fa-regular fa-star");
 
 		}
 	});
@@ -411,7 +414,7 @@
 			});
 
 			$(this).attr("class", "on");
-			$(this).find("i").attr("class", "fa-solid fa-heart");
+			$(this).find("i").attr("class", "fa-solid fa-star");
 
 		} else {
 			let bookmark = {
@@ -422,10 +425,9 @@
 			bookmarkService.remove(bookmark, function(result) {
 			});
 			$(this).attr("class", "off");
-			$(this).find("i").attr("class", "fa-regular fa-heart");
+			$(this).find("i").attr("class", "fa-regular fa-star");
 
 		}
 	});
 </script>
-
 </html>

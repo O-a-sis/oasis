@@ -73,15 +73,67 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    function validateForm() {
+        var title = document.getElementById("title").value;
+        var content = document.getElementsByName("N_CONTENT")[0].value;
+        var type = document.getElementsByName("N_TYPE")[0].value;
+
+        
+        if (title == "") {
+            alert("제목을 입력해주세요.");
+            return false;
+        }
+        if (content == "") {
+            alert("내용을 입력해주세요.");
+            return false;
+        }
+        if(type==""){
+        	alert("카테고리를 선택해주세요.");
+        	return false;
+        }
+        return true;
+    }
+</script>
 </head>
 <body>
+	<div>
+		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
+		<h3 style="display: inline">관리자</h3>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="storeList.oa"/>'">
+			<strong>지점관리</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="productList.oa"/>'">
+			<strong>상품관리</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="noticeList.oa"/>'">
+			<strong>공지사항</strong>
+		</h2>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2 style="color: #ff6600; display: inline"
+			onclick="location.href='<c:url value="memberAllList.oa"/>'">
+			<strong>사이트관리</strong>
+		</h2>
+
+	</div>
+	<br>
+		<div
+		style="height: 20px; width: 100%; background-color: #ff6600;">
+	</div>
+	<br><br>
 	<div align="center">
 		<h3 align="left">공지사항 작성</h3>
 		<hr>
 	</div>
 	<div>
 		<form method="post" action="/Oasis/admin/noticeSave.oa"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data" onsubmit="return validateForm()">
 			<c:if test="${map.N_IDX ne NULL}">
 				<input type="hidden" name="N_IDX" value="${map.N_IDX}">
 			</c:if>
@@ -123,7 +175,7 @@
 								<label class="label" id="label" for="input">
 									<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
 								</label> <input id="input" class="input" accept="image/*" type="file"
-									required="true" name="N_IMAGE" hidden="true">
+									name="N_IMAGE" hidden="true">
 								<p class="preview-title">미리보기</p>
 								<div class="preview" id="preview"></div>
 							</main>
@@ -135,7 +187,8 @@
 								<label class="label" id="label" for="input">
 									<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
 								</label> <input id="input" class="input" accept="image/*" type="file"
-									required="true" name="N_IMAGE" hidden="true">
+									name="N_IMAGE" hidden="true"> <input type="hidden"
+									name="PREV_IMAGE" value="${map.N_IMAGE}">
 								<p class="preview-title">미리보기</p>
 								<div class="preview" id="preview">
 									<div class="container-img">
@@ -157,47 +210,56 @@
 					onClick="javascript:history.go(-1);">취소</button>
 			</div>
 		</form>
-	</div>
+	</table>
 </body>
 
 <script>
 
+//HTML 문서에서 id가 "input"인 요소와 "label"인 요소를 가져온다.
 var input = document.getElementById("input");
 var initLabel = document.getElementById("label");
 
+// 파일이 선택되었을 때 실행되는 이벤트 핸들러 등록
 input.addEventListener("change", (event) => {
+  // 선택된 파일 리스트를 가져온다.
   const files = changeEvent(event);
+  // 파일을 처리하는 함수를 호출한다.
   handleUpdate(files);
 });
 
+// 레이블 요소 위에 마우스 커서를 올렸을 때 실행되는 이벤트 핸들러 등록
 initLabel.addEventListener("mouseover", (event) => {
   event.preventDefault();
+  // 레이블 요소에 "label--hover" 클래스를 추가한다.
   const label = document.getElementById("label");
   label?.classList.add("label--hover");
 });
 
+// 레이블 요소에서 마우스 커서를 뗐을 때 실행되는 이벤트 핸들러 등록
 initLabel.addEventListener("mouseout", (event) => {
   event.preventDefault();
+  // 레이블 요소에서 "label--hover" 클래스를 제거한다.
   const label = document.getElementById("label");
   label?.classList.remove("label--hover");
 });
 
+// 드래그 앤 드롭 이벤트 관련 이벤트 핸들러 등록
 document.addEventListener("dragenter", (event) => {
   event.preventDefault();
-  console.log("dragenter");
+  // 드래그 앤 드롭 이벤트가 일어난 대상의 클래스 이름이 "inner"인 경우 배경 색상을 변경한다.
   if (event.target.className === "inner") {
     event.target.style.background = "#616161";
   }
 });
 
 document.addEventListener("dragover", (event) => {
-  console.log("dragover");
+  // 드래그 오버 이벤트가 일어날 때 실행되는 이벤트 핸들러
   event.preventDefault();
 });
 
 document.addEventListener("dragleave", (event) => {
   event.preventDefault();
-  console.log("dragleave");
+  // 드래그 이벤트가 범위를 벗어날 때 실행되는 이벤트 핸들러
   if (event.target.className === "inner") {
     event.target.style.background = "#3a3a3a";
   }
@@ -205,74 +267,84 @@ document.addEventListener("dragleave", (event) => {
 
 document.addEventListener("drop", (event) => {
   event.preventDefault();
-  console.log("drop");
+  // 드롭 이벤트가 일어난 대상의 클래스 이름이 "inner"인 경우 처리
   if (event.target.className === "inner") {
+    // 드롭한 파일 리스트를 가져온다.
     const files = event.dataTransfer?.files;
+    // 대상의 배경 색상을 변경한다.
     event.target.style.background = "#3a3a3a";
+    // 파일 input 요소에 드롭한 파일 리스트를 설정한다.
     input.files = files;
+    console.log(files)
+    // 파일을 처리하는 함수를 호출한다.
     handleUpdate([...files]);
   }
 });
 
+// input 요소의 change 이벤트에서 실행되는 함수
 function changeEvent(event){
   const { target } = event;
   return [...target.files];
 };
 
+// 파일 목록을 받아서 HTML 페이지에 이미지로 표시
 function handleUpdate(fileList){
   const preview = document.getElementById("preview");
 
+  // 파일 목록을 반복하면서 각 파일에 대해 이미지를 만든다
   fileList.forEach((file) => {
     const reader = new FileReader();
+
+    // 파일이 로드되면, 이미지 데이터로 <img> 요소를 만들고 미리보기 컨테이너에 추가
     reader.addEventListener("load", (event) => {
       const img = el("img", {
         className: "embed-img",
         src: event.target?.result,
       });
-<<<<<<< HEAD
-=======
-      if('${map.N_IMAGE}'==''){
-        const imgContainer = el("div", { className: "container-img" }, img);
-        preview.append(imgContainer);
-      } else {
->>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
-        const imgTag = document.querySelector('.preview');
-        while (imgTag.firstChild) {
-          imgTag.removeChild(imgTag.firstChild);
-        }
-        const imgContainer = el("div", { className: "container-img" }, img);
-        preview.append(imgContainer);
-<<<<<<< HEAD
-=======
+
+      // 미리보기 컨테이너에서 기존 이미지를 제거하고 새 이미지를 추가
+      const imgTag = document.querySelector('.preview');
+      while (imgTag.firstChild) {
+        imgTag.removeChild(imgTag.firstChild);
       }
->>>>>>> 68c7d966264f89e516942bb3c71c787e274d71ba
+      const imgContainer = el("div", { className: "container-img" }, img);
+      preview.append(imgContainer);
     });
+
+    // 미리보기 컨테이너에서 기존 이미지를 제거하고 새 이미지를 추가
     reader.readAsDataURL(file);
   });
-};
+}
 
+// 이것은 속성과 자식 노드가 있는 HTML 요소를 생성하는 데 도움이 되는 함수입니다.
 function el(nodeName, attributes, ...children) {
+  // 주어진 이름으로 HTML 요소를 만든다
   const node =
     nodeName === "fragment"
       ? document.createDocumentFragment()
       : document.createElement(nodeName);
 
+  // HTML 요소에 속성을 설정한다
   Object.entries(attributes).forEach(([key, value]) => {
     if (key === "events") {
+      // 만약 속성이 이벤트 리스너라면, 요소에 추가
       Object.entries(value).forEach(([type, listener]) => {
         node.addEventListener(type, listener);
       });
     } else if (key in node) {
+      // 만약 속성이 요소의 속성(property)이라면, 직접 설정한다
       try {
         node[key] = value;
       } catch (err) {
         node.setAttribute(key, value);
       }
     } else {
+      // 그렇지 않으면 일반적인 속성으로 설정한다
       node.setAttribute(key, value);
     }
   });
 
+  // HTML 요소에 자식 노드를 추가
   children.forEach((childNode) => {
     if (typeof childNode === "string") {
       node.appendChild(document.createTextNode(childNode));
@@ -281,6 +353,7 @@ function el(nodeName, attributes, ...children) {
     }
   });
 
+  // HTML 요소를 반환
   return node;
 }
 </script>
