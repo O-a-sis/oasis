@@ -30,13 +30,19 @@
 	<div class="wrap">
 		<div class="subhead">
 			<ul>
-				<li><i class="fa-solid fa-chevron-left"></i></li>
+				<li><a href="javascript:window.history.back();"><i class="fa-solid fa-chevron-left"></i></a></li>
 				<li><span class="subtit">주문하기</span>
 			</ul>
 		</div>
 		<section id="cartlist">
 			<div class="st">
+			<c:choose>
+						<c:when test="${fn:length(list)>0}">
 				<h3>${list[0].S_NAME}에서주문중!</h3>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<c:set var="sum" />
 
@@ -48,7 +54,7 @@
 								<li><ul>
 
 										<li><img
-											src="<c:url value='/images/contents/${cart.CP_IMG}.png'/>"></li>
+											src="<c:url value='/images/contents/${cart.CP_IMG}'/>"></li>
 										<li>${cart.CP_NAME}</li>
 
 										<li><c:forEach var="i" items="${cart.C_OP}"
@@ -76,13 +82,17 @@
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-							<li>텅</li>
+							<li style="height: 400px;"><img
+								src="<c:url value='/images/contents/cartnone.png'/>"
+								style="width: 100%;"></li>
 						</c:otherwise>
 					</c:choose>
 
 				</ul>
 
-				<span id="menuAmount">${sum}</span>원
+				<div style="float:left;width:70%"><h3>주문금액</h3></div><span style="    float: right;
+    margin-right: 10px;
+    font-size: 19px;" id="menuAmount">${sum}</span>
 			</div>
 		</section>
 		<div id="linecss">
@@ -111,19 +121,32 @@
 
 
 					<ul class="clist">
+						<c:choose>
+							<c:when test="${fn:length(clist)>0}">
+								<li class="cli"><input type="radio" name="option2"
+									onClick="discount($(this))" value="" id="cunone" checked /> <label
+									for="cunone" class="culabel"><ul>
+											<li>선택 안함</li>
+											<li class="cuprice">0</li>
+											<li></li>
+										</ul></label></li>
+								<c:forEach var="item" items="${clist}" varStatus="status">
+									<li class="cli"><input type="radio" name="option2"
+										onClick="discount($(this))" value="${item.CU_IDX}"
+										id="cu${status.index}" /> <label for="cu${status.index}"
+										class="culabel"><ul>
+												<li>${item.COUPON}!</li>
+												<li class="cuprice">${item.CU_PRICE}</li>
+												<li><fmt:formatDate value="${item.CU_LIMIT}"
+														pattern="yyyy-MM-dd" /></li>
 
-						<c:forEach var="item" items="${clist}">
-							<li class="cli"><input type="radio" name="option2"
-								onClick="discount($(this))" value="${item.CU_IDX}" id="cu" /> <label
-								for="cu" class="culabel"><ul>
-										<li>${item.COUPON}!</li>
-										<li class="cuprice">${item.CU_PRICE}</li>
-										<li><fmt:formatDate value="${item.CU_LIMIT}"
-												pattern="yyyy-MM-dd" /></li>
-
-									</ul></label></li>
-						</c:forEach>
-
+											</ul></label></li>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<li>쿠폰이 존재하지 않습니다.</li>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 
 				</div>
@@ -152,24 +175,24 @@
 							</h3></li>
 						<li><span class="discount">0</span>원</li>
 					</ul>
-
-					<div class="pprice">
-						<ul>
-							<li><h3>
-									<strong>총 결제금액</strong>
-								</h3></li>
-							<li>
-								<h3 style="color: #ff751a; display: inline">
-									<div class="total">
-										<span id="totalAmount">${sum}</span>원
-									</div>
-								</h3>
-							</li>
-						</ul>
-
-					</div>
+				</div>
+				<div class="pprice">
+					<ul>
+						<li><h3>
+								<strong>총 결제금액</strong>
+							</h3></li>
+						<li>
+							<h3 style="color: #ff751a; display: inline">
+								<div class="total">
+									<span id="totalAmount">${sum}</span>원
+								</div>
+							</h3>
+						</li>
+					</ul>
 
 				</div>
+
+			</div>
 		</section>
 
 	</div>
@@ -259,9 +282,11 @@
 	function discount(obj) {
 		let cuprice = obj.closest("li").find("ul li.cuprice").html();
 		$(".discount").html(cuprice);
-		console.log(cuprice);
+		console.log(obj.val());
 		$("#totalAmount").html(
 				Number($("#menuAmount").html()) - Number(cuprice));
+		$(".cli").css("background-color", "#fff8f3");
+		obj.closest("li.cli").css("background-color", "#e68e41");
 	}
 </script>
 <script>
@@ -284,7 +309,8 @@
 			totalCount += Number($("input[name=C_COUNT]").eq(i).val());
 		}
 		if (totalCount > 1) {
-			ocontent = $("input[name=CP_NAME]").eq(0).val() + " 외 "+(totalCount-1)+" 건";
+			ocontent = $("input[name=CP_NAME]").eq(0).val() + " 외 "
+					+ (totalCount - 1) + " 건";
 		} else {
 			ocontent = $("input[name=CP_NAME]").eq(0).val();
 		}
@@ -302,10 +328,9 @@
 			'menuList' : menuArray
 		};
 		console.log(order);
-				orderService.add(order,function(result){
-					console.log(result);
-					location.replace(result);
-				});
+		orderService.add(order, function(result) {
+			location.replace(result);
+		});
 	}
 </script>
 </html>

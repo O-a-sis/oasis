@@ -28,7 +28,7 @@
 	<div class="wrap">
 		<div class="subhead">
 			<ul>
-				<li><i class="fa-solid fa-chevron-left"></i></li>
+				<li><a href="javascript:window.history.back();"><i class="fa-solid fa-chevron-left"></i></a></li>
 				<li><span class="subtit">스탬프</span>
 			</ul>
 		</div>

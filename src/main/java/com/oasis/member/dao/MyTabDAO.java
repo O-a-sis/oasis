@@ -53,4 +53,8 @@ public class MyTabDAO extends AbstractDAO{
 	public int updateCoupon(Map<String, Object> map) throws Exception {
 		return (int) update("member.updateCoupon", map);
 	}
+	
+	public int updateStamp(Map<String, Object> map) throws Exception {
+		return (int) update("member.updateStamp", map);
+	}
 }

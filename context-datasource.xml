@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+    
+   <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
+			<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property> 
+			<property name="username" value="book_ex"></property> <property name="password" 
+			value="oracle"></property> -->
+		<property name="driverClassName"
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="jdbcUrl"
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
+		<property name="username" value="oasis"></property>
+		<property name="password" value="oasis"></property>
+	</bean>
+
+	<!-- HikariCP configuration -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+    
+</beans>

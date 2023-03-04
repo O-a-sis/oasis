@@ -193,9 +193,9 @@ let price = ${map.P_PRICE};
 let i = 1;
 let totalcost = document.querySelector(".totalcost");
 	
-	function handleChange1() {
- 		if($("input[name='option1']:checked").val() == '꿀추가'){
-			costhidden2.innerHTML = Number(700);
+	function handleChange4() {
+ 		if($("input[name='option5']:checked").val() == '꿀추가'){
+			costhidden5.innerHTML = Number(700);
 		} else {
 			costhidden2.innerHTML = 0;
 		}

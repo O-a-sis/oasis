@@ -39,13 +39,13 @@
 	<div class="wrap">
 		<div class="subhead">
 			<ul>
-				<li><i class="fa-solid fa-chevron-left"></i></li>
+			<li><a href="javascript:window.history.back();"><i class="fa-solid fa-chevron-left"></i></a></li>
 				<li><span class="subtit">메뉴선택</span>
 			</ul>
 		</div>
 		<section class="menudetail">
 			<div class="menuimg">
-				<img src="<c:url value='/images/contents/${map.P_IMG}.png'/>" />
+				<img src="<c:url value='/images/contents/${map.P_IMG}'/>" />
 				<h2>${map.P_NAME}</h2>
 				${map.P_CONTENT} <br>
 
@@ -167,13 +167,15 @@ $('#show').on("click",function(){
          list.push($("input[name=option2]:checked").val());
          list.push($("input[name=option3]:checked").val());
          list.push($("input[name=option4]:checked").val());
+         list.push($("input[name=option5]:checked").val());
+         list.push($("input[name=option6]:checked").val());
          
          let result=document.querySelector("#result").textContent;
          $("#C_COUNT").val(result);
          
          let costtotal=document.querySelector(".costhidden5").textContent;
          $("#C_PRICE").val(costtotal);
-              												 <!-- input의 value들을 배열 list에 넣는다. -->
+     															 <!-- input의 value들을 배열 list에 넣는다. -->
          $("#test_list").val(list);                            <!-- hidden type에 value값으로 넣어준다. -->
          
          let cart = {
@@ -260,6 +262,22 @@ function handleChange0() {
 		console.log($("input[name='option4']:checked").val());
 	}
 	
+	function handleChange4() {
+ 		if($("input[name='option5']:checked").val() == '꿀추가'){
+			costhidden2.innerHTML = Number(700);
+		} else {
+			costhidden2.innerHTML = 0;
+		}
+	}
+	
+	function handleChange5() {
+		if($("input[name='option6']:checked").val() == '') {
+			costhidden3.innerHTML = 0;
+		} 
+		if($("input[name='option6']:checked").val() == '박스추가') {
+			costhidden3.innerHTML = Number(500);
+		} 
+	}
 	
 	$(".costhidden0").on('DOMSubtreeModified', function() {
 		let sum0 = i*Number(costhidden0.innerHTML)+i*Number(costhidden1.innerHTML)+i*Number(costhidden2.innerHTML)+i*Number(costhidden3.innerHTML)+i*Number(costhidden4.innerHTML);

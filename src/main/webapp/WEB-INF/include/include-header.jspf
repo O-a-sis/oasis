@@ -72,7 +72,7 @@
 								</ul></li>
 							<li><span>약관 및 정책</span>
 								<ul>
-									<li><a href="#">이용약관</a></li>
+									<li><a href="http://localhost:8000/Oasis/member/ect.oa">이용약관</a></li>
 								</ul></li>
 						</ul>
 					</div>
@@ -92,7 +92,7 @@
 						class="fa-solid fa-house"></i></a></li>
 				<li><a href=<c:url value='/member/storeList.oa' />><img
 						src="../images/common/oasis.png" alt="메뉴열기" /></a></li>
-				<li><a href="#"><i class="fa-solid fa-clipboard"></i></a></li>
+				<li><a href="http://localhost:8000/Oasis/member/myOrderList.oa?B_PHONE=${sessionScope.B_PHONE}"><i class="fa-solid fa-clipboard"></i></a></li>
 				<li><button class="gnb_open">
 						<img src="../images/common/gnb_open.png" alt="메뉴열기" />
 					</button></li>

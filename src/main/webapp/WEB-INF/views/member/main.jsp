@@ -81,7 +81,7 @@
 						<div class="pwrap">
 							<div class="inner">
 								<a
-									href="<c:url value='/admin/noticeDetail.oa?N_IDX=${img.N_IDX}'/>">
+									href="<c:url value='/member/noticeDetail.oa?N_IDX=${img.N_IDX}'/>">
 									<img src="/Oasis/img/${img.N_IMAGE}" alt="이미지">
 								</a>
 							</div>
@@ -110,7 +110,7 @@
 							<div class="card">
 								<div class="card__face card__face--front">
 									<img
-										src="<c:url value='/images/contents/${menulist.P_IMG}.png'/>"
+										src="<c:url value='/images/contents/${menulist.P_IMG}'/>"
 										alt="" />
 								</div>
 								<div class="card__face card__face--back">
