@@ -31,7 +31,7 @@
 					alt="로고" /></a>
 			<ul style="text-align: center;">
 				<li></li>
-				<li><span class="subtit">로그인</span></li>
+				<li style="margin-right:32%"><span class="subtit">로그인</span></li>
 			</ul>
 		</div>
 		<section id="login">

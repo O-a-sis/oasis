@@ -34,8 +34,10 @@
 	<div class="wrap">
 		<div class="subhead">
 			<ul>
-				<li><i class="fa-solid fa-chevron-left"></i></li>
+				<li><a href="javascript:window.history.back();"><i class="fa-solid fa-chevron-left"></i></a></li>
 				<li><span class="subtit">메뉴선택</span>
+				<li><a href="http://localhost:8000/Oasis/member/cartList.oa"><i
+						class="fa-solid fa-cart-shopping"></i></a></li>
 			</ul>
 		</div>
 		<section class="menulist">
@@ -56,82 +58,145 @@
 						<div>
 							<ul>
 								<c:forEach var="menu" items="${list}">
-										<c:if test="${menu.P_CATEGORY eq 'C'}">
-											<li><a href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>" ><ul>
-												<li><img src="<c:url value='/images/contents/${menu.P_IMG}.png'/>"
-													alt="" /></li>
-												<li>${menu.P_NAME}</li>
-												<li>${menu.P_PRICE}</li>
-											</ul></a>
-										</li></c:if>
-										
-									</c:forEach>
+									<c:if test="${menu.P_CATEGORY eq 'C'}">
+										<c:if test="${menu.S_SO eq 'N'}">
+											<li><a
+												href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>"><ul>
+														<li><img
+															src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+															alt="" /></li>
+														<li>${menu.P_NAME}</li>
+														<li>${menu.P_PRICE}</li>
+													</ul></a></li>
+										</c:if>
+										<c:if test="${menu.S_SO eq 'Y'}">
+											<li><ul>
+													<li><img
+														src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+														alt=""  /></li>
+													<li>${menu.P_NAME}<span class="soldout">품절</span></li>
+													<li>${menu.P_PRICE}</li>
+												</ul></li>
+										</c:if>
+									</c:if>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
 					<div class="juice" style="display: none;">
 						<div>
-						<ul>
-							<c:forEach var="menu" items="${list}">
-								<c:if test="${menu.P_CATEGORY eq 'J'}">
-										<li><a href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>" ><ul>
-												<li><img src="<c:url value='/images/contents/${menu.P_IMG}.png'/>"
-													alt="" /></li>
-												<li>${menu.P_NAME}</li>
-												<li>${menu.P_PRICE}</li>
-											</ul></a>
-										</li></c:if>
-							</c:forEach>
+							<ul>
+									<c:forEach var="menu" items="${list}">
+									<c:if test="${menu.P_CATEGORY eq 'J'}">
+										<c:if test="${menu.S_SO eq 'N'}">
+											<li><a
+												href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>"><ul>
+														<li><img
+															src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+															alt="" /></li>
+														<li>${menu.P_NAME}</li>
+														<li>${menu.P_PRICE}</li>
+													</ul></a></li>
+										</c:if>
+										<c:if test="${menu.S_SO eq 'Y'}">
+											<li><ul>
+													<li><img
+														src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+														alt=""  /></li>
+													<li>${menu.P_NAME}<span class="soldout">품절</span></li>
+													<li>${menu.P_PRICE}</li>
+												</ul></li>
+										</c:if>
+									</c:if>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
 
 					<div class="dessert" style="display: none;">
 						<div>
-									<ul>
-							<c:forEach var="menu" items="${list}">
-								<c:if test="${menu.P_CATEGORY eq 'D'}">
-										<li><a href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>" ><ul>
+							<ul>
+									<c:forEach var="menu" items="${list}">
+									<c:if test="${menu.P_CATEGORY eq 'D'}">
+										<c:if test="${menu.S_SO eq 'N'}">
+											<li><a
+												href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>"><ul>
+														<li><img
+															src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+															alt="" /></li>
+														<li>${menu.P_NAME}</li>
+														<li>${menu.P_PRICE}</li>
+													</ul></a></li>
+										</c:if>
+										<c:if test="${menu.S_SO eq 'Y'}">
+											<li><ul>
 													<li><img
-														src="<c:url value='/images/contents/${menu.P_IMG}.png'/>"
-														alt="" /></li>
-													<li>${menu.P_NAME}</li>
+														src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+														alt=""  /></li>
+													<li>${menu.P_NAME}<span class="soldout">품절</span></li>
 													<li>${menu.P_PRICE}</li>
-												</ul></a>
-										</li></c:if>
-							</c:forEach>
+												</ul></li>
+										</c:if>
+									</c:if>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
 					<div class="ade" style="display: none;">
 						<div>
-									<ul>
-							<c:forEach var="menu" items="${list}">
-								<c:if test="${menu.P_CATEGORY eq 'A'}">
-									<li><a href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>" ><ul>
-												<li><img src="<c:url value='/images/contents/${menu.P_IMG}.png'/>"
-													alt="" /></li>
-												<li>${menu.P_NAME}</li>
-												<li>${menu.P_PRICE}</li>
-											</ul></a>
-										</li></c:if>
-							</c:forEach>
+							<ul>
+									<c:forEach var="menu" items="${list}">
+									<c:if test="${menu.P_CATEGORY eq 'A'}">
+										<c:if test="${menu.S_SO eq 'N'}">
+											<li><a
+												href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>"><ul>
+														<li><img
+															src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+															alt="" /></li>
+														<li>${menu.P_NAME}</li>
+														<li>${menu.P_PRICE}</li>
+													</ul></a></li>
+										</c:if>
+										<c:if test="${menu.S_SO eq 'Y'}">
+											<li><ul>
+													<li><img
+														src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+														alt=""  /></li>
+													<li>${menu.P_NAME}<span class="soldout">품절</span></li>
+													<li>${menu.P_PRICE}</li>
+												</ul></li>
+										</c:if>
+									</c:if>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
 					<div class="smoothie" style="display: none;">
 						<div>
-									<ul>
-							<c:forEach var="menu" items="${list}">
-								<c:if test="${menu.P_CATEGORY eq 'S'}">
-									<li><a href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>" ><ul>
-												<li><img src="<c:url value='/images/contents/${menu.P_IMG}.png'/>"
-													alt="" /></li>
-												<li>${menu.P_NAME}</li>
-												<li>${menu.P_PRICE}</li>
-											</ul></a>
-										</li></c:if>
-							</c:forEach>
+							<ul>
+									<c:forEach var="menu" items="${list}">
+									<c:if test="${menu.P_CATEGORY eq 'S'}">
+										<c:if test="${menu.S_SO eq 'N'}">
+											<li><a
+												href="<c:url value='/member/menuDetail.oa?STORE=${param.STORE}&P_IDX=${menu.P_IDX}'/>"><ul>
+														<li><img
+															src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+															alt="" /></li>
+														<li>${menu.P_NAME}</li>
+														<li>${menu.P_PRICE}</li>
+													</ul></a></li>
+										</c:if>
+										<c:if test="${menu.S_SO eq 'Y'}">
+											<li><ul>
+													<li><img
+														src="<c:url value='/images/contents/${menu.P_IMG}'/>"
+														alt=""  /></li>
+													<li>${menu.P_NAME}<span class="soldout">품절</span></li>
+													<li>${menu.P_PRICE}</li>
+												</ul></li>
+										</c:if>
+									</c:if>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>

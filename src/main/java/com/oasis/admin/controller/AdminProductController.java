@@ -51,7 +51,7 @@ public class AdminProductController {
 		int pageSize = 5;// 한 페이지에 보여줄 행의 수
 		int start = (page * pageSize) - pageSize + 1;
 		int end = page * pageSize;
-		int menuListCount = 0; // 전체 게시글 수
+		int productListCount = 0; // 전체 게시글 수
 		int pageBlock = 5; // 표시할 페이지의 수
 		String url = "productList.oa";
 		String searchUrl = "";
@@ -59,17 +59,17 @@ public class AdminProductController {
 		commandMap.put("START", start);
 		commandMap.put("END", end);
 		
-		List<Map<String, Object>> menuList = menuService.menuList(commandMap.getMap());
+		List<Map<String, Object>> productList = menuService.productList(commandMap.getMap());
 
-		if (menuList.size() > 0) {
-			menuListCount = Integer.parseInt(String.valueOf(menuList.get(0).get("TOTAL_COUNT")));
+		if (productList.size() > 0) {
+			productListCount = Integer.parseInt(String.valueOf(productList.get(0).get("TOTAL_COUNT")));
 		}
 
 		// 페이징할 아이템의 총 수, 페이지의 수 ex> 1~5 6~10, 한 페이지에 표시할 게시글의 수, 현재 페이지, 이동주소, 검색시 사용할
 		// 주소 입력
-		Paging paging = new Paging(menuListCount, pageBlock, pageSize, page, url, searchUrl);
+		Paging paging = new Paging(productListCount, pageBlock, pageSize, page, url, searchUrl);
 
-		mv.addObject("list", menuList);
+		mv.addObject("list", productList);
 		mv.addObject("paging", paging);
 		mv.addObject("page", page);
 		
@@ -130,7 +130,7 @@ public class AdminProductController {
 
 		long image = System.currentTimeMillis();
 
-		String uploadImageName = "image-" + image + ".jpg";
+		String uploadImageName =  image + ".png";
 
 		// 상품 이미지를 입력할 폴더 설정
 		String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "img";
@@ -139,7 +139,7 @@ public class AdminProductController {
 		System.out.println(path);
 
 			FileUpload.fileUpload(P_IMG_FILE, path, uploadImageName);
-			commandMap.put("P_IMG", image);
+			commandMap.put("P_IMG", uploadImageName);
 		
 		menuService.insertMenu(commandMap.getMap());
 		return mv;

@@ -49,7 +49,7 @@
 	<c:forEach items="${list}" var="item">
 		<table class="status" border=0>
 			<tr>
-			<td rowspan=3><img height=200px src="<c:url value='/img/image-${item.P_IMG}.jpg'/>" /></td>
+			<td rowspan=3><img height=200px src="<c:url value='/img/${item.P_IMG}'/>" /></td>
 			
 			<td><h3 onclick="location.href='<c:url value="productDetail.oa?P_IDX=${item.P_IDX}&page=${page}"/>'">${item.P_IDX}.&nbsp;<strong>${item.P_NAME }</strong></h3></td>
 			
