@@ -167,6 +167,40 @@
 
 		</div>
 	</div>
+	
+	<div id="modal3" class="modal-overlay">
+		<div class="modal-window" id="popupPrdCompare"
+			data-popup-layer="popupPrdCompare">
+			<div class="title">
+
+				<div class="close-area" data-focus-next="popupPrdCompare">X</div>
+
+				<div>
+					<center>
+					<h3>주문을 접수하시겠습니까?</h3>
+				</div>
+			</div>
+
+			<div class="content">
+					<p>
+						<strong>주문 완료 시간을</strong>
+					</p>
+					<select style="float: left" name="selectTime">
+						<option value="10">10분</option>
+						<option value="20">20분</option>
+						<option value="30">30분</option>
+					</select>
+					<p>
+						<strong>후로 지정합니다.</strong>
+					</p>
+					
+					<center>
+					<button type="button" class="button" style="color: white; background: #819FF7" id="uptBtn2">주문접수</button>		
+					</center>
+			</div>
+
+		</div>
+	</div>
 
 </body>
 
@@ -176,16 +210,7 @@
 		
 		$(".orders").on("click", "tr td button", function(){
 			if($(this).attr("id")== 'uptBtn') {
-				let oidx = $(this).closest("td").find("input[id=oidx]").val();
-				let ostore = $(this).closest("td").find("input[id=ostore]").val();
-				let obidx = $(this).closest("td").find("input[id=obidx]").val();
-				var comSubmit = new ComSubmit();
-				comSubmit.setUrl("<c:url value='/store/orderUpdate.oa'/>");
-				comSubmit.addParam("O_IDX", oidx);
-				comSubmit.addParam("O_STORE", ostore);
-				comSubmit.addParam("OB_IDX", obidx);
-				comSubmit.addParam("alarm", 1);
-				comSubmit.submit();
+				modal3On();
 			} else if($(this).attr("id")== 'uptPcBtn') {
 				let oidx = $(this).closest("td").find("input[id=oidx]").val();
 				let ostore = $(this).closest("td").find("input[id=ostore]").val();
@@ -199,6 +224,21 @@
 				comSubmit.submit();
 			}
 		});
+		
+		$("#uptBtn2").on("click", function() {
+			let oidx = $("input[id=oidx]").val();
+			let ostore = $("input[id=ostore]").val();
+			let obidx = $("input[id=obidx]").val();
+			let time = $('select[name=selectTime]').val();
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/store/orderUpdate.oa'/>");
+			comSubmit.addParam("O_IDX", oidx);
+			comSubmit.addParam("O_STORE", ostore);
+			comSubmit.addParam("OB_IDX", obidx);
+			comSubmit.addParam("TIME", time);
+			comSubmit.addParam("alarm", 1);
+			comSubmit.submit(); 
+		})
 	});
 </script>
 <script>
@@ -240,7 +280,7 @@
 					$(".status").html("접수대기")
 					modalProcessingBtn.hide();
 					modalCompleteBtn.hide();
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
+					/* CountDownTimer(modalInputOtime.val(), 'timer');  */
 				} else if(status=='2') {
 					$(".status").html("제조중")
 					modalUptBtn.hide();
@@ -265,11 +305,13 @@
  		modalUptBtn.on("click", function(e) {			
  			let oidx = modalInputOidx.val();
  			let obidx = modalInputObidx.val();
+ 			let time = $('select[name=selectTime]').val();
 			var order = {
 					O_IDX : oidx,
 					O_STORE : ${sessionScope.STORE},
 					OB_IDX : obidx,
-					alarm : 2
+					alarm : 2,
+					TIME : time
 				};		
 			orderService.updateOrder(order, function(result) {			
 			});		
@@ -286,6 +328,7 @@
 				$(".cprice").html(order[0].CU_PRICE);
 				$(".total").html(order[0].O_SUM);
 				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				$(".otime").html(order[0].O_TIME);
 				let status = order[0].O_STATUS;
 
 					$(".status").html("제조중")
@@ -293,7 +336,7 @@
 					modalProcessingBtn.show();
 					modalCompleteBtn.hide();
 					modalCancelBtn.hide();
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
+					CountDownTimer(order[0].O_TIME, 'timer'); 
 
 			});		
  		});
@@ -398,5 +441,40 @@ function CountDownTimer(dt, id) {
      }
      timer = setInterval(showRemaining, 1000);
  }
+</script>
+<script>
+	
+	const modal3 = document.getElementById("modal3");
+
+	function modal3On() {
+	    modal3.style.display = "flex"
+	}
+	function ismodal3On() {
+	    return modal3.style.display === "flex"
+	}
+	function modal3Off() {
+	    modal3.style.display = "none"
+	}
+	
+	const closeBtn3 = modal3.querySelector(".close-area")
+	closeBtn3.addEventListener("click", e => {
+	    modal3Off()
+	    location.reload();
+	});
+	modal3.addEventListener("click", e => {
+	    const evTarget = e.target
+	    if(evTarget.classList.contains("modal3-overlay")) {
+	        modal3Off()
+	    }
+	});
+	window.addEventListener("keyup", e => {
+	    if(ismodal3On() && e.key === "Escape") {
+	        modal3Off()
+	    }
+	});
+	const testScrPop3 = $('modal3-window');
+   testScrPop3.scroll(function(){
+   const $this = $(this);
+});
 </script>
 </html>

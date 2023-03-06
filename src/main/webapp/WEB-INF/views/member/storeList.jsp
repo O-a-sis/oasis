@@ -36,8 +36,10 @@
 	<div class="wrap">
 		<div class="subhead">
 			<ul>
-				<li><i class="fa-solid fa-chevron-left"></i></li>
+				<li><a href="javascript:window.history.back();"><i class="fa-solid fa-chevron-left"></i></a></li>
 				<li><span class="subtit">매장선택</span>
+				<li><a href="http://localhost:8000/Oasis/member/cartList.oa"><i
+						class="fa-solid fa-cart-shopping"></i></a></li>
 			</ul>
 		</div>
 		<section class="store">
@@ -90,11 +92,13 @@
 								<c:forEach var="item2" items="${book}">
 									<li class="listline">
 										<ul class="ulinner">
-											<li class="innerl"><img src="images/common/logo.png"></li>
-											<li class="innerl"><strong>${item2.S_NAME}</strong>
-											<li class="innerl">${item2.ADDRESS1}${item2.ADDRESS2}</li>
-											<li class="innerl">
-												<div class="bookmark1">
+											<li class="innerl"><img src="../images/common/logo.png"></li>
+											<li class="innerl"><c:if test="${item2.S_STATUS eq 1}">
+											<div class="s_status">영업중</div>
+												</c:if>
+													<c:if test="${item2.S_STATUS ne 1}">
+											<div class="s_status">영업종료</div>
+												</c:if><strong style="float:left">${item2.S_NAME}</strong><div class="bookmark1">
 													<span class="on"><i class="fa-solid fa-star"></i></span> <input
 														type="hidden" value="${item2.BS_NAME}" name="bs_name">
 													<input type="hidden" id="${item2.ADDRESS1}" name="address1">
@@ -103,11 +107,13 @@
 														value="${item2.S_PHONE}" name="s_phone"><input
 														type="hidden" value="${item2.B_IDX}" name="b_idx"><input
 														type="hidden" value="${item2.B_STORE}" name="b_store">
-												</div>
-											</li>
+												</div></li>
+											<li class="innerl">${item2.ADDRESS1}${item2.ADDRESS2}</li>
+											
+											<li class="innerl"><button class="sbtn"
+													onclick="javascript:location.href='/Oasis/member/menuList.oa?S_NAME=${item2.BS_NAME}&STORE=${item2.B_STORE}'">주문하기 <i class="fa-solid fa-chevron-right"></i></button></li>
 										</ul>
-										<button class="sbtn"
-											onclick="javascript:location.href='/Oasis/member/menuList.oa?S_NAME=${item2.BS_NAME}&STORE=${item2.B_STORE}'">주문하기</button>
+
 									</li>
 								</c:forEach>
 							</ul>
@@ -204,7 +210,7 @@
 					var map = new kakao.maps.Map(mapContainer, mapOption);
 
 					var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-					message = '<div>현위치</div>'; // 인포윈도우에 표시될 내용입니다
+					message = '<div class="marker"><p class="text">현위치</p></div>'; // 인포윈도우에 표시될 내용입니다
 
 					// 주소-좌표 변환 객체를 생성합니다
 					let geocoder = new kakao.maps.services.Geocoder();
@@ -299,21 +305,16 @@
 	// 지도에 마커와 인포윈도우를 표시하는 함수입니다
 	function displayMarker(locPosition, message, map) {
 
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-			map : map,
-			position : locPosition
+		
+		// 커스텀 오버레이를 생성합니다
+		var customOverlay = new kakao.maps.CustomOverlay({
+		    position: locPosition,
+		    content: message   
 		});
-
-		var iwContent = message; // 인포윈도우에 표시할 내용
-
-		// 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({
-			content : iwContent
-		});
+		
 
 		// 인포윈도우를 마커위에 표시합니다 
-		infowindow.open(map, marker);
+		customOverlay.setMap(map);
 	}
 </script>
 <script type="text/javascript">
@@ -335,6 +336,11 @@
 			status.html(storeContent.status);
 			address.html(storeContent.groupAddress);
 			store.val(storeContent.store);
+			if (storeContent.status === "영업종료") {
+				modalstoreBtn.hide();
+			} else {
+				modalstoreBtn.show();
+			}
 			if (storeContent.check == "true") {
 				bookmark.removeAttr('class').addClass('on');
 				icon.removeAttr('class').addClass('fa-solid fa-star');

@@ -148,6 +148,10 @@ public class KakaoPay {
 				myTabDAO.updateCoupon(tmpMap);
 			}
 			
+			
+			myTabDAO.updateStamp(tmpMap);
+			
+			
 			notificationService.send(String.valueOf(tmpMap.get("O_STORE")),"주문이 들어왔습니다.", "storeOrder", "");
 			
 			return kakaoPayApprovalVO;

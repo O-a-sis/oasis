@@ -29,7 +29,7 @@
 	<div class="wrap">
 		<div class="subhead">
 			<ul>
-				<li><i class="fa-solid fa-chevron-left"></i></li>
+				<li><a href="javascript:window.history.back();"><i class="fa-solid fa-chevron-left"></i></a></li>
 				<li><span class="subtit">공지사항</span>
 			</ul>
 		</div>
@@ -40,23 +40,25 @@
 		<div class="title">
 		<ul>
 		<li><c:if test="${map.N_TYPE eq 'B'}">
-				<c:set var="type" value="구매자" />
+				<c:set var="type" value="공지" />
 			</c:if>
 			<c:if test="${map.N_TYPE eq 'E'}">
 				<c:set var="type" value="이벤트" />
 			</c:if>[${type}]${map.N_TITLE}<input type="hidden" name="N_TITLE"></li>
-				<li><fmt:formatDate value="${map.N_DATE}"
-									pattern="yyyy-MM-dd" /></li>
+				<li></li>
 				
 		</ul>
 		</div>
 		<div class="content">
+		<fmt:formatDate value="${map.N_DATE}"
+									pattern="yyyy-MM-dd" />
 			<div class="contimg">
 					<img src="<c:url value='/img/${map.N_IMAGE}'/>" alt="" /><input type="hidden" name="N_IMAGE">
 			</div>
 			<div class="conttext">
 				${map.N_CONTENT}<input type="hidden" name="N_CONTENT">
 			</div>
+			
 		</div>
 
 		<div class="btncenter">

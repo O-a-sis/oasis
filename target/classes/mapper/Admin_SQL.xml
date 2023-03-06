@@ -302,6 +302,7 @@ where SUM_RANK <= 3
 	             N_IDX, N_IMAGE
 	      FROM
    		         NOTICE
+   		        WHERE N_TYPE = 'E' 
 			]]>
 	</select>
 
