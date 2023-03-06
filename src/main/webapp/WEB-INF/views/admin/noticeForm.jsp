@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/storedefault.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/storesub.css'/>" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 :root { -
@@ -95,122 +99,103 @@
         return true;
     }
 </script>
+<%@ include file="/WEB-INF/include/include-adminheader.jspf"%>
 </head>
 <body>
-	<div>
-		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
-		<h3 style="display: inline">관리자</h3>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="storeList.oa"/>'">
-			<strong>지점관리</strong>
-		</h2>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="productList.oa"/>'">
-			<strong>상품관리</strong>
-		</h2>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="noticeList.oa"/>'">
-			<strong>공지사항</strong>
-		</h2>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="memberAllList.oa"/>'">
-			<strong>사이트관리</strong>
-		</h2>
-
-	</div>
-	<br>
-		<div
-		style="height: 20px; width: 100%; background-color: #ff6600;">
-	</div>
-	<br><br>
-	<div align="center">
-		<h3 align="left">공지사항 작성</h3>
-		<hr>
-	</div>
-	<div>
-		<form method="post" action="/Oasis/admin/noticeSave.oa"
-			enctype="multipart/form-data" onsubmit="return validateForm()">
-			<c:if test="${map.N_IDX ne NULL}">
-				<input type="hidden" name="N_IDX" value="${map.N_IDX}">
-			</c:if>
-			<div class="title">
-				<h4>제목</h4>
-				<c:choose>
-					<c:when test="${map.N_TITLE eq NULL}">
-						<input type="text" name="N_TITLE" id="title">
-					</c:when>
-					<c:otherwise>
-						<input type="text" name="N_TITLE" value="${map.N_TITLE}">
-					</c:otherwise>
-				</c:choose>
+	<div class="wrap">
+		<div id="adminnform">
+			<br>
+			<br>
+			<div align="">
+				<h1>공지사항 작성</h1>
+				<hr>
 			</div>
-			<div class="category">
-				카테고리<select name="N_TYPE">
-					<option selected value="">구분</option>
-					<option value="B" ${map.N_TYPE eq 'B' ? 'selected="selected"' : ''}>고객</option>
-					<option value="S" ${map.N_TYPE eq 'S' ? 'selected="selected"' : ''}>매장</option>
-					<option value="E" ${map.N_TYPE eq 'E' ? 'selected="selected"' : ''}>이벤트</option>
-				</select>
-			</div>
-			<hr>
-			<div class="content" align="center">
-				<c:choose>
-					<c:when test="${map.N_CONTENT eq NUll}">
-						<textarea name="N_CONTENT" cols="110" rows="28"></textarea>
-					</c:when>
-					<c:otherwise>
-						<textarea name="N_CONTENT" cols="110" rows="28">${map.N_CONTENT}</textarea>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div class="image" align="center">
-				<c:choose>
-					<c:when test="${map.N_IMAGE eq NULL}">
-						<div class="image" align="center">
-							<main class="container">
-								<label class="label" id="label" for="input">
-									<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
-								</label> <input id="input" class="input" accept="image/*" type="file"
-									name="N_IMAGE" hidden="true">
-								<p class="preview-title">미리보기</p>
-								<div class="preview" id="preview"></div>
-							</main>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="image" align="center">
-							<main class="container">
-								<label class="label" id="label" for="input">
-									<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
-								</label> <input id="input" class="input" accept="image/*" type="file"
-									name="N_IMAGE" hidden="true"> <input type="hidden"
-									name="PREV_IMAGE" value="${map.N_IMAGE}">
-								<p class="preview-title">미리보기</p>
-								<div class="preview" id="preview">
-									<div class="container-img">
-										<img class="embed-img" src="/Oasis/img/${map.N_IMAGE}">
-									</div>
+			<div>
+				<form method="post" action="/Oasis/admin/noticeSave.oa"
+					enctype="multipart/form-data" onsubmit="return validateForm()">
+					<c:if test="${map.N_IDX ne NULL}">
+						<input type="hidden" name="N_IDX" value="${map.N_IDX}">
+					</c:if>
+					<div class="title"style="padding: 10px 40px;">
+						<h4 style="float: left; margin-right: 15px;">제목</h4>
+						<c:choose>
+							<c:when test="${map.N_TITLE eq NULL}">
+								<input type="text" name="N_TITLE" id="title" style="width: 80%;">
+							</c:when>
+							<c:otherwise>
+								<input type="text" name="N_TITLE" value="${map.N_TITLE}">
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="category" style="padding: 10px 40px;">
+						<span style="float: left; margin-right: 15px;">카테고리</span><select
+							name="N_TYPE" style="width:150px;">
+							<option selected value="">구분</option>
+							<option value="B"
+								${map.N_TYPE eq 'B' ? 'selected="selected"' : ''}>고객</option>
+							<option value="S"
+								${map.N_TYPE eq 'S' ? 'selected="selected"' : ''}>매장</option>
+							<option value="E"
+								${map.N_TYPE eq 'E' ? 'selected="selected"' : ''}>이벤트</option>
+						</select>
+					</div>
+					<hr>
+					<div class="content" align="center">
+						<c:choose>
+							<c:when test="${map.N_CONTENT eq NUll}">
+								<textarea name="N_CONTENT" cols="160" rows="28"></textarea>
+							</c:when>
+							<c:otherwise>
+								<textarea name="N_CONTENT" cols="160" rows="28">${map.N_CONTENT}</textarea>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="image">
+						<c:choose>
+							<c:when test="${map.N_IMAGE eq NULL}">
+								<div class="image">
+									<main class="container">
+										<label class="label" id="label" for="input">
+											<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
+										</label> <input id="input" class="input" accept="image/*" type="file"
+											name="N_IMAGE" hidden="true">
+										<p class="preview-title">미리보기</p>
+										<div class="preview" id="preview"></div>
+									</main>
 								</div>
-							</main>
-						</div>
-					</c:otherwise>
-				</c:choose>
+							</c:when>
+							<c:otherwise>
+								<div class="image" align="center">
+									<main class="container">
+										<label class="label" id="label" for="input">
+											<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
+										</label> <input id="input" class="input" accept="image/*" type="file"
+											name="N_IMAGE" hidden="true"> <input type="hidden"
+											name="PREV_IMAGE" value="${map.N_IMAGE}">
+										<p class="preview-title">미리보기</p>
+										<div class="preview" id="preview">
+											<div class="container-img">
+												<img class="embed-img" src="/Oasis/img/${map.N_IMAGE}">
+											</div>
+										</div>
+									</main>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="btn" align="center">
+						<button class="writebtn" type="submit" id="btnCheck">작성</button>
+						<c:if test="${map.N_IDX != NULL}">
+							<button class="savebtn" type="button"
+								onClick="location.href='noticeDelete.oa?N_IDX=${map.N_IDX}'">삭제</button>
+						</c:if>
+						<button class="cancelbtn" type="button"
+							onClick="javascript:history.go(-1);">취소</button>
+					</div>
+				</form>
+				</table>
 			</div>
-			<div class="btn" align="center">
-				<button class="writebtn" type="submit" id="btnCheck">작성</button>
-				<c:if test="${map.N_IDX != NULL}">
-					<button class="savebtn" type="button"
-						onClick="location.href='noticeDelete.oa?N_IDX=${map.N_IDX}'">삭제</button>
-				</c:if>
-				<button class="cancelbtn" type="button"
-					onClick="javascript:history.go(-1);">취소</button>
-			</div>
-		</form>
-	</table>
+		</div>
 </body>
 
 <script>

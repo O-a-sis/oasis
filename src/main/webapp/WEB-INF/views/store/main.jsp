@@ -142,13 +142,13 @@
 					<h4>
 						주문자명-<span class="phone"></span>
 					</h4>
-					<h4 style="display: inline">
+					<h4> 
 						판매 금액 <span class="sum"></span>원
 					</h4>
-					<h4 style="display: inline">
-						할인 금액 <span class="cprice"></span>원
+					<h4> <span class="cpriceTitle">
+						할인 금액 <span class="cprice"></span>원</span>
 					</h4>
-					<h4 style="display: inline">
+					<h4>
 						결제 금액 <span class="total"></span>원
 					</h4>
 				</div>
@@ -272,15 +272,22 @@
 				
 				$(".list").html(str);
 				$(".phone").html(order[0].OB_IDX);
+				if(order[0].CU_PRICE==null) {
+					$(".cpriceTitle").hide();
+				}
 				$(".cprice").html(order[0].CU_PRICE);
 				$(".total").html(order[0].O_SUM);
-				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				if(order[0].CU_PRICE==null) {
+					$(".sum").html(Number(order[0].O_SUM));
+				} else {
+					$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				}
+				
 				let status = order[0].O_STATUS;
 				if(status=='1') {
 					$(".status").html("접수대기")
 					modalProcessingBtn.hide();
 					modalCompleteBtn.hide();
-					/* CountDownTimer(modalInputOtime.val(), 'timer');  */
 				} else if(status=='2') {
 					$(".status").html("제조중")
 					modalUptBtn.hide();
@@ -305,13 +312,13 @@
  		modalUptBtn.on("click", function(e) {			
  			let oidx = modalInputOidx.val();
  			let obidx = modalInputObidx.val();
- 			let time = $('select[name=selectTime]').val();
+ 			
 			var order = {
 					O_IDX : oidx,
 					O_STORE : ${sessionScope.STORE},
 					OB_IDX : obidx,
 					alarm : 2,
-					TIME : time
+					TIME : 10
 				};		
 			orderService.updateOrder(order, function(result) {			
 			});		
@@ -325,10 +332,18 @@
 				
 				$(".list").html(str);
 				$(".phone").html(order[0].OB_IDX);
+				if(order[0].CU_PRICE==null) {
+					$(".cpriceTitle").hide();
+				}
 				$(".cprice").html(order[0].CU_PRICE);
 				$(".total").html(order[0].O_SUM);
-				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				if(order[0].CU_PRICE==null) {
+					$(".sum").html(Number(order[0].O_SUM));
+				} else {
+					$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				}
 				$(".otime").html(order[0].O_TIME);
+
 				let status = order[0].O_STATUS;
 
 					$(".status").html("제조중")
@@ -362,9 +377,18 @@
 				
 				$(".list").html(str);
 				$(".phone").html(order[0].OB_IDX);
+				if(order[0].CU_PRICE==null) {
+					$(".cpriceTitle").hide();
+				}
 				$(".cprice").html(order[0].CU_PRICE);
 				$(".total").html(order[0].O_SUM);
-				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				if(order[0].CU_PRICE==null) {
+					$(".sum").html(Number(order[0].O_SUM));
+				} else {
+					$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				}
+				$(".otime").html(order[0].O_TIME);
+				
 				let status = order[0].O_STATUS;
 
 					$(".status").html("제조완료")

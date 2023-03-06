@@ -67,7 +67,7 @@ public class MyTabController {
 		List<Map<String, Object>> list = myTabService.myOrderList(commandMap.getMap());
 
 
-		if (list.size() > 0) {
+		if (list.size() > 0){
 			orderListCount = Integer.parseInt(String.valueOf(list.get(0).get("TOTAL_COUNT")));
 
 		}

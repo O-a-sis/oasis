@@ -86,18 +86,20 @@ SELECT *
 	</select>
 
 
+
 	<!-- 주문 내역 -->
-	<select id="myOrderList" parameterType="hashmap"
-		resultType="hashmap">
-<![CDATA[
-SELECT *
-   FROM 
-      ORDERS 
-   WHERE
-      OB_IDX=#{B_PHONE}
-      ORDER BY O_DATE DESC
-]]>
-	</select>
+   <select id="myOrderList" parameterType="hashmap"
+      resultType="hashmap">
+      <include refid="common.pagingPre" /> 
+        <![CDATA[ 
+           SELECT 
+                 ROW_NUMBER() OVER(ORDER BY O_DATE DESC) RNUM,
+                 O_STORE, OS_NAME, O_COUNT, O_SUM, O_IDX, O_STATUS, O_CONTENT, O_DATE, O_PICK, O_TIME, OB_IDX, OCU_IDX
+           FROM 
+                 ORDERS WHERE OB_IDX=#{B_PHONE} 
+        ]]>
+      <include refid="common.pagingPost" />
+   </select>
 
 	<!-- 사용된 쿠폰 -->
 	<select id="useCoupon" parameterType="hashmap"

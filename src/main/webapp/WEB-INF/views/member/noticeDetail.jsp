@@ -53,7 +53,10 @@
 		<fmt:formatDate value="${map.N_DATE}"
 									pattern="yyyy-MM-dd" />
 			<div class="contimg">
-					<img src="<c:url value='/img/${map.N_IMAGE}'/>" alt="" /><input type="hidden" name="N_IMAGE">
+					 <c:if test="${map.N_IMAGE ne 'NULL' }">
+               <img src="/Oasis/img/${map.N_IMAGE}" alt="이미지"> <input
+                  type="hidden" name="N_IMAGE">
+         </c:if>
 			</div>
 			<div class="conttext">
 				${map.N_CONTENT}<input type="hidden" name="N_CONTENT">

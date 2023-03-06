@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/store/side.css'/>" />
+	<link rel="stylesheet" type="text/css"
+	href="<c:url value='../css/admindefault.css'/>" />
 <meta charset="UTF-8">
 <title>관리자 - 공지사항</title>
 <STYLE TYPE="text/css">
@@ -13,7 +17,7 @@ table {font-size: 12pt;}
 <body>
 
 <h1 id="clock"><strong></strong></h1>
-	<table border=0 style="table-layout: fixed">
+	<table class="board_list" border=0 style="table-layout: fixed">
 		<colgroup>
 			<col width="15%" />
 			<col width="*%" />

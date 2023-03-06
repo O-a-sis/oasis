@@ -108,7 +108,7 @@ public class AdminNoticeContorller {
 
 		Map<String, Object> map = adminNoticeService.adminNoticeDetail(commandMap.getMap());
 		mv.addObject("N_IDX", commandMap.get("N_IDX"));
-		mv.addObject("map", map.get("map"));
+		mv.addObject("map", map);
 
 		return mv;
 	}
