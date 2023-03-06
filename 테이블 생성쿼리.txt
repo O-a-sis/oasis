@@ -163,20 +163,6 @@ CREATE SEQUENCE C_IDX_SEQ
  alter table CART add constraint FK_CP_IDX
  foreign key (CP_IDX) references PRODUCT (P_IDX) on delete cascade;
 
-CREATE SEQUENCE C_IDX_SEQ
-  START WITH 1
-  INCREMENT BY 1;
-
-alter table CART add constraint FK_C_STORE
-foreign key (C_STORE) references S_MEMBER (STORE) on delete cascade;
-
-alter table CART add constraint FK_CB_IDX
-foreign key (CB_IDX) references B_MEMBER (B_PHONE) on delete cascade;
-
-alter table CART add constraint FK_CP_IDX
-foreign key (CP_IDX) references PRODUCT (P_IDX) on delete cascade;
-
-
 
 --주문내역 테이블
 CREATE TABLE ORDERS(
@@ -194,9 +180,6 @@ CREATE TABLE ORDERS(
  OCU_IDX NUMBER  -- 사용한 쿠폰번호
 );
 
-CREATE SEQUENCE O_IDX_SEQ
-  START WITH 1
-  INCREMENT BY 1;
 
  alter table ORDERS add constraint FK_O_STORE
  foreign key (O_STORE) references S_MEMBER (STORE) on delete cascade;
