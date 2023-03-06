@@ -1,0 +1,117 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Flee</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=0.8" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%-- <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %> --%>
+<script src=<c:url value='/js/jquery-1.12.4.min.js'/>></script>
+<!--jQuery-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src=<c:url value='/js/common.js'/>></script>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/common.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/default.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/sub.css'/>" />
+<script src="<c:url value='/js/common 3.js'/>"></script>
+<body>
+	<div class="layout">
+
+		<header>
+			<div class="h_top">
+				<div class="wrap">
+					<div class="login">
+						<a href=<c:url value='/main.fe' />>home</a>
+						<c:choose>
+							<c:when test="${not empty sessionScope.EMAIL}">
+								<a href=<c:url value='/logout.fe' />>로그아웃</a>
+							</c:when>
+							<c:otherwise>
+								<a href=<c:url value='/loginForm.fe' />>로그인</a>
+								<a href=<c:url value='/joinForm.fe' />>회원가입</a>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="shop">
+						<c:if test="${not empty sessionScope.EMAIL}">
+							<c:choose>
+								<c:when test="${sessionScope.NICKNAME eq 'ADMIN'}">
+									<a href='<c:url value="/adminMain.fe"/>'>관리자페이지</a>
+								</c:when>
+								<c:otherwise>
+									<a href=<c:url value='/myPage.fe' />>마이페이지</a>
+									<a
+										href='<c:url value="/chatList.fe?M_NICKNAME=${sessionScope.NICKNAME}"/>'>플리톡</a>
+								</c:otherwise>
+							</c:choose>
+
+						</c:if>
+
+					</div>
+				</div>
+			</div>
+			<div class="h_mm">
+				<div class="wrap">
+					<h1 class="logo">
+						<a href=<c:url value='/main.fe' />><img
+							src="images/common/pclogo.png" alt="플리" /></a>
+					</h1>
+				</div>
+			</div>
+			<div class="h_sub2">
+				<div class="wrap">
+					<!-- 모바일  -->
+					<nav class="gnb_mobile">
+						<button class="gnb_open">
+							<img src="images/common/gnb_open.png" alt="메뉴열기" />
+						</button>
+						<div class="menu_top"></div>
+						<div class="menu_sub">
+							<ul>
+								<li><a href=<c:url value='/memberList.fe' />>회원리스트</a></li>
+								<li><a href=<c:url value='/adminAList.fe' />>회원신고리스트</a></li>
+								<li><a href=<c:url value='/adminTradeList.fe' />>거래내역리스트</a></li>
+								<li><a href=<c:url value='/adminProductList.fe' />>상품리스트</a></li>
+								<li><a href=<c:url value='/adminCommunityList.fe' />>자유게시판관리</a></li>
+								<li><a href=<c:url value='/adminNoticeList.fe' />>공지게시판관리</a></li>
+								<li><a href=<c:url value='/adminReview.fe' />>리뷰리스트관리</a></li>
+							</ul>
+							<div class="m_shop">
+								<c:if test="${not empty sessionScope.EMAIL}">
+									<c:choose>
+										<c:when test="${sessionScope.NICKNAME eq 'ADMIN'}">
+											<a class="last" href='<c:url value="/adminMain.fe"/>'>관리자페이지</a>
+										</c:when>
+										<c:otherwise>
+											<a href=<c:url value='/myPage.fe' />>마이페이지</a>
+											<a class="last"
+												href='<c:url value="/chatList.fe?M_NICKNAME=${sessionScope.NICKNAME}"/>'>플리톡<span
+												id="alarm"></span></a>
+										</c:otherwise>
+									</c:choose>
+
+								</c:if>
+
+							</div>
+						</div>
+						<button class="gnb_close">
+							<img src="images/common/gnb_close.png" alt="메뉴닫기" />
+						</button>
+						<div class="gnb_kbg"></div>
+						<div class="gnb_wbg"></div>
+					</nav>
+				</div>
+			</div>
+
+
+		</header>
+	</div>
+</body>
