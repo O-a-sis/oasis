@@ -14,9 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.oasis.admin.service.AdminNoticeService;
 import com.oasis.common.CommandMap;
 import com.oasis.common.util.Paging;
-import com.oasis.admin.service.AdminNoticeService;
 
 import lombok.AllArgsConstructor;
 
@@ -108,7 +108,7 @@ public class AdminNoticeContorller {
 
 		Map<String, Object> map = adminNoticeService.adminNoticeDetail(commandMap.getMap());
 		mv.addObject("N_IDX", commandMap.get("N_IDX"));
-		mv.addObject("map", map.get("map"));
+		mv.addObject("map", map);
 
 		return mv;
 	}
@@ -127,6 +127,8 @@ public class AdminNoticeContorller {
 			System.out.println("fileName:"+fileName);
 			String savePath = request.getSession().getServletContext().getRealPath("/") + File.separator + "img/"
 					+ fileName;
+			System.out.println(savePath); 
+			
 			File uploadPath = new File(savePath);
 			if (uploadPath.exists() == false) {
 				uploadPath.mkdirs();
