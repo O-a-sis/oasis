@@ -21,7 +21,24 @@
 	href="<c:url value='/css/member/sub.css'/>" />
 <%@ include file="/WEB-INF/include/include-header.jspf"%>
 <meta charset="UTF-8">
-<title>메뉴선택</title>
+<title>회원 로그인</title>
+</head>
+
+<script type="text/javascript">
+
+function fsubmit(){
+    var phone = $("[name='B_PHONE']").val();
+    var pw = $("[name='B_PASSWORD']").val();
+    if(phone==null || phone==''){
+        alert("전화번호를 입력하세요.");
+        return false;
+    }
+    if(pw==null || pw==""){
+        alert("비밀번호를 입력하세요.");
+        return false;
+    }
+}
+</script>
 
 </head>
 <body>

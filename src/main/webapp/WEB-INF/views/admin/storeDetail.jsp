@@ -6,6 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/storedefault.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/storesub.css'/>" />
 	<link rel="stylesheet" href="<c:url value='/css/store/jquery-ui.css'/>">
 	<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/js/jquery-ui.js'/>"></script>
@@ -59,41 +63,15 @@
 <meta charset="UTF-8">
 
 <title>지점 상세</title>
+<%@ include file="/WEB-INF/include/include-adminheader.jspf"%>
 </head>
 <body>
-	<div>
-		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
-		<h3 style="display: inline">관리자</h3>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="storeList.oa"/>'">
-			<strong>지점관리</strong>
-		</h2>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="productList.oa"/>'">
-			<strong>상품관리</strong>
-		</h2>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="noticeList.oa"/>'">
-			<strong>공지사항</strong>
-		</h2>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="memberList.oa"/>'">
-			<strong>회원관리</strong>
-		</h2>
-
-	</div>
-	<br>
-		<div
-		style="height: 20px; width: 100%; background-color: #ff6600;">
-	</div>
-	<br><br>
+	<div class="wrap">
+	<div id="adminsd">
+		<br><br>
 	<h1>${map.S_NAME}의정보</h1>
 
-	<table class="board_list" border="1">
+	<table class="board_list" 	>
 		<h2>
 			<c:choose>
 				<c:when test="${map.DEL_GB eq 'Y'}">
@@ -116,7 +94,7 @@
 
 	</table>
 	<br>
-	<button type='button' id="modal_btn">지점수정</button>
+	<button type='button' id="modal_btn" class="button">지점수정</button>
 	<br>
 	<div class="black_bg"></div>
 	<br>
@@ -125,11 +103,11 @@
 <form action="<c:url value="storeDetail.oa"/>">
 <p>날짜 선택: <input type="text" name="DATE" id="datepicker" value=<c:out value="${param.DATE eq 'null' ? '' : param.DATE}"/>>
 
-<input type="submit" value="선택하기"> </p>
+<input type="submit" value="선택하기" class="button"> </p>
 </form>
 
 
-	<table class="board_list" border="1">
+	<table class="board_list" >
 		<thead>
 			<tr>
 				<th scope="col">매출일자</th>
@@ -249,6 +227,8 @@
 				</form>
 			</div>
 		</div>
+	</div>
+	</div>
 	</div>
 	
 

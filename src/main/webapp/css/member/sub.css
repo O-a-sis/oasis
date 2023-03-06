@@ -30,16 +30,19 @@ input[type='text'] {
 	color: #9d9d9d
 }
 
-.subhead ul li:last-child{
-	margin-right:0;
+.subhead ul li:last-child {
+	margin-right: 0;
 }
-.subhead ul li:last-child a{
-	font-decoration:none;
-	colot:#e68e41
+
+.subhead ul li:last-child a {
+	font-decoration: none;
+	colot: #e68e41
 }
-.subhead ul li:last-child i{
-	color:#e68e41;
+
+.subhead ul li:last-child i {
+	color: #e68e41;
 }
+
 .subhead ul li .subtit {
 	font-size: 19px;
 	font-weight: 500
@@ -240,35 +243,37 @@ input[type='text'] {
 	padding: 10px 0
 }
 
-.store .mapline .marker{
-    position: relative;
-    width: 73px;
-    height: 40px;
-    background-color: #e68e41;
-    border-radius: 10px;
+.store .mapline .marker {
+	position: relative;
+	width: 73px;
+	height: 40px;
+	background-color: #e68e41;
+	border-radius: 10px;
 }
 
-.store .mapline .marker::after{
-    content: '';
-    position: absolute;
-    right: 24%;
-    bottom: -75%;
-    margin-top: -20px;
-    border-bottom: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-left: 20px solid transparent;
-    border-top: 20px solid #e68e41;
+.store .mapline .marker::after {
+	content: '';
+	position: absolute;
+	right: 24%;
+	bottom: -75%;
+	margin-top: -20px;
+	border-bottom: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-left: 20px solid transparent;
+	border-top: 20px solid #e68e41;
 }
 
-.store .mapline .marker .text{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    margin: 0;
-    color: #fff;
-    padding: 5%;}
+.store .mapline .marker .text {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	margin: 0;
+	color: #fff;
+	padding: 5%;
+}
+
 .store .mapline #map {
 	border-radius: 15px
 }
@@ -355,9 +360,11 @@ input[type='text'] {
 	margin-bottom: 5px;
 	border-bottom: 2px solid #ffebde;
 }
-.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl i{
-	color:#e68e41;
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl i {
+	color: #e68e41;
 }
+
 .store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl {
 	margin-top: 10px
 }
@@ -380,37 +387,40 @@ input[type='text'] {
 	float: left;
 	margin-left: 10px;
 	width: 70%;
-font-size:18px;
+	font-size: 18px;
 	text-align: left;
 }
-.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(2) .s_status{
-	
-	
-    font-size: 13px;
-    border: 1px solid #e68e41;
-    width: 43px;
-    padding: 1px 2px;
-    border-radius: 15px;
-    text-align: center;
-    color: #e68e41;
-}
-.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(3)
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(2) .s_status
 	{
-       margin-left: 98px;
-    margin-top: 0px;
+	font-size: 13px;
+	border: 1px solid #e68e41;
+	width: 47px;
+	padding: 1px 2px;
+	border-radius: 15px;
+	text-align: center;
+	color: #e68e41;
 }
 
-.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:last-child{
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(3)
+	{
+	margin-left: 98px;
+	margin-top: 0px;
+}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:last-child
+	{
 	position: absolute;
 	top: 43;
 	right: 30px;
 	top: 10px;
 }
-.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:last-child .sbtn{
- 	    font-size: 14px; 
- color: #e68e41; 
-	
-	}
+
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:last-child .sbtn
+	{
+	font-size: 14px;
+	color: #e68e41;
+}
 /*매장모달*/
 #smodal {
 	width: 100%;
@@ -584,8 +594,6 @@ font-size:18px;
 	float: none;
 }
 
-
-
 .menulist .menutablist .menuselect div>div>ul>li>ul>li {
 	float: left;
 }
@@ -594,19 +602,17 @@ font-size:18px;
 	width: 90px;
 	height: 90px;
 	border-radius: 100%;
-filter: grayscale(100%);
+	filter: grayscale(100%);
 }
 
-.menulist .menutablist .menuselect div>div>ul>li>ul>li .soldout{
-    font-size: 11px;
-    border: 1px solid #ef7272;
-    padding: 2px 5px;
-    margin-left: 18px;
-    border-radius: 15px;
-    background: #ef7272;
-    color: #fff;
-	
-	
+.menulist .menutablist .menuselect div>div>ul>li>ul>li .soldout {
+	font-size: 11px;
+	border: 1px solid #ef7272;
+	padding: 2px 5px;
+	margin-left: 18px;
+	border-radius: 15px;
+	background: #ef7272;
+	color: #fff;
 }
 
 .menulist .menutablist .menuselect div>div>ul>li>ul>li:nth-child(1) {
@@ -627,9 +633,6 @@ filter: grayscale(100%);
 	font-weight: 500;
 	float: none;
 }
-
-
-
 
 .menu_tab::-webkit-scrollbar {
 	display: none;
@@ -741,7 +744,7 @@ filter: grayscale(100%);
 	text-align: left;
 	border-radius: 15px;
 	background-color: #fff;
-	    z-index: 10;
+	z-index: 10;
 }
 
 .menudetail #checkflex .num {
@@ -946,8 +949,6 @@ filter: grayscale(100%);
 	z-index: 1;
 }
 
-
-
 #orderinfo .coupon {
 	maring-top: 10px;
 	height: auto;
@@ -1024,7 +1025,6 @@ filter: grayscale(100%);
 #orderinfo .coupon #hide ul.clist li input[type='radio']+label:checked {
 	background-color: #e68e41;
 }
-
 
 #orderinfo .coupon .line {
 	height: 50px;
@@ -1360,7 +1360,6 @@ filter: grayscale(100%);
 
 #mnotice .nlist ul li.nli>ul>li {
 	float: left;
-
 }
 
 #mnotice .nlist ul li.nli:last-child {
@@ -1372,18 +1371,19 @@ filter: grayscale(100%);
 	font-weight: 300;
 	width: 15%;
 }
-#mnotice .nlist ul .nli>ul>li:nth-child(2){
-    width: 60%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+
+#mnotice .nlist ul .nli>ul>li:nth-child(2) {
+	width: 60%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
+
 #mnotice .nlist ul .nli>ul>li:nth-child(2)>a {
 	font-size: 16px;
 	font-weight: 500;
 	text-decoration: none;
 	color: #484848;
-
 }
 
 #mnotice .nlist ul .nli>ul>li:nth-child(3) {
@@ -1531,7 +1531,6 @@ filter: grayscale(100%);
 }
 
 #myOrderlist .olist {
-	margin-bottom:200px;
 	margin-top: 50px;
 	paading-top: 50px;
 	border-top: 2px solid #9d9d9d;
@@ -1586,12 +1585,16 @@ filter: grayscale(100%);
 	color: #484848;
 }
 
+#myOrderlist .olist .notice_view_more {
+	margin-top: 15px;
+	margin-bottom: 200px
+}
+
 #mnotice .nlist ul .nli>ul>li:nth-child(3) {
 	font-size: 14px;
 	color: #5d5d5d;
 	float: right
 }
-
 
 #myOrderlist .notice_view_more {
 	height: 55px;
@@ -1615,8 +1618,6 @@ filter: grayscale(100%);
 	width: 100%;
 }
 
-
-
 /*주문내역디테일*/
 #myOrderdetail .notice {
 	width: 80%;
@@ -1626,8 +1627,8 @@ filter: grayscale(100%);
 	border-radius: 15px;
 	margin: 0 2%;
 	margin-bottom: 30px;
-font-size: 15px;
-    font-weight: 500;
+	font-size: 15px;
+	font-weight: 500;
 }
 
 #myOrderdetail .detail1 {
@@ -1664,7 +1665,7 @@ font-size: 15px;
 
 #myOrderdetail .pabout {
 	text-align: left;
-	margin-bottom:120px;
+	margin-bottom: 120px;
 }
 
 #myOrderdetail .pabout ul li {
@@ -1682,10 +1683,10 @@ font-size: 15px;
 	width: 20%;
 }
 
-#myOrderdetail .olistd{
-	text-align:left;
+#myOrderdetail .olistd {
+	text-align: left;
+	margin-bottom:150px;
 }
-
 
 #myOrderdetail .olistd>ul>li {
 	width: 100%;
@@ -1698,7 +1699,6 @@ font-size: 15px;
 	position: relative;
 	margin: 20px 0;
 }
-
 
 #myOrderdetail .olistd>ul>li>ul>li {
 	float: none;
@@ -1753,11 +1753,17 @@ font-size: 15px;
 }
 
 
+
+
 #ect {
-	
-	    text-align: left;
-    margin-top: 30px;
-	
+	text-align: left;
+	margin-top: 30px;
 }
-#ect h3{margin-top:30px}
-#ect .elist{    margin-top: 30px;}
+
+#ect h3 {
+	margin-top: 30px
+}
+
+#ect .elist {
+	margin-top: 30px;
+}

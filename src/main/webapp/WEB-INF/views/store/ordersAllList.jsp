@@ -148,6 +148,7 @@
 		var modalCancelBtn=$("#modalCancelBtn");
 		let modalInputOidx=modal.find("input[name='oidx']");
 		let modalInputOtime=modal.find("span[class='otime']");
+		let modalInputObidx=modal.find("input[name='obidx']");
 		
 		$(".orders").on("click","tr td span",function(){
 			var otime=$(this).closest("td").find("input[id=otime]").val();
@@ -155,6 +156,8 @@
 			$(".otime").html(otime);
 			var oidx=$(this).closest("td").find("input[id=oidx]").val();
 			modalInputOidx.val(oidx);
+			var obidx=$(this).closest("td").find("input[id=obidx]").val();
+			modalInputObidx.val(obidx);
 			orderService.get(oidx, function(order) {
 				$(".oidx").html(order[0].O_IDX);
 				
@@ -165,10 +168,30 @@
 				
 				$(".list").html(str);
 				$(".phone").html(order[0].OB_IDX);
+				if(order[0].CU_PRICE==null) {
+					$(".cpriceTitle").hide();
+				}
 				$(".cprice").html(order[0].CU_PRICE);
 				$(".total").html(order[0].O_SUM);
-				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
-
+				if(order[0].CU_PRICE==null) {
+					$(".sum").html(Number(order[0].O_SUM));
+				} else {
+					$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				}
+				
+				let status = order[0].O_STATUS;
+				if(status=='1') {
+					$(".status").html("접수대기")
+					modalProcessingBtn.hide();
+					modalCompleteBtn.hide();
+				} else if(status=='2') {
+					$(".status").html("제조중")
+					modalUptBtn.hide();
+					modalProcessingBtn.show();
+					modalCompleteBtn.hide();
+					modalCancelBtn.hide();
+					CountDownTimer(modalInputOtime.val(), 'timer'); 
+				} else {
 					$(".status").html("제조완료")
 					modalCompleteBtn.show();
 					modalUptBtn.hide();
@@ -176,6 +199,7 @@
 					modalCancelBtn.hide();
 					$("#timer").hide;
 					$("#timerComplete").html("제조가 완료되었습니다!");
+				};
 
 				modalOn();	
 			});			

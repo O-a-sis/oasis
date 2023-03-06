@@ -25,7 +25,7 @@
 	href="<c:url value='/css/member/sub.css'/>" />
 <%@ include file="/WEB-INF/include/include-header.jspf"%>
 <meta charset="UTF-8">
-<title>{map.P_NAME}</title>
+<title>메뉴선택</title>
 </head>
 <body>
 	<input type="hidden" name="CP_NAME" value="${map.P_NAME}">
