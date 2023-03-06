@@ -131,7 +131,16 @@
                      }
                         html += '</li>';
                         html += '<li>' + item.OS_NAME
-                             + '</li>';
+                       		+ '<span style="font-size: 13px; border: 1px solid orange; border-radius: 15px; padding: 3px 5px; color: orange;">';
+                       		if (item.O_STATUS == '1') {
+                                html += '접수대기';
+                            } else if (item.O_STATUS == '2') {
+                               html += '제조중';
+                            }else{
+                            	 html += '제조완료';
+                            }	
+                       	html += '</span><br><span style="font-size: 14px; font-weight: 300">'
+                       		+ item.O_CONTENT + '</span></li>';
                         html += '<li>' + formattedDate
                              + '</li>';
                         html += '<li></li>';
