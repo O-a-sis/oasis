@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+
 import com.oasis.common.dao.AbstractDAO;
 
 @Repository("storeDAO")
@@ -25,14 +26,29 @@ public class StoreDAO extends AbstractDAO {
 		return (int) update("store.openStore", map);
 	}
 	
+	public int openRevenue(Map<String, Object> map) throws Exception {
+		return (int) insert("store.openRevenue", map);
+	}
+	
 	public int closeStore(Map<String, Object> map) throws Exception {
 		return (int) update("store.closeStore", map);
+	}
+	
+	public int closeRevenue(Map<String, Object> map) throws Exception {
+		return (int) update("store.closeRevenue", map);
 	}
 	
 	public List<Map<String, Object>> getOrdersList(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>) selectList("store.getOrdersList", map);
 	}
 	
+	public List<Map<String, Object>> getOrdersListByStatus(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>) selectList("store.getOrdersListByStatus", map);
+	}
+	
+	public List<Map<String, Object>> getAlarm(int store) throws Exception {
+		return (List<Map<String, Object>>) selectList("store.getAlarm", store);
+	}
 	public List<Map<String, Object>> getWaitingOrders(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>) selectList("store.getWaitingOrders", map);
 	}
@@ -41,20 +57,16 @@ public class StoreDAO extends AbstractDAO {
 		return (int) update("store.updateOrder", map);
 	}
 	
-	public List<Map<String, Object>> getProcessingOrders(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("store.getProcessingOrders", map);
+	public int updateOrderAlarm(Map<String, Object> map) throws Exception {
+		return (int) insert("store.updateOrderAlarm", map);
 	}
-	
+
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
 		return (int) update("store.updateProcessingOrder", map);
 	}
-	
-	public List<Map<String, Object>> getCompletedOrders(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("store.getCompletedOrders", map);
-	}
-	
-	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
-		return (Map<String, Object>) selectOne("store.getOrderDetail", oidx);
+
+	public List<Map<String, Object>> getOrderDetail(String oidx) throws Exception {
+		return (List<Map<String, Object>>) selectList("store.getOrderDetail", oidx);
 	}
 	
 	public List<Map<String, Object>> getStockList(Map<String, Object> map) throws Exception {
@@ -71,6 +83,18 @@ public class StoreDAO extends AbstractDAO {
 	
 	public Map<String, Object> getNoticeDetail(Map<String, Object> map) throws Exception {
 		return (Map<String, Object>) selectOne("store.getNoticeDetail", map);
+	}
+	
+	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>) selectList("store.getOrdersAllList", map);
+	}
+	
+	public int getTodayCount(String today) throws Exception {
+		return (int) selectOne("store.getTodayCount", today);
+	}
+	
+	public int getTodaySum(String today) throws Exception {
+		return (int) selectOne("store.getTodaySum", today);
 	}
 	
 	

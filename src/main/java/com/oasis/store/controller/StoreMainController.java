@@ -7,7 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,32 +33,40 @@ public class StoreMainController {
 		return "store/loginForm";
 	}
 	
-	@RequestMapping(value = "/login.oa", method = RequestMethod.POST)
-	public ModelAndView login(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession(true);
-		String message = "";
-		Map<String, Object> result = storeService.getStore(commandMap.getMap());
-		if (result == null) { // 지점 아이디가 있는지 확인
-			ModelAndView mv = new ModelAndView("redirect:/store/loginForm.oa");
-			message = "해당 지점 아이디가 존재하지 않습니다.";
-			mv.addObject("message",message);
-			return mv;
+	   @RequestMapping(value = "/login.oa", method = RequestMethod.POST)
+	   public ModelAndView login(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	      HttpSession session = request.getSession(true);
+	      String message = "";
+	      Map<String, Object> result = storeService.getStore(commandMap.getMap());      
 
-		} else {
-			if (result.get("S_PASSWORD").equals(commandMap.get("S_PASSWORD"))) { // 비밀번호가 같다면				
-				ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
-				session.setAttribute("STORE", result.get("STORE"));
-				session.setAttribute("S_NAME", result.get("S_NAME"));
-				return mv;
-			} else {// 비밀번호가 일치하지않을 때
-				ModelAndView mv = new ModelAndView("redirect:/store/loginForm.oa");
-				message = "비밀번호가 맞지 않습니다.";
-				mv.addObject("message",message);
-				return mv;
-			}
-		}
-	}
-	
+	      if (result == null) { // 지점 아이디가 있는지 확인
+	         ModelAndView mv = new ModelAndView("redirect:/store/loginForm.oa");
+	         message = "해당 지점 아이디가 존재하지 않습니다.";
+	         mv.addObject("message",message);
+	         return mv;
+	      } else {
+	         if (result.get("S_PASSWORD").equals(commandMap.get("S_PASSWORD"))) {// 비밀번호가 같다면   
+	            if(commandMap.get("STORE").equals("10000")) {
+	               ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
+	               return mv;
+	            }
+	            else {
+	               ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
+	               session.setAttribute("STORE", result.get("STORE"));
+	               session.setAttribute("S_NAME", result.get("S_NAME"));
+	               return mv;
+	            }
+
+	            
+	         } else {// 비밀번호가 일치하지않을 때
+	            ModelAndView mv = new ModelAndView("redirect:/store/loginForm.oa");
+	            message = "비밀번호가 맞지 않습니다.";
+	            mv.addObject("message",message);
+	            return mv;
+	         } 
+	      }
+	      
+	   }
 	@RequestMapping(value = "/logout.oa") // 로그아웃
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, CommandMap commandMap)
 			throws Exception {
@@ -91,6 +103,14 @@ public class StoreMainController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/openRevenue", method = RequestMethod.POST, consumes = "application/json", produces = {
+			MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> openRevenue(@RequestBody Map<String, Object> map) throws Exception {
+		int count = storeService.openRevenue(map);
+		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
+				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	@RequestMapping(value = "/close")
 	public ModelAndView close(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
@@ -98,6 +118,14 @@ public class StoreMainController {
 		int closeStore = storeService.closeStore(commandMap.getMap());
 	
 		return mv;
+	}
+	
+	@RequestMapping(value = "/closeRevenue", method = { RequestMethod.PATCH,
+			RequestMethod.PUT }, consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> closeRevenue(@RequestBody Map<String, Object> map) throws Exception {
+		int count = storeService.closeRevenue(map);
+		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
+				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 }

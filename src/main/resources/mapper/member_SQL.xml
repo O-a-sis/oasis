@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<!-- 공지사항 검색 -->
+	<sql id="noticeSearch">
+		<trim prefix=" AND ( " suffix=" ) " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="or">
+					<choose>
+						<when test="type=='T'.toString()">
+							N_TITLE like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							N_CONTENT like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<!-- insertMember(회원가입) -->
+	<insert id="insertMember" parameterType="hashmap">
+<![CDATA[
+INSERT INTO 
+		B_MEMBER 
+		(B_PHONE, B_PASSWORD, B_NAME, B_BIRTH, B_NICKNAME, B_DATE, STAMP)
+	VALUES
+		( #{B_PHONE},
+		#{B_PASSWORD},
+		#{B_NAME},
+		#{B_BIRTH},
+		#{B_NICKNAME},
+		SYSDATE,
+		0)
+]]>
+	</insert>
+
+	<!-- 로그인 -->
+	<select id="getMember" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+	FROM 
+		B_MEMBER
+	WHERE
+		B_PHONE=#{B_PHONE}
+]]>
+	</select>
+
+	<!-- findPassword(비밀번호 찾기) -->
+	<select id="findPassword" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+	FROM 
+		B_MEMBER
+	WHERE 
+		B_PHONE=#{B_PHONE} AND B_NAME=#{B_NAME}
+]]>
+	</select>
+
+	<!-- 메뉴바 -->
+	<select id="myMenuBar" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+   FROM 
+      B_MEMBER
+   WHERE
+     B_PHONE=#{B_PHONE}
+]]>
+	</select>
+
+	<!-- 쿠폰 목록 -->
+	<select id="myCouponList" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+	FROM 
+		COUPON
+	WHERE 
+		CUB_IDX=#{B_PHONE} AND CU_USE='N'
+]]>
+	</select>
+
+
+
+	<!-- 주문 내역 -->
+   <select id="myOrderList" parameterType="hashmap"
+      resultType="hashmap">
+      <include refid="common.pagingPre" /> 
+        <![CDATA[ 
+           SELECT 
+                 ROW_NUMBER() OVER(ORDER BY O_DATE DESC) RNUM,
+                 O_STORE, OS_NAME, O_COUNT, O_SUM, O_IDX, O_STATUS, O_CONTENT, O_DATE, O_PICK, O_TIME, OB_IDX, OCU_IDX
+           FROM 
+                 ORDERS WHERE OB_IDX=#{B_PHONE} 
+        ]]>
+      <include refid="common.pagingPost" />
+   </select>
+
+	<!-- 사용된 쿠폰 -->
+	<select id="useCoupon" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+	 SELECT 
+         *
+   FROM 
+        COUPON
+   WHERE
+         CU_IDX=#{OCU_IDX}
+	]]>
+	</select>
+
+	<!-- 쿠폰 사용표시 -->
+	<update id="updateCoupon" parameterType="hashmap">
+		UPDATE COUPON SET
+		CU_USE='Y' WHERE CU_IDX=#{OCU_IDX}
+	</update>
+
+	<!-- 주문번호 가져오기 -->
+	<select id="selectNextOIDX" resultType="hashmap">
+		SELECT
+		ZBF_GET_O_IDX('NOW') O_IDX
+		FROM
+		DUAL
+	</select>
+
+	<!-- 오더 작성 -->
+	<insert id="insertOrder" parameterType="hashmap">
+		INSERT INTO ORDERS
+		(O_STORE,OS_NAME,O_CONTENT,O_COUNT,O_SUM,O_IDX,O_STATUS,O_DATE,O_PICK,OB_IDX
+		<if test="OCU_IDX!=null">
+			,OCU_IDX
+		</if>
+		)
+		VALUES
+		(#{O_STORE},#{OS_NAME},#{O_CONTENT},#{O_COUNT},#{O_SUM},#{O_IDX},#{O_STATUS},SYSDATE,#{O_PICK},#{OB_IDX}
+		<if test="OCU_IDX!=null">
+			,#{OCU_IDX}
+		</if>
+		)
+	</insert>
+
+	<!-- 주문한 메뉴 작성 -->
+	<insert id="insertOrderMenu" parameterType="hashmap">
+		INSERT INTO
+		ORDERS_MENU
+		(OM_NAME,OM_IMG,OM_PRICE,OM_OP,OM_IDX,OM_STORE,OMB_IDX,OMP_IDX,OM_COUNT)
+		VALUES
+		(#{OM_NAME},#{OM_IMG},#{OM_PRICE},#{OM_OP},#{OM_IDX},#{OM_STORE},#{OMB_IDX},#{OMP_IDX},#{OM_COUNT})
+	</insert>
+
+	<!-- 주문내역 상세 -->
+	<select id="myOrderDetail" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT * 
+	FROM 
+		ORDERS 
+	WHERE
+		O_IDX=#{O_IDX} 
+]]>
+	</select>
+
+	<!-- 주문내역 상세 -->
+	<select id="OrderDetail" parameterType="hashmap"
+		resultType="hashmap">
+<![CDATA[
+SELECT *
+	FROM 
+		ORDERS_MENU
+	WHERE
+		OM_IDX=#{O_IDX}
+]]>
+	</select>
+
+	<!-- 이미지??????? -->
+	<select id="selectImageList" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+	 SELECT 
+         P_IMG
+   FROM 
+        PRODUCT
+   WHERE
+         
+	]]>
+	</select>
+
+
+	<!-- 내 스탬프 -->
+	<select id="myStamp" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+	 SELECT 
+         *
+   FROM 
+        B_MEMBER
+   WHERE
+         B_PHONE=#{B_PHONE}
+	]]>
+	</select>
+
+	<update id="updateStamp" parameterType="hashmap">
+
+		UPDATE
+		B_MEMBER 
+		SET 
+		STAMP = STAMP+${O_COUNT}
+	</update>
+
+
+	<!-- 공지사항 리스트 -->
+	<select id="noticeList" parameterType="hashmap"
+		resultType="hashmap">
+		<include refid="common.pagingPre" /> 
+		<![CDATA[
+	      SELECT ROW_NUMBER() OVER(ORDER BY N_DATE DESC) RNUM,
+	             N_IDX, N_TITLE, N_CONTENT, N_DATE, N_IMAGE, N_TYPE 
+	      FROM
+   		         NOTICE
+   		  WHERE
+   		  		NOT N_TYPE = 'S' 
+			]]>
+		<include refid="noticeSearch"></include>
+		<include refid="common.pagingPost" />
+	</select>
+
+	<!-- 공지사항 디테일 -->
+	<select id="noticeDetail" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+		SELECT 
+				N_IDX, N_TITLE, N_CONTENT, N_DATE, N_IMAGE,N_TYPE 
+		FROM 
+				NOTICE 
+		WHERE 
+				N_IDX =#{N_IDX}
+		]]>
+	</select>
+
+	<!-- 매장리스트 -->
+	<select id="getStoreList" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT 
+			STORE, S_NAME,  ADDRESS1, ADDRESS2, S_STATUS, S_PHONE
+			FROM  S_MEMBER 
+		]]>
+	</select>
+	<!-- 매장디테일 -->
+	<select id="storeDetail" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				S_MEMBER
+			WHERE
+				STORE = #{STORE}		
+		]]>
+	</select>
+</mapper>

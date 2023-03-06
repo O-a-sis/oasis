@@ -60,6 +60,27 @@
 #modal2.modalon.out .modal-window .modalcon {
 	animation: scaleDown 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
+
+#smodal{z-index:100}
+#smodal.modalon {
+    bottom: 6%;
+    opacity: 1;
+}
+#smodal.modalon .modal-window {
+}
+#smodal.modalon .modal-window .modalcon {
+
+}
+
+#smodal.modalon.out {
+}
+#smodal.modalon.out .modal-window {
+	  position: relative;
+  bottom: -250px;
+
+}
+#smodal.modalon.out .modal-window .modalcon {
+}
 /* Dimmed showing */
 @keyframes fadeIn {
 	0% {

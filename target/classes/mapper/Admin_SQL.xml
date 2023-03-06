@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+
+
+	<!-- 공지사항 검색 -->
+	<sql id="noticeSearch">
+		<trim prefix=" WHERE " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="or">
+					<choose>
+						<when test="type=='T'.toString()">
+							N_TITLE like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							N_CONTENT like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<!-- 공지사항 리스트 -->
+	<select id="noticeList" parameterType="hashmap"
+		resultType="hashmap">
+		<include refid="common.pagingPre" /> 
+		<![CDATA[
+	      SELECT ROW_NUMBER() OVER(ORDER BY N_DATE DESC) RNUM,
+	             N_IDX, N_TITLE, N_CONTENT, N_DATE, N_IMAGE, N_TYPE 
+	      FROM
+   		         NOTICE
+			]]>
+		<include refid="noticeSearch" />
+		<include refid="common.pagingPost" />
+	</select>
+
+	<!-- 공지사항 상세보기 -->
+	<select id="noticeDetail" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+		SELECT N_IDX, N_TITLE, N_CONTENT, N_DATE, N_IMAGE,N_TYPE FROM NOTICE WHERE N_IDX =#{N_IDX}
+	]]>
+	</select>
+
+	<!-- 공지사항 입력 -->
+	<insert id="noticeWrite" parameterType="hashmap"
+		useGeneratedKeys="true" keyProperty="N_IDX">
+		<selectKey keyProperty="N_IDX" resultType="string"
+			order="BEFORE">
+			SELECT N_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[
+		INSERT INTO NOTICE(
+		       N_IDX,
+		       N_TITLE,
+			   N_CONTENT,
+			   N_DATE,
+			   N_IMAGE,
+			   N_TYPE
+		)VALUES(
+				#{N_IDX}, 
+				#{N_TITLE},
+				#{N_CONTENT}, 
+				SYSDATE,  
+				#{N_IMAGE}, 
+				#{N_TYPE}
+		)
+		]]>
+	</insert>
+
+	<!-- 공지사항 수정 -->
+	<update id="noticeUpdate" parameterType="hashmap">
+		<![CDATA[
+		UPDATE 
+			  NOTICE 
+		SET
+			  N_TITLE=#{N_TITLE},				
+			  N_CONTENT=#{N_CONTENT},
+			  N_IMAGE=#{N_IMAGE},
+			  N_DATE=SYSDATE
+		WHERE
+			  N_IDX=#{N_IDX}	
+		]]>
+	</update>
+
+	<!-- 공지사항 삭제 -->
+	<delete id="noticeDelete" parameterType="hashmap">
+		<![CDATA[
+		  DELETE FROM NOTICE WHERE N_IDX = #{N_IDX}	
+		]]>
+	</delete>
+
+	<!-- 공지사항 검색 -->
+	<sql id="storeSearch">
+		<trim prefix=" WHERE " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="or">
+					<choose>
+						<when test="type=='R'.toString()">
+							R_DATE like '%'||#{keyword}||'%'
+						</when>
+
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<!-- 관리자 지점 관리 리스트 -->
+	<select id="storeList" resultType="hashmap">
+		<include refid="common.pagingPre" /> 
+        <![CDATA[
+        SELECT
+               ROW_NUMBER() OVER(ORDER BY STORE DESC) RNUM, S.*
+        FROM
+                S_MEMBER S
+                   
+        ]]>
+		<include refid="common.pagingPost" />
+	</select>
+
+	<!-- 관리자 지점 관리 (+ 매출순위) 리스트 -->
+	<select id="storeListRank" resultType="hashmap">
+        <![CDATA[
+        
+
+select * from
+(SELECT  R.*,S.*,
+RANK() OVER(ORDER BY R.R_SUM DESC) as SUM_RANK
+FROM S_MEMBER S, REVENUE R
+WHERE S.STORE = R.R_IDX and R.R_DATE =  to_char(sysdate-1,'yyyymmdd'))
+where SUM_RANK <= 3            
+        ]]>
+	</select>
+
+	<!-- 관리자 지점 상세보기 -->
+	<select id="storeDetail" parameterType="hashmap"
+		resultType="hashmap">
+ <![CDATA[
+     SELECT *
+     FROM 
+      S_MEMBER
+      WHERE
+                STORE =  #{STORE}
+   ]]>
+	</select>
+
+	<select id="revenueList" parameterType="hashmap"
+		resultType="hashmap">
+ <![CDATA[
+     SELECT *
+     FROM 
+      REVENUE
+      WHERE
+    R_IDX = #{STORE}
+   ]]>
+	</select>
+
+
+
+	<!-- 관리자 지점 전일 매출 -->
+	<select id="getYSum" parameterType="hashmap"
+		resultType="hashmap">
+ <![CDATA[
+      SELECT
+      	R_SUM
+        FROM
+    REVENUE 
+		WHERE 
+			R_IDX =  #{STORE} and R_DATE =  to_char(sysdate-1,'yyyymmdd')
+   ]]>
+	</select>
+
+	<!-- 관리자 지점 월평균 -->
+	<select id="getMAvg" parameterType="hashmap"
+		resultType="hashmap">
+ <![CDATA[
+    SELECT
+     
+    TRUNC(AVG(R_SUM),2)AS AVG
+    FROM
+    REVENUE 
+    where R_IDX =  #{STORE} and R_DATE between TRUNC(SYSDATE, 'MM') and sysdate
+   ]]>
+	</select>
+
+
+
+	<!-- 관리자 - 지점 상세보기 매출 목록 -->
+	<select id="storeSumRank" parameterType="hashmap"
+		resultType="hashmap">
+		<include refid="common.pagingPre" /> 
+ <![CDATA[
+    SELECT 
+    ROW_NUMBER() OVER(ORDER BY R_DATE DESC) RNUM,
+		R_IDX,
+		to_char(R_DATE,'YYYY/MM/DD') R_DATE,
+		R_SUM,
+		OR_COUNT
+	FROM
+   		 REVENUE
+   WHERE
+        R_IDX = #{STORE}
+   		 
+    ORDER BY R_DATE DESC 
+ 
+   ]]>
+		<include refid="storeSearch" />
+		<include refid="common.pagingPost" />
+	</select>
+
+
+
+	<!-- 관리자 지점 추가하기(회원가입) -->
+	<insert id="storeJoin" parameterType="hashmap">
+        <![CDATA[
+                INSERT INTO 
+                        S_MEMBER(
+                                STORE, S_PASSWORD, S_NAME, S_MANAGER, ADDRESS1, ADDRESS2,
+                                POSTCODE, S_PHONE, S_DATE, S_STATUS, DEL_GB
+                                )
+                        VALUES (
+                                #{STORE}, 
+                                #{S_PASSWORD}, 
+                                #{S_NAME},
+                                #{S_MANAGER}, 
+                                #{ADDRESS1}, 
+                                #{ADDRESS2},
+                                #{POSTCODE},
+                                #{S_PHONE},
+                                SYSDATE, 
+                                0,
+                                'N')
+ ]]>
+	</insert>
+
+
+	<!-- 지점 재고현황 삽입 -->
+	<insert id="insertStatus" parameterType="hashmap">
+        <![CDATA[
+                INSERT INTO 
+                        STATUS
+                        VALUES (
+                                #{STORE}, 
+                                #{P_IDX}, 
+                                'N'
+                                )
+ ]]>
+	</insert>
+
+
+	<!-- 지점명 Check -->
+	<select id="nameCheck" parameterType="String" resultType="int">
+<![CDATA[
+	SELECT COUNT(*) 
+	FROM 
+		S_MEMBER
+ 	WHERE 
+ 		S_NAME= #{S_NAME} 
+]]>
+	</select>
+
+
+
+	<!-- 관리자 지점 수정기능 -->
+	<update id="storeUpdate" parameterType="hashmap">
+        <![CDATA[
+                UPDATE 
+                        S_MEMBER
+                SET  
+                        S_MANAGER = #{S_MANAGER}, 
+                        ADDRESS1 = #{ADDRESS1},
+                        ADDRESS2 = #{ADDRESS2},
+                        POSTCODE = #{POSTCODE},
+                        S_PHONE = #{S_PHONE}
+                WHERE 
+                        STORE=#{STORE}
+                ]]>
+	</update>
+
+
+
+	<!-- 관리자 지점 폐쇄기능 -->
+	<update id="storeDown" parameterType="hashmap">
+        <![CDATA[
+                UPDATE S_MEMBER
+                SET
+                        DEL_GB = 'Y'
+                WHERE
+                        STORE = #{STORE}
+                        ]]>
+	</update>
+
+
+	<!-- 메인화면 공지사항 이미지리스트 -->
+	<select id="mainImg" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+	      SELECT 
+	             N_IDX, N_IMAGE
+	      FROM
+   		         NOTICE
+   		        WHERE N_TYPE = 'E' 
+			]]>
+	</select>
+
+
+	<!-- 관리자 - 회원 목록 -->
+	<select id="memberList" resultType="hashmap">
+		<include refid="common.pagingPre" /> 
+        <![CDATA[
+      
+		SELECT 
+   			 ROW_NUMBER() OVER(ORDER BY B_DATE DESC) RNUM,
+		B_PHONE,
+		B_PASSWORD,
+		B_NAME,
+		to_char(B_BIRTH,'YYYY/MM/DD') B_BIRTH,
+		B_NICKNAME,
+		B_DATE
+		
+		FROM
+   				 B_MEMBER   		 
+                   
+        ]]>
+		<include refid="common.pagingPost" />
+	</select>
+
+</mapper>

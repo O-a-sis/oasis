@@ -26,6 +26,14 @@
 			<bean class="com.oasis.resolver.CustomMapArgumentResolver"></bean>
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean id="loggerIntercepter"
+				class="com.oasis.common.logger.LoggerInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/**"/> <bean 
 		id="loggerInterceptor" class="first.common.logger.LoggerInterceptor"></bean> 

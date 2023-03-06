@@ -50,4 +50,9 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 
 	}
 
+	@Override
+	public List<Map<String, Object>> mainImg(Map<String, Object> map) throws Exception {
+		return adminNoticeDAO.mainImg(map);
+	}
+
 }

@@ -1,12 +1,103 @@
-<%@ page pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<script src=<c:url value='/js/jquery-1.12.4.min.js'/>></script>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src=<c:url value='/js/main.js'/>></script>
+<script src=<c:url value='/js/common.js'/>></script>
+<script src=<c:url value='/js/jquery-1.12.4.min.js'/>></script>
+<script src=<c:url value='/js/notification.js'/>></script>
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/member/main.css'/>" />
+<script src="https://kit.fontawesome.com/41c6b11e7f.js"
+	crossorigin="anonymous"></script>
 
 
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="<c:url value='/js/common.js'/>" charset="utf-8"></script>
+</head>
+<body>
+	<header>
+<!-- 				<div id="carticon"> -->
+<!-- 			<i class="fa-solid fa-basket-shopping"></i> -->
+<!-- 			</div> -->
+		<nav class="gnb_mobile">
+			<input type="hidden" id="id" value="${sessionScope.B_PHONE}" />
+			<div class="m_slide">
+				<div class="menu_sub">
+					<div class="topmenu">
+					<c:choose>
+						<c:when test="${not empty sessionScope.B_PHONE}">
+							<a href=<c:url value='/member/logout.oa' />>로그아웃</a>
+						</c:when>
+						<c:otherwise>
+							<a href=<c:url value='/member/loginForm.oa' />>로그인</a> /
+								<a href=<c:url value='/member/joinForm.oa' />>회원가입</a>
+						</c:otherwise>
+					</c:choose>
+					</div>
+					<!--회원일 경우 보임 -->
+					<div class="member">
+
+						<div class="shop">
+							<c:if test="${not empty sessionScope.B_PHONE}">
+
+								<h3>${sessionScope.B_NAME}님</h3>
+							</c:if>
+
+
+						</div>
+						<ul>
+							<c:if test="${not empty sessionScope.B_PHONE}">
+								<li><span>멤버십</span>
+									<ul>
+										<li><a href="http://localhost:8000/Oasis/member/myStamp.oa?B_PHONE=${sessionScope.B_PHONE}">스탬프</a></li>
+										<li><a href="http://localhost:8000/Oasis/member/myCouponList.oa?B_PHONE=${sessionScope.B_PHONE}">쿠폰</a></li>
+
+									</ul></li>
+							</c:if>
+
+							<li><span>주문</span>
+								<ul>
+									<li><a href="http://localhost:8000/Oasis/member/myOrderList.oa?B_PHONE=${sessionScope.B_PHONE}">주문내역</a></li>
+								</ul></li>
+							<li><span>새소식</span>
+								<ul>
+									<li><a href="http://localhost:8000/Oasis/member/noticeList.oa">공지사항</a></li>
+								</ul></li>
+							<li><span>약관 및 정책</span>
+								<ul>
+									<li><a href="http://localhost:8000/Oasis/member/ect.oa">이용약관</a></li>
+								</ul></li>
+						</ul>
+					</div>
+					<button class="gnb_close">
+						<img src="../images/common/gnb_close.png" alt="메뉴닫기" />
+					</button>
+					<div class="gnb_bg"></div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<footer>
+		<div class="bottomnav">
+			<ul>
+				<li><a href=<c:url value='/member/main.oa' />><i
+						class="fa-solid fa-house"></i></a></li>
+				<li><a href=<c:url value='/member/storeList.oa' />><img
+						src="../images/common/oasis.png" alt="메뉴열기" /></a></li>
+				<li><a href="http://localhost:8000/Oasis/member/myOrderList.oa?B_PHONE=${sessionScope.B_PHONE}"><i class="fa-solid fa-clipboard"></i></a></li>
+				<li><button class="gnb_open">
+						<img src="../images/common/gnb_open.png" alt="메뉴열기" />
+					</button></li>
+			</ul>
+
+		</div>
+	</footer>
+</body>

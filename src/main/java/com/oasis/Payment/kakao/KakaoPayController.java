@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.MediaType;
@@ -21,8 +22,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.oasis.common.CommandMap;
+import com.oasis.member.service.MemberStoreService;
+
+import lombok.AllArgsConstructor;
+
 @RestController
+@AllArgsConstructor
 public class KakaoPayController {
+	
+	private MemberStoreService memberStoreService;
 
 	@GetMapping("/kakaotest")
 	public ModelAndView kakaotest() {
@@ -51,7 +60,7 @@ public class KakaoPayController {
 					+ "&total_amount=" + map.get("price") // 총 금액
 					+ "&vat_amount=0" // 부가세
 					+ "&tax_free_amount=0" // 상품 비과세 금액
-					+ "&approval_url=http://localhost:8000/Oasis/kakaotest" // 결제 성공 시
+					+ "&approval_url=http://localhost:8000/Oasis/kakaotest?id="+ map.get("userId") +"&" // 결제 성공 시
 					+ "&fail_url=http://localhost:8000/" // 결제 실패 시
 					+ "&cancel_url=http://localhost:8000/"; // 결제 취소 시
 			OutputStream send = connection.getOutputStream(); // 이제 뭔가를 를 줄 수 있다.
@@ -79,6 +88,16 @@ public class KakaoPayController {
 			e.printStackTrace();
 		}
 		return "";
+	}
+	
+	@GetMapping("/kakaoMapTest")
+	public ModelAndView kakaoMapTest(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("kakaoMapTest");
+		
+		List<Map<String, Object>> list = memberStoreService.getStoreList(commandMap.getMap());
+		
+		mv.addObject("list",list);
+		return mv;
 	}
 
 }
