@@ -52,7 +52,7 @@ function fsubmit(){
 			</ul>
 		</div>
 		<section id="login">
-			<form action="<c:url value='login.oa'/>" method="POST">
+			<form action="<c:url value='login.oa'/>" method="POST" onsubmit="return fsubmit();">
 				<h3>
 					<div class="tag">전화번호</div>
 					<input type="text" name="B_PHONE" placeholder="전화 번호를 입력하세요">
