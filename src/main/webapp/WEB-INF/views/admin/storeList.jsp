@@ -68,7 +68,7 @@
 			<br> <br> <br>
 			<h1 style="float:left;width:90%">지점 관리</h1>
 			
-			<button type='button' id="modal_btn">지점추가</button>
+			<button type='button' id="modal_btn" class="saddbtn"> 지점추가</button>
 			<table class="board_list">
 				<thead>
 					<tr>
@@ -122,7 +122,7 @@
 				<div class="modal-window">
 					<div class="jointit">
 
-						<h4>지점 회원가입</h4>
+						<h3>지점 회원가입</h3>
 						<form id="writeForm" class="form-horizontal" method="POST"
 							action="<c:url value='/admin/storeJoin.oa'/>" onSubmit="check()">
 
@@ -171,7 +171,7 @@
 							<div class="joinfom">
 								<label>주소</label><br /> <input class="putfomnum" type="text"
 									class="form-control" id="sample6_postcode" name="POSTCODE"
-									placeholder="우편번호"> <input type="button"
+									placeholder="우편번호" style="width:50%"> <input type="button"
 									class="postbtn" onclick="sample6_execDaumPostcode()"
 									value="우편번호 찾기"> <label id="ADDRW1"></label>
 							</div>
@@ -189,6 +189,7 @@
 									<i aria-hidden="true"></i>회원가입 완료
 								</button>
 								<button type="button" class="close-area">닫기</button>
+								</div>
 						</form>
 					</div>
 

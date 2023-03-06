@@ -72,7 +72,7 @@
 				</div>
 			<div class="notice_view_more" style="">
 				<p>
-					<button class="loadmore" onClick="loadMore()">더보기</button>
+					<button class="loadmore" onClick="loadMore()">더보기<i class="fa-solid fa-chevron-down"></i></button>
 					<input type="hidden" id="page" />
 				</p>
 			</div>
@@ -82,72 +82,73 @@
 </body>
 
 <script>
-	function loadMore() {		
-		var page = $("#page").val() == '' ? 2 : parseInt($("#page").val()) + 1;
-		var type = '${param.type}';
-		var keyword = '${param.keyword}';
-		var B_PHONE = '${param.B_PHONE}';
+   function loadMore() {      
+      var page = $("#page").val() == '' ? 2 : $("#page").val();
+      console.log(page);
+      var type = '${param.type}';
+      var keyword = '${param.keyword}';
+      var B_PHONE = '${param.B_PHONE}';
 
-		$.ajax({
-			url : '/Oasis/member/loadMoreOrderList.oa',
-			type : 'GET',
-			data : {
-			        B_PHONE : B_PHONE,
-					page : page,
-					type : type,
-					keyword : keyword
-					},
-					success : function(data) {
-						if (data.list.length > 0) {
-							var html = '';
-							$.each(
-								data.list,
-								function(index, item) {
-												
-								// item.O_DATE를 Date 객체로 변환합니다.
-								var date = new Date(item.O_DATE);
-								// 연도를 가져옵니다.
-								var year = date.getFullYear();
-								// 월을 가져옵니다. month는 0부터 시작하므로 1을 더해줍니다.
-								var month = ('0' + (date.getMonth() + 1)).slice(-2);
-								// 일을 가져옵니다.
-								var day = ('0' + date.getDate()).slice(-2);
-								// 연도, 월, 일을 합쳐서 YYYY-MM-DD 형식의 문자열을 만듭니다.
-								var formattedDate = year + '-' + month + '-' + day;
-												
-								html += '<li class="oli"><a href="/Oasis/member/myOrderDetail.oa?O_IDX='
-									 + item.O_IDX
-									 + '&B_PHONE='
-									 + item.OB_IDX
-									 + '&OCU_IDX='
-									 + item.OCU_IDX
-									 + '"><ul>';
-								html += '<li>';
-							if (item.O_PICK == '0') {
-							    html += '픽업';
-							} else if (item.O_PICK == '1') {
-								html += '매장';
-							}
-								html += '</li>';
-								html += '<li>' + item.OS_NAME
-								     + '</li>';
-								html += '<li>' + formattedDate
-								     + '</li>';
-								html += '<li></li>';
-								html += '</ul></a></li>';
-											
-							});
-							
-							$('.olist .more').append(html);
-							$('.paging').replaceWith(data.paging);
-						} else {
-							$('.notice_view_more').hide();
-						}
-					},
-					error : function() {
-						alert('더보기 실패');
-					}
-				});
-	}
+      $.ajax({
+         url : '/Oasis/member/loadMoreOrderList.oa',
+         type : 'GET',
+         data : {
+                 B_PHONE : B_PHONE,
+               page : page,
+               type : type,
+               keyword : keyword
+               },
+               success : function(data) {
+                  if (data.list.length > 0) {
+                     var html = '';
+                     $.each(
+                        data.list,
+                        function(index, item) {
+                                    
+                        // item.O_DATE를 Date 객체로 변환합니다.
+                        var date = new Date(item.O_DATE);
+                        // 연도를 가져옵니다.
+                        var year = date.getFullYear();
+                        // 월을 가져옵니다. month는 0부터 시작하므로 1을 더해줍니다.
+                        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                        // 일을 가져옵니다.
+                        var day = ('0' + date.getDate()).slice(-2);
+                        // 연도, 월, 일을 합쳐서 YYYY-MM-DD 형식의 문자열을 만듭니다.
+                        var formattedDate = year + '-' + month + '-' + day;
+                                    
+                        html += '<li class="oli"><a href="/Oasis/member/myOrderDetail.oa?O_IDX='
+                            + item.O_IDX
+                            + '&B_PHONE='
+                            + item.OB_IDX
+                            + '&OCU_IDX='
+                            + item.OCU_IDX
+                            + '"><ul>';
+                        html += '<li>';
+                     if (item.O_PICK == '0') {
+                         html += '픽업';
+                     } else if (item.O_PICK == '1') {
+                        html += '매장';
+                     }
+                        html += '</li>';
+                        html += '<li>' + item.OS_NAME
+                             + '</li>';
+                        html += '<li>' + formattedDate
+                             + '</li>';
+                        html += '<li></li>';
+                        html += '</ul></a></li>';
+                                 
+                     });
+                     
+                     $('.olist .more').append(html);
+                     var paging = data.paging;
+                     if (paging.currentPage < paging.totalPage) {
+                        $("#page").val(paging.currentPage + 1);
+                     } else {
+                        $('.notice_view_more').hide();
+                     }
+                  }
+               }
+            });
+   } 
 </script>
 </html>

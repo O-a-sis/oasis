@@ -24,7 +24,7 @@
 				<table class="status" border=0>
 					<tr>
 						<td rowspan=3><a href="#this"><img
-								src="https://img.79plus.co.kr/megahp/manager/upload/menu/20220630162318_1656573798017_43JQ0t0JCi.jpg"
+								src="<c:url value='/images/contents/${item.P_IMG}'/>"
 								height="200px" /></a></td>
 						<td><h2>
 								<strong>${item.P_NAME }</strong>
@@ -49,7 +49,8 @@
 
 			<div id="modal" class="modal-overlay">
 				<div class="modal-window" id="popupPrdCompare"
-					data-popup-layer="popupPrdCompare">
+					data-popup-layer="popupPrdCompare"style="background: #fbeacd;
+    height: 150px;">
 					<div class="title">
 
 						<div class="close-area" data-focus-next="popupPrdCompare">X</div>

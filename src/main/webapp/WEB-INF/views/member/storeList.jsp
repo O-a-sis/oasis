@@ -109,9 +109,13 @@
 														type="hidden" value="${item2.B_STORE}" name="b_store">
 												</div></li>
 											<li class="innerl">${item2.ADDRESS1}${item2.ADDRESS2}</li>
-											
+											<c:if test="${item2.S_STATUS eq 1}">
 											<li class="innerl"><button class="sbtn"
 													onclick="javascript:location.href='/Oasis/member/menuList.oa?S_NAME=${item2.BS_NAME}&STORE=${item2.B_STORE}'">주문하기 <i class="fa-solid fa-chevron-right"></i></button></li>
+										</c:if>
+										<c:if test="${item2.S_STATUS ne 1}">
+										<li></li>
+										</c:if>
 										</ul>
 
 									</li>

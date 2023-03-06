@@ -4,48 +4,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.button {
-	border-radius: 7px;
-	font-size: 16px;
-	width: 150px;
-}
-</style>
+
 <meta charset="UTF-8">
 <title>상품관리-관리자</title>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/storedefault.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/storesub.css'/>" />
+<title>본사-지점관리</title>
+<%@ include file="/WEB-INF/include/include-adminheader.jspf"%>
 </head>
 <body>
-	<div>
-		<h1 style="display: inline" onclick="location.href='<c:url value="storeList.oa"/>'">오아시스</h1>
-		<h3 style="display: inline">관리자</h3>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="storeList.oa"/>'">
-			<strong>지점관리</strong>
-		</h2>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="productList.oa"/>'">
-			<strong>상품관리</strong>
-		</h2>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="noticeList.oa"/>'">
-			<strong>공지사항</strong>
-		</h2>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<h2 style="color: #ff6600; display: inline"
-			onclick="location.href='<c:url value="memberList.oa"/>'">
-			<strong>사이트관리</strong>
-		</h2>
-
-	</div>
-	<br>
-	<div
-		style="height: 20px; width: 100%; background-color: #ff6600;">
-	</div>
-
+<div class="wrap">
+<div id="adminplist">
+<h1 style="float:left">메뉴 관리</h1> <button type="submit" class="button" style="color: white; background: orange" onclick="location.href='<c:url value="productRegisterForm.oa"/>'">상품 등록하기</button>
 <br>
+<div class="">
 	<c:forEach items="${list}" var="item">
 		<table class="status" border=0>
 			<tr>
@@ -64,7 +38,10 @@
 	</c:forEach>
 	
 	<div class="paging">${paging.pageHtml}</div>
+	</div>
+	</div>
 <br>
-	<button type="submit" class="button" style="color: white; background: orange" onclick="location.href='<c:url value="productRegisterForm.oa"/>'">상품 등록하기</button></td>
+	</div>
+	
 </body>
 </html>
