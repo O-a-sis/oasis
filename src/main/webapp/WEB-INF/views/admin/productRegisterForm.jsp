@@ -53,9 +53,19 @@
           </div>
           
           <div class="form-group">
-            <strong><label>제품 가격</label></strong> &nbsp;&nbsp;<input class="form-control" name='P_PRICE'>원
+            <strong><label>제품 가격</label></strong> &nbsp;&nbsp;<input type="text" id="board_price" name="P_PRICE" onkeyup="inputNumberFormat(this)"/> 원
           </div>
-		
+          
+          <div class="form-group">
+            <strong><label>제품 카테고리</label></strong> &nbsp;&nbsp;
+            <select name="P_CATEGORY">
+              <option value="C">커피</option>
+              <option value="J">주스</option>
+              <option value="A">에이드</option>
+              <option value="S">스무디</option>
+              <option value="D">디저트</option>
+            </select>
+          </div>
 		  <br>
           <div class="form-group">
             <strong><label>제품 설명</label></strong> <br>
@@ -80,13 +90,27 @@
       </div>
 	<br><br>
 	<div>
-	<button type="submit" class="button" style="color: white; background: orange">등록하기</button></td>
+	<button type="submit" id="btn_submit" class="button" style="color: white; background: orange">등록하기</button></td>
 	&nbsp;
 	<button type="reset" class="button" style="color: white; background: blue">리셋</button></td>
 	</form>
 	</div>
 </body>
-<script>
+<script type="text/javascript">
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
+}
+
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+
 function readImage(input) {
     // 인풋 태그에 파일이 있는 경우
     if(input.files && input.files[0]) {
@@ -108,5 +132,14 @@ inputImage.addEventListener("change", e => {
     readImage(e.target)
 })
 </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+var rgx3 = /,/gi; 
+$("#btn_submit").click(function(){      
+     var temp = document.getElementById("board_price").value.replace(rgx3,"");   
+     $("input[name='P_PRICE']").val(temp);         
+     frm.submit();  
+});
+     
+</script>
 </html>

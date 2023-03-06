@@ -33,12 +33,12 @@
 			<c:if test="${map.P_CATEGORY ne 'D'}">
 			<li class="oplist"><ul>
 					<li><strong>꿀 추가 선택</strong></li>
-					<li><input type="radio" id="option1"
-						name="option1" value="" onchange="handleChange1(this);" checked />
-						<label for="option1">선택안함</label></li>
-					<li><input type="radio" name="option1" value="꿀추가"
-						id="option2" onchange="handleChange1(this);" /> <label
-						for="option2">꿀 추가 +700원</label></li>
+					<li><input type="radio" id="option5"
+						name="option5" value="" onchange="handleChange4(this);" checked />
+						<label for="option5">선택안함</label></li>
+					<li><input type="radio" name="option5" value="꿀추가"
+						id="option5" onchange="handleChange4(this);" /> <label
+						for="option5">꿀 추가 +700원</label></li>
 							
 				</ul>
 			</li>
@@ -46,12 +46,12 @@
 			<c:if test="${map.P_CATEGORY eq 'D'}">
 			<li class="oplist"><ul>
 					<li><strong>박스추가</strong></li>
-					<li><input type="radio" name="option2"
-						id="option3" value="" onchange="handleChange2(this);" checked />
-						<label for="option3">추가안함</label></li>
-					<li><input type="radio" name="option2" value="박스추가"
-						id="option4" onchange="handleChange2(this);" /><label
-						for="option4">박스 추가 +500원</label></li>
+					<li><input type="radio" name="option6"
+						id="option6" value="" onchange="handleChange5(this);" checked />
+						<label for="option6">추가안함</label></li>
+					<li><input type="radio" name="option6" value="박스추가"
+						id="option6" onchange="handleChange5(this);" /><label
+						for="option6">박스 추가 +500원</label></li>
 				</ul></li>
 				</c:if>
 		</ul>

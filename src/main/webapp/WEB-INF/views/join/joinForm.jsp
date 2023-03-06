@@ -28,25 +28,25 @@
 	<div class="wrap">
 		<div class="subhead">
 			<ul>
-				<li><i class="fa-solid fa-chevron-left"></i></li>
+				<li><a href="javascript:window.history.back();"><i class="fa-solid fa-chevron-left"></i></a></li>
 				<li><span class="subtit">회원가입</span>
 			</ul>
 		</div>
 		<section id="join">
 			<form action="./joinSuccess.oa" method="post">
 				<div class="tag">전화번호</div>
-				<input type="text" name="B_PHONE" style="width:80%">
+				<input type="text" name="B_PHONE" style="width:80%" required>
 				<button type="button" id="checkbtn">인증</button>
 				<div class="tag">인증 번호</div>
-				<input type="text" name="checkkey" id="checkkey" readonly><input
+				<input type="text" name="checkkey" id="checkkey" readonly required><input
 					type="hidden" name="keycheck" id="keycheck"><label
 					id="check"></label>
 				<div class="tag">비밀번호</div>
-				<input type="password" name="B_PASSWORD">
+				<input type="password" name="B_PASSWORD" required>
 				<div class="tag">이름</div>
-				<input type="text" name="B_NAME">
+				<input type="text" name="B_NAME" required>
 				<div class="tag">닉네임</div>
-				<input type="text" name="B_NICKNAME">
+				<input type="text" name="B_NICKNAME" required>
 				<div class="tag">생일</div>
 				<input type="date" name="B_BIRTH" data-placeholder="생년월일을 입력해주세요"   required
   aria-required="true">

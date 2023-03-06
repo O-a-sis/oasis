@@ -30,6 +30,16 @@ input[type='text'] {
 	color: #9d9d9d
 }
 
+.subhead ul li:last-child{
+	margin-right:0;
+}
+.subhead ul li:last-child a{
+	font-decoration:none;
+	colot:#e68e41
+}
+.subhead ul li:last-child i{
+	color:#e68e41;
+}
 .subhead ul li .subtit {
 	font-size: 19px;
 	font-weight: 500
@@ -230,6 +240,35 @@ input[type='text'] {
 	padding: 10px 0
 }
 
+.store .mapline .marker{
+    position: relative;
+    width: 73px;
+    height: 40px;
+    background-color: #e68e41;
+    border-radius: 10px;
+}
+
+.store .mapline .marker::after{
+    content: '';
+    position: absolute;
+    right: 24%;
+    bottom: -75%;
+    margin-top: -20px;
+    border-bottom: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-left: 20px solid transparent;
+    border-top: 20px solid #e68e41;
+}
+
+.store .mapline .marker .text{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin: 0;
+    color: #fff;
+    padding: 5%;}
 .store .mapline #map {
 	border-radius: 15px
 }
@@ -249,7 +288,7 @@ input[type='text'] {
 
 .store .storelist ul li.listline {
 	width: 98%;
-	height: 80px;
+	height: 95px;
 	margin-bottom: 5px;
 	border-bottom: 2px solid #ffebde;
 }
@@ -291,6 +330,12 @@ input[type='text'] {
 	top: 10px;
 }
 
+.store .storelist ul li ul.ulinner li.innerl:nth-child(5) {
+	position: absolute;
+	top: 53px;
+	left: 100px;
+}
+
 .store .store_mark .mapper .storelist2 {
 	margin-top: 10px
 }
@@ -306,16 +351,18 @@ input[type='text'] {
 
 .store .store_mark .mapper .storelist2 ul li.listline {
 	width: 98%;
-	height: 80px;
+	height: 100px;
 	margin-bottom: 5px;
 	border-bottom: 2px solid #ffebde;
 }
-
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl i{
+	color:#e68e41;
+}
 .store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl {
 	margin-top: 10px
 }
 
-.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(1)
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:first-child
 	{
 	width: 20%;
 	float: left;
@@ -332,26 +379,38 @@ input[type='text'] {
 	margin-top: 19px;
 	float: left;
 	margin-left: 10px;
-	width: 50%;
-	/* position: relative; */
+	width: 70%;
+font-size:18px;
 	text-align: left;
 }
-
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(2) .s_status{
+	
+	
+    font-size: 13px;
+    border: 1px solid #e68e41;
+    width: 43px;
+    padding: 1px 2px;
+    border-radius: 15px;
+    text-align: center;
+    color: #e68e41;
+}
 .store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(3)
 	{
-	position: absolute;
-	left: 29%;
-	top: 43%;
-	margin: 40px 0;
+       margin-left: 98px;
+    margin-top: 0px;
 }
 
-.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:nth-child(4)
-	{
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:last-child{
 	position: absolute;
 	top: 43;
 	right: 30px;
 	top: 10px;
 }
+.store .store_mark .mapper .storelist2 ul li ul.ulinner li.innerl:last-child .sbtn{
+ 	    font-size: 14px; 
+ color: #e68e41; 
+	
+	}
 /*매장모달*/
 #smodal {
 	width: 100%;
@@ -525,6 +584,53 @@ input[type='text'] {
 	float: none;
 }
 
+
+
+.menulist .menutablist .menuselect div>div>ul>li>ul>li {
+	float: left;
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>ul>li img {
+	width: 90px;
+	height: 90px;
+	border-radius: 100%;
+filter: grayscale(100%);
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>ul>li .soldout{
+    font-size: 11px;
+    border: 1px solid #ef7272;
+    padding: 2px 5px;
+    margin-left: 18px;
+    border-radius: 15px;
+    background: #ef7272;
+    color: #fff;
+	
+	
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>ul>li:nth-child(1) {
+	width: 31%
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>ul>li:nth-child(2) {
+	padding-top: 17px;
+	font-size: 17px;
+	font-weight: 400;
+	float: none;
+}
+
+.menulist .menutablist .menuselect div>div>ul>li>ul>li:nth-child(3) {
+	padding-left: 10px;
+	padding-top: 5px;
+	font-size: 15px;
+	font-weight: 500;
+	float: none;
+}
+
+
+
+
 .menu_tab::-webkit-scrollbar {
 	display: none;
 }
@@ -635,6 +741,7 @@ input[type='text'] {
 	text-align: left;
 	border-radius: 15px;
 	background-color: #fff;
+	    z-index: 10;
 }
 
 .menudetail #checkflex .num {
@@ -839,6 +946,8 @@ input[type='text'] {
 	z-index: 1;
 }
 
+
+
 #orderinfo .coupon {
 	maring-top: 10px;
 	height: auto;
@@ -912,9 +1021,10 @@ input[type='text'] {
 	left: -9999px;
 }
 
-#orderinfo .coupon #hide ul.clist li input[type='radio']:checked {
+#orderinfo .coupon #hide ul.clist li input[type='radio']+label:checked {
 	background-color: #e68e41;
 }
+
 
 #orderinfo .coupon .line {
 	height: 50px;
@@ -936,7 +1046,7 @@ input[type='text'] {
 }
 
 #orderinfo .how {
-	height: 800px;
+	height: 400px;
 	margin-top: 20px
 }
 
@@ -1164,7 +1274,7 @@ input[type='text'] {
 	border: 2px solid #e68e41;
 	bottom: 36px;
 	padding: 24px 45px;
-	height: 119px;
+	height: 99px;
 	text-align: left;
 	border-radius: 15px;
 	background-color: #fff;
@@ -1250,6 +1360,7 @@ input[type='text'] {
 
 #mnotice .nlist ul li.nli>ul>li {
 	float: left;
+
 }
 
 #mnotice .nlist ul li.nli:last-child {
@@ -1261,12 +1372,18 @@ input[type='text'] {
 	font-weight: 300;
 	width: 15%;
 }
-
+#mnotice .nlist ul .nli>ul>li:nth-child(2){
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 #mnotice .nlist ul .nli>ul>li:nth-child(2)>a {
 	font-size: 16px;
 	font-weight: 500;
 	text-decoration: none;
 	color: #484848;
+
 }
 
 #mnotice .nlist ul .nli>ul>li:nth-child(3) {
@@ -1347,7 +1464,7 @@ input[type='text'] {
 }
 
 #mnoticedetail .detail .title {
-	height: 30px;
+	height: 40px;
 	border-bottom: 2px solid #999;
 	padding: 10px 0px;
 }
@@ -1414,6 +1531,7 @@ input[type='text'] {
 }
 
 #myOrderlist .olist {
+	margin-bottom:200px;
 	margin-top: 50px;
 	paading-top: 50px;
 	border-top: 2px solid #9d9d9d;
@@ -1427,7 +1545,7 @@ input[type='text'] {
 
 #myOrderlist .olist ul li.oli {
 	width: 100%;
-	height: 30px;
+	height: 40px;
 	padding: 10px 0;
 	border-bottom: 1px solid #9d9d9d;
 	position: relative;
@@ -1474,6 +1592,31 @@ input[type='text'] {
 	float: right
 }
 
+
+#myOrderlist .notice_view_more {
+	height: 55px;
+	margin-bottom: 70px;
+	width: 100%;
+}
+
+#myOrderlist .notice_view_more p {
+	height: 55px;
+	margin: 0 auto;
+	width: 55px;
+}
+
+#myOrderlist .notice_view_more p a {
+	background: url("");
+	background-size: 100% auto;
+	display: block;
+	height: 100%;
+	overflow: hidden;
+	text-indent: -20000px;
+	width: 100%;
+}
+
+
+
 /*주문내역디테일*/
 #myOrderdetail .notice {
 	width: 80%;
@@ -1483,7 +1626,8 @@ input[type='text'] {
 	border-radius: 15px;
 	margin: 0 2%;
 	margin-bottom: 30px;
-	font-size:14px
+font-size: 15px;
+    font-weight: 500;
 }
 
 #myOrderdetail .detail1 {
@@ -1518,7 +1662,102 @@ input[type='text'] {
 	float: left;
 }
 
-#myOrderdetail .pabout{text-align:left;}
-#myOrderdetail .pabout ul li{margin:5px 0 ;height:20px;}
-#myOrderdetail .pabout ul li strong{float:left;width:70%;}
-#myOrderdetail .pabout ul li span{float:right;width:20%;}
+#myOrderdetail .pabout {
+	text-align: left;
+	margin-bottom:120px;
+}
+
+#myOrderdetail .pabout ul li {
+	margin: 5px 0;
+	height: 20px;
+}
+
+#myOrderdetail .pabout ul li strong {
+	float: left;
+	width: 70%;
+}
+
+#myOrderdetail .pabout ul li span {
+	float: right;
+	width: 20%;
+}
+
+#myOrderdetail .olistd{
+	text-align:left;
+}
+
+
+#myOrderdetail .olistd>ul>li {
+	width: 100%;
+	height: 110px;
+}
+
+#myOrderdetail .olistd>ul>li {
+	display: block;
+	width: 100%;
+	position: relative;
+	margin: 20px 0;
+}
+
+
+#myOrderdetail .olistd>ul>li>ul>li {
+	float: none;
+}
+
+#myOrderdetail .olistd>ul>li>ul>li img {
+	width: 90px;
+	height: 90px;
+	border-radius: 100%;
+}
+
+#myOrderdetail .olistd>ul>li>ul>li:first-child {
+	width: 31%;
+	float: left !important;
+}
+
+#myOrderdetail .olistd>ul>li>ul>li:nth-child(2) {
+	padding-top: 17px;
+	font-size: 18px;
+	font-weight: 500;
+	float: none;
+}
+
+#myOrderdetail .olistd>ul>li>ul>li:nth-child(3) {
+	padding-left: 10px;
+	padding-top: 5px;
+	font-size: 14px;
+	float: none;
+}
+
+#myOrderdetail .olistd>ul>li>ul>li:nth-child(4) {
+	font-size: 16px;
+	font-weight: 400;
+}
+
+#myOrderdetail .olistd>ul>li>ul>li:nth-child(5) {
+	position: absolute;
+	float: none;
+	right: 8%;
+	bottom: 8%;
+	font-size: 19px;
+	font-weight: 500;
+}
+
+#myOrderdetail .olistd>ul>li>ul>li:nth-child(6) {
+	position: absolute;
+	float: none;
+	right: 8%;
+	top: 10%;
+	color: #9d9d9d;
+	font-size: 19px;
+}
+
+
+#ect {
+	
+	    text-align: left;
+    margin-top: 30px;
+	
+}
+#ect h3{margin-top:30px}
+#ect .elist{    margin-top: 30px;}

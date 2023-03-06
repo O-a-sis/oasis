@@ -28,7 +28,7 @@
 	<div class="wrap">
 		<div class="subhead">
 			<ul>
-				<li><i class="fa-solid fa-chevron-left"></i></li>
+			<li><a href="javascript:window.history.back();"><i class="fa-solid fa-chevron-left"></i></a></li>
 				<li><span class="subtit">쿠폰</span>
 			</ul>
 		</div>
@@ -36,6 +36,8 @@
 			<h4>오아시스 COUPON!</h4>
 			<div class="clist">
 			<ul>
+				<c:choose>
+						<c:when test="${fn:length(list)>0}">
 				<c:forEach var="item" items="${list}">
 						<li class="cli"><ul>
 								<li>${item.COUPON}!</li>
@@ -45,6 +47,13 @@
 								<li>x1</li>
 							</ul></li>
 					</c:forEach>
+					</c:when>
+					<c:otherwise>
+					<li class="cli"><ul><li>
+					보유하고 있는 쿠폰이 없습니다.</li></ul>
+					</li>
+					</c:otherwise>
+					</c:choose>
 			</ul>
 			</div>
 			<div class="cinfo">

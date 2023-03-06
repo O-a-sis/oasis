@@ -29,7 +29,7 @@
 	<div class="wrap">
 		<div class="subhead">
 			<ul>
-				<li><i class="fa-solid fa-chevron-left"></i></li>
+				<li><a href="javascript:window.history.back();"><i class="fa-solid fa-chevron-left"></i></a></li>
 				<li><span class="subtit">공지사항</span>
 			</ul>
 		</div>
@@ -54,25 +54,25 @@
 				</ul>
 			</div>
 			<div class="ninfo">
-				<div class="search" align="center">
-					<form id="searchForm"
-						action="<c:url value='/member/noticeList.oa' />" method="get">
-						<select class="searcht" name="type">
-							<option value="">--</option>
-							<option value="TWCNQ" name="type"
-								<c:out value="${param.type eq 'TC' ? 'selected' : ''}"/>>전체</option>
-							<option value="T" name="type"
-								<c:out value="${param.type eq 'T' ? 'selected' : ''}"/>>제목</option>
-							<option value="C" name="type"
-								<c:out value="${param.type eq 'C' ? 'selected' : ''}"/>>내용</option>
-						</select> <input class="searchtext" type="text" name="keyword"
-							value="<c:out value='${param.keyword}'/>" />
-						<button class="sbtn">
-							<i class="fa-solid fa-magnifying-glass"></i>
-						</button>
-					</form>
-				</div>
-				<div class="paging" align="center">${paging.pageHtml}</div>
+<!-- 				<div class="search" align="center"> -->
+<!-- 					<form id="searchForm" -->
+<%-- 						action="<c:url value='/member/noticeList.oa' />" method="get"> --%>
+<!-- 						<select class="searcht" name="type"> -->
+<!-- 							<option value="">--</option> -->
+<!-- 							<option value="TWCNQ" name="type" -->
+<%-- 								<c:out value="${param.type eq 'TC' ? 'selected' : ''}"/>>전체</option> --%>
+<!-- 							<option value="T" name="type" -->
+<%-- 								<c:out value="${param.type eq 'T' ? 'selected' : ''}"/>>제목</option> --%>
+<!-- 							<option value="C" name="type" -->
+<%-- 								<c:out value="${param.type eq 'C' ? 'selected' : ''}"/>>내용</option> --%>
+<!-- 						</select> <input class="searchtext" type="text" name="keyword" -->
+<%-- 							value="<c:out value='${param.keyword}'/>" /> --%>
+<!-- 						<button class="sbtn"> -->
+<!-- 							<i class="fa-solid fa-magnifying-glass"></i> -->
+<!-- 						</button> -->
+<!-- 					</form> -->
+<!-- 				</div> -->
+<%-- 				<div class="paging" align="center">${paging.pageHtml}</div> --%>
 			</div>
 
 		</section>

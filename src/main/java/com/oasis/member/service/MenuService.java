@@ -15,6 +15,7 @@ public interface MenuService {
 	public void productDelete(Map<String, Object> map) throws Exception; 
 	public int cartDeleteAll(Map<String,Object> map) throws Exception;
 	public int cartDelete(Map<String,Object> map) throws Exception;
+	public List<Map<String, Object>> productList(Map<String, Object> map) throws Exception;
 } 
 
 	

@@ -49,7 +49,7 @@ header {
 	top: 0;
 	Z-index: 300;
 	width: 100%;
-	height: 100px;
+/* 	height: 100px; */
 	text-align: center;
 }
 
@@ -73,7 +73,7 @@ header .gnb_mobile {
 }
 
 header {
-	height: 58px;
+/* 	height: 58px; */
 	line-height: 50px;
 }
 
