@@ -32,6 +32,7 @@
                         location.href = data.url;
                     });
                     
+                    window.reload();
                     console.log(notification);
                 }
 

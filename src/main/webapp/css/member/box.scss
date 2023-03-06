@@ -1,0 +1,43 @@
+.mainmenulist .menuslide ul li .scene {
+    width: 80px;
+    height: 80px;
+    perspective: 240px;
+  }
+  
+  .mainmenulist .menuslide ul li .card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+  }
+  
+  .mainmenulist .menuslide ul li .card__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;  
+    text-align: center;
+    font-size: 2em;
+    line-height: 260px;
+    
+   &--front {
+      background-color: Tomato;
+    }
+    
+    &--back {
+      background-color: SteelBlue;
+      transform: rotateY(180deg);
+    }
+  }
+  
+  
+  .mainmenulist .menuslide ul li .card.is-flipped {
+    transform: rotateY(180deg);
+  }
+  .mainmenulist .menuslide ul li .scene>.card>div img {
+      width: 80px;
+      height: 80px;
+      border-radius: 100%;
+      background-color: #e68e41;
+  }

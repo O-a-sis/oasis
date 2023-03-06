@@ -11,7 +11,7 @@ import com.oasis.common.dao.AbstractDAO;
 public class AdminStoreDAO extends AbstractDAO{
 	
 
-	/* 관리자 지점 리스트 (+매출) */ 
+	/* 관리자 지점 리스트 (+매출) */
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> storeList(Map<String, Object> map) throws Exception{
 		return (List<Map<String, Object>>)selectList("admin.storeList", map);
@@ -28,6 +28,11 @@ public class AdminStoreDAO extends AbstractDAO{
 
 	public void storeJoin(Map<String, Object> map) throws Exception{
 		insert("admin.storeJoin", map);
+		
+	}
+	
+	public void insertStatus(Map<String, Object> map) throws Exception{
+		insert("admin.insertStatus", map);
 		
 	}
 

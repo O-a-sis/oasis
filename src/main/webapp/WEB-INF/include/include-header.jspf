@@ -23,20 +23,23 @@
 </head>
 <body>
 	<header>
+<!-- 				<div id="carticon"> -->
+<!-- 			<i class="fa-solid fa-basket-shopping"></i> -->
+<!-- 			</div> -->
 		<nav class="gnb_mobile">
 			<input type="hidden" id="id" value="${sessionScope.B_PHONE}" />
 			<div class="m_slide">
 				<div class="menu_sub">
 					<div class="topmenu">
-						<c:choose>
-							<c:when test="${not empty sessionScope.B_PHONE}">
-								<a href=<c:url value='/logout.fe' />>로그아웃</a>
-							</c:when>
-							<c:otherwise>
-								<a href=<c:url value='/loginForm.fe' />>로그인</a> /
-								<a href=<c:url value='/joinForm.fe' />>회원가입</a>
-							</c:otherwise>
-						</c:choose>
+					<c:choose>
+						<c:when test="${not empty sessionScope.B_PHONE}">
+							<a href=<c:url value='/member/logout.oa' />>로그아웃</a>
+						</c:when>
+						<c:otherwise>
+							<a href=<c:url value='/member/loginForm.oa' />>로그인</a> /
+								<a href=<c:url value='/member/joinForm.oa' />>회원가입</a>
+						</c:otherwise>
+					</c:choose>
 					</div>
 					<!--회원일 경우 보임 -->
 					<div class="member">
@@ -53,23 +56,23 @@
 							<c:if test="${not empty sessionScope.B_PHONE}">
 								<li><span>멤버십</span>
 									<ul>
-										<li><a href="#">스탬프</a></li>
-										<li><a href="#">쿠폰</a></li>
+										<li><a href="http://localhost:8000/Oasis/member/myStamp.oa?B_PHONE=${sessionScope.B_PHONE}">스탬프</a></li>
+										<li><a href="http://localhost:8000/Oasis/member/myCouponList.oa?B_PHONE=${sessionScope.B_PHONE}">쿠폰</a></li>
 
 									</ul></li>
 							</c:if>
 
 							<li><span>주문</span>
 								<ul>
-									<li><a href="#">주문내역</a></li>
+									<li><a href="http://localhost:8000/Oasis/member/myOrderList.oa?B_PHONE=${sessionScope.B_PHONE}">주문내역</a></li>
 								</ul></li>
 							<li><span>새소식</span>
 								<ul>
-									<li><a href="#">공지사항</a></li>
+									<li><a href="http://localhost:8000/Oasis/member/noticeList.oa">공지사항</a></li>
 								</ul></li>
 							<li><span>약관 및 정책</span>
 								<ul>
-									<li><a href="#">이용약관</a></li>
+									<li><a href="http://localhost:8000/Oasis/member/ect.oa">이용약관</a></li>
 								</ul></li>
 						</ul>
 					</div>
@@ -89,11 +92,12 @@
 						class="fa-solid fa-house"></i></a></li>
 				<li><a href=<c:url value='/member/storeList.oa' />><img
 						src="../images/common/oasis.png" alt="메뉴열기" /></a></li>
-				<li><a href="#"><i class="fa-solid fa-clipboard"></i></a></li>
+				<li><a href="http://localhost:8000/Oasis/member/myOrderList.oa?B_PHONE=${sessionScope.B_PHONE}"><i class="fa-solid fa-clipboard"></i></a></li>
 				<li><button class="gnb_open">
 						<img src="../images/common/gnb_open.png" alt="메뉴열기" />
 					</button></li>
 			</ul>
+
 		</div>
 	</footer>
 </body>

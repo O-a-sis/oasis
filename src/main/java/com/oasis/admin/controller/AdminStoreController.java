@@ -3,6 +3,9 @@ package com.oasis.admin.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +24,18 @@ import com.oasis.common.util.Paging;
 import lombok.AllArgsConstructor;
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/admin/")
+@AllArgsConstructor
 public class AdminStoreController {
 
 	private AdminStoreService adminStoreService;
+	
+	@RequestMapping(value = "/main.oa") // 메인
+	public ModelAndView main(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("admin/main");
+
+		return mv;
+	}
 
 	// 관리자 메인 - 지점 리스트 (+매출)
 	@RequestMapping(value = "/storeList.oa")
@@ -110,7 +120,7 @@ public class AdminStoreController {
 	@RequestMapping(value = "/storeJoin.oa")
 	public ModelAndView storeJoin(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/storeList.oa");
-
+System.out.println(commandMap.get("STORE"));
 		adminStoreService.storeJoin(commandMap.getMap());
 
 		return mv;

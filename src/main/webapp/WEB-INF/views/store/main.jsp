@@ -54,9 +54,12 @@
 						<col width="20%" />
 					</colgroup>
 					<tr align=center>
-						<td><span>${item.O_LIST}</span> <input type=hidden id="oidx"
+						<td><span>${item.O_CONTENT}</span> <input type=hidden id="oidx"
 							value="${item.O_IDX}"> <input type=hidden id="otime"
-							value="${item.O_TIME}"></td>
+							value="${item.O_TIME}">
+							<input type=hidden id="obidx" value="${item.OB_IDX}">
+							</td>
+							
 						<td>${item.O_SUM}원</td>
 						<td>${item.O_DATE}</td>
 						<c:if test="${item.O_STATUS eq '1'}">
@@ -126,6 +129,7 @@
 					</h3>
 					<input type="hidden" name="oidx"> <input type="hidden"
 						name="otime">
+					<input type="hidden" name="obidx">
 				</div>
 			</div>
 
@@ -163,6 +167,40 @@
 
 		</div>
 	</div>
+	
+	<div id="modal3" class="modal-overlay">
+		<div class="modal-window" id="popupPrdCompare"
+			data-popup-layer="popupPrdCompare">
+			<div class="title">
+
+				<div class="close-area" data-focus-next="popupPrdCompare">X</div>
+
+				<div>
+					<center>
+					<h3>주문을 접수하시겠습니까?</h3>
+				</div>
+			</div>
+
+			<div class="content">
+					<p>
+						<strong>주문 완료 시간을</strong>
+					</p>
+					<select style="float: left" name="selectTime">
+						<option value="10">10분</option>
+						<option value="20">20분</option>
+						<option value="30">30분</option>
+					</select>
+					<p>
+						<strong>후로 지정합니다.</strong>
+					</p>
+					
+					<center>
+					<button type="button" class="button" style="color: white; background: #819FF7" id="uptBtn2">주문접수</button>		
+					</center>
+			</div>
+
+		</div>
+	</div>
 
 </body>
 
@@ -172,15 +210,7 @@
 		
 		$(".orders").on("click", "tr td button", function(){
 			if($(this).attr("id")== 'uptBtn') {
-				let oidx = $(this).closest("td").find("input[id=oidx]").val();
-				let ostore = $(this).closest("td").find("input[id=ostore]").val();
-				let obidx = $(this).closest("td").find("input[id=obidx]").val();
-				var comSubmit = new ComSubmit();
-				comSubmit.setUrl("<c:url value='/store/orderUpdate.oa'/>");
-				comSubmit.addParam("O_IDX", oidx);
-				comSubmit.addParam("O_STORE", ostore);
-				comSubmit.addParam("OB_IDX", obidx);
-				comSubmit.submit();
+				modal3On();
 			} else if($(this).attr("id")== 'uptPcBtn') {
 				let oidx = $(this).closest("td").find("input[id=oidx]").val();
 				let ostore = $(this).closest("td").find("input[id=ostore]").val();
@@ -190,9 +220,25 @@
 				comSubmit.addParam("O_IDX", oidx);
 				comSubmit.addParam("O_STORE", ostore);
 				comSubmit.addParam("OB_IDX", obidx);
+				comSubmit.addParam("alarm", 2);
 				comSubmit.submit();
 			}
 		});
+		
+		$("#uptBtn2").on("click", function() {
+			let oidx = $("input[id=oidx]").val();
+			let ostore = $("input[id=ostore]").val();
+			let obidx = $("input[id=obidx]").val();
+			let time = $('select[name=selectTime]').val();
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/store/orderUpdate.oa'/>");
+			comSubmit.addParam("O_IDX", oidx);
+			comSubmit.addParam("O_STORE", ostore);
+			comSubmit.addParam("OB_IDX", obidx);
+			comSubmit.addParam("TIME", time);
+			comSubmit.addParam("alarm", 1);
+			comSubmit.submit(); 
+		})
 	});
 </script>
 <script>
@@ -206,6 +252,7 @@
 		var modalCancelBtn=$("#modalCancelBtn");
 		let modalInputOidx=modal.find("input[name='oidx']");
 		let modalInputOtime=modal.find("span[class='otime']");
+		let modalInputObidx=modal.find("input[name='obidx']");
 		
 		$(".orders").on("click","tr td span",function(){
 			var otime=$(this).closest("td").find("input[id=otime]").val();
@@ -213,27 +260,27 @@
 			$(".otime").html(otime);
 			var oidx=$(this).closest("td").find("input[id=oidx]").val();
 			modalInputOidx.val(oidx);
+			var obidx=$(this).closest("td").find("input[id=obidx]").val();
+			modalInputObidx.val(obidx);
 			orderService.get(oidx, function(order) {
-				$(".oidx").html(order.O_IDX);
+				$(".oidx").html(order[0].O_IDX);
 				
-				let o_list = order.O_LIST;
-				let o_listSplit = o_list.split(',');
 				let str="";
-				for (var i in o_listSplit) {
-					str+='<p>'+o_listSplit[i]+'</p>';
+				for(var i=0, len=order.length||0; i<len; i++) {
+					str+='<p>'+order[i].OM_NAME+' '+order[i].OM_OP+' '+order[i].OM_PRICE+'원</p>';
 				}
 				
 				$(".list").html(str);
-				$(".phone").html(order.OB_IDX);
-				$(".cprice").html(order.CU_PRICE);
-				$(".total").html(order.O_SUM);
-				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
-				let status = order.O_STATUS;
+				$(".phone").html(order[0].OB_IDX);
+				$(".cprice").html(order[0].CU_PRICE);
+				$(".total").html(order[0].O_SUM);
+				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				let status = order[0].O_STATUS;
 				if(status=='1') {
 					$(".status").html("접수대기")
 					modalProcessingBtn.hide();
 					modalCompleteBtn.hide();
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
+					/* CountDownTimer(modalInputOtime.val(), 'timer');  */
 				} else if(status=='2') {
 					$(".status").html("제조중")
 					modalUptBtn.hide();
@@ -257,88 +304,69 @@
 
  		modalUptBtn.on("click", function(e) {			
  			let oidx = modalInputOidx.val();
+ 			let obidx = modalInputObidx.val();
+ 			let time = $('select[name=selectTime]').val();
 			var order = {
-					O_IDX : oidx
+					O_IDX : oidx,
+					O_STORE : ${sessionScope.STORE},
+					OB_IDX : obidx,
+					alarm : 2,
+					TIME : time
 				};		
 			orderService.updateOrder(order, function(result) {			
 			});		
 			orderService.get(oidx, function(order) {
-				$(".oidx").html(order.O_IDX);
+				$(".oidx").html(order[0].O_IDX);
 				
-				let o_list = order.O_LIST;
-				let o_listSplit = o_list.split(',');
 				let str="";
-				for (var i in o_listSplit) {
-					str+='<p>'+o_listSplit[i]+'</p>';
+				for(var i=0, len=order.length||0; i<len; i++) {
+					str+='<p>'+order[i].OM_NAME+' '+order[i].OM_OP+' '+order[i].OM_PRICE+'원</p>';
 				}
 				
 				$(".list").html(str);
-				$(".phone").html(order.OB_IDX);
-				$(".cprice").html(order.CU_PRICE);
-				$(".total").html(order.O_SUM);
-				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
-				let status = order.O_STATUS;
-				/* if(status=='1') {
-					$(".status").html("접수대기")
-					modalProcessingBtn.hide();
-					modalCompleteBtn.hide();
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
-				} else  */
-					/* if(status=='2') { */
+				$(".phone").html(order[0].OB_IDX);
+				$(".cprice").html(order[0].CU_PRICE);
+				$(".total").html(order[0].O_SUM);
+				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				$(".otime").html(order[0].O_TIME);
+				let status = order[0].O_STATUS;
+
 					$(".status").html("제조중")
 					modalUptBtn.hide();
 					modalProcessingBtn.show();
 					modalCompleteBtn.hide();
 					modalCancelBtn.hide();
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
-			/* 	} else {
-					$(".status").html("제조완료")
-					modalCompleteBtn.show();
-					modalUptBtn.hide();
-					modalProcessingBtn.hide();
-					modalCancelBtn.hide();
-					$("#timer").hide;
-					$("#timerComplete").html("제조가 완료되었습니다!");
-				/* }; */
+					CountDownTimer(order[0].O_TIME, 'timer'); 
+
 			});		
  		});
  		
  		modalProcessingBtn.on("click", function(result) {
-			let oidx = modalInputOidx.val();
+ 			let oidx = modalInputOidx.val();
+ 			let obidx = modalInputObidx.val();
 			var order = {
-					O_IDX : oidx
+					O_IDX : oidx,
+					O_STORE : ${sessionScope.STORE},
+					OB_IDX : obidx,
+					alarm : 3
 				};		
 			orderService.updateProcessingOrder(order, function(result) {			
 			});		
 			orderService.get(oidx, function(order) {
-				$(".oidx").html(order.O_IDX);
+				$(".oidx").html(order[0].O_IDX);
 				
-				let o_list = order.O_LIST;
-				let o_listSplit = o_list.split(',');
 				let str="";
-				for (var i in o_listSplit) {
-					str+='<p>'+o_listSplit[i]+'</p>';
+				for(var i=0, len=order.length||0; i<len; i++) {
+					str+='<p>'+order[i].OM_NAME+' '+order[i].OM_OP+' '+order[i].OM_COUNT+order[i].OM_PRICE+'원</p>';
 				}
 				
 				$(".list").html(str);
-				$(".phone").html(order.OB_IDX);
-				$(".cprice").html(order.CU_PRICE);
-				$(".total").html(order.O_SUM);
-				$(".sum").html(Number(order.CU_PRICE)+Number(order.O_SUM));
-				let status = order.O_STATUS;
-				/* if(status=='1') {
-					$(".status").html("접수대기")
-					modalProcessingBtn.hide();
-					modalCompleteBtn.hide();		
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
-				} else if(status=='2') {
-					$(".status").html("제조중")
-					modalUptBtn.hide();
-					modalProcessingBtn.show();
-					modalCompleteBtn.hide();
-					modalCancelBtn.hide();
-					CountDownTimer(modalInputOtime.val(), 'timer'); 
-				} else { */
+				$(".phone").html(order[0].OB_IDX);
+				$(".cprice").html(order[0].CU_PRICE);
+				$(".total").html(order[0].O_SUM);
+				$(".sum").html(Number(order[0].CU_PRICE)+Number(order[0].O_SUM));
+				let status = order[0].O_STATUS;
+
 					$(".status").html("제조완료")
 					modalCompleteBtn.show();
 					modalUptBtn.hide();
@@ -346,7 +374,7 @@
 					modalCancelBtn.hide();
 					document.getElementById('timer').style.display='none';
 					$("#timerComplete").html("제조가 완료되었습니다!");
-				/* }; */
+
 			});		
  			
  		});
@@ -413,5 +441,40 @@ function CountDownTimer(dt, id) {
      }
      timer = setInterval(showRemaining, 1000);
  }
+</script>
+<script>
+	
+	const modal3 = document.getElementById("modal3");
+
+	function modal3On() {
+	    modal3.style.display = "flex"
+	}
+	function ismodal3On() {
+	    return modal3.style.display === "flex"
+	}
+	function modal3Off() {
+	    modal3.style.display = "none"
+	}
+	
+	const closeBtn3 = modal3.querySelector(".close-area")
+	closeBtn3.addEventListener("click", e => {
+	    modal3Off()
+	    location.reload();
+	});
+	modal3.addEventListener("click", e => {
+	    const evTarget = e.target
+	    if(evTarget.classList.contains("modal3-overlay")) {
+	        modal3Off()
+	    }
+	});
+	window.addEventListener("keyup", e => {
+	    if(ismodal3On() && e.key === "Escape") {
+	        modal3Off()
+	    }
+	});
+	const testScrPop3 = $('modal3-window');
+   testScrPop3.scroll(function(){
+   const $this = $(this);
+});
 </script>
 </html>

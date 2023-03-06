@@ -26,7 +26,6 @@ public class MyTabDAO extends AbstractDAO{
 		return (List<Map<String, Object>>) selectList("member.myOrderList", map);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Map<String, Object> useCoupon(Map<String, Object> map) throws Exception {
 		return (Map<String, Object>) selectOne("member.useCoupon", map);
 	}
@@ -49,5 +48,13 @@ public class MyTabDAO extends AbstractDAO{
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> myStamp(Map<String, Object> map) throws Exception {
 		return (Map<String, Object>) selectOne("member.myStamp", map);
+	}
+	
+	public int updateCoupon(Map<String, Object> map) throws Exception {
+		return (int) update("member.updateCoupon", map);
+	}
+	
+	public int updateStamp(Map<String, Object> map) throws Exception {
+		return (int) update("member.updateStamp", map);
 	}
 }

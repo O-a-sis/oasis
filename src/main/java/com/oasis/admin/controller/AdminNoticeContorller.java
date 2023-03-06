@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,21 +21,20 @@ import com.oasis.admin.service.AdminNoticeService;
 import lombok.AllArgsConstructor;
 
 @Controller
-@RequestMapping("/admin/")
 @AllArgsConstructor
 public class AdminNoticeContorller {
 
 	private AdminNoticeService adminNoticeService;
 
-	@RequestMapping(value = "noticeList.oa")
+	@RequestMapping(value = "/admin/noticeList.oa")
 	public ModelAndView adminNoticeList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeList");
 
 		/* 페이징을 위한 변수 */
 		int page = commandMap.get("page") == null ? 1 : Integer.parseInt((String) commandMap.get("page"));// 현재 페이지
 		int start = 1; // 가져올 데이터의 시작 인
-		int pageSize = 16;// 한 페이지에 보여줄 행의 수
-		int end = 16;
+		int pageSize = 8;// 한 페이지에 보여줄 행의 수
+		int end = 8;
 		int noticeListCount = 0; // 전체 게시글 수
 		int pageBlock = 5; // 표시할 페이지의 수
 		String url = "noticeList.oa";
@@ -58,11 +58,12 @@ public class AdminNoticeContorller {
 		return mv;
 	}
 
+//	더보기 버튼 Ajax
 	@RequestMapping(value = "/loadMoreNotice.oa")
 	public @ResponseBody Map<String, Object> loadMoreNotice(@RequestParam int page, @RequestParam String type,
 			@RequestParam String keyword) throws Exception {
 		System.out.println("page : " + page);
-		int perPage = 12; // 한 페이지에 표시할 게시물 수
+		int perPage = 8; // 한 페이지에 표시할 게시물 수
 		int offset = (page * perPage) - perPage + 1; // 가져올 데이터의 시작 인덱스
 
 		CommandMap commandMap = new CommandMap();
@@ -82,7 +83,7 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 상세보기
-	@RequestMapping(value = "noticeDetail.oa")
+	@RequestMapping(value = "/admin/noticeDetail.oa")
 	public ModelAndView adminNoticeDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeDetail");
 
@@ -93,7 +94,7 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 작성 폼
-	@RequestMapping(value = "noticeForm.oa")
+	@RequestMapping(value = "/admin/noticeForm.oa")
 	public ModelAndView adminNoticeForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeForm");
 
@@ -101,19 +102,19 @@ public class AdminNoticeContorller {
 	}
 
 //	공지사항 수정 폼
-	@RequestMapping(value = "UpdateForm.oa")
+	@RequestMapping(value = "/admin/updateForm.oa")
 	public ModelAndView adminNoticeUpdateForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("admin/noticeForm");
 
 		Map<String, Object> map = adminNoticeService.adminNoticeDetail(commandMap.getMap());
 		mv.addObject("N_IDX", commandMap.get("N_IDX"));
-		mv.addObject("map", map);
+		mv.addObject("map", map.get("map"));
 
 		return mv;
 	}
 
 //	공지사항 작성/수정 기능
-	@RequestMapping(value = "noticeSave.oa")
+	@RequestMapping(value = "/admin/noticeSave.oa")
 	public ModelAndView adminNoticeSave(CommandMap commandMap, MultipartHttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 
@@ -121,6 +122,9 @@ public class AdminNoticeContorller {
 
 		for (MultipartFile file : imgFile) {
 			String fileName = file.getOriginalFilename();
+			UUID uuid = UUID.randomUUID();
+			fileName = uuid.toString();
+			System.out.println("fileName:"+fileName);
 			String savePath = request.getSession().getServletContext().getRealPath("/") + File.separator + "img/"
 					+ fileName;
 			File uploadPath = new File(savePath);
@@ -137,15 +141,18 @@ public class AdminNoticeContorller {
 		if (commandMap.get("N_IDX") == null) {
 			adminNoticeService.adminNoticeWrite(commandMap.getMap());
 		} else {
-			adminNoticeService.adminNoticeUpdate(commandMap.getMap());
+			adminNoticeService.adminNoticeUpdate(commandMap.getMap(), request);
 			mv.addObject("N_IDX", commandMap.get("N_IDX"));
 		}
 
+		adminNoticeService.adminNoticeUpdate(commandMap.getMap(), request);
+
+		mv.addObject("N_IDX", commandMap.get("N_IDX"));
 		return mv;
 	}
 
 //	공지사항 삭제 기능
-	@RequestMapping(value = "noticeDelete.oa")
+	@RequestMapping(value = "/admin/noticeDelete.oa")
 	public ModelAndView adminNoticeDelete(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/noticeList.oa");
 

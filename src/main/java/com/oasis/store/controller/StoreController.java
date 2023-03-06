@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oasis.common.CommandMap;
@@ -42,7 +43,7 @@ public class StoreController {
 		ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
 		
 		int openStore = storeService.updateOrder(commandMap.getMap());
-		//int updateOrderAlarm = storeService.updateOrderAlarm(commandMap.getMap());
+		int updateOrderAlarm = storeService.updateOrderAlarm(commandMap.getMap());
 		return mv;
 	}
 	
@@ -51,20 +52,21 @@ public class StoreController {
 		ModelAndView mv = new ModelAndView("redirect:/store/main.oa");
 
 		int openStore = storeService.updateProcessingOrder(commandMap.getMap());
-		//int updateProcessingOrderAlarm = storeService.updateProcessingOrderAlarm(commandMap.getMap());
+		int updateOrderAlarm = storeService.updateOrderAlarm(commandMap.getMap());
 		return mv;
 	}
 	
 	@RequestMapping(value = "/order/{oidx}", method = RequestMethod.GET, consumes = "application/json", produces = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<Map<String, Object>> get(@PathVariable("oidx") String oidx) throws Exception {
-		return new ResponseEntity<Map<String, Object>>(storeService.getOrderDetail(oidx), HttpStatus.OK);
+	public ResponseEntity<List<Map<String, Object>>> get(@PathVariable("oidx") String oidx) throws Exception {
+		return new ResponseEntity<List<Map<String, Object>>>(storeService.getOrderDetail(oidx), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/orderUpdate", method = { RequestMethod.PATCH,
 			RequestMethod.PUT }, consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> updateOrderJson(@RequestBody Map<String, Object> map) throws Exception {
 		int count = storeService.updateOrder(map);
+		int updateOrderAlarm = storeService.updateOrderAlarm(map);
 		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -73,6 +75,7 @@ public class StoreController {
 			RequestMethod.PUT }, consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> updateProcessingOrderJson(@RequestBody Map<String, Object> map) throws Exception {
 		int count = storeService.updateProcessingOrder(map);
+		int updateOrderAlarm = storeService.updateOrderAlarm(map);		
 		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -260,5 +263,19 @@ public class StoreController {
 		return mv;
 	}
 	
+	
+	@RequestMapping(value = "/todayCount/{today}", method = RequestMethod.GET, consumes = "application/json", produces = {
+			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<Integer> getTodayCount(@PathVariable("today") String today) throws Exception {
+
+		return new ResponseEntity<Integer>(storeService.getTodayCount(today), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/todaySum/{today}", method = RequestMethod.GET, consumes = "application/json", produces = {
+			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<Integer> getTodaySum(@PathVariable("today") String today) throws Exception {
+
+		return new ResponseEntity<Integer>(storeService.getTodaySum(today), HttpStatus.OK);
+	}
 
 }

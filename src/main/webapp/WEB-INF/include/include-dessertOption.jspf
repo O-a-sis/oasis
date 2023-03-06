@@ -1,0 +1,59 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<div class="icesize" id="radiooption">
+	<ul>
+	 <c:if test="${map.P_CATEGORY ne 'D'}">
+		<li class="icelist"><ul>
+				<li > <div class="j"
+				>ICE ONLY</div></li>
+					
+					
+			</ul> 
+				<li class="sizelist"><ul>
+						<li style="float: left"><input type="radio" name="option0"
+							id="S" value="S" onchange="handleChange0(this);" /> <label
+							for="S">S</label></li>
+						<li style="float: left"><input type="radio" name="option0"
+							id="M" value="M" onchange="handleChange0(this);" checked /> <label
+							for="M">M</label></li>
+						<li><input type="radio" name="option0" id="L" value="L"
+							onchange="handleChange0(this);" /> <label for="L">L</label></li>
+
+					</ul></li>
+			</c:if>
+	</ul>
+</div>
+<div class="menuop">
+<div class="line">
+	<a href=#none id="show">퍼스널옵션 <i id="chevorn" class="fa-solid fa-chevron-up"></i></a></div>
+	<div id="hide" style="display: none">
+		<ul>
+			<!-- if문 디저트 -->
+			<c:if test="${map.P_CATEGORY ne 'D'}">
+			<li class="oplist"><ul>
+					<li><strong>꿀 추가 선택</strong></li>
+					<li><input type="radio" id="option5"
+						name="option5" value="" onchange="handleChange4(this);" checked />
+						<label for="option5">선택안함</label></li>
+					<li><input type="radio" name="option5" value="꿀추가"
+						id="option5" onchange="handleChange4(this);" /> <label
+						for="option5">꿀 추가 +700원</label></li>
+							
+				</ul>
+			</li>
+			</c:if>
+			<c:if test="${map.P_CATEGORY eq 'D'}">
+			<li class="oplist"><ul>
+					<li><strong>박스추가</strong></li>
+					<li><input type="radio" name="option6"
+						id="option6" value="" onchange="handleChange5(this);" checked />
+						<label for="option6">추가안함</label></li>
+					<li><input type="radio" name="option6" value="박스추가"
+						id="option6" onchange="handleChange5(this);" /><label
+						for="option6">박스 추가 +500원</label></li>
+				</ul></li>
+				</c:if>
+		</ul>
+	</div>
+</div>

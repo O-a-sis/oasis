@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.oasis.notification.NotificationService;
 import com.oasis.store.dao.StoreDAO;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 public class StoreServiceImpl implements StoreService {
 	
 	private StoreDAO storeDAO;
+	private NotificationService notificationService;
 
 	@Override
 	public Map<String, Object> getStore(Map<String, Object> map) throws Exception {
@@ -71,9 +73,9 @@ public class StoreServiceImpl implements StoreService {
 		return storeDAO.getWaitingOrders(map);
 	}
 
-
 	@Override
 	public int updateOrder(Map<String, Object> map) throws Exception {
+		notificationService.send(String.valueOf(map.get("OB_IDX")), "주문 접수되었습니다", "memberOrder", String.valueOf(map.get("O_IDX")));
 		return storeDAO.updateOrder(map);
 	}
 	
@@ -82,20 +84,14 @@ public class StoreServiceImpl implements StoreService {
 		return storeDAO.updateOrderAlarm(map);
 	}
 
-
 	@Override
 	public int updateProcessingOrder(Map<String, Object> map) throws Exception {
+		notificationService.send(String.valueOf(map.get("OB_IDX")), "제조가 완료 되었습니다", "memberOrder", String.valueOf(map.get("O_IDX")));
 		return storeDAO.updateProcessingOrder(map);
 	}
 	
 	@Override
-	public int updateProcessingOrderAlarm(Map<String, Object> map) throws Exception {
-		return storeDAO.updateProcessingOrderAlarm(map);
-	}
-
-
-	@Override
-	public Map<String, Object> getOrderDetail(String oidx) throws Exception {
+	public List<Map<String, Object>> getOrderDetail(String oidx) throws Exception {
 		return storeDAO.getOrderDetail(oidx);
 	}
 
@@ -123,5 +119,18 @@ public class StoreServiceImpl implements StoreService {
 	public List<Map<String, Object>> getOrdersAllList(Map<String, Object> map) throws Exception {
 		return storeDAO.getOrdersAllList(map);
 	}
+
+	@Override
+	public int getTodayCount(String today) throws Exception {
+		return storeDAO.getTodayCount(today);
+	}
+
+	@Override
+	public int getTodaySum(String today) throws Exception {
+		return storeDAO.getTodaySum(today);
+	}
+	
+	
+
 
 }

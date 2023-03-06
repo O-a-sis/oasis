@@ -1,3 +1,4 @@
+
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 ::selection {
@@ -48,7 +49,7 @@ header {
 	top: 0;
 	Z-index: 300;
 	width: 100%;
-	height: 100px;
+/* 	height: 100px; */
 	text-align: center;
 }
 
@@ -72,7 +73,7 @@ header .gnb_mobile {
 }
 
 header {
-	height: 58px;
+/* 	height: 58px; */
 	line-height: 50px;
 }
 
@@ -115,20 +116,26 @@ header .gnb_mobile .m_slide {
 }
 
 header .gnb_mobile .m_slide .menu_sub .topmenu {
-	text-align: left;
+	text-align: right;
 	padding-left: 30px;
-	font-size: 14px;
+	font-size: 15px;
 	z-index: 303;	
+	position:absolute;
+	margin-left:30px;
+	width: 70%;
 }
 header .gnb_mobile .m_slide .menu_sub .topmenu a{
 		text-decoration: none;
 		z-index: 303;	
+		color:#373737;
+		    font-weight: 400;
 	
 }
 
 header .gnb_mobile .m_slide .member {
 	text-align: left;
 	padding: 30px;
+	    margin-top: 36px;
 }
 
 header .gnb_mobile .m_slide .menu_sub .member {
