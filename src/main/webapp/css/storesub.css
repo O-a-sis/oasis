@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+@import url(storedefault.css);
+
+#adminplist .button {
+	border-radius: 7px;
+	font-size: 16px;
+	width: 100px;
+}
+
+#adminslist .modal_wrap {
+	display: none;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -250px 0 0 -250px;
+	background: #eee;
+	z-index: 2;
+}
+
+#adminslist  .black_bg {
+	display: none;
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+#adminslist  .modal_close {
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	top: -30px;
+	right: 0;
+}
+
+#adminslist  .modal_close>a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: url(https://img.icons8.com/metro/26/000000/close-window.png);
+	text-indent: -9999px;
+}
+
+#adminslist h1 {
+	margin-bottom: 20px;
+}
+
+#adminslist table.board_list {
+	width: 100%;
+}
+
+#adminslist .board_list thead {
+	background: #fbeacd;
+	height: 28px;
+}
+
+#adminslist .board_list td{
+	    border-bottom: 1px solid #9d9d9d;
+	    height:15px;
+	    padding:5px 0 ;
+}
+
+#adminslist .board_list td a{
+	text-decoration:none;
+	color:#fdac76;
+	font-weight:500;
+}
+
+
+#adminslist .board_list td .delbtn{
+text-align:center;
+
+
+}
+#adminslist .board_list td .delbtn a{
+	font-size:14px;
+
+padding:3px 7px;
+border-radius:15px;
+	color:#e25b5b;
+	border:1px solid #e25b5b;
+}
+
+
+
+
+#adminmlist h1 {
+	margin-bottom: 20px;
+}
+
+#adminmlist table.board_list {
+	width: 100%;
+}
+
+#adminmlist .board_list thead {
+	background: #fbeacd;
+	height: 28px;
+}
+
+#adminmlist .board_list td{
+	    border-bottom: 1px solid #9d9d9d;
+	    height:15px;
+	    padding:5px 0 ;
+}
+
+#adminmlist .board_list td a{
+	text-decoration:none;
+	color:#fdac76;
+	font-weight:500;
+}
+
+#adminmlist .board_list .saddbtn{
+	
+	    margin-top: 10px;
+    border: 1px solid #f8914c;
+    border-radius: 15px;
+    padding: 10px 20px;
+    background: #f8914c;
+    color: #fff
+}
+#adminmlist .board_list td .delbtn{
+text-align:center;
+
+
+}
+#adminslist .board_list td .delbtn a{
+	font-size:14px;
+
+padding:3px 7px;
+border-radius:15px;
+	color:#e25b5b;
+	border:1px solid #e25b5b;
+}
